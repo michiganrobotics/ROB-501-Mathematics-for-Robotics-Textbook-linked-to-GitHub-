@@ -1,0 +1,184 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+%*****************************************************
+%Change Names and Lecture #'s here.
+%*****************************************************
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 01\\
+Typeset by:  Jimmy Amin\\
+Proofread by: Ross Hartley
+\end{center}
+}
+
+%*****************************************************
+%Major topic / category of discussion
+%This is centered
+%******************************************************
+\Large
+\begin{center}
+\textbf{Introduction to Mathematical Arguments}
+\end{center}
+
+%******************************************************
+%First sub-section
+%Starts on the left
+%******************************************************
+\noindent\textbf{Notation:}~
+    \begin{itemize}
+        \item[] $\mathbb{N} = \{1,2,3,\dotsb\}$ Natural numbers or counting numbers
+        \item[] $\mathbb{Z} = \mathcal{Z} = \{\dotsb, -3, -2, -1, 0, 1, 2, 3, \dotsb\}$ Integers or whole numbers
+        \item[] $\mathbb{Q} = \left\{\dfrac{m}{q} | m,q \in \whole, q \neq 0, \textnormal{no common factors (reduce all fractions)}\right\}$ Rational numbers
+        \item[] $\mathbb{R}$ = Real numbers
+        \item[] $\mathbb{C}$ = \{$\alpha$ + $j\beta$ | $\alpha, \beta \in \real$, $j^2$ = -1\} Complex numbers
+        \item[] $\forall$ means "for every", "for all", "for each".
+        \item[] $\exists$ means "for some", "there exist(s)", "there is/are", "for at least one".
+        \item[] $\in$ means ``element of'' as in ``$x\in A$'' ($x$ is an element of the set $A$)
+        \item[] $\sim$ means "not".  In books, and some of our handouts, you see $\neg$.
+        \item[] $p \Rightarrow q$ means "if $p$ is true, then $q$ is true.".
+        \item[] $p \iff q$ means "$p$ is true if and only if $q$ is true".
+        \item[] $p \iff q$ is logically equivalent to:
+        \begin{itemize}
+            \item[] (a) $p \Rightarrow q$ and\ %\ is equal to a space
+            \item[] (b) $q \Rightarrow p$.
+        \end{itemize}
+        \item[] The \underline{contrapositive} of $p \Rightarrow q$ is $\sim q \Rightarrow \sim p$ (logically equivalent).
+        \item[] The \underline{converse} of $p \Rightarrow q$ is $q \Rightarrow p$.
+        \item[] \underline{Relation}: $(p \Rightarrow q) \Leftrightarrow (\sim q \Rightarrow \sim p)$
+        \item[] However, in general, $(p \Rightarrow q)$ \underline{DOES NOT IMPLY} $(q \Rightarrow p)$, and vice-versa
+        \item[] $\square$ = Q.E.D. (Latin:"quod erat demonstrandum" = "thus it was demonstrated") %QED square
+    \end{itemize}
+
+%***************************************************************
+%Second sub-section
+%In Bold font and underlined, starts on left
+%***************************************************************
+\Large
+\begin{center}
+\textbf{Review of Some Proof Techniques}
+\end{center}
+
+\noindent\textbf{Direct Proofs:}~ We derive a result by applying the rules of logic to the given assumptions, definitions, axioms, and (already) known theorems.
+
+\noindent\textbf{Example:}~
+    \newline\underline{Def.} An integer $n$ is \underline{even} if $n = 2k$ for some integer $k$; it is \underline{odd} if \ $n = 2k+1$ for some integer $k$. Prove that the sum of two odd integers is even.
+
+\noindent (\underline{Remark:} In a definition, "if" means "if and only if".)
+
+\noindent \underline{Proof:} Let $a$ and $b$ be odd integers.
+    \newline
+    Hence, there exist integers $k_1$ and $k_2$ such that
+    \begin{align*}
+        a &= 2k_1+1\\
+        b &= 2k_2+1
+    \end{align*}
+    It follows that
+    \begin{equation*}
+        a+b = (2k_1+1) + (2k_2+1) = 2(k_1+k_2+1)
+    \end{equation*}
+    Because ($k_1+k_2+1$) is an integer, $a+b$ is even. $\square$
+
+\noindent \textbf{Proof by Contrapositive:}~ To establish $p \Rightarrow q$, we prove it logical equivalent, $\sim q \Rightarrow \sim p$.
+    \newline\newline
+    As an example, let $n$ be an integer. Prove that if $n^2$ is even, then $n$ is even.
+
+    $p = n^2$ is even, $\sim p = n^2$ is odd
+    \newline
+    $q = n$ is even, $\sim q = n$ is odd
+
+    Our proof of $p \Rightarrow q$ is to show $\sim q \Rightarrow \sim p$. (i.e., if $n$ is odd, then $n^2$ is odd.)
+    \newline
+    Assume $n$ is odd. $\therefore \ n = 2k+1$, for some integer $k$.
+    \newline
+    Therefore $$n^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k)+1$$
+    \newline
+    Because $(2k^2+2k)$ is an integer, we are done. $\square$
+
+\noindent \textbf{Proof by Exhaustion:} Reduce the proof to a finite number of cases, and then prove each case separately.
+
+\noindent \textbf{Proofs by Induction:}
+    \newline\newline
+    \noindent \textbf{First Principle of Induction (Standard Induction):}~ Let $P(n)$ denote a statement about the natural numbers with the following properties:
+        \begin{itemize}
+            \item[] (a) \underline{Base case:} $P(1)$ is true
+            \item[] (b) \underline{Induction part:} If $P(k)$ is true, then $P(k+1)$ is true.
+        \end{itemize}
+$\therefore$ $P(n)$ is true for all $n \geq 1$ ($n \geq$ base case)
+
+\textbf{Example:} \newline
+    \underline{Claim:}  For all $n \geq 1$, $1+3+5+\dotsb+(2n-1)=n^2$
+    \newline
+    \underline{Proof:}
+    \begin{enumerate}
+        \item[] \underline{Step 1:} Base case: $n=1: 1^2 = 1 = n$
+        \item[] \underline{Step 2:} Assume $1+3+5+\dotsb+(2k-1)=k^2=n^2$
+        \item[] \underline{Step 3:} To show $1+3+5+\dotsb+(2k-1)+(2(k+1)-1)=(k+1)^2=n^2$
+    \end{enumerate}
+    By the induction step,
+    \begin{equation*}
+        1+3+5+\dotsb+(2k-1)+(2(k+1)-1) = k^2+(2(k+1)-1)
+    \end{equation*}
+    But,
+    \begin{equation*}
+        k^2 + (2(k+1)-1) = k^2+2k+2-1 = k^2+2k+1 = (k+1)^2
+    \end{equation*}
+    which is what we wanted to show. $\square$
+\end{document} 

@@ -1,0 +1,454 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+  \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-II (Final)\\
+\large
+Thursday, December 17, 2015, 4:10 PM-- 6:00 PM \\
+Rooms (First letter of last name): EECS 1303 (A-K) and EECS 1200 (L-Z) \\
+%%EECS 1303 (seats 74)  and 1200 (seats 78)  has been reserved ROB 501 exam.
+\end{center}
+
+\vspace*{1in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{2.5in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 3 SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, HEADPHONES, SMART WATHCES, etc.
+\end{enumerate}
+\vspace*{.4in}
+
+
+
+\newpage
+
+
+\vspace*{1in}
+
+\begin{center}
+\Large
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+\huge
+\begin{tabular}{|p{2in}|p{1in}|p{1in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   20\\
+\hline
+Problem 6 &  &   15\\
+\hline
+Problem 7 &  &   15\\
+\hline
+Problem 8 &  &   15\\
+\hline
+Problem 9 &  &   15\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+%Optional Bonus Question&  &   $\pm5$\\
+%
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\newpage
+
+
+
+\subsection*{Problems 1 - 5 {\rm (20 points: 5 $\times$ 4)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct (i.e., true) and one answer that is incorrect (i.e., false). \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5cm}
+
+
+\item[{\bf 1.}] For (a) and (b), let $M$ be an arbitrary, real symmetric $n \times n$ matrix, $n\ge 2$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item For all $x\in \real^n$, $x^\top M x \ge 0$.
+\item There exists a basis for $\real^n$ consisting of e-vectors of $M$.
+\item The matrix $M= \left[ \begin{array}{rrr}  1&   2&   3\\  2&   5&   0\\  3&   0&  4\end{array}\right]$ is positive definite.
+\item For all $\alpha >3 $, the matrix $M= \left[ \begin{array}{rrr}  \alpha&   2&   3\\  2&   2&   2\\  3&   2&  4\end{array}\right]$ is positive definite.
+\end{enumerate}
+
+\vspace*{-2cm}
+\item[{\bf 2.}] This problem looks at various min-norm and estimation problems associated with the equation
+$$y = Cx + e,$$
+where $C$ is an $m \times n$ matrix and both $m$ and $n$ are greater than or equal to one. From the size of the matrix $C$, you easily deduce the dimensions of $y$, $x$ and $e$. [If you read each part carefully, the problem is straightforward.]
+
+%We define $\widehat{x}= (C^\top R C)^{-1} C^\top R y$
+\begin{enumerate}
+\setlength{\itemsep}{.3cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item Assume $x$ and $e$ are deterministic, the columns of $C$ are linearly independent, and the norm on $\real^m$ is ${||y||=\sqrt{y^\top y}}$. Then $\widehat{x}= (C^\top C)^{-1} C^\top y$ satisfies $||y-C\widehat{x}||= \underset{x \in \real^n} \inf ~~ ||y-Cx||.$
+
+    \item Assume $x$ is deterministic and $e$ is identically zero. Assume also that the rows of $C$ are linearly independent, and the norm on $\real^n$ is $||x||=\sqrt{x^\top Q x}$, with $Q >0$. Then $\widehat{x}= (C^\top QC)^{-1}Q C^\top y$ satisfies $||\widehat{x}||= \underset{y=Cx} \inf ~~ ||x||.$
+
+  \item Assume $x$ is deterministic,  $e$ is a zero-mean random vector with covariance $\E\{e e^\top\}=Q >0$, and the columns of $C$ are linearly independent. Then $\widehat{x}= \underbrace{(C^\top Q^{-1}C)^{-1}C^\top Q^{-1}}_{K}~y$ satisfies
+      $$\widehat{x}=  \underset{ \tilde{x}=Ky,~KC=I_{n \times n} }{\arg~~\min} ~~\E \{(x-\tilde{x})^\top (x - \tilde{x}) \} =  \underset{ \tilde{x}=Ky,~KC=I_{n \times n} }{\arg~~\min}  ~~\E\{ \sum \limits_{i=1}^n \left(x_i-\tilde{x_i}\right)^2\} .$$
+
+       \item Assume both $x$ and $e$ are zero-mean random vectors with covariances $\E\{x x^\top\}=P>0, $ $\E\{e e^\top\}=Q >0$, and $\E\{x e^\top\}=0$.  If the columns of $C$ are linearly independent, then the minimum variance estimator (MVE) converges to the best linear unbiased estimator (BLUE)  as the uncertainty in $x$ tends to zero, in other words: MVE $\to$ BLUE as $P \to 0$.
+
+\end{enumerate}
+
+
+%  \item Assume $x$ is deterministic,  $e$ is a zero-mean random vector with covariance $\E\{e e^\top\}=Q >0$, and the columns of $C$ are linearly independent. Then $\widehat{x}= \underbrace{(C^\top Q^{-1}C)^{-1}C^\top Q^{-1}}_{K}~y$ satisfies $KC=I_{n \times n}$ and
+%      $$\widehat{x}=  \arg~\underset{ \tilde{x}=Ky}{\min} ~~\E \{(x-\tilde{x})^\top (x - \tilde{x}) \} = \arg~\underset{ \tilde{x}=Ky}{\min} ~~\E\{ \sum \limits_{i=1}^n \left(x_i-\tilde{x_i}\right)^2\} .$$
+
+
+
+%
+%\item[{\bf 2.}]  Suppose  that $A$  is a real  $4 \times 4$  matrix. Let $[Q,R]=\texttt{qr}(A,0)$ and $[U,S,V]=\texttt{svd}(A)$ be the outputs for the indicated MATLAB commands, which are identical to how the $QR$-Factorization and Singular Value Decomposition were presented in lecture. Suppose moreover that $S=\textrm{diag}(4,3,2,1)$.
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%%\item $R$ is invertible.
+%\item $R^\top R = V S^2 V^\top$. \textbf{Modify: Singular values of R and relate to S...} Also, [false] if A is symmetric, then entrees of S are e-values of A
+%\item The columns of $Q$ are e-vectors of $A$.
+%\item There exists a matrix $B$ such that $\textrm{rank}(A-B)=3$ and $\underset{{x^\top x=1}}{\max}~x^\top B^\top B x=1$.
+%\item The last column of $V$ is the solution to $\widehat{x} = \text{arg}~\underset{x^\top x=1}{\min} x^\top A^\top A x.$ [Yes, the question is saying that $\widehat{x}=\texttt{V(:,end)} ]$.
+%    %\item The first column of $V$ is the solution to $\widehat{x} = \text{arg}~\max_{x^\top x=1} x^\top A^\top A x.$ [Yes, the question is saying that $\widehat{x}=\texttt{V(:,1)}$, and note that $\max$ and not  $\min$ is being used].
+%\end{enumerate}
+
+\newpage
+
+\item[{\bf 3.}]  Let $({\cal X}, \real, ||\cdot||)$ be a normed space and let $S \subset {\cal X}$ be a nonempty subset of ${\cal X}$. Recall that $\mathring{S}$ is the interior of $S$ and $\bar{S}$ is the closure.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+%\item For $S \subset {\cal X}$ a subset, its interior is $\mathring{S} = \{x\in {\cal X}~|~ \forall ~\epsilon>0,~ B_\epsilon(x) \subset S\}. $
+\item Let $(x_k)$ be a sequence converging to a point $x^*\in {\cal X}$, that is $x_k\to x^*$. If $x_k \in \mathring{S}$ for all $k \ge 1$, then $x^* \in {S}.$
+\item The closure of $S$ is $\bar{S} = \{x\in {\cal X}~|~ d(x,S)=0\}. $
+\item Let $x\in {\cal X}$. If $d(x,\sim S)>0$, then $x\in \mathring{S}$.
+\item $\mathring{\overline{S}} = \overline{~\mathring{S}~}. $ (In words, the interior of the closure is equal to the closure of the interior).
+\end{enumerate}
+
+
+
+
+
+\item[{\bf 4.}]  Consider the finite-dimensional vector space $(\real^n, \real )$, with $n\ge 2$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+\item If the sequence $(x_k)$ converges to $x^*$ in the 1-norm $||\cdot||_1$, then $(x_k)$ also converges to $x^*$ in the 2-norm $||\cdot||_2.$
+
+
+    \item  Let $||\cdot||$ be an arbitrary norm on $(\real^n, \real )$ and $S \subset \real^n$ a closed subset. Then $S$ is complete.
+
+\item  Let $||\cdot||$ be an arbitrary norm on $(\real^n, \real )$. Consider a function $f:\real^n \to \real$ that is \underline{discontinuous} at the origin $x_0=0$ and a sequence $(x_k)$ that converges to the origin, that is, $x_k \to 0$. Then the following is true: $\exists~\epsilon>0$ such that, $\forall~N < \infty$, $\exists~k \ge N$ satisfying $|f(x_k)| \ge \epsilon$. In other words, the sequence $f(x_k)$ \underline{cannot} converge to $f(0)$.
+
+\item  Let $||\cdot||$ be an arbitrary norm on $(\real^n, \real )$, $M$ a $k$-dimensional subspace with $1 \le k < n$, and $x_0 \in \real^n$. Then there exists a \underline{unique} $x^*\in M$ satisfying $$||x_0-x^*|| = \mathrm{d}(x_0,M).$$
+
+
+\end{enumerate}
+
+
+\newpage
+
+
+\item[{\bf 5.}] We consider three jointly normal random variables $(X,Y,Z)$, with
+$$ \mbox{mean}~~\mu = \left[\begin{array}{r} 3\\  2\\  1\end{array} \right] ~~\mbox{and covariance}~~ \Sigma = \left[  \begin{array}{rrr}  2&   1&   1\\  1&   4&   0\\  1&   0&   2\end{array}
+\right] $$
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $X$ and $Y$ are independent.
+\item The conditional random variables $X{\Big|Z=z}$ and $Y{\Big|Z=z}$ are uncorrelated.
+\item The conditional mean, $\ExpectofGiven{\left[ \begin{array}{r} X \\  Y \end{array} \right]}{Z=2} = \left[ \begin{array}{r} 3\\  2 \end{array} \right]$.
+\item The variance\footnote{For a random variable, meaning a scalar as oposed to a random vector, variance and covariance are the same thing.} of the random variable $W=X + 2 Y + Z$ is 26, that is, $\mathrm{var}(W) = \mathrm{cov}(W)=26.$
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we proved that real symmetric matrices have real e-values. So if you need this fact, simply state it and use it.}
+
+%  \newpage
+%\vspace*{8cm}
+%
+%\begin{center}
+%{\bf \LARGE Page Intentionally Left Blank}
+%
+%\end{center}
+
+
+
+  \newpage
+
+
+\noindent {\bf 6. (15 points)} (Place your answer in the box and show your work below.) Consider the (real) inner product space ${({\cal X}, \real, <\cdot, \cdot>)}$  where ${\cal X}$ is the set of $2 \times 2$ real matrices and the inner product of two matrices $A$ and $B$ is ${<A,B>:= \mathrm{tr}(A^\top B)}$. \\
+
+Find $A$ of minimum norm that satisfies $<A,Y_1> = 6$ and $<A,Y_2> = 3$, for\\
+
+$$Y_1=\left[ \begin{array}{rr}1&1\\0&1 \end{array} \right]~~\text{and}~~ Y_2= \left[ \begin{array}{rr}1 & 0\\1&-1 \end{array} \right].$$\\
+
+\noindent \textbf{To make the problem quick to work, you are given:} $<Y_1,Y_2>=0$ and $<Y_2,Y_2>=3$. \\
+
+\fbox{\rule[-1cm]{0cm}{2cm} $A=$ \hskip2cm ~~}\\
+
+
+
+\newpage
+\textit{Please show your work for question 6.}
+
+
+\newpage
+
+\noindent {\bf 7. (15 points)}  (Place your answers in the box and show your work below.) Compute the QR factorization of
+$$A= \left[  \begin{array}{rr}  1&   2\\  -1 & 0\end{array} \right] .$$
+
+\noindent \textbf{Answer:} \fbox{ \rule[-1cm]{0cm}{2cm}  $Q=$\hskip 4cm ~ and~~ $R=$\hskip4cm ~~}\\ \\
+
+\noindent \textbf{Remark:} You need to show your work. Because $A$ is $2 \times 2$, you may be able to ``guess'' the answer, write it down by ``inspection", or perform ``brute force'' calculations, such as multiplying $Q$ and $R$, equating the product to $A$ and solving for the various terms. Such solutions will earn no points. Of course, once you have computed $Q$ and $R$, it is OK to multiply them out and check that your answer equals $A$. \textit{Either briefly explain your method or document your calculations and you will be fine.}
+
+
+
+% \vspace*{.3in}
+% \noindent \textbf{Show your calculations below}
+\newpage
+\textit{Please show your work for question 7.}
+\newpage
+
+
+
+  \noindent {\bf 8. (15 points)} (Place your answers in the boxes and show your work below.) Consider  the time-invariant linear system
+  \begin{align*}
+  x_{k+1} &= \underbrace{\left[ \begin{array}{rr} 0 & -3\\ 3 & 0\end{array} \right]}_{A} x_k + \underbrace{\left[ \begin{array}{c} 1 \\ 1\end{array} \right]}_{G} w_k \\
+  \\
+  y_k &=   \underbrace{\left[ \begin{array}{cc} 1 & 1\end{array} \right]}_{C} x_k + v_k
+  \end{align*}
+
+where $w_k$ and $v_k$ are (scalar) zero mean white Gaussian noise processes, with constant covariances.\\
+
+%where, for all $k \ge 0$, $ \ell \ge 0 $,  $\Expectof{v_k}=0$, $\Expectof{w_k}=0$. Moreover, $\Expectof{v_k v_\ell}=\delta_{k \ell}$, $\Expectof{w_k w_l}=2 \delta_{k \ell}$ and $\Expectof{w_k v_\ell}=0$.\\
+
+
+%%\newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+
+\noindent \textbf{Data:}  $y_3=2$,  $\widehat{x}_{3|2}:=\ExpectofGiven{x_3}{y_0, y_1, y_2}= \left[ \begin{array}{c} 1 \\ 0\end{array} \right]$ and $P_{3|2}:=\ExpectofGiven{(x_{3}-\widehat{x}_{3|2})(x_{3}-\widehat{x}_{3|2})^\top}{y_0, y_1, y_2} =\left[ \begin{array}{rr} 2 & 1\\ 1 & 2\end{array} \right] $ and for all $k\ge 0$, $R=R_k=\cov\{w_k\}=1$ and $Q=Q_k=\cov\{v_k\}=2$.\\
+
+\noindent \textbf{Determine:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $\widehat{x}_{3|3}$
+\item $P_{3|3}$
+\item $P_{4|3}$
+\end{enumerate}
+
+\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations. To speed up your solution, \textbf{you are given that} $P_{3|2} C^\top =  \left[ \begin{array}{c} 3 \\ 3\end{array} \right]$,~~ $\left(C P_{3|2} C^\top + Q\right)=8$, ~~and ~$GRG^\top = \left[ \begin{array}{rr} 1 & 1\\ 1 & 1\end{array} \right]$\\ \\
+
+
+\fbox{\rule[-1cm]{0cm}{2cm} $\widehat{x}_{3|3}=$ \hskip2cm ~~}~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $P_{3|3}=$ \hskip2cm ~~}~~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $P_{4|3}=$ \hskip2cm ~~}\\
+
+
+
+
+\newpage
+\textit{Please show your work for question 8}
+
+\newpage
+
+\noindent {\bf 9. (15 points)}(Place your answer in the box and show your work below.)  Starting from  $x_0= \left[ \begin{array}{c} 1\\ 1\end{array} \right]$, perform one iteration of the Newton-Raphson Algorithm to find a ``better'' solution of the nonlinear equation $y=h(x)$,
+$$\underbrace{\left[ \begin{array}{c} 4\\ 2\end{array} \right]}_{y} = \underbrace{\left[ \begin{array}{c} \cos(\pi x_1) + x_2\\ x_1 x_2+(x_1)^3 \end{array} \right]}_{h(x_1,x_2)}.$$
+
+\fbox{\rule[-1cm]{0cm}{2cm} Answer: $=\left[ \begin{array}{c} ~~~\\ ~~~~~~~~~~\\ ~~~\\ ~~~\end{array} \right]$ \hskip1cm ~~}\\
+
+\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations. If you happen to have the modified Newton-Raphson algorithm on your cheat sheet, then take $\epsilon=1$, which gives the standard version of the algorithm. \\
+
+\newpage
+
+\newpage
+\textit{Please show your work for question 9.}
+
+\newpage
+\vspace*{2cm}
+
+\begin{center}
+(Scratch Paper)\\
+{\bf \LARGE Page Intentionally Left Blank: Do Not Remove}\\
+(If you write anything here, be sure to indicate to which problem it applies.)
+
+\end{center}
+
+
+%\newpage
+%\noindent {\bf Remove carefully. This is your scratch paper.}
+\end{document}
+
+\textbf{Un-unsed Problem:}
+\noindent {\bf 6. (15 points)} (Place your answer in the box and show your work below.) Determine the Best Linear Unbiased Estimate (BLUE) of $x \in \real^2$ when
+$$ y = Cx + \epsilon$$
+and
+$$y=\left[ \begin{array}{c} 4\\ 8 \\ 0\end{array} \right]~~~C=\left[ \begin{array}{rr}1&1\\0&2\\-1&1\end{array} \right]~~~~Q=\E\{\epsilon \epsilon^\top\}=\left[
+\begin{array}{rrr}0.70&-0.40&-0.10\\-0.40&0.80&0.20\\-0.10&0.20&0.30 \end{array} \right].$$\\
+
+\noindent \textbf{Helpful remark:} You are given the following:
+ $$ Q^{-1} C C^\top = \left[ \begin{array}{rrr}6&8&2\\6&8&2\\-2&4&6\end{array} \right],~~~~  C^\top Q^{-1}=\left[ \begin{array}{rrr}2&2&-4\\4&4&2\end{array} \right],~\text{and} ~~~~ C C^\top Q^{-1} = \left[  \begin{array}{rrr}6&6&-2\\8&8&4\\2&2&6\end{array}\right].  $$
+ You do not need to verify that these are true! If they are useful, use them, and if not useful, ignore them.\\
+
+
+%\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations.\\

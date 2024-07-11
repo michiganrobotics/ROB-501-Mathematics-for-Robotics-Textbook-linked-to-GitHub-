@@ -1,0 +1,133 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 21\\
+Typeset by:  Jeff Koller\\
+Proofread by: Yevgeniy Yesilevskiy\\
+Revised by Grizzle on 10 Nov. 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Luenberger Observers}\end{center}
+
+\textbf{Luenberger Observers:}~ It is deterministic estimator. We consider the easiest case
+
+$$x_{k+1} = Ax_k$$
+$$y_k = Cx_k$$
+
+where $x \in \real^n$, $y \in \real^p$, $A \in \real^{n \times n}$, and $C \in \real^{p \times n}$.
+
+\textbf{Question 1:}~ When can we reconstruct the initial condition $\left( x_o \right)$ from the measurements $y_0, y_1, y_2, \ldots$
+\begin{align*}
+y_o &= Cx_o\\
+y_1 &= Cx_1 = CAx_o\\
+y_2 &= Cx_2 = CAx_1 = CA^2x_o\\
+&\vdots\\
+y_k &= CA^kx_o
+\end{align*}
+
+Represent the above matrix form:
+
+$$ \left[ \begin{array}{c} y_o \\ y_1 \\ \vdots \\ y_k \end{array} \right] = \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^k \end{array} \right]x_o$$
+
+We note that if $\text{rank} \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^k \end{array} \right] = n$, then we can determine $x_0$ uniquely on the basis of the measurements.
+
+\textbf{Caley Hamilton Theorem:}
+
+$$\text{rank} \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^{n-1} \end{array} \right] = \text{rank} \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^{k} \end{array} \right] \text{ for all } k \ge n-1$$
+
+\textbf{Theorem:}~ $\text{rank} \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^{n-1} \end{array} \right] = n$
+means that we can determine $x_o$ uniquely from the measurements. (This called the Kalman observability rank condition.) \\ \\
+
+\textbf{Question 2:}~ Can we process the measurements dynamically (i.e. recursively) and ``estimate'' $x_k$?
+
+\textbf{Full-State Luenberger Observer:}
+$$\hat{x}_{k+1} = A\hat{x}_k + L(y_k - C\hat{x}_k)$$
+
+We define the error to be $e_k = x_k - \hat{x}_k$. We want conditions such that $e_k \to 0$ as  $k \rightarrow \infty$. Want $e_k \rightarrow 0$ because then $\hat{x}_k \rightarrow x_k$!!!
+
+\begin{align*}
+e_{k+1} & = x_{k+1} - \hat{x}_{k+1}\\
+& = Ax_k - \left[A\hat{x}_k+L(y_k - C\hat{x}_k)\right]\\
+& = A(x_k - \hat{x}_k) - LC(x_k - \hat{x}_k)\\
+& = Ae_k-LCe_k\\
+\end{align*}
+$$\boxed{e_{k+1} = (A-LC)e_k}$$
+
+
+
+\textbf{Theorem:}~ Let $e_0 \in \real^n$ and define $e_{k+1} = (A-LC)e_k$. The the sequence $e_k \rightarrow 0$ as $k \rightarrow \infty $ for all $e_0 \in \real^n$ if, and only if, $|\lambda_i(A-LC) | < 1$ for $i = 1,\ldots,n$.
+
+\textbf{Theorem:}~ A sufficient condition for the existence of $L:\real^m \rightarrow \real^n$ that places eigenvalues of $(A-LC)$ in the unit circle is:
+
+$$\text{rank} \left[ \begin{array}{c} C \\ CA \\ \vdots \\ CA^{n-1} \end{array} \right] = n = dim(x)$$.
+
+\textbf{Remarks:}~ L = constant similar to $K_{ss}$ = steady-state Kalman Gain
+\begin{enumerate}
+\item Reason to choose one gain over the other: Optimality of the estimate when you know the noise statistics.
+\item Kalman Filter works for time varying models $A_k,C_k,G_k,$ etc.
+\end{enumerate}
+
+
+\end{document} 

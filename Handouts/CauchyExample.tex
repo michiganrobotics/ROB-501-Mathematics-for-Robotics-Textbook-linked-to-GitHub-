@@ -1,0 +1,99 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+Cauchy Sequence Example and Contraction Mapping Theorem
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+
+\textbf{Suggested Exercise:} Suppose $A$ is a square invertible matrix and we want to solve $Ax=b$. You know a few ways to do this, such as inverting $A$ or using QR-factorization. Here, I will let you investigate another method via Contraction Mappings! Recall in the following that we assume $A$ is invertible.
+
+\begin{itemize}
+\setlength{\itemsep}{.5cm}
+\item  Let's first note that the solution to $A^\top A x = A^\top b$ is the same as that of $Ax=b$.
+
+\item We recall that  $A^\top A >0$ hence its  e-values are all positive.
+
+\item Find the range of $\alpha>0$ such that $-1 < \lambda_{\max}(I-\alpha A^\top A)<1$. \textbf{Hint}: For any square real matrix $M$, e-values of $I+M$ satisfy: $\lambda_i(I+M) = 1 + \lambda_i(M)$.
+
+\item \textbf{Exercise:}  Recall from the SVD Handout, $\sqrt{\lambda_{\max}(M^\top M)  }$ is the \textit{induced 2-norm} of the matrix $M$. Prove that if $M$ is real and symmetric, then $\sqrt{\lambda_{\max}(M^\top M)  }=|  \lambda_{\max}(M)|$.
+
+\item Define $P(x):=x-\alpha\big( A^\top A x - A^\top b \big),$ for an $\alpha$ you found above.
+
+\item Check that $x^*=P(x^*) \Leftrightarrow A^\top A x^* - A^\top b =0$
+
+\item Choose random $A$ and $b$ with $A$ invertible. Choose a random initial condition $x_0$. Define
+$$ x_{k+1}=P(x_k)$$
+and check that the resulting sequence approaches a solution to $Ax=b$.
+
+\item Choose different values of $\alpha$ and see what you get.
+
+
+\item \textbf{Remark:} $||P(x)-P(y)||_2 \le |\lambda_{\max}(I-\alpha A^\top A)| ~||x-y||_2$. Hence, you will see in lecture that you are building a Cauchy Sequence when you choose $\alpha$ such that $0 \le |\lambda_{\max}(I-\alpha A^\top A)| < 1$.
+
+\end{itemize}
+
+
+
+
+\end{document} 

@@ -1,0 +1,108 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-I \\
+\end{center}
+
+\vspace*{1cm}
+
+\subsection*{Time, Place, Rules and Review Session}
+
+\begin{itemize}
+\item The exam is Tuesday October 31, 6:10 PM to 8 PM. We will start passing out exams at 6:03 PM.
+\item The exam rooms are assigned by First Letter of Last Name: \textbf{(A-L) in EECS 1500; (M-We) in EECS 1311; and (Wu-Z) in EECS 1008.} Please note your exam room.
+\item If you have a conflict with the exam time, please contact me no later than Tuesday October 24, 4 PM. Also, in your email, please include the nature of your conflict.
+\item Rules are exactly those on the first page of Exam I 2016. Note that you cannot use your cell phone as a clock. You are allowed to bring two sheets of US standard letter paper, and you can write on both the front and back sides of each sheet. It is preferred that you write them out by hand unless you have a medical reason to typeset them.
+\item Review Session: Sunday, Oct 29, 5:10 PM to 6:30 PM in room EECS 1500 (led by Prof. Grizzle) and on Monday Oct 30, 7:10 PM to 8:30 PM, in EECS 1200 (led by GSI Abhishek). These will be Q\&A sessions. We are NOT lecturing. We will do our very best to answer questions that you pose. If there are no questions, we go home! Please bring questions.
+    \item We will use approximately 50\% of Tuesday's lecture (day of exam) also for Q\&A.
+\end{itemize}
+
+\subsection*{Material Covered}
+
+\begin{itemize}
+\item From Lecture 1 through Lecture 12 on 12 October 2017.
+\item HW 01 through Prob. 3 on HW 06. This is more material than on the 2016 Exam I and about the same as Exam I in 2015. Orthogonal matrices, Positive Definite Matrices, and Weighted Least Squares are on Exam I.
+\item Exam material stops with lecture on 12 October. RLS will be saved for the final exam.
+\item You may have to invert by hand a $2 \times 2$ matrix.
+\end{itemize}
+The exam will \textbf{not} cover:
+\begin{itemize}
+\item Lagrange multipliers
+\item Probability
+\item RLS
+\end{itemize}
+
+\subsection*{Type of Questions}
+
+\begin{itemize}
+
+\item Your exam will look similar to Exam 1 from 2015 and 2016; see the CANVAS site. There may be a few more multiple choice questions.
+
+
+\item I do not have any practice problems other than the posted Exams on the CANVAS site. If I had other problems, I would gladly give them to you. The first year's class did not even have the old exams to look at!
+
+    \item There will probably be ONE proof to give on the exam. When doing a proof, you can use as a fact ANYTHING we have established in lecture or HW.
+
+        \item If you give more than one proof or solution to a problem, you must tell me which one to grade. If you do not tell me which one to grade, I will grade the first one, even if it is wrong and something later is correct. What else can I do? The only reason I mention this is because it has come up in the past.
+
+        \item Everyone always wants to come to me and ask if they have shown enough on the workout problems or the proofs. \textbf{I cannot answer that question.} My best advice is to show your work clearly. Show the steps you are following. You do NOT need to re-derive something we have established in class or HW. You can just state it as a fact and then use it.
+
+\subsection*{Suggested Strategy}
+
+Spend at most 25 minutes initially on the multiple choice questions. Mark the ones you are sure of and move on to the work-out problems. Then come back to the multiple choice questions at the end. Yeah, I know, we all hate multiple choice questions, but it is the only way to have a broad coverage of the material with very few calculations. When you look at them, you will see that our multiple choice questions actually consist of four T/F questions, worth 2 points each. You circle only the responses that are true, and it is never the case that all responses are true nor all are false for a given question. Note also that if you mark all as true (or all as false), then you get no credit whatsoever because it is assumed that you are just guessing. So, not matter what, even if you are guessing, please do mark at least ONE as T and DO NOT MARK ALL as T.
+
+%Last year, the first person done with the exam completed it in 35 minutes, with a score of 78 out of 80 ... and it was a first-year student.
+
+\end{itemize}
+
+
+\end{document} 

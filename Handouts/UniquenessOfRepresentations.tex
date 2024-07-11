@@ -1,0 +1,151 @@
+\documentclass[11pt,twoside]{nsf_jwg} %!PN
+
+%**********************************************************************
+%
+%    From Franck
+%
+%**********************************************************************
+\input{personnel.sty}
+%**********************************************************************
+%
+%    End of From Franck
+%
+%**********************************************************************
+%
+
+%
+%***********************************************************************
+%
+%   New Commaands From Courtney's Thesis
+%
+%
+%***********************************************************************
+%
+%
+\usepackage[dvips]{graphicx}
+%\usepackage{morefloats}
+%\usepackage{amstex}
+\usepackage{xspace}
+%\usepackage{citesort}
+%\usepackage{rotating}
+\usepackage{lscape}
+%\usepackage{here}
+\usepackage{epsfig}
+%
+\newcommand{\spacing}[1]
+  {\renewcommand{\baselinestretch}{#1}\small\normalsize}
+%
+%
+\newcommand{\stdfig}[3]{
+\begin{figure}[!hbt]
+        \centerline{\epsfig{file=#3,width=4.5in}}
+        \caption{#1}
+        \label{#2}
+\end{figure}
+}
+%
+%
+\newcommand{\sizedfig}[4]{
+\begin{figure}[!hbt]
+        \centerline{\epsfig{file=#3,width=#4}}
+        \caption{#1}
+        \label{#2}
+\end{figure}
+}
+%
+%
+%***********************************************************************
+%           Side by Side Figures from Brandt
+%***********************************************************************
+%
+\newcommand{\bisizedfig}[6]{
+\begin{figure}[!hbt]
+\noindent
+\begin{minipage}[h]{.46\linewidth}
+   \centering
+   \epsfig{file=#3,width=\linewidth}
+   \caption{#1}
+   \label{#2}
+\end{minipage}\hfill
+\begin{minipage}[h]{.46\linewidth}
+   \centering
+   \epsfig{file=#6,width=\linewidth}
+   \caption{#4}
+   \label{#5}
+\end{minipage}
+\end{figure}
+}
+%
+%***********************************************************************
+%               New Commands From the Latex Manual
+%***********************************************************************
+%
+%
+\newcommand{\poly}{I\!\!P}
+\newcommand{\real}{I\!\!R}
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+%\markboth{\Large \bf Revised handout}{ }
+
+%\baselineskip=24pt  % Enforce double space
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+EECS 560 Handout: Grizzle \\
+Span, Basis, Uniqueness of Representations
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+
+
+
+
+\textbf{Proposition} Let (${\cal X}, {\cal F}$) be a vector space and suppose that $B = \{ b^1, b^2, \cdots\}$ is a basis for (${\cal X}, {\cal F}$). Let $x \in {\cal X}$ and suppose that\\
+$$ x = \alpha_1 b^1 + \cdots + \alpha_k b^k$$
+and
+$$ x = \bar{\alpha}_1 b^1 + \cdots +\bar{\alpha}_k b^k$$
+Then, $\alpha_ i = \bar{\alpha}_i$ for all $1 \le i \le k$.
+
+\vspace*{.3in}
+
+
+\textbf{Proof:}
+\begin{eqnarray*}
+0 = x - x & = & \left( \alpha_1 b^1 + \cdots + \alpha_k b^k\right) - \left(  \bar{\alpha}_1 b^1 + \cdots +\bar{\alpha}_k b^k \right) \\
+&=& (\alpha_1 - \bar{\alpha}_1) b^1 + \cdots + (\alpha_k - \bar{\alpha}_k) b^k
+\end{eqnarray*}
+Because $\left\{ b^1, \cdots, b^k \right\} \subset B$ implies that $\left\{ b^1, \cdots, b^k \right\}$ is linearly independent, we deduce that $\alpha_i - \bar{\alpha}_i=0$ for all $1 \le i \le k$.
+
+\vspace*{.2in}
+In other words, the ``representation of a vector'' $x$ in terms of a given basis $B$ is unique: if I compute one representation and you compute another, we both get the same answer.
+
+
+
+\end{document}

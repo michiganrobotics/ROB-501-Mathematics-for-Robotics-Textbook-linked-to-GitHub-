@@ -1,0 +1,351 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+Discrete-Time  Kalman Filter and its Derivation
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+\noindent \textbf{Model}~Linear time-varying discrete-time system with ``white\footnote{Recall that in white light, all frequencies are present. When only certain frequency components are present, you get ``colored'' light, such as blue light or red light. The term ``white'' noise means that if you compute the power spectral density of the noise random process, it is a constant, meaning that all frequency components are equally represented, just as in white light. }'' Gaussian noise
+\begin{align*}
+x_{k+1} &= A_k x_k + G_k w_k,~~x_0~\text{initial condition}\\
+y_k &= C_k x_k + v_k
+\end{align*}
+$x\in \real^n$, $w \in \real^p$, $y\in \real^m$, $v\in \real^m$. Moreover, the random vectors
+$x_0$, and, for $k\ge 0$,  $w_k$, $v_k$ are all independent\footnote{Recall that for normal random variables, uncorrelated and independent are the same thing. This is one of several special properties of Gaussian random variables. } Gaussian (normal) random vectors.
+
+\noindent \textbf{Notation:} $\delta_{kl} = 1 \Leftrightarrow k = l$ (and $\delta_{kl} = 0,~~k \neq l$)
+
+\noindent \textbf{Precise Assumptions on the Random Variables}~
+\begin{itemize}
+\setlength{\itemsep}{.5cm}
+\item  For all $k\ge 0,~l\ge 0$, $x_0$, $w_k$, $v_l$ are jointly Gaussian.
+
+\item $w_k$ is a 0-mean white noise process: $\Expectof{w_k}=0$, and $\Covof{w_k}{w_l}= R_k \delta_{kl}$
+
+\item $v_k$ is a 0-mean white noise process: $\Expectof{v_k}=0$, and $\Covof{v_k}{v_l}= Q_k \delta_{kl}$
+
+\item Uncorrelated noise processes: $\Covof{w_k}{v_l} = 0$
+
+\item The initial condition $x_0$ is uncorrelated with all other noise sequences.
+
+\item We denote the mean and covariance of $x_0$ by
+$$\bar{x}_0 = \Expectof{x_0}~~\mbox{and}~~ P_0 = \cov(x_0)=\Covof{x_0}{x_0}= \Expectof{ \left(x_0-\bar{x}_0\right) \left(x_0-\bar{x}_0\right)^\top }$$
+
+\end{itemize}
+
+\newpage
+
+\textbf{Short-hand notation for the noise modeling assumptions:}
+
+$$\Covof{ \left[ \begin{array}{c} w_k\\ v_k \\ x_0 \end{array}  \right]} { \left[ \begin{array}{c} w_l\\ v_l \\ x_0 \end{array}  \right] } =
+ \left[ \begin{array}{ccc} R_k \delta_{kl} & 0 &0 \\ 0 & Q_k \delta_{kl} & 0\\ 0 & 0& P_0 \end{array}  \right],~~\delta_{kl}=\begin{bmatrix}\, 1,~k=l \\0,~k\not= l \end{bmatrix}$$\\
+
+
+
+ \textbf{Lemma (Propertis of $x_k$ and $y_k$ Coming from the Model)}
+ \begin{itemize}
+\setlength{\itemsep}{.5cm}
+\item  For all $k\ge 1$, $x_k$ is a linear combination of $x_0$ and $w_0, \cdots, w_{k-1}$. In particular, $x_k$ is uncorrelated with $w_k$.
+
+\item  For all $k\ge 1$, $y_k$ is a linear combination of $x_0$, $w_0, \cdots, w_{k-1}$, and $v_0, \cdots, v_k$. In particular, $y_k$ is uncorrelated with $w_k$ .
+
+    \item For all $k\ge 0$, $v_k$ is uncorrelated with $x_k$.
+
+\end{itemize}
+
+The proof is by induction using the recursive nature of the discrete-time model. We skip it. The reader can easily fill it in.
+
+\vspace*{2cm}
+
+\textbf{Remark:} On the next page, we give (one form of) the discrete-time Kalman Filter. After that, we do the main elements of its derivation. There are many variations of the basic filter, all equivalent to the one we give, but some preferable over others for numerical reasons. Page 8 provides a version of the filter with the measurement update and prediction steps combined.
+
+ \newpage
+ {\Large \bf
+\begin{center}
+The Kalman Filter
+\end{center}
+}
+
+\textbf{Definition of Terms:}
+\begin{align*}
+\widehat{x}_{k|k} &:= \ExpectofGiven{x_k}{y_0, \cdots, y_k}\\
+P_{k|k} &:=\ExpectofGiven{(x_k-\widehat{x}_{k|k})(x_k-\widehat{x}_{k|k})^\top}{y_0, \cdots, y_k}\\
+& \\
+\widehat{x}_{k+1|k} &:= \ExpectofGiven{ x_{k+1} }{ y_0, \cdots, y_k}\\
+P_{k+1|k}&:= \ExpectofGiven{(x_{k+1}-\widehat{x}_{k+1|k})(x_{k+1}-\widehat{x}_{k+1|k})^\top}{y_0, \cdots, y_k}\\
+\end{align*}
+
+\textbf{Initial Conditions:}
+$$\widehat{x}_{0|-1} :=\bar{x}_0 = \Expectof{x_0},~~\mbox{and}~~P_{0|-1}:=P_0=\cov(x_0)  $$
+
+\textbf{For $k \ge 0$}
+
+\textbf{~~~Measurement Update Step:}
+\begin{align*}
+K_k &= P_{k|k-1}C_k^\top \left(C_k P_{k|k-1} C_k^\top + Q_k\right)^{-1} \\
+& ~~~~~(\text{Kalman Gain})\\
+\widehat{x}_{k|k} &= \widehat{x}_{k|k-1}  + K_k \left( y_k - C_k \widehat{x}_{k|k-1} \right) \\
+P_{k|k} &= P_{k|k-1} - K_k C_k  P_{k|k-1}
+\end{align*}
+
+\textbf{~~~Time Update or Prediction Step:}
+\begin{align*}
+\widehat{x}_{k+1|k} &= A_k \widehat{x}_{k|k}  \\
+P_{k+1|k} &= A_k P_{k|k} A_k^\top + G_k R_k G_k^\top
+\end{align*}
+
+\textbf{End of For Loop} (Just stated this way to emphasize the recursive nature of the filter)
+
+ \newpage
+
+  {\Large \bf
+\begin{center}
+ Preliminaries
+\end{center}
+}
+
+ \noindent \textbf{Measurements:} We collect all of the measurements at time $k$ as
+ $$Y_k = (y_k, y_{k-1}, \cdots, y_0).$$
+ Strictly speaking, we should be stacking them up into a column vector as we have done for all of our estimation problems, but notationally, it is more convenient to write them in a row.  Also, it is more convenient to put the most recent measurement at the head of the list. We note that
+ $$Y_k = ( y_k, Y_{k-1}).$$
+
+ Hence,
+\begin{align*}
+\widehat{x}_{k|k} :=& \ExpectofGiven{x_k}{Y_k}\\
+P_{k|k} :=& \ExpectofGiven{(x_k-\widehat{x}_{k|k})(x_k-\widehat{x}_{k|k})^\top}{Y_k}\\
+&~ \text{mean and covariance of the conditional normal random vector} ~~x_{k} | Y_k\\
+& \\
+\widehat{x}_{k+1|k} := &\ExpectofGiven{ x_{k+1} }{ Y_k}\\
+P_{k+1|k}:=& \ExpectofGiven{(x_{k+1}-\widehat{x}_{k+1|k})(x_{k+1}-\widehat{x}_{k+1|k})^\top}{Y_k}\\
+&~ \text{mean and covariance of the conditional normal random vector} ~~x_{k+1} | Y_k\\
+\end{align*}
+
+\textbf{Important Remarks:}
+\begin{itemize}
+\setlength{\itemsep}{.5cm}
+\item The conditional random vector $ x_k | Y_k $ is distributed $N(\widehat{x}_{k|k}, P_{k|k})$.
+\item  The conditional random vector $ x_{k+1} | Y_{k} $ is distributed $N(\widehat{x}_{k+1|k}, P_{k+1|k})$.
+\end{itemize}
+
+ \newpage
+ {\Large \bf
+\begin{center}
+ Filter Derivation Using Induction and Properties of Conditional Distributions of Gaussian Random Vectors
+\end{center}
+}
+
+\noindent \textbf{Base step:} The initial conditions of the filter at time $k=0$, namely
+$$ \widehat{x}_{0|-1} :=\bar{x}_0,~~\mbox{and}~~P_{0|-1}:=P_0$$
+
+\noindent \textbf{Induction step:} At time $k\ge0$, we suppose that $(\widehat{x}_{k|k-1}, P_{k|k-1})$ are known, and we derive $(\widehat{x}_{k|k}, P_{k|k})$ and $(\widehat{x}_{k+1|k}, P_{k+1|k})$.\\ \\
+
+\noindent \textbf{Key idea of the development:} We need to compute the distribution (or density) of the conditional random vector
+%$$x_k | Y_k = x_k | (y_k, Y_{k-1}) = \left. x_k \right|_{\left[\begin{array}{c}y_k \\ Y_{k-1} \end{array} \right]}$$
+$$x_k | Y_k = x_k | (y_k, Y_{k-1}) $$
+
+From HW 7, we learned \textbf{Fact 4} $ X |(Y,Z) = X|Z ~\Big|~ Y|Z$. From this we obtain
+ $$x_k | Y_k = x_k | (y_k, Y_{k-1}) = x_k | Y_{k-1} ~\Big\rvert~ y_k | Y_{k-1}~~~(*)$$
+ where we have identified
+ $$x_k \leftrightarrow X,~~y_k \leftrightarrow Y ,~~\text{and}~~ Y_{k-1} \leftrightarrow Z.$$
+ Hence, if we can compute the distribution (or density) of
+ $$\left[\begin{array}{c}x_k \\ y_k\end{array} \right] \Big| {Y_{k-1}} $$
+ then we can apply \textbf{Fact 1} to obtain (*).
+
+The following calculations are aimed at doing just this.
+
+\newpage
+
+\noindent  \textbf{Measurement Update:}  We seek to derive the filter equations on page 3. To begin, we have that $y_k = C_k x_k + v_k$. It follows by linearity that the conditional random variable $y_k | Y_{k-1}$ is equal to
+
+$$y_k|Y_{k-1} = C_k ~x_k|Y_{k-1} + v_k|Y_{k-1}.$$
+
+
+From our assumptions on the noise, $v_k$ is independent of both $x_k$ and $Y_{k-1}$, and hence by \textbf{Fact 2}, $v_k|Y_{k-1}$ is independent of the conditional random variable $x_k|Y_{k-1}$. Moreover, because $v_k$ is independent of $Y_{k-1}$,  $v_k|Y_{k-1} =v_k$. Putting this together, we have that
+$$y_k|Y_{k-1} = C_k ~x_k|Y_{k-1} + v_k,$$
+and $x_k|Y_{k-1}$ and $v_k$ are independent. Hence
+\begin{align*}
+\widehat{y}_{k|k-1}:=& \Expectof{y_k|Y_{k-1}} \\
+=& \Expectof{C_k x_k|Y_{k-1}} + \Expectof{v_k} \\
+=& C_k\Expectof{ x_k|Y_{k-1}} + \Expectof{v_k} \\
+=&C_k \widehat{x}_{k|k-1} + 0\\
+=&C_k \widehat{x}_{k|k-1}.
+\end{align*}
+
+Moreover, the independence of $x_k|Y_{k-1}$ and $v_k$ with \textbf{Fact 3} yields
+
+$$ \cov(y_k|Y_{k-1}, y_k|Y_{k-1}) = C_k P_{k|k-1} C_k^\top  + Q_k.$$
+
+We use independence again to obtain
+$$\cov(x_k|Y_{k-1},y_k |Y_{k-1}) = \cov(x_k|Y_{k-1},C_k ~x_k|Y_{k-1})=P_{k|k-1} C_k^\top.$$
+
+%%From our assumptions on the noise, $v_k$ is independent of both $x_k$ and $Y_{k-1}$, and hence by \textbf{Fact 2}, $v_k|Y_{k-1} $ is independent of the conditional random variable $x_k|Y_{k-1}$, and thus we can apply
+%% \textbf{Fact 3} to deduce that
+%%$$ \cov(y_k|Y_{k-1}, y_k|Y_{k-1}) = C_k P_{k|k-1} C_k^\top  + Q_k,$$
+%%where we have also used $v_k|Y_{k-1} =v_k$ due to the independence of $v_k$ and $Y_{k-1}$.
+%%
+%%We use independence again to obtain
+%%$$\cov(x_k|Y_{k-1},y_k |Y_{k-1}) = \cov(x_k|Y_{k-1},C_k ~x_k|Y_{k-1})=P_{k|k-1} C_k^\top.$$
+%
+\newpage
+
+With this information, we conclude that  the vector
+$$ \left[ \begin{array}{c} x_k\\y_k \end{array} \right] | Y_{k-1}$$
+is jointly normally distributed, with mean and covariance
+$$\left[ \begin{array}{r} \widehat{x}_{k|k-1} \\ C_k  \widehat{x}_{k|k-1} \end{array} \right], \left[ \begin{array}{cc}  P_{k|k-1} &  P_{k|k-1} C_k^\top\\ C_k  P_{k|k-1} & C_k P_{k|k-1} C_k^\top  + Q_k \end{array} \right] ~~~~\textbf{(*)}$$
+
+
+As discussed on the previous page, to compute the distribution of $(x_k| Y_k)$, we have from \textbf{Fact 4}
+$$ x_k| Y_k = x_k\bigg| (y_k, Y_{k-1}) =  x_k|Y_{k-1} ~\bigg|~ y_k|Y_{k-1},$$
+and thus applying \textbf{Fact 1}  to \textbf{(*)}
+%to the joint distribution
+%$$ \left[ \begin{array}{c} x_k\\y_k \end{array} \right] | Y_{k-1}~~ \sim ~~\text{\Large N}\left(\left[ \begin{array}{r} \widehat{x}_{k|k-1} \\ C_k  \widehat{x}_{k|k-1} \end{array} \right], \left[ \begin{array}{cc}  P_{k|k-1} &  P_{k|k-1} C_k^\top\\ C_k  P_{k|k-1} & C_k P_{k|k-1} C_k^\top  + Q_k \end{array} \right] \right)$$
+we compute the mean and covariance of $x_k | Y_k = x_k|Y_{k-1} ~\bigg|~ y_k|Y_{k-1}$ to be
+\begin{align*}
+\widehat{x}_{k|k}&=  \widehat{x}_{k|k-1} + P_{k|k-1}  C_k^\top \left[C_k P_{k|k-1} C_k^\top  + Q_k \right]^{-1} \left( y_k - C_k   \widehat{x}_{k|k-1} \right) \\
+& \\
+P_{k|k} &= P_{k|k-1} - P_{k|k-1} C_k^\top   \left[C_k P_{k|k-1} C_k^\top  + Q_k \right]^{-1} C_k  P_{k|k-1}
+\end{align*}
+
+\textbf{Remark:} We note that $P_{k|k}$ is the Schur complement $C_k P_{k|k-1} C_k^\top  + Q_k$ in the covariance of  $$ \left[ \begin{array}{c} x_k\\y_k \end{array} \right] | Y_{k-1}$$
+
+
+\newpage
+
+\noindent  \textbf{Prediction or Time Update:}   We seek to derive the filter equations on page 3. This time we use the state-variable model instead of the output model, namely
+$$x_{k+1} = A_k x_k + G_k w_k,$$
+and we are interested in the random vector
+$$x_{k+1} | Y_k = A_k x_k|Y_k + G_kw_k |Y_k.$$
+
+Because $x_k$ and $Y_k$ are both independent of $w_k$, by \textbf{Fact 2}, $x_k| Y_k$ and $w_k | Y_k$ are also independent. It follows that
+\begin{align*}
+\widehat{x}_{k+1|k}&=    \ExpectofGiven{x_{k+1}}{Y_k} \\
+& =\ExpectofGiven{A_k x_k + G_k w_k}{Y_k} \\
+& = A_k \ExpectofGiven{ x_k} {Y_k}  + G_k  \ExpectofGiven{ w_k}{Y_k} \\
+&=  A_k \widehat{x}_{k|k}  +  G_k \Expectof{w_k} \\
+& = A_k \widehat{x}_{k|k},
+\end{align*}
+where we have used $w_k | Y_k = w_k$, and $\Expectof{w_k}=0$.
+
+Next, we use \textbf{Fact 3} and the conditional independence of the random vectors $x_k| Y_k$ and $w_k | Y_k$ to evaluate
+the covariance of $x_{k+1}|Y_k$ as
+
+\begin{align*}
+P_{k+1|k} &= A_k P_{k|k} A_k^\top  + G_k R_k G_k^\top.
+\end{align*}
+
+
+\vspace*{1cm}
+
+ {\Large \bf
+\begin{center}
+ That's the Proof Folks!
+\end{center}
+}
+
+ \newpage
+ {\Large \bf
+\begin{center}
+ Combined Update Version of the Filter\\
+ (often easier to implement)
+\end{center}
+}
+
+Here, we will assume the model also has a \textit{deterministic} input $u_k$, and thus
+\begin{align*}
+x_{k+1} &= A_k x_k + B_k u_k + G_k w_k \\
+y_k &= C_k x_k + v_k,
+\end{align*}
+with the assumptions on the random vectors $x_0$, $w_k$ and $v_k$ the same as before.
+
+\textbf{Combined Filter:} The measurement-update step and time-update step of the  Kalman Filter can be combined into a single step. The algorithm becomes:
+
+\textbf{Initial Conditions:}
+$$\widehat{x}_{0|-1} :=\bar{x}_0 = \Expectof{x_0},~~\mbox{and}~~P_{0|-1}:=P_0=\cov(x_0)  $$
+
+\textbf{For $k \ge 0$}
+\begin{align*}
+K_k & = (P_{k|k-1} C_k^\top) \left[ C_k P_{k|k-1} C_k^\top + Q_k \right]^{-1}\\
+& \\
+\widehat{x}_{k+1|k}&= A_k \widehat{x}_{k|k-1} + B_k u_k + A_k K_k \left( y_k - C_k   \widehat{x}_{k|k-1} \right) \\
+& \\
+%P_{k+1|k} &= (A_k - K_k C_k)P_{k|k-1}(A_k - K_k C_k)^\top + G_k R_k G_k^\top + K_kQ_k K_k^\top
+P_{k+1|k} &= A_k \left[ P_{k|k-1} - K_k C_k P_{k|k-1} \right] A_k ^\top + G_k R_k G_k^\top
+\end{align*}
+\textbf{End of For Loop}\\
+
+
+\textbf{Remark:} You do not have to start at $k=0$. In MATLAB, it is often easier to begin with $k=1$. In that case, the initial conditions are
+$$\widehat{x}_{1|0} :=\bar{x}_0 = \Expectof{x_0},~~\mbox{and}~~P_{1|0}:=P_0=\cov(x_0)  $$
+
+\textbf{Remark:} $ K_k C_k P_{k|k-1} =  (P_{k|k-1} C_k^\top) \left[ C_k P_{k|k-1} C_k^\top + Q_k \right]^{-1}C_k P_{k|k-1}$ is symmetric positive semi-definite and represents the value of the measurement in reducing the covariance of the state estimate, just as in the MVE.
+
+
+
+
+\end{document}
+
+
+
+
+

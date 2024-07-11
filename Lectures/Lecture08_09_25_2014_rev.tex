@@ -1,0 +1,169 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 08\\
+Typeset by: Sulbin Park\\
+Proofread by: Ming-Yuan Yu
+\end{center}
+}
+
+\Large
+
+\begin{center}
+\textbf{Orthogonal Bases}
+\end{center}
+
+\textbf{Corollary:} Let $(\mathcal{X},\mathcal{F}, \langle \cdot,\cdot \rangle )$ be an inner product space. Then, $$\|x\| :=  \langle x,x \rangle ^{1/2} = \sqrt{ \langle x,x \rangle }$$
+is a \underline{norm}.
+
+\underline{Proof:} (For $\mathcal{F} = \mathbb{R}$) will only check the triangle inequality $\|x+y\| \leq \|x\| +\|y\|$, which is equivalent to showing
+    \begin{align*}
+        \|x+y\|^2 &\leq \|x\|^2 + \|y\|^2 + 2\|x\| \cdot \|y\|\\
+        \|x+y\|^2 &=  \langle x+y,x+y \rangle  \\
+        &=  \langle x,x+y \rangle  +  \langle y, x+y \rangle  \\
+        &=  \langle x,x \rangle  + \langle x,y \rangle  +  \langle y,x \rangle +  \langle y,y \rangle  \\
+        &= \|x\|^2 + \|y\|^2 +2 \langle x,y \rangle  \\
+        &\leq \|x\|^2 + \|y\|^2 + 2\left| \langle x,y \rangle \right| \\
+        &\leq \|x\|^2 + \|y\|^2 + 2\|x\| \cdot \|y\|\ \square
+    \end{align*}
+
+\textbf{Def.}
+\begin{enumerate}[(a)]
+    \item Two vectors $x$ and $y$ are \underline{orthogonal} if $ \langle x,y \rangle =0$. Notation: $x \perp y$
+    \item A set of vectors $S$ is orthogonal if $$\forall x \text{,} y \in S \text{,} x \neq y \Rightarrow \langle x,y \rangle =0 \mbox{ (i.e. $ x \perp y$)}$$
+    \item If in addition, $\|x\|=1$ for all $x \in S$, then $S$ is an \underline{orthonormal set}.
+\end{enumerate}
+
+\textbf{Remark:} $x \neq 0, \frac{x}{\|x\|}$ has norm 1.
+    $$\left \lVert \frac{x}{\|x\|}\right\rVert = \left| \frac{1}{\|x\|}\right| \cdot \|x\|=\frac{1}{\|x\|}\cdot \|x\|=1$$
+
+\textbf{Pythagorean Theorem:} If $x \perp y$, then
+    $$\|x+y\|^2 = \|x\|^2+ \|y\|^2$$.
+
+\underline{Proof:} From the proof of the triangle inequality,
+    \begin{align*}
+        \|x+y\|^2 &= \|x\|^2+ \|y\|^2+2 \langle x,y \rangle  \\
+        &= \|x\|^2+ \|y\|^2 \mbox{ (because $\langle x,y \rangle =0$)}\ \square
+    \end{align*}
+
+\textbf{Pre-projection Theorem:}~ Let $\mathcal{X}$ be a finite-dimensional (real) inner product space, $M$ be a subspace of $\mathcal{X}$, and $x$ be an arbitrary point in $\mathcal{X}$.
+    \begin{enumerate}[(a)]
+        \item If $\exists m_0 \in M $ such that $$\|x-m_0\| \leq \|x-m\| \ \ \ \ \forall m \in M$$then $m_0$ is unique.
+        \item A necessary and sufficient condition that $m_0$ is a minimizing vector in $M$ is that the vector $x-m_0$ is orthogonal to $M$.
+    \end{enumerate}
+
+\textbf{Remarks:}
+    \begin{enumerate}[(a')]
+        \item If $\exists m_0 \in M$ such that $\|x-m_0\| = d(x,M) = \underset{m \in M}{\text{inf}} \|x-m\|$, then $m_0$ is unique. (equivalent to (a))
+        \item $\|x-m_0\| = d(x,M) \Leftrightarrow x-m_0 \perp M$. (equivalent to (b))
+    \end{enumerate}
+
+\textbf{Proof:}\\
+    \underline{Claim 1:} If $m_0 \in M$ satisfies $\|x-m_0\| = d(x,M)$, then $x-m_0 \perp M$. \\
+    \underline{Proof:} (By contrapositive) Assume $x-m_0 \not\perp M$, we will find $m_1 \in M$ such that $\|x-m_1\| < \|x-m_0\|$.\\     Suppose $x-m_0 \not\perp M$. Hence, $\exists m \in M$ such that $ \langle x-m_0, m \rangle  \neq 0$. We know $m \neq 0$, and hence we define $\tilde{m} = \frac{m}{\|m\|} \in M$.\\
+        Define $\delta := \langle x-m_0, \tilde{m} \rangle  \neq 0$.
+        \begin{align*}
+            m_1 &= m_0 + \delta \tilde{m}\\
+            \therefore m_1 &\in M\\
+            \|x-m_1\|^2 &= \|x-m_0-\delta \tilde{m}\|^2 \\
+            &=  \langle x-m_0-\delta \tilde{m}, x-m_0-\delta \tilde{m} \rangle  \\
+            &=  \langle x-m_0,x-m_0 \rangle  -\delta \underbrace{\langle x-m_0,\tilde{m} \rangle}_\delta -\delta \underbrace{\langle \tilde{m},x-m_0 \rangle}_\delta  +\delta^2 \underbrace{\langle \tilde{m},\tilde{m} \rangle}_{=1}  \\
+            &= \|x-m_0\|^2 -\delta^2
+        \end{align*}
+    $\therefore \|x-m_1\|^2 < \|x-m_0\|^2\ \square$
+
+\underline{Claim 2:} If $x-m_0 \perp M$, then $\|x-m_0\| = d(x,M)$ and $m_0$ is unique. \\
+\underline{Proof:} Recall the Pythagorean Theorem:
+    \begin{equation*}
+        \|x+y\|^2=\|x\|^2+\|y\|^2 \mbox{ when } x \perp y
+    \end{equation*}
+    Let $m \in M$ be arbitrary and suppose $x-m_0 \perp M$.\\
+    Then,
+    \begin{align*}
+        \|x-m\|^2 &= \|x-m_0+\underbrace{m_0-m}_{\in M}\|^2 \\
+        &= \|x-m_0\|^2 + \|m_0 - m\|^2\ \ \left(x-m_0\perp M\right)
+    \end{align*}
+    $\therefore \underset{m \in M}{\text{inf}} \|x-m\|=\|x-m_0\|$ and the unique minimizer is $m_0$. $\square$
+
+\textbf{How to Construct  Orthogonal Sets}\\
+    \textbf{Gram-Schmidt Process:}~ Let $\{y^1, \ldots ,y^n\}$ be a linearly independent set of vectors. We will produce $\{v^1, \ldots, v^n\}$ orthogonal, such that
+    \begin{equation*}
+        \forall 1 \leq k \leq n,\ \ \text{span}\{y^1, \ldots, y^k\}=\text{span}\{v^1, \ldots, v^k\}.
+    \end{equation*}
+    \underline{Step 1:} $v^1=y^1$\\
+    \underline{Remark:} $v^1 \neq 0$ because $\{y^1, \ldots, y^n\}$ linearly independent.\\
+    \\
+    \underline{Step 2:} $v^2 = y^2-a_{21}v^1$ and choose $a_{21}$ such that $v^1 \perp v^2$.
+    \begin{align*}
+        0 &=  \langle v^2, v^1 \rangle =  \langle y^2 - a_{21}v^1, v^1 \rangle=  \langle y^2,v^1 \rangle  - a_{21} \langle v^1,v^1 \rangle\\
+        \therefore a_{21}&=\frac{ \langle y^2,v^1 \rangle }{\|v^1\|^2}\ \ \ \mbox{($\|v^1\| \neq 0$ because $v^1 \neq 0$)}
+    \end{align*}
+
+    \underline{Claim:} $\text{span}\{y^1, y^2\}=\text{span}\{v^1, v^2\}$.\\
+    \underline{Proof:} Know $\text{span}\{y^1\}=\text{span}\{v^1\}$.\\
+    \underline{To show:} $y^2 \in  \text{span}\{v^1, v^2\}$ and $v^2 \in \text{span}\{y^1, y^2\}.$
+
+\end{document} 

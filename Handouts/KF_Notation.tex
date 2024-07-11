@@ -1,0 +1,105 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+
+
+\Large
+
+\noindent \textbf{Model}~
+\begin{align*}
+x_{k+1} &= A_k x_k + G_k w_k,~~x_0~\text{initial condition}\\
+y_k &= C_k x_k + v_k
+\end{align*}
+$x\in \real^n$, $w \in \real^p$, $y\in \real^m$, $v\in \real^m$. Moreover, the random vectors
+$x_0$, and, for $k\ge 0$,  $w_k$, $v_k$ are all independent Gaussian (normal) random vectors.
+
+
+\textbf{Definition of Terms:}
+\begin{align*}
+\widehat{x}_{k|k} &:= \ExpectofGiven{x_k}{y_0, \cdots, y_k}\\
+P_{k|k} &:=\ExpectofGiven{(x_k-\widehat{x}_{k|k})(x_k-\widehat{x}_{k|k})^\top}{y_0, \cdots, y_k}\\
+& \\
+\widehat{x}_{k+1|k} &:= \ExpectofGiven{ x_{k+1} }{ y_0, \cdots, y_k}\\
+P_{k+1|k}&:= \ExpectofGiven{(x_{k+1}-\widehat{x}_{k+1|k})(x_{k+1}-\widehat{x}_{k+1|k})^\top}{y_0, \cdots, y_k}\\
+\end{align*}
+\vspace*{-1cm}
+
+\textbf{Initial Conditions:} $\widehat{x}_{0|-1} :=\bar{x}_0 = \Expectof{x_0},~~\mbox{and}~~P_{0|-1}:=P_0=\cov(x_0)  $
+
+\textbf{For $k \ge 0$}
+
+\textbf{~~~Measurement Update Step:}
+\begin{align*}
+K_k &= P_{k|k-1}C_k^\top \left(C_k P_{k|k-1} C_k^\top + Q_k\right)^{-1} \\
+& ~~~~~(\text{Kalman Gain})\\
+\widehat{x}_{k|k} &= \widehat{x}_{k|k-1}  + K_k \left( y_k - C_k \widehat{x}_{k|k-1} \right) \\
+P_{k|k} &= P_{k|k-1} - K_k C_k  P_{k|k-1}
+\end{align*}
+
+\textbf{~~~Time Update or Prediction Step:}
+\begin{align*}
+\widehat{x}_{k+1|k} &= A_k \widehat{x}_{k|k}  \\
+P_{k+1|k} &= A_k P_{k|k} A_k^\top + G_k R_k G_k^\top
+\end{align*}
+
+\textbf{End of For Loop} (Just stated this way to emphasize the recursive nature of the filter)
+
+
+
+\end{document}
+
+
+
+
+

@@ -1,0 +1,141 @@
+\documentclass[letterpaper]{book}
+\PassOptionsToPackage{usenames,dvipsnames,svgnames,table,xcdraw}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,table,xcdraw}{enumitems}
+
+\input{Defines/definesPackages}
+\input{Defines/definesCommands}
+\input{Defines/definesJuliaCodeCell}
+%\parindent
+
+\makeatletter
+\renewcommand{\frontmatter}{\cleardoublepage\@mainmatterfalse}
+\renewcommand{\mainmatter}{\cleardoublepage\@mainmattertrue}
+\makeatother
+
+% \title{Notes for Computational Linear Algebra\thanks{Inspired by Prof. Chad Jenkins}}
+% \date{}
+% \author{Jessy Grizzle\\ Robotics Institute, University of Michigan, Ann Arbor
+% \and Content contributed by Maani, Tribhi, Miley, Madhav, Kira, and Michael}
+
+%\doublespacing
+
+\title{Mathematics for Robotics}
+\date{}
+\author{Jessy Grizzle\\ Robotics Institute, University of Michigan, Ann Arbor}
+
+
+
+\begin{document}
+%\maketitle
+\newtheorem{thm}{Theorem}
+\numberwithin{thm}{chapter}
+\newtheorem{example}[thm]{Example}
+\newtheorem{nonexample}[thm]{Non-Example}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{claim}[thm]{Claim}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{definition}[thm]{Definition}
+\newtheorem{notation}[thm]{Notation}
+\newtheorem{fact}[thm]{Fact}
+\newtheorem{notvocab}[thm]{Notation and Vocabulary}
+\newtheorem{question}[thm]{Question}
+\newtheorem{recall}[thm]{Recall}
+\newtheorem{exercise}[thm]{Exercise}
+\newtheorem{summary}[thm]{Summary}
+\newcounter{keyfacts}
+\newtheorem{keyfact}[keyfacts]{Key Fact}
+
+\begingroup
+\thispagestyle{empty}
+
+% \AddToShipoutPicture*{\put(0,0)  {\includegraphics[scale=1.0]{rob101-cover-12-2020.png}}} % Image background
+% \mbox{  }
+
+\AddToShipoutPicture*{\put(0,0)  
+{\includegraphics[scale=1.0]{graphics/501cover.png}}} % Image background
+\mbox{  }
+
+\endgroup
+
+\clearpage
+
+
+\begingroup
+\thispagestyle{empty}
+%\centerline
+% \AddToShipoutPicture*{\put(240,50)  {\includegraphics[scale=0.35]{media_users_user_14_project_222374_images_res_cassie_image.png}}} % Image background
+\AddToShipoutPicture*{\put(40,450)  {\includegraphics[scale=0.35]{WorkTogether.png}}} % Image background
+
+
+~\vfill
+\thispagestyle{empty}
+\noindent Cover design by Dan Newman, Head of Communications, Michigan Robotics
+
+\vspace*{2cm}
+\noindent\copyright\space 2022	Jessy Grizzle,  Director of Robotics, University of Michigan	\\
+\noindent \textsc{Jerry W. and Carol L. Levin Professor of Engineering\\
+Elmer G. Gilbert Distinguished University Professor\\
+Professor of EECS and ME}\\
+
+%\noindent \textsc{github.com/LaurethTeX/Clustering}\\ % URL
+
+\noindent Composed as lecture notes and piloted between August 2014 and December 2018 for use in ROB 501, Mathematics for Robotics.
+\\ % License information
+
+\noindent \textit{First release, August 31, 2022.} % Printing/edition date
+
+
+\endgroup
+
+
+\frontmatter
+\tableofcontents
+\chapter{Preface}
+\input{Chapters/Preface.tex}
+\chapter{Philosophy of the Course}
+\input{Chapters/Philosophy.tex}
+% \chapter{List of Algorithms and Methods or Things You Need Code to Do Well}
+% \input{TexBookletHandouts/ListAlgorithms.tex}
+\mainmatter
+
+\chapter{Introduction to Mathematical Arguments}
+\label{chap:Intro}
+\input{Chapters/Chap01NotationProofTechniques.tex}
+
+\chapter{Some Highlights of Abstract Linear Algebra (or Practicing Proofs in a Safe Environment)}
+\label{chap:LinearAlgebra}
+\input{Chapters/Chap02AbstractLinearAlgebra.tex}
+
+\chapter{Abstract Inner Product Spaces for a Clear Vision of Deterministic Least Squares Problems}
+\label{chap:IPSpacesandLeastSqaures}
+\input{Chapters/Chap03InnerProductSpacesLeastSquares.tex}
+
+\chapter{Three Useful Matrix Factorizations}
+\label{chap:IPSpacesandLeastSqaures}
+\input{Chapters/Chap04MatrixFactorizations.tex}
+
+\chapter{Enough Probability and Estimation to Understand the Kalman Filter}
+\label{chap:ProbEstim}
+\input{Chapters/Chap05ProbabilityEstimation.tex}
+
+\chapter{Enough Real Analysis to Understand the Existence of Limits of Sequences as well as Extrema of Functions}
+\label{chap:RealAnalysis}
+\input{Chapters/Chap06RealAnalysis.tex}
+
+\chapter{Briefest of Remarks on Optimization}
+\label{chap:Optimization}
+\input{Chapters/Chap07Optimization.tex}
+
+\pagestyle{plain}
+
+% \newpage
+
+% \appendix
+
+% \chapter{To Learn on Your Own (if you want to): Cool and Important Things We Omitted From our Linear Algebra Introduction}
+
+
+\end{document}
+

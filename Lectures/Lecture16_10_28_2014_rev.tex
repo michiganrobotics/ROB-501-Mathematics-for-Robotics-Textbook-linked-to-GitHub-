@@ -1,0 +1,191 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 16\\
+Typeset by:  Kurt Lundeen\\
+Proofread by:  Connie Qiu\\
+Revised by Ni on 6 November 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Matrix Factorizations}\end{center}
+
+\textbf{QR Decomposition or Factorization:}
+Let $A$ be a real $m\times n$ matrix with \underline{linearly independent columns} (rank of $A = n=$ \# columns). Then there exist an $m\times n$ matrix $Q$ with \underline{orthonormal columns} and an \underline{upper triangular} $n\times n$ matrix $R$ such that
+    \begin{equation*}
+        A=QR.
+    \end{equation*}
+
+\textbf{Notes:}
+    \begin{enumerate}[1)]
+	    \item $Q^\top Q=I_{n\times n}$
+	    \item $[R]_{ij}=0, \textnormal{for }i<j$,
+	        $R=\left[\begin{array}{cccc} r_{11} & \cdots & \cdots & r_{1n}\\ \vdots & r_{22} & \cdots & \vdots\\ \vdots & \vdots & \ddots & \vdots\\ 0 & \cdots & \cdots & r_{nn} \end{array}\right]$
+	    \item Columns of $A$ linearly independent $\Leftrightarrow R$ is invertible
+    \end{enumerate}
+
+\textbf{Utility of QR Decomposition:}
+    \begin{enumerate}[1)]
+	    \item Suppose $Ax=b$ is overdetermined with columns of $A$ linearly independent. Write $A=QR$ and consider
+	        \begin{align*}
+	            A^\top A\hat{x}&=A^\top b\\
+	            A^\top A&=R^\top Q^\top QR=R^\top R\\
+	            A^\top b&=R^\top Q^\top b\\
+	            \therefore\hspace{1pc}R^\top R\hat{x}&=R^\top Q^\top b\\
+	            R\hat{x}&=Q^\top b\textnormal{ \hspace{1pc} (because $R$ is invertible)}
+	        \end{align*}
+	        $\therefore$ Solve for $\hat{x}$ by back substitution using triangular nature of $R$.\\
+	        For example, when $n=3$
+	        $$\left[\begin{bmatrix} r_{11} & r_{12} & r_{13}\\ 0 & r_{22} &r_{23}\\ 0 & 0 & r_{33} \end{bmatrix}\right]\hat{x}=Q^\top b$$
+	        Then, $\hat{x}_3$ to $\hat{x}_1$ can be obtained easily without using the matrix inversion.
+	    \item Suppose $Ax=b$ is under determined with rows of $A$ linearly independent.
+	        \underline{Recall:} $\hat{x}=A^\top (AA^\top)^{-1}b$ is $x$ of smallest norm satisfying $Ax=b$.\\
+	        $A^\top$ has linearly independent columns.\\
+            $\therefore A^\top=QR,\ Q^\top Q=I,\ R$ is upper triangular and invertible.
+            \begin{align*}
+	            AA^\top&=R^\top Q^\top QR=R^\top R\\
+	            \hat{x}&=QR(R^\top R)^{-1}b\\
+	            &=QRR^{-1}(R^\top)^{-1}b\\
+	            \hat{x}&=Q(R^\top)^{-1}b
+            \end{align*}
+        \end{enumerate}
+
+\textbf{Computation of QR Factorization:}\\
+    \underline{Gram Schmidt with Normalization:}\\
+        $A=[A_1|A_2|\dotsb |A_n],\ \ A_i\in\real^m,\ \hspace{1pc}\langle x,y\rangle=x^\top y$.\\
+        For $1\leq k\leq n$, $\{A_1,\ A_2,\ \dotsb ,\ A_n\}\rightarrow \{v_1,\ v_2,\ \dotsb ,\ v_n\}$\\
+        by
+        \begin{align*}
+            v^1 &=\frac{A_1}{\|A_1\|};\\
+            v^2 &=A_2-\langle A_2,v^1\rangle v^1;\\
+            v^2 &=\frac{v^2}{\|v^2\|};\\
+            &\vdots\\
+            v^k &=A_k-\langle A_k,v^1\rangle v^1-\langle A_k,v^2\rangle v^2-\dotsb -\langle A_k,v^{k-1}\rangle v^{k-1};\\
+            v^k &=\frac{v^k}{\|v^k\|};
+        \end{align*}
+        For $k=1:n$\\
+        \indent\hspace{4ex}$v^k=A_k$\\
+        \indent\hspace{4ex}For $j=1:k-1$\\
+        \indent\hspace{8ex}$v^k=v^k-\langle A_k,v^j\rangle v^j$\\
+        \indent\hspace{4ex}End\\
+        \indent\hspace{4ex}$v^k =\frac{v^k}{\|v^k\|}$\\
+        End\\
+        $Q=[v^1|v^2|\dotsb |v^n]$ has orthonormal columns, and hence $Q^\top Q=I_{n\times n}$ because $[Q^\top Q]_{ij}=\langle v^i, v^j\rangle=\delta_{ij}$.\\
+\\
+    What about $R$?\\
+    $A_i\in\operatorname{span}\{v^1,\dotsb,v^i\}$\\
+    $A_i=\langle A_1,v^1\rangle v^1+\langle A_2,v^2\rangle v^2+\dotsb+\langle A_i,v^i\rangle v^i$\\
+    We define $R_i=\begin{bmatrix}
+        \langle A_1,v^1\rangle\\
+        \vdots\\
+        \langle A_i,v^i\rangle\\
+        0\\
+        \vdots\\
+        0
+    \end{bmatrix}$, where the value becomes 0 in $R_i$ from the $(i+1)$-th element to the $n$-th element.\\
+    $\therefore QR_i=A_i\Leftrightarrow QR=A$\\
+
+\underline{Modified Gram Schmidt Algorithm:}\\
+    We have been using the classical Gram-Schmidt Algorithm. It behaves poorly under round-off error.\\
+    Here is a standard example:
+    \begin{equation*}
+        y^1=\left[\begin{matrix} 1 \\ \varepsilon \\ 0 \\ 0 \end{matrix}\right],
+        y^2=\left[\begin{matrix} 1 \\ 0 \\ \varepsilon \\ 0 \end{matrix}\right],
+        y^3=\left[\begin{matrix} 1 \\ 0 \\ 0 \\ \varepsilon \end{matrix}\right],
+        \varepsilon>0
+    \end{equation*}
+    Let $\{e^1,e^2,e^3,e^4\}$ be the standard basis vectors $\left(\textnormal{Yes, }\left(e_j^i\right)=\begin{cases}
+        0 & i\neq j\\
+        1 & i=j\\
+    \end{cases}\right)$\\
+    We note that
+    \begin{align*}
+        y^2 &= y^1+\varepsilon(e^3-e^2)\\
+        y^3 &= y^2+\varepsilon(e^4-e^3)
+    \end{align*}
+    and thus
+    \begin{align*}
+        \operatorname{span}\{y^1,y^2\}&=\operatorname{span}\{y^1,(e^3-e^2)\}\\
+        \operatorname{span}\{y^1,y^2,y^3\}&=\operatorname{span}\{y^1,(e^3-e^2),(e^4-e^3)\}
+    \end{align*}
+    Then, GS applied to $\{y^1,y^2,y^3\}$ and $\{y^1,(e^3-e^2),(e^4-e^3)\}$ should produce the same orthonormal vectors.\\
+    We go to MATLAB, and for $\varepsilon=0.1$, we do indeed get the same results. See MATLAB.\\
+    But with $\varepsilon=10^{-8}$,
+    \begin{equation*}
+        \|Q_1-Q_2\|=0.5
+    \end{equation*}
+\\
+Initial data $\{y^1,\dotsb,y^n\}$ linearly independent.\\
+    For $k=1:n$\\
+    \indent\hspace{4ex}$v^k=y^k$\\
+    end\\
+    For $i=1:n$\\
+    \indent\hspace{4ex}$v^i=\frac{v^i}{\|v^i\|}$\\
+    \indent\hspace{4ex}For $j=i+1:n$\\
+    \indent\hspace{8ex}$v^j=v^j-\langle v^i,v^j\rangle v^i$\\
+    \indent\hspace{4ex}end\\
+    end
+
+\end{document} 

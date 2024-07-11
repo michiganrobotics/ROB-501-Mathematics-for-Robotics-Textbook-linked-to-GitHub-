@@ -1,0 +1,640 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{ulem}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+  \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-II (Final)\\
+\large
+Tuesday, December 20, 2016, 4:10 PM-- 6:00 PM \\
+Rooms (First letter of last name)\\
+EECS 1303 (A-H)~~~EECS 1012 (I-Lin) and EECS 1500 (Liu-Z) \\
+ %%   EECS 1012 26 seats  EECS 1303 74 seats and EECS 1500 100 seats
+%%Rooms (First letter of last name): EECS 1303 (A-K) and EECS 1200 (L-Z) \\
+\end{center}
+
+\vspace*{0.5in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{1.in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\vspace*{2cm}
+
+\fbox{\bf FILL IN YOUR NAME NOW. COPY THE HONOR CODE NOW. DO NOT COUNT PAGES.} \\
+\fbox{\bf DO NOT OPEN THE EXAM BOOKLET UNTIL TOLD TO DO SO.}
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 3  SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, HEADSETS, nor DIGITAL DEVICES of any KIND.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\noindent The maximum possible score is 80. To maximize your own score on this exam, read the questions carefully and write legibly.  For those problems that allow partial credit, show your work clearly on this booklet.
+
+\newpage
+
+\vspace*{4cm}
+
+\begin{center}
+\bf
+
+\Large
+Enter Multiple Choice Answers Here
+\end{center}
+
+\vspace*{4cm}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+\begin{flushright}
+{\bf \large WHEN TOLD TO OPEN EXAM, Copy Exam Number from Front Page:}\bline{1.0in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-II (Final)\\
+\large
+Tuesday, December 20, 20165, 4:10 PM-- 6:00 PM \\
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\vspace*{1cm}
+
+\fbox{\bf \large FILL IN YOUR NAME}
+
+\end{center}
+
+\vspace*{1 in}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.5in}|p{2.5in}|p{1.5in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   30\\
+\hline
+Problem 6 &  &   20\\
+\hline
+Problem 7 &  &   15\\
+\hline
+Problem 8 &  &   15\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+Problem 9 &  &   A$^+$ Points (5)\\
+\hline
+& & \\
+& & \\
+\hline
+\textbf{Answer}  &   &   \\
+ Prob. 9 & \makebox[10cm][l]{$Z^*=\begin{array}{ccc}\qquad & \qquad& \qquad \\ \qquad & \qquad & \qquad \\ \qquad & \qquad& \qquad \end{array}$} &   \\
+ & & \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\newpage
+
+
+
+\subsection*{Problems 1 - 5 {\rm (20 points: 5 $\times$ 4)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct (i.e., true) and one answer that is incorrect (i.e., false). \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5cm}
+
+%%Updated 26 Nov 2016 by JWG
+\item[{\bf 1.}] In the following, all of the matrices are real. Define $M=\left[ \begin{array}{ll} A& B \\ B^\top &C \end{array} \right]$, where $A=A^\top$ is $n \times n$, $B$ is $n \times m$ and $C=C^\top$ is $m \times m$; $n\ge 1$ and $m \ge1$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $M$ is positive definite if, and only if, all of the e-values of $A$ and $C-B^\top A^{-1} B $ are real and positive.
+\item Suppose that $M$ is \uline{not} positive definite. Then there exists $x\in \real^n$ and $y \in \real^m$, \uline{not both zero}, such that
+$$ \left[ \begin{array}{ll} A& B \\ B^\top &C \end{array} \right] \left[ \begin{array}{c} x \\ y\end{array} \right]= \left[ \begin{array}{c} 0\\ 0\end{array} \right]$$
+\item If $M$ is invertible, then there exists an $(n+m)\times (n+m)$ orthogonal matrix $O$ such that $OM$ is upper triangular.
+\item The matrix $M= \left[ \begin{array}{rrr}  2&   \sqrt{2} & \alpha\\  \sqrt{2}&   2&   0\\  \alpha &   0&  4\end{array}\right]$ is positive definite for all $\alpha>0$.
+\end{enumerate}
+
+%%Updated 26 Nov 2016 by JWG
+\vspace*{-2cm}
+\item[{\bf 2.}] Let $({\cal X}, \real, <\cdot, \cdot>)$ be an $n$-dimensional real inner product space and let $\{y^1, \ldots, y^k \}$ be linearly independent vectors in ${\cal X}$, with $1 < k < n$. The norm is the standard one induced by the inner product, namely, $||x|| = \sqrt{<x,x>}$.\\
+
+    For use in the problem, we set $M := \spanof{y^1, \ldots, y^k}$ and $G$ to be the Gram matrix, that is, $G_{ij} := <y^i, y^j>$. Finally, we suppose that  $\alpha = [\alpha_1, \ldots, \alpha_k]^\top \in \real^k$ and $\beta = [\beta_1, \ldots, \beta_k]^\top \in \real^k$ satisfy
+    $G \alpha = \beta.$
+
+
+\begin{enumerate}
+\setlength{\itemsep}{.3cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item For $x_0\in {\cal X}$, define $\beta_i=<x_0,y^i>$, $1 \le i \le k$. Then $x^* = \alpha_1 y^1 + \cdots + \alpha_k y^k$ is the unique solution to
+$$ {\rm arg}~\min_{y \in M} ||x_0-y||.$$
+
+\item For $x_0\in {\cal X}$, define $\beta_i=<x_0,y^i>$, $1 \le i \le k$. Then $x^* = x_0-\left(\alpha_1 y^1 + \cdots + \alpha_k y^k\right)$ is the unique solution to
+$$ {\rm arg}~\min_{z \in M^\perp} ||x_0-z||.$$
+
+ \item  For $x_0\in M$, define $\beta_i=<x_0,y^i>$, $1 \le i \le k$ and  set $V:=\{x\in {\cal X}~|~ <x,y^i> = \beta_i, 1\le i\le k\}.$   Then  $V=x_0+M$.
+
+ \item  For $x_0\in M$, define $\beta_i=<x_0,y^i>$, $1 \le i \le k$ and set $V:=\{x\in {\cal X}~|~ <x,y^i> = \beta_i, 1\le i\le k\}.$  Then $x^* = \alpha_1 y^1 + \cdots + \alpha_k y^k$ is the unique solution to
+$$ {\rm arg}~\min_{y \in V} ||y||.$$
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+
+
+\newpage
+%%Updated 26 Nov 2016 by JWG
+\item[{\bf 3.}]  Let $({\cal X}, \real, ||\cdot||)$ be a finite-dimensional normed space and let $S \subset {\cal X}$ be a nonempty subset of ${\cal X}$. Recall that $\mathring{S}$ is the interior of $S$, $\bar{S}$ is the closure of $S$ and $\sim S$ is the (set) complement of $S$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item Let $(x_k)$ be a sequence converging to a point $x^*\in {\cal X}$, that is $x_k\to x^*$. If $x_k \in \mathring{S}$, for all $k\ge 1$, then $x^* \in {S}.$
+\item Let $(x_k)$ be a sequence converging to a point $x^*\in S$, that is $x_k\to x^*\in S$. If $S$ is open, then there exist $\epsilon>0$ and $N< \infty$ such that $n\ge N$ implies $d(x_n,\sim S) \ge \epsilon$.
+\item Let $(x_k)$ be a Cauchy sequence such that $x_k \in S$ for all $k\ge1$. If $S$ is closed, then $\exists~x^* \in {S}$ such that $ x_k\to x^*$.
+\item  Let $S=\bar{B}_1(0)$, the closed-ball of radius one about the origin, and let $f:S\to \real$ be a continuous function. Then $\exists~x^*\in S$ such that
+$$f(x^*) = \sup_{x\in S} f(x). $$
+\end{enumerate}
+
+
+
+
+%%
+\item[{\bf 4.}] This problem is checking whether you understand the conditions for applying BLUE and MVE: Consider a problem with $y=Cx+e$, where $x\in \real^n$, $y\in \real^m$, and both $n$ and $m$ are greater than or equal to one. To be clear, unless stated in the problem data, you cannot assume that $m \ge n$ or that $n \ge m$. You measure $y$, but $e\in \real^m$ is unknown. In the following $M >0$ means that $M$ is a positive definite matrix and $M\ge0$ means that $M$ is positive semidefinite. Given this data, select the true statements. Note that as in HW, if for some of the given estimation problems you are given more data than you need, you are free to ignore the extra data.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+
+
+
+\item Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P =0.01 ~I_{n \times n}$  and $E\{e e^\top\}=Q=100~I_{m \times m}$. Then a Minimum Variance Estimate (MVE) of $x$ can be determined and is approximately equal to the Best Linear Unbiased Estimate of $x$.
+
+\item Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P \ge 0$  and $E\{e e^\top\}=Q > 0$. Then a  Minimum Variance Estimate (MVE) of $x$ can be determined.
+
+
+\item  Suppose  $E\{e\}=0$, $E\{e e^\top\}=Q >0$ and the rows of $C$ are linearly independent. Then a Best Linear Unbiased Estimate (BLUE) of $x$ can be determined.
+
+
+\item  Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P > 0$, $E\{e e^\top\}=Q \ge 0$ and the rows of $C$ are linearly independent. Then a Best Linear Unbiased Estimate (BLUE) of $x$ can be determined.
+
+
+
+\end{enumerate}
+
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+\newpage
+
+%\item[{\bf 5.}] \textbf{Wubing to replace this with a new problem on Gaussian Random Vectors:} We consider three jointly normal random variables $(X,Y,Z)$, with
+%$$ \mbox{mean}~~\mu = \left[\begin{array}{r} 3\\  2\\  1\end{array} \right] ~~\mbox{and covariance}~~ \Sigma = \left[  \begin{array}{rrr}  2&   1&   1\\  1&   4&   0\\  1&   0&   2\end{array}
+%\right] $$
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item $X$ and $Y$ are independent.
+%\item The conditional random variables $X{\Big|Z=z}$ and $Y{\Big|Z=z}$ are uncorrelated.
+%\item The conditional mean, $\ExpectofGiven{\left[ \begin{array}{r} X \\  Y \end{array} \right]}{Z=2} = \left[ \begin{array}{r} 3\\  2 \end{array} \right]$.
+%\item The variance\footnote{For a random variable, meaning a scalar as oposed to a random vector, variance and covariance are the same thing.} of the random variable $W=X + 2 Y + Z$ is 26, that is, $\mathrm{var}(W) = \mathrm{cov}(W)=26.$
+%\end{enumerate}
+
+\item[{\bf 5.}] Suppose we are given three random variables\footnote{For a random variable, meaning a scalar as opposed to a random vector, variance and covariance are the same thing.} $X_{1},\,X_{2}$ and $X_3$, which are jointly normally distributed, with the following information:
+    \begin{itemize}
+      \item $\mathcal{E}\{X_{1}\} = 1, \mathcal{E}\{X_{2}\} = 2, \mathcal{E}\{X_{3}\} =3$.
+      \item $\mathrm{var}(X_{1}) =1,\,\mathrm{var}(X_{2}) = 4,\,\mathrm{var}(X_{3}) =2.$
+      \item $\mathrm{cov}(X_{1},\, X_{2}) =1, \,\mathrm{cov}(X_{2}, X_{3}) = 2$,
+      \item the random variables $X_{1}$ and $X_{3}$ are independent.
+    \end{itemize}
+
+    Which of the following statements are true?
+    \begin{enumerate}
+        \setlength{\itemsep}{.15in}
+        \renewcommand{\labelenumi}{(\alph{enumi})}
+        \setlength{\itemsep}{.1in}
+        \item The random variables $X_{4} = 2X_{1}-X_{2}$ and $X_{1}$ are independent.
+        \item The random vector $\tilde{X }= \begin{bmatrix}X_{1}\\X_{2}\end{bmatrix}$ is normally distributed with
+         mean $\tilde{\mu}=\begin{bmatrix}1\\2\end{bmatrix} $ and covariance $\tilde{\Sigma}=\begin{bmatrix}1 & 1\\ 1&4 \end{bmatrix}$.
+
+        \item The following two conditional random variables have the same normal distribution:
+             \begin{itemize}
+               \item $X_{1}$ conditioned on $\begin{bmatrix}X_{2} =8\\ X_{3}=2\end{bmatrix}$,
+               \item $(X_{1}\,|_{\{X_{3} =2\}})$ conditioned on $\left(X_{2}|_{\{ X_3=2}\right)=8$.
+             \end{itemize}
+
+        \item Define the random variable $W=X_{1}+ X_{2}$.  Then the conditional random variable \\
+        $Z = W\,\Big|_{ X_{3}=2}$ has a normal distribution with mean $\mathcal{E}\{Z\}=2$ and variance $\mathrm{var}(Z)=5$.
+    \end{enumerate}
+\end{enumerate}
+
+%\newpage
+%
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\textbf{(You can use it for scratch paper.)}
+%
+%\end{center}
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we proved that real symmetric matrices have real e-values. So if you need this fact, simply state it and use it.}
+
+%  \newpage
+%\vspace*{8cm}
+%
+%\begin{center}
+%{\bf \LARGE Page Intentionally Left Blank}
+%
+%\end{center}
+
+
+
+  \newpage
+
+
+\noindent {\bf 6. (20 points)} (Place your answers in the boxes and show your work below.) Consider  the time-invariant linear system
+  \begin{align*}
+  x_{k+1} &= \underbrace{\left[ \begin{array}{rr} 0 & 1\\ 0 & 0\end{array} \right]}_{A} x_k + \underbrace{\left[ \begin{array}{c} 2\\ 1\end{array} \right]}_{G} w_k \\
+  \\
+  y_k &=   \underbrace{\left[ \begin{array}{cc} 1 & 1\end{array} \right]}_{C} x_k + v_k
+  \end{align*}
+
+where $w_k$ and $v_k$ are (scalar) zero mean white Gaussian (i.e. normal) noise processes, with constant covariances. To be clear,  $w_k$ and $v_k$  satisfy all of the assumptions given in our Kalman Filter handout. \\
+
+%where, for all $k \ge 0$, $ \ell \ge 0 $,  $\Expectof{v_k}=0$, $\Expectof{w_k}=0$. Moreover, $\Expectof{v_k v_\ell}=\delta_{k \ell}$, $\Expectof{w_k w_l}=2 \delta_{k \ell}$ and $\Expectof{w_k v_\ell}=0$.\\
+
+
+%%\newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+
+\noindent \textbf{Data:} $\widehat{x}_{2|2}:=\ExpectofGiven{x_2}{y_0, y_1, y_2}= \left[ \begin{array}{c} 1 \\ 1\end{array} \right]$ and $P_{2|2}:=\ExpectofGiven{(x_{2}-\widehat{x}_{2|2})(x_{2}-\widehat{x}_{2|2})^\top}{y_0, y_1, y_2} =\left[ \begin{array}{rr} 2 & 1\\ 1 & 2\end{array} \right] $ and for all $k\ge 0$, $R=R_k=\cov\{w_k\}=2$ and $Q=Q_k=\cov\{v_k\}=5$.\\
+
+\noindent \textbf{Determine:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item (5 points)  $\widehat{x}_{3|2}$
+\item  (5 points) $K_3$ (the Kalman gain at time 3)
+\item  (5 points) $\widehat{x}_{3|3}$, when the measured value of $y_3=2$
+\item  (5 points) the mean and variance of the conditional random variable $y_{3}{\big|(y_0, y_1, y_2)}$. To be clear, $y_{3}{\big|(y_0, y_1, y_2)}$ is a normal random variable, and as such, it is determined by two scalar quantities, its mean and its variance, which you are asked to determine. Do not confuse the conditional random variable with the measured value $y_3=2$. This is all I can tell you.
+\end{enumerate}
+
+\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations. To reduce time spent on calculations, \textbf{you are given that} $\left(C P_{3|2} C^\top + Q\right)=25$, which you can use without verification. \\
+
+
+\fbox{\rule[-1cm]{0cm}{2cm} $\widehat{x}_{3|2}=$ \hskip2cm ~~}~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $K_3=$  \hskip2cm ~~}~~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $\widehat{x}_{3|3}=$ \hskip2cm ~~}~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $\begin{array}{r}\text{mean}= \\ \mbox{ } \\ \text{variance}=  \end{array} $\hskip2cm ~~}
+
+
+
+
+
+
+\newpage
+\textit{Please show your work for question 6.}
+
+
+\newpage
+
+
+
+\noindent {\bf 7. (15 points)}  (Place your answers in the box and show your work below.)  You are given the singular value decomposition (SVD) of a symmetric matrix $M$ as
+\begin{equation}\label{eqn:eig_decomp}
+  M=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+  \left[  \begin{array}{cc} 8 & 0 \\[2mm] 0 & 2\end{array} \right]
+  \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right].
+\end{equation}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+    \item (5 points)  Find an $\widehat{x}$ such that $\ds \widehat{x}^\top M \widehat{x} =\min_{x^\top x =1}x^\top M x$.
+
+    \item (5 points)  Find a rank-1 matrix $\Delta M$ of minimum 2-norm such that $\mathrm{rank}(M+\Delta M)=1$. The matrix 2-norm being used here is
+        \begin{equation*}
+          ||M||_{2}=\sqrt{\lambda_{\max}(M^\top M)}.
+        \end{equation*}
+
+    \item (5 points)  Suppose
+        \begin{equation*}
+          A = \left[  \begin{array}{cc} 1 & -1 \\ 2 & 2\\0 & 0\end{array} \right],
+        \end{equation*}
+        and $A^\top A=M$ with $M$ given above. Let $A=U\Sigma V^\top$ be the SVD of $A$. Find $V$ and $\Sigma$.
+
+    \item[] {\bf Remark:} To be clear here, the SVD means full SVD, i.e., $\Sigma$ is a rectangular matrix in this case.
+\end{enumerate}
+\noindent \textbf{Answer:}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\widehat{x}=$\hskip 6cm} (You can just give the answer)\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\Delta M=$\hskip 6cm ~}\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $V=$\hskip 4cm ~and~~ $\Sigma=$\hskip4cm ~~}
+\end{enumerate}
+
+
+% \vspace*{.3in}
+% \noindent \textbf{Show your calculations below}
+\newpage
+\textit{Please show your work for question 7.}
+\newpage
+
+
+
+\noindent {\bf 8. (15 points)}  The following are short answer questions. You are not supposed to give a proof; only give a few short reasons why something is TRUE or FALSE. An example of such a problem was posted in the Information Sheet.
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+%\item \textbf{(0 Points)} Suppose that $({\cal X}, || \cdot||)$ is a finite-dimensional normed space and $S \subset {\cal X}$ is a subset. Suppose that $P:S \to S$ satisfies $\forall~ x,y \in S$, $||P(x)-P(y)|| \le 0.8 ||x-y||$.  Then, for any $x_0 \in S$, the sequence $x_{k+1}=P(x_k)$ converges and has a limit in $S$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:} \fbox{False}. By the proof of the Contraction Mapping Theorem, the sequence $(x_k)$ is Cauchy. Because ${\cal X}$ is finite dimensional, it is complete, and thus Cauchy sequences have limits. But because $S$ was not stated to be closed, the limit may be an element of $S$. \textbf{Remark:} Just to give you extra practice, suppose the problem had stated that $S$ were closed. Then you could have answered like this: \fbox{True}. Because ${\cal X}$ is finite dimensional, it is complete. $S$ is then complete because it is a closed subset of complete normed space. Hence, all the hypotheses of the Contraction Mapping Theorem are met, and thus the result is true.
+
+\item \textbf{(5 Points)} Suppose $({\cal X},\,\real,\, || \cdot||)$ is a finite-dimensional normed space.  If $S \subset {\cal X}$ is a non-empty closed and bounded subset, then there exists $x^* \in S$ such that $||x^*||=\inf_{y\in S} ||y||$. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+\vspace*{6cm}
+
+
+
+
+\item \textbf{(5 Points)}  Consider the real numbers as a normed space; that is, we take  ${\cal X} = \real$ and define the norm to be $||x|| = |x|$, the standard absolute value. Any set consisting of a single rational number $\{r\}=\{\frac{n}{m}\}$, $m\neq 0$, is closed. Hence, $\mathbb{Q}$, the union of all the rational numbers, is also a closed set. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+        \vspace*{6cm}
+
+    \item \textbf{(5 Points)} Suppose $({\cal X},\,\real,\, || \cdot||)$ is a finite-dimensional normed space and suppose that both $P\subset{\cal X}$ and its set complement $\sim P$ are nonempty sets.  If $x_0\in P$ satisfies $\forall~\epsilon>0$, $\exists~y \in \sim P$ such that $||x_0 - y||< \epsilon$, then  $x_0\not \in  \mathring{P}$. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+
+
+
+
+
+%\item \textbf{(5 Points)} Suppose that $({\cal X},\, \real,\, || \cdot||)$ is a finite-dimensional normed space and $f:\mathcal{X}\to \real$ is a continuous function. Given that the set $S=\{x\in\mathcal{X}\,|\, f(x)\le 1\}$ is a non-empty closed and bounded set. Then $\exists\, x^\ast\in\mathcal{X}$ such that $\ds f(x^\ast)=\inf_{x\in\mathcal{X}}f(x)$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:}
+%
+%\vspace*{6cm}
+
+
+
+%\item \textbf{(5 Points)}  Suppose that $S$ is a closed subset of a finite-dimensional normed space $({\cal X},\, \real,\, || \cdot||)$. Let $(x_n)$ be a sequence of elements\footnote{Yes, this means that $x_n \in S$ for all $n\ge1$.} of $S$ and suppose that all of the convergent subsequences of $(x_n)$ have a common\footnote{Means, if $(x_{n_i})$ is a subsequence of $(x_n)$, and $x_{n_i}\to \bar{x}$, then $\bar{x} = x^\ast$.} limit $x^\ast$. Then the sequence $(x_n)$ also converges to $x^\ast$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:}
+
+
+
+\end{enumerate}
+
+\newpage
+\textit{Extra space for question 8. You should NOT need this space because the answers are meant to be short!   }
+
+\newpage
+
+%%Updated 27 Nov 2016 by JWG
+
+%\noindent {\bf 9. (5 points)}  \textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 3 of the exam booklet.}\\
+%
+% You are given three \uline{zero-mean} random variables $X_1$, $X_2$, $X_3$, with covariance matrix $$ E\left\{ \left[ \begin{array}{c} X_1 \\ X_2 \\ X_3   \end{array} \right]  \left[ \begin{array}{ccc} X_1 & X_2 & X_3   \end{array} \right] \right\}=Q=\left[ \begin{array}{rrr}1&0&3\\0&4&5\\3&5&10\end{array} \right].$$
+
+\noindent {\bf 9. (5 points)}  \textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 3 of the exam booklet.}\\
+
+ You are given three \uline{zero-mean} random variables $X_1$, $X_2$, $X_3$, with covariance matrix $$ E\left\{ \left[ \begin{array}{c} X_1 \\ X_2 \\ X_3   \end{array} \right]  \left[ \begin{array}{ccc} X_1 & X_2 & X_3   \end{array} \right] \right\}=Q=\left[ \begin{array}{rrr}1&0&2\\0&4&2\\2&2&10\end{array} \right]>0.$$
+
+\noindent \textbf{Problem:}  Using the methods of ROB 501, find $Z\in \spanof{X_1,X_2,X_3}$ of minimum variance such that
+$${\rm cov}(Z,Y_1):={\cal E}\{ZY_1\} = 12 ~~ \text{and} ~~{\rm cov}(Z,Y_2):={\cal E}\{Z Y_2\} = 6,$$ for the random variables $Y_1=2X_1$ and $Y_2=X_2-X_3$.\\
+
+\noindent \textbf{Remark:}  Place your answer for $Z$ BELOW and on page 3 of the Exam Booklet. If you get that right, then we'll look to see if we accept your method or not. For example, at a minimum, there should be a clearly defined vector space and some means to determine distance. We cannot say more, so do not ask!\\
+
+\fbox{$Z^*=\begin{array}{ccc}\qquad & \qquad& \qquad \\ \qquad & \qquad & \qquad \\ \qquad & \qquad& \qquad \end{array}$}
+
+%$$Q=E\big\{  \big\}
+
+\newpage
+
+\newpage
+\textit{Extra space for question 9.}
+
+\newpage
+\vspace*{2cm}
+
+\begin{center}
+(Scratch Paper)\\
+{\bf \LARGE Page Intentionally Left Blank: Do Not Remove}\\
+(If you write anything here, be sure to indicate to which problem it applies.)
+
+\end{center}
+
+
+
+%\newpage
+%\noindent {\bf Remove carefully. This is your scratch paper.}
+\end{document}
+
+
+\textbf{Un-unsed Problem:}
+\noindent {\bf 6. (15 points)} (Place your answer in the box and show your work below.) Determine the Best Linear Unbiased Estimate (BLUE) of $x \in \real^2$ when
+$$ y = Cx + \epsilon$$
+and
+$$y=\left[ \begin{array}{c} 4\\ 8 \\ 0\end{array} \right]~~~C=\left[ \begin{array}{rr}1&1\\0&2\\-1&1\end{array} \right]~~~~Q=\E\{\epsilon \epsilon^\top\}=\left[
+\begin{array}{rrr}0.70&-0.40&-0.10\\-0.40&0.80&0.20\\-0.10&0.20&0.30 \end{array} \right].$$\\
+
+\noindent \textbf{Helpful remark:} You are given the following:
+ $$ Q^{-1} C C^\top = \left[ \begin{array}{rrr}6&8&2\\6&8&2\\-2&4&6\end{array} \right],~~~~  C^\top Q^{-1}=\left[ \begin{array}{rrr}2&2&-4\\4&4&2\end{array} \right],~\text{and} ~~~~ C C^\top Q^{-1} = \left[  \begin{array}{rrr}6&6&-2\\8&8&4\\2&2&6\end{array}\right].  $$
+ You do not need to verify that these are true! If they are useful, use them, and if not useful, ignore them.\\
+
+
+\textbf{2015 Final Exam Problem:}
+Consider the (real) inner product space ${({\cal X}, \real, <\cdot, \cdot>)}$  where ${\cal X}$ is the set of $2 \times 2$ real matrices and the inner product of two matrices $A$ and $B$ is ${<A,B>:= \mathrm{tr}(A^\top B)}$. \\
+
+Find $A$ of minimum norm that satisfies $<A,Y_1> = 6$ and $<A,Y_2> = 3$, for\\
+
+$$Y_1=\left[ \begin{array}{rr}1&1\\0&1 \end{array} \right]~~\text{and}~~ Y_2= \left[ \begin{array}{rr}1 & 0\\1&-1 \end{array} \right].$$\\
+
+\noindent \textbf{To make the problem quick to work, you are given:} $<Y_1,Y_2>=0$ and $<Y_2,Y_2>=3$. \\
+
+\fbox{\rule[-1cm]{0cm}{2cm} $A=$ \hskip2cm ~~}\\
+
+%\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations.\\

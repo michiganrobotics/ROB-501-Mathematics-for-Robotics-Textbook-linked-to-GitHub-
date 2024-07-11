@@ -1,0 +1,3 @@
+QR Factorization on page 314 of James B Carrell
+
+SVD on page 325 of Kuttler. Also relation to Least Squares, Frobenius norm, Moore-Penrose Inverse

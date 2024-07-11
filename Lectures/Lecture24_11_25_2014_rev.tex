@@ -1,0 +1,175 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 24\\
+Typeset by:  Kevin Chen\\
+Proofread by: Yong Xiao\\
+Revised by Ni on Nov. 21, 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}
+    \textbf{Newton-Raphson \& Contraction Mapping}
+\end{center}
+
+\noindent Let $h : \real^n\to\real^n$  satisfy, $\forall~x \in \real^n$, the Jacobian $\frac{\partial h}{\partial x} \left( x \right)$ exists , is continuous and is invertible. Moreover, $\frac{\partial h}{\partial x}\left( x \right)$ is a continuous function.
+
+\noindent \textbf{Remark:} One says $h$ is $C^1$ when its derivative exits and is continuous.
+
+\noindent \textbf{Problem:}~ For $y \in \real^n$, find a solution to $y=h\left(x\right), $  i.e., seek $x^* \in \real^n$ s.t. $h\left(x^*\right) = y$.
+
+\noindent \textbf{Approach:} Generate a sequence of approximate solutions. Then, refer to the literature to ensure convergence.
+
+\textbf{Idea:} Have $x_k$, seek $x_{k+1}$ such that $h\left(x_{k+1}\right)-y \approx 0$. We write $x_{k+1} = x_k + \Delta x_k$ so that  $h\left(x_k+\Delta x_k\right)-y \approx 0$.  Applying Taylor's Theorem and keeping only the zeroth and first order terms,
+    \begin{align*}
+        h\left(x_k\right)&+\frac{\partial h}{\partial x}\left(x_k\right)\Delta x_k - y \approx 0\\
+        \frac{\partial h}{\partial x}\left(x_k\right)\Delta x_k &\approx  -\left(h\left(x_k\right)-y\right)\\
+        \Delta x_k &\approx -\left[\frac{\partial h}{\partial x}\left(x_k\right)\right]^{-1}\left(h\left(x_k\right)-y\right)
+    \end{align*}
+    $$\therefore x_{k+1} = \underbrace{x_k-\left[\frac{\partial h}{\partial x}\left(x_k\right)\right]^{-1}\left(h\left(x_k\right)-y\right)}_{T\left(x_k\right)}$$
+    \newpage
+
+As indicated, we define $T\left(x\right) = x-\left[\frac{\partial h}{\partial x}\left(x\right)\right]^{-1}\left(h\left(x\right)-y\right)$.
+    Then,\\
+ \begin{align*}
+ &x^* = T\left(x^*\right) \quad \text{(Fixed Point)}\\
+        &\Leftrightarrow x^*=  -\left[\frac{\partial h}{\partial x}\left(x^*\right)\right]^{-1}\left(h\left(x^*\right)-y\right) \\
+        &\Leftrightarrow 0=\left[\frac{\partial h}{\partial x}\left(x^*\right)\right]^{-1}\left(h\left(x^*\right)-y\right) \\
+        &\Leftrightarrow y = h \left(x^*\right)
+    \end{align*}
+
+Let $\left(\mathcal{X},\real,\| \cdot \|\right)$ be a normed space, $S \subset \mathcal{X},$  and $T : S \to S$.
+
+\noindent \textbf{Questions:}
+        \vspace{-5mm}
+        \begin{enumerate}
+            \item When does $\exists x^*$ s.t. $T\left(x^*\right) = x^*$? (Fixed point)
+            \item If a fixed point exists, is it unique?
+            \item When can a fixed point be determined by the Method of Successive Approximations: $x_{n+1}=T\left(x_n\right)$?
+        \end{enumerate}
+
+\noindent \textbf{Def.}~ $T : S \to S$ is a \underline{contraction mapping} if,
+$$ \exists ~0 \leq \alpha < 1 \text{ s.t. } \forall x,y \in S, \|T\left(x\right)-T\left(y\right)  \| \leq \alpha \|x-y\|$$.
+
+\noindent \textbf{Contraction Mapping Theorem:}~ If $T$ is a contraction mapping on a complete subset $S$ of a normed space $\left(\mathcal{X},\real,\| \cdot \|\right)$, then there exists a unique vector $x^* \in S$ such that $T\left(x^*\right) = x^*$. Moreover, for every initial point $x_0 \in S$, the sequence $x_{n+1} = T\left(x_n\right), n \geq 0$, is Cauchy, and $x_n \rightarrow x^*$.
+
+
+\underline{Proof:}~ For all $n\geq 1$
+    \begin{align*}
+        \| x_{n+1}-x_n \| &= \| T\left(x_n\right)-T\left(x_{n-1}\right) \|\\
+        &\leq \alpha\| x_n-x_{n-1}\|
+    \end{align*}
+    By induction, $\| x_{n+1}-x_n \| \leq \alpha^n\| x_1-x_0 \|$. Consider $\| x_m-x_n \|$, and WLOG, suppose $m=n+p,\ p > 0$. Then,
+    \begin{align*}
+        \| x_m-x_n \| &= \| x_{n+p}-x_n \|\\
+        &= \| x_{n+p}-x_{n+p-1}+x_{n+p-1}- \dots +x_{n+1}-x_n\|\\
+        &\leq \| x_{n+p}-x_{n+p-1}\|+ \dots + \| x_{n+1}-x_n\|\\
+        &\leq \left(\alpha^{n+p-1}+\alpha^{n+p-2}+ \dots + \alpha^n\right)\|x_1-x_0\|\\
+        &= \alpha^n \sum\limits_{i=0}^{p-1} \alpha^i\|x_1-x_0\|\\
+        &\leq \alpha^n \sum\limits_{i=0}^\infty \alpha^i\|x_1-x_0\|\\
+        &= \dfrac{\alpha^n}{1-\alpha}\|x_1-x_0\| \xrightarrow[\substack{n\rightarrow \infty \\ m\rightarrow \infty}]{}0
+    \end{align*}
+    $\therefore \left(x_n\right)$ is Cauchy sequence in $S$, and by completeness, $\exists x^* \in S$ such that $x_n \rightarrow x^*$. $\square$
+
+\noindent \textbf{Claim:} $x^*=T\left(x^*\right)$
+
+\underline{Proof:} For every $n\ge 1$,
+    %\vspace{-5mm}
+    \begin{align*}
+        \| x^*-T\left(x^*\right) \| &= \| x^*-x_n+x_n- T\left(x^*\right)\| \\
+        &=\| x^*-x_n+T\left(x_{n-1}\right)- T\left(x^*\right)\| \\
+        &\leq \| x^*-x_n\|+\|T\left(x_{n-1}\right)- T\left(x^*\right)\| \\
+        &\leq \| x^*-x_n\|+\alpha \|x_{n-1}-x^*\| \xrightarrow[n\rightarrow \infty]{}0.\ \square
+    \end{align*}
+\noindent \textbf{Claim:} $x^*$ is unique.
+
+\underline{Proof:}~ Suppose $y^*=T\left(y^*\right)$.\\
+    Then,
+    \vspace{-5mm}
+    \begin{align*}
+        \|x^*-y^*\|&=\|T\left(x^*\right)- T\left(y^*\right)\| \\
+        &\leq \alpha \|x^*-y^*\| \text{ and } 0 \leq \alpha < 1\\
+    \end{align*}
+    The only non-negative real number $\gamma$ that satisfies $\gamma \le \gamma \alpha$ for some $0 \le \alpha < 1$ is $\gamma=0$.
+   Hence, due to the property of norms, $0=\|x^*-y^*\|\Leftrightarrow x^*=y^*$. $\square$
+
+\begin{center}
+    \textbf{Continuous Functions and Compact Sets}
+\end{center}
+
+\noindent \textbf{Def.} Let $\left(\mathcal{X},\| \cdot \|\right)$, and $\left(\mathcal{Y},\|| \cdot \||\right)$, be two normed spaces.
+
+(a) $f:\mathcal{X} \rightarrow \mathcal{Y}$ is \underline{continuous at $x_0 \in \mathcal{X}$} if $\forall \varepsilon > 0,~ \exists  \delta \left(\varepsilon, x_0\right) > 0$ such that
+    $$ \|x-x_0\| < \delta \Rightarrow\|| f\left(x)\right) \|| < \varepsilon$$,
+    $i.e. \ \forall \varepsilon>0,~\exists \delta > 0, ~ s.t. \ x \in B_{\delta}\left(x_0\right) \Rightarrow f\left(x\right) \in B_{\varepsilon}\left(f\left( x_0\right)\right)$.
+
+    (b) $f$ is \underline{continuous} if it is continuous at $x_0$ for all $x_0 \in \mathcal{X}$.
+
+\noindent \textbf{Theorem:} Let  Let $\left(\mathcal{X},\| \cdot \|\right)$, and $\left(\mathcal{Y},\|| \cdot \||\right)$ be two normed spaces. $f:\mathcal{X} \rightarrow \mathcal{Y}$ a function.
+    \begin{enumerate}[label=(\alph*)]
+        \vspace{-5mm}
+        \item If $f$ is continuous at $x_0$ and the sequence $\left(x_n\right)$ converges to $x_0 ~ \left(\textnormal{i.e.}\ x_n \rightarrow x_0\right)$.\\
+            Then, $f\left(x_n\right) \rightarrow f\left(x_0\right)$.
+        \item If $f$ is not continuous at $x_0$ (discontinuous), then theres exists a sequence $\left(x_n\right)$ such that $ x_n \rightarrow x_0$, and $f\left(x_n\right) \nrightarrow f\left(x_0\right)$, that is, $f\left(x_n\right)$ does not converge to $f\left(x_0\right)$.
+    \end{enumerate}
+
+The proof is done in HW 10.
+
+\end{document}
+
+
+
+

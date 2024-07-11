@@ -1,0 +1,907 @@
+\section*{Learning Objectives}
+
+\begin{itemize}
+\item Introduce the notion of factoring a matrix as a means of solving systems of linear equations
+\item See important applications of the work we have done in Chapters 2 and 3.
+\end{itemize}
+
+\section*{Outcomes} 
+\begin{itemize}
+\item  Learn how to compute and use a QR Factorization.
+\item Understand that the theoretical definition of linear independence may not be adequate for engineering practice. 
+\item Learn about the Singular Value Decomposition, a workhorse in numerical linear algebra, that addresses the above issue and much more. 
+\item Learn the LU factorization, the LDLT (or Cholesky) Factorization, and their uses.
+\end{itemize}
+
+\newpage
+
+\section{QR Factorization}
+
+\begin{definition}
+An $n \times m$ matrix $R$ is \textbf{upper triangular} if $R_{ij}=0$ for all $i>j$.
+\end{definition}
+
+\begin{thm}
+(QR Decomposition or Factorization)
+Let $A$ be a real $n \times m$ matrix with \textbf{linearly independent columns}. Then there exist an $n \times m$ matrix $Q$ with \textbf{orthonormal columns} and an $m \times m$ \emph{upper triangular}  matrix $R$ such that
+    \begin{equation*}
+        A=QR.
+    \end{equation*}
+\end{thm}
+\begin{rem} \mbox{ }
+   \begin{enumerate}
+	    \item $Q^\top Q=I_{m \times m}$
+	    \item 
+	        $R=\left[\begin{array}{ccrcr} r_{11} & r_{12} & \cdots & r_{1(m-1)} & r_{1m}\\ 
+	        0 & r_{22} & \cdots & r_{2(m-1)} & r_{2m}\\
+	         0 & 0 & r_{33} & \cdots & r_{3m} \\
+	         \vdots & \vdots & ~~\ddots & \ddots & \vdots \\
+	       0 & \cdots & \cdots & 0~~~ & r_{mm} \end{array}\right]$
+	    \item Columns of $A$ linearly independent $\iff R$ is invertible
+    \end{enumerate} 
+\end{rem}
+
+\textbf{Proof:} The proof is organized around the computation of the factorization by the \emph{Gram-Schmidt Algorithm with Normalization}. Partition $A$ into columns, $A= \left[\begin{array}{cccc} A_1 & A_2 & \cdots & A_m \end{array}\right]$, $A_i\in\real^n$, and use the inner product $\langle x,y\rangle=x^\top y$.
+        For $1\leq k\leq n$, $\{A_1,\ A_2,\ \dotsb ,\ A_m\}\rightarrow \{v_1,\ v_2,\ \dotsb ,\ v_m\}$ by 
+        % \begin{align*}
+        %     v^1 &=\frac{A_1}{\|A_1\|}\\
+        %     v^2 &=A_2-\langle A_2,v^1\rangle v^1;\\
+        %     v^2 &=\frac{v^2}{\|v^2\|};\\
+        %     &\vdots\\
+        %     v^k &=A_k-\langle A_k,v^1\rangle v^1-\langle A_k,v^2\rangle v^2-\dotsb -\langle A_k,v^{k-1}\rangle v^{k-1};\\
+        %     v^k &=\frac{v^k}{\|v^k\|};
+        % \end{align*} 
+        \\
+        
+        for $k=1:m$\\
+        \indent\hspace{4ex}$v^k=A_k$\\
+        \indent\hspace{4ex}for $j=1:k-1$\\
+        \indent\hspace{8ex}$v^k=v^k-\langle A_k,v^j\rangle v^j$\\
+        \indent\hspace{4ex}end\\
+        \indent\hspace{4ex}$v^k =\frac{v^k}{\|v^k\|}$\\
+        end\\
+        
+ By construction, $Q:= \left[\begin{array}{cccc}v^1 &v^2 & \cdots & v^m\end{array}\right]$ has orthonormal columns, and hence $Q^\top Q=I_{m \times m}$ because $[Q^\top Q]_{ij}=\langle v^i, v^j \rangle=1, i = j$ and zero otherwise.\\
+
+    What about $R$? By construction, $A_i\in \spanof{v^1,\dotsb,v^i}$, with
+    $A_i=\langle A_1,v^1\rangle v^1+\langle A_2,v^2\rangle v^2+\dotsb+\langle A_i,v^i\rangle v^i$. 
+    We define 
+    $$R_i:=\begin{bmatrix}
+        \langle A_1,v^1\rangle\\
+        \vdots\\
+        \langle A_i,v^i\rangle\\
+        0\\
+        \vdots\\
+        0
+    \end{bmatrix},$$ where $R_{ij}=0$ for $i < j \le n$. The coefficients in $R$ can be extracted directly from the Gram-Schmdit Algorithm; no extra computations are required. By construction, $ A_i=Q R_i$ and thus we have $A = QR$.\\
+    
+    \textbf{Note:} $R_i = [A_i]_{\{v^1, \ldots, v^m\}}$, the representation of $A_i$ in the basis $\{v^1, \ldots, v^m\}$.
+
+\Qed
+    
+\begin{example} \textbf{(QR Decomposition of Overdetermined Equations)} Suppose that $Ax=b$ is overdetermined with columns of $A$ linearly independent. Write $A=QR$ and consider
+	        \begin{align*}
+	            A^\top A\widehat{x}&=A^\top b\\
+	            & \Updownarrow \\
+	           R^\top Q^\top QR \widehat{x}& = R^\top Q^\top b\\
+	           & \Updownarrow \\
+	           R^\top R \widehat{x}& = R^\top Q^\top b \textnormal{ \hspace{1pc} (because $Q^\top Q = I$)}\\
+	            & \Updownarrow \\
+	           R \widehat{x} & =  Q^\top b \textnormal{ \hspace{1pc} (because $R$ is invertible)}
+	        \end{align*}
+Hence, we can solve for $\widehat{x}$ by back substitution using the triangular nature of $R$.	        For example, when $n=3$
+	        $$\begin{bmatrix} r_{11} & r_{12} & r_{13}\\ 0 & r_{22} &r_{23}\\ 0 & 0 & r_{33} \end{bmatrix}\widehat{x}=Q^\top b,$$
+and therefore, $\widehat{x}_3$ to $\widehat{x}_1$ can be obtained easily without performing a matrix inverse.
+\end{example}
+
+\begin{example} \textbf{(QR Decomposition of Underdetermined Equations)} Suppose $Ax=b$ is underdetermined with rows of $A$ linearly independent. For the inner product $\langle x,y\rangle=x^\top y,$  \
+$\widehat{x}=A^\top (AA^\top)^{-1}b$ is the value of $x$ of smallest norm satisfying $Ax=b$.\\
+
+$A^\top$ has linearly independent columns, and hence we write $A^\top=QR,\ Q^\top Q=I,\ R$ is upper triangular and invertible. It follows that
+            \begin{align*}
+            \widehat{x}& =A^\top (AA^\top)^{-1}b \\
+             & \Updownarrow \\
+	          \widehat{x}&= Q R \left(R^\top Q^\top Q R  \right)^{-1} b\\
+	             & \Updownarrow \\
+	            \widehat{x}&=QR(R^\top R)^{-1}b\\
+	             & \Updownarrow \\
+	           \widehat{x} &=QRR^{-1}(R^\top)^{-1}b\\
+	             & \Updownarrow \\
+	            \widehat{x}&=Q(R^\top)^{-1}b.
+            \end{align*}
+\Qed            
+\end{example} 
+
+\section{Singular Value Decomposition or SVD}
+%% ROB 501 Lecture 17
+The material here is inspired by a handout prepared by Prof. James Freudenberg, EECS, University of Michigan.
+
+\subsection{Motivation}
+
+In abstract linear algebra, a set of vectors is either linearly independent or not. There is nothing in between. For example, the set of vectors
+$$\left\{ v_1 =  \left[ \begin{array}{l} 1 \\1 \end{array} \right] ,  v_2 =  \left[ \begin{array}{l} 0.999 \\1\end{array} \right] \right\}$$
+is linearly independent. In this case, one looks at the set of vectors and says, yes, BUT, the vectors are ``almost'' dependent because when one computes the determinant
+$$ \det  \left[ \begin{array}{ll} 1 & 0.999 \\1 & 1\end{array} \right] = 0.001,$$
+the result is pretty small, so it should be fine to call them dependent. \\
+
+Well, what about the set
+$$\left\{ v_1 =  \left[ \begin{array}{l} 1 \\0 \end{array} \right] ,  v_2 =  \left[ \begin{array}{l} 10^4 \\1 \end{array} \right] \right\} ?$$
+When you form the matrix and check the determinant, you get
+$$ \det  \left[ \begin{array}{ll} 1 & 10^4 \\0& 1\end{array} \right] = 1,$$
+which seems pretty far from zero. So are these vectors ``adequately'' linearly independent?\\
+
+\textbf{Maybe not!} Let's note that
+ $$\det\left(\left[ \begin{array}{ll} 1 & 10^4 \\0& 1\end{array} \right] +  \left[ \begin{array}{ll} 0 & 0 \\10^{-4}& 0\end{array} \right] \right)  =  \det \left[ \begin{array}{ll} 1 & 10^4 \\10^{-4}& 1\end{array} \right] =0,$$
+and hence it's possible to add a very small perturbation to one of the vectors and make the set linearly dependent! This cannot be good.
+
+\subsection{Definition and Main Theorem}
+
+\begin{definition}(Rectangular Diagonal Matrix)  An $n \times m$ matrix $\Sigma$ is a \textbf{Rectangular Diagonal Matrix} if $$ \Sigma_{ij} = 0~~\text{for}~~ i \ne j.$$
+The \textbf{diagonal} of $\Sigma$ is the set of all $\Sigma_{ii}$, $1 \le i \le \min(n, m)$.
+An alternative and equivalent way to define a Rectangular Diagonal Matrix is 
+    \begin{enumerate}
+    	\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.2cm}
+        \item (tall matrix) $n > m$  \;\;\;  $\Sigma = \left[ \begin{array}{c} \Sigma_{d} \\ 0 \end{array} \right]$, where $\Sigma_{d}$ is an $m \times m$ diagonal matrix.
+        \item (wide matrix) $n < m$ \;\;\; $\Sigma = \left[ \begin{array}{cc} \Sigma_{d} & 0 \end{array} \right]$,  where $\Sigma_{d}$ is an $n \times n$ diagonal matrix.
+    \end{enumerate}
+The \textbf{diagonal} of $\Sigma$ is equal to the diagonal of $ \Sigma_{d}$.
+\end{definition}
+
+\vspace*{.2cm}
+
+\begin{thm} \textbf{(SVD or Singular Value Decomposition)}
+Every $n \times m$ real matrix A can be factored as 
+$$A = U \cdot \Sigma \cdot V^\top,$$
+where $U$ is an $n \times n$ orthogonal matrix, $V$ is an $m \times m$ orthogonal matrix, $\Sigma$ is an $n \times m$ rectangular diagonal matrix, and the diagonal of $\Sigma$, 
+$$\operatorname{diag}(\Sigma) = \left[ \sigma_1, \sigma_2, \dotsb , \sigma_p \right],$$
+satisfies $ \sigma_1 \ge \sigma_2 \ge \dotsb  \ge \sigma_p \ge 0$, for $p:={\min}(n,m)$.
+    Moreover, the columns of $U$ are eigenvectors of $A \cdot A^\top$, the columns of $V$ are eigenvectors of $A^\top \cdot A$, and $\{\sigma_1^2, \sigma_2^2, \ldots , \sigma_p^2\}$ are eigenvalues of both $A^\top \cdot A$ and $A \cdot A^\top$.
+    The \textbf{Singular Values of ${\bf A}$} are the elements $\{\sigma_1, \ldots, \sigma_p \}$ from the diagonal of $\Sigma$. 
+\end{thm}
+
+\begin{rem}
+   The entries of $\diag(\Sigma)$ are called \textbf{singular values} of $A$.
+\end{rem}
+
+\textbf{Proof:}
+ $A^\top A$ is $m\times m$, real, and symmetric. Hence, there exists a set of orthonormal eigenvectors $\{v^1,\ \ldots,\ v^m\}$ such that 
+ $$A^\top Av^j=\lambda_jv^j.$$ 
+ Without loss of generality, we can assume that $
+        \lambda_1\geq\lambda_2\geq\cdots\geq\lambda_m\geq0$.
+    If not, we simply re-order the $v^i$'s to make it so. 
+For $\lambda_j>0$, say $1\leq j\leq r$, we define
+    \begin{align*}
+        \sigma_j=\sqrt{\lambda_j}
+    \end{align*}
+    and
+    \begin{equation*}
+        q^j = \frac{1}{\sigma_j}Av^j\in\real^n
+    \end{equation*}
+\begin{claim} For $1\leq i,\ j\leq r$, $\left(q^i\right)^\top q^j=\delta_{ij}=
+\begin{cases}
+            1 & i=j\\
+            0 & i\neq j
+\end{cases}$. That is, the vectors $\{ q^1, q^2, \ldots, q^r\}$ are orthonormal.
+         
+\end{claim}
+
+\textbf{Proof of Claim:}
+    \begin{align*}
+        \left(q^i\right)^\top q^j &= \frac{1}{\sigma_i}\frac{1}{\sigma_j}\left(v^i\right)^\top A^\top Av^j\\
+        &=\frac{\lambda_j}{\sigma_i\sigma_j}\left(v^i\right)^\top v^j\\
+        &= \begin{cases}
+                \frac{\lambda_i}{\left(\sigma_i\right)^2} & i=j\\
+                0 & i\neq j
+            \end{cases}\\
+        &= \begin{cases}
+            1 & i=j\\
+            0 & i\neq j
+        \end{cases}
+    \end{align*}
+\hfill $\square$\\
+
+
+
+\begin{claim} The vectors $\{ q^1, q^2, \ldots, q^r\}$ are eigenvectors of $A A^\top$ and the corresponding e-values are $\{ \lambda_1, \lambda_2, \ldots, \lambda_r\}$.
+    \end{claim}
+    \textbf{Proof of Claim:} For $1 \le i \le r$, $\lambda_i >0$ and 
+    \begin{align*}
+       A A^\top q^i :=& A A^\top \left(\frac{1}{\sigma_i}Av^i \right) \\
+       =&  \frac{1}{\sigma_i} A \left(A^\top A \right) v^i \\
+       =&   \frac{\lambda_i}{\sigma_i} A v^i \\
+       =& \lambda_i q^i,
+    \end{align*}
+    and thus $q^i$ is an e-vector of $A A^\top$ with e-value $\lambda_i$. The claim is also an immediate consequence of Lemma~\ref{lem:EigenStuffAAtranspose}.
+\hfill $\square$\\
+
+From Fact~\ref{fact:rankAAtranspose}, if $r<n$, then the remaining e-values of  $A A^\top$ are all zero. Moreover, we can extend the $q^i$'s to an orthonormal basis for $\real^n$ satisfying $A A^\top q^i =0$, for $r+1 \le i \le n$. Define
+    \begin{align*}
+    U:=\begin{bmatrix}q^1 & q^2 & \cdots & q^n \end{bmatrix} \text{ and } 
+       V:=\begin{bmatrix}v^1 & v^2 & \cdots & v^m \end{bmatrix}. 
+    \end{align*}
+Also, define $\Sigma=n\times m$ by
+    \begin{equation*}
+        \Sigma_{ij} = \begin{cases}
+                \sigma_i\delta_{ij} & 1\leq i,\ j\leq r\\
+                0 & \textnormal{otherwise}.
+            \end{cases}
+    \end{equation*}
+Then, $\Sigma$ is rectangular diagonal with
+    \begin{equation*}
+        \operatorname{diag}\left(\Sigma\right)=[\sigma_1,\ \sigma_2,\ \cdots,\ \sigma_r,\ 0,\ \cdots,\ 0]
+    \end{equation*}
+
+   To complete the proof of the theorem, it is enough to show\footnote{Because $U^\top U = I$ and $V^\top V = I$, it follows that $A = U  \Sigma V^\top \iff  U^\top AV = \Sigma$.} that $ U^\top AV = \Sigma$. We note that the $ij$ element of this matrix is
+$$        (U^\top AV)_{ij} = q_i^\top Av^j
+$$
+    If $j>r$, then $A^\top Av^j=0$, and thus $(q^i)^\top Av^j=0$, as required. If $i>r$, then $q^i$ was selected to be orthogonal to
+    \begin{equation*}
+        \{q^1,\ \cdots,\ q^r\}=\{\frac{1}{\sigma_1}Av^1,\ \frac{1}{\sigma_2}Av^2,\ \cdots,\ \frac{1}{\sigma_r}Av^r\}
+    \end{equation*}
+    and thus $\left(q^i\right)^\top Av^j=0$. Hence we now consider $1\leq i,\ j\leq r$ and compute that
+    \begin{align*}
+        \left(U^\top AV\right)_{ij} &= \frac{1}{\sigma_i}\left(v^i\right)^\top A^\top Av^j\\
+        &= \frac{\lambda_j}{\sigma_i}\left(v^i\right)^\top v^j\\
+        &= \sigma_i\delta_{ij}
+    \end{align*}
+    as required.
+
+\Qed
+
+ \begin{rem}
+    Another way to write the SVD of A is
+\begin{equation}
+   \label{eq:SVDexpansion} 
+A = \sigma_1 u_1 \cdot v_1^\top + \sigma_2  u_2 \cdot v_2^\top + \cdots +\sigma_p  u_p \cdot v_p^\top, $$
+    where $u_i$ and $v_i$ are columns of $U$ and $V$ respectively.
+    $$U = \left[ \begin{array}{cccc} u_1 & u_2 & \cdots & u_n\end{array} \right]~~\text{and}~~V = \left[ \begin{array}{cccc} v_1 & v_2 & \cdots & v_m\end{array} \right].
+    \end{equation}
+    This formula follows from Fact\ref{fact:MatMultiplyAlternative}, matrix multiplication based on the sum over columns times rows, where we note that the columns of $V$ are the rows of $V^\top$. 
+ \end{rem}   
+   
+  
+    
+    \begin{example}
+\label{ex:SVD01} Determine the SVD of $A$ as well as its rank and nullity,
+$$ A=
+ \left[ \begin{array}{ll} 1 & 10^4 \\0& 1\end{array} \right].$$
+
+\end{example}
+
+\textbf{Solution:} Using the LinearAlgebra package in Julia, we find
+\begin{align*}
+    U& =\left[
+\begin{array}{cc}
+1.000e+00 & -1.000e-04 \\
+1.000e-04 & 1.000e+00 \\
+\end{array}
+\right] \\
+\Sigma&= \left[
+\begin{array}{cc}
+1.000e+04  & 0.000e+00\\
+0.000e+00 & 1.000e-04 \\
+\end{array}
+\right]\\
+V&= \left[
+\begin{array}{cc}
+1.000e-04 & -1.000e+00 \\
+1.000e+00 & 1.000e-04 \\
+\end{array}
+\right]
+\end{align*}
+
+There are two non-zero singular values, and thus $r=2$. It follows that $\rank(A)=2$ and $\nullity(A)=0.$\\
+
+Information about the ``near'' linear dependence of the columns of $A$ is in the diagonal matrix $\Sigma$. There are two singular values, $\sigma_1=10^4$ and $\sigma_2 = 10^{-4}$. Their ratio is $10^8$, which is an indicator that these vectors are ``nearly linearly dependent''. ``Numerically'', one would say that $r=1$ and hence $\rank(A) =r=1$ and $\nullity(A)=2-r=1$.
+\Qed
+
+    
+\subsection{Numerical Linear Independence}
+
+\textbf{Illustration:}  $5 \times 5$ matrix. For
+$$A=\left[ \begin{array}{rrrrr}-32.57514& -3.89996& -6.30185& -5.67305& -26.21851\\-36.21632& -11.13521& -38.80726& -16.86330& -1.42786\\-5.07732& -21.86599& -38.27045& -36.61390& -33.95078\\-36.51955& -38.28404& -19.40680& -31.67486& -37.34390\\-25.28365& -38.57919& -31.99765& -38.36343& -27.13790\end{array}
+ \right], $$
+ and the Julia commands
+ 
+ \begin{lstlisting}[language=Julia]
+ using LinearAlgebra
+ 
+ A=[-32.57514 -3.89996 -6.30185 -5.67305 -26.21851;
+-36.21632 -11.13521 -38.80726 -16.86330 -1.42786;
+-5.07732 -21.86599 -38.27045 -36.61390 -33.95078;
+-36.51955 -38.28404 -19.40680 -31.67486 -37.34390;
+-25.28365 -38.57919 -31.99765 -38.36343 -27.13790 ]
+
+(U ,Sigma, V) = svd(A)
+\end{lstlisting}
+one obtains
+ 
+ \begin{align*}
+     U&=\left[
+\begin{array}{rrrrr}
+-2.475e-01 & -5.600e-01 & 4.131e-01 & 5.759e-01 & 3.504e-01 \\
+-3.542e-01 & -5.207e-01 & -7.577e-01 & -1.106e-02 & -1.707e-01 \\
+-4.641e-01 & 6.013e-01 & -1.679e-01 & 6.063e-01 & -1.652e-01 \\
+-5.475e-01 & -1.183e-01 & 4.755e-01 & -3.314e-01 & -5.919e-01 \\
+-5.460e-01 & 1.992e-01 & -2.983e-02 & -4.369e-01 & 6.859e-01 \\
+\end{array}
+\right] \bigskip\\
+\Sigma&=\left[
+\begin{array}{rrrrr}
+1.325e+02 & 0.000e+00 & 0.000e+00 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 3.771e+01 & 0.000e+00 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 3.342e+01 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 0.000e+00 & 1.934e+01 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 0.000e+00 & 0.000e+00 & 7.916e-01 \\
+\end{array}
+\right] \bigskip\\
+V&=\left[
+\begin{array}{rrrrr}
+4.307e-01 & 8.839e-01 & -5.303e-02 & 8.843e-02 & -1.503e-01 \\
+4.309e-01 & -2.207e-01 & -1.961e-01 & 7.322e-01 & 4.370e-01 \\
+4.617e-01 & -8.902e-02 & 7.467e-01 & -3.098e-01 & 3.539e-01 \\
+4.730e-01 & -3.701e-01 & 7.976e-02 & 1.023e-01 & -7.890e-01 \\
+4.380e-01 & -1.585e-01 & -6.283e-01 & -5.913e-01 & 1.968e-01 \\
+\end{array}
+\right]
+ \end{align*}
+
+Because the \textbf{smallest singular value ${\bf \sigma_5 = 0.7916}$  is less than $1\%$ of the largest singular value ${\bf \sigma_1=132.5}$}, in many cases, one would say that the numerical rank of $A$ was 4 instead of 5.\\
+
+\textbf{This notion of numerical rank can be formalized by asking the following question:} Suppose $\rank(A) = r$. How far away is $A$ from a matrix of rank strictly less than $r$?\\
+
+The numerical rank of a matrix is based on the expansion in \eqref{eq:SVDexpansion}, which is repeated here for convenience,
+$$A=U \cdot \Sigma \cdot V^\top = \sum_{i=1}^{p} \sigma_i u_i \cdot v_i^\top = \sigma_1 u_1 \cdot v_1^\top + \sigma_2 u_2 \cdot v_2^\top + \cdots + \sigma_p u_p \cdot v_p^\top,  $$
+where $p=\min\{m, n\}$, and once again, the singular values are ordered such that $\sigma_1 \ge \sigma_2\ge \cdots \ge \sigma_p \ge0.$ Each term $u_i \cdot v_i^\top$ is a rank-one matrix. The following will help you understand the expansion. \\
+
+\begin{tcolorbox}[title=\textbf{Exercises or Facts:}]
+
+\begin{itemize}
+\item $A \cdot A^\top  =U \cdot \Sigma \cdot \Sigma^\top \cdot U^\top = \sum_{i=1}^p  (\sigma_i)^2 ~u_i \cdot u_i^\top $
+
+\item $A^\top \cdot A =V \cdot \Sigma^\top \cdot \Sigma \cdot V^\top = \sum_{i=1}^p  (\sigma_i)^2 ~v_i \cdot v_i^\top $
+
+
+\item $\left(  u_i \cdot  v_i^\top\right) \cdot v_j = \begin{cases} u_i & j=i \\ 0 & j \neq i\end{cases}  $ and hence $\rank(u_i \cdot  v_i^\top)=1$ and $\nullity(u_i \cdot  v_i^\top)=m-1$
+
+\item $\left(  u_i \cdot  u_i^\top\right) \cdot u_j = \begin{cases} u_i & j=i \\ 0 & j \neq i\end{cases}  $ and hence $\rank(u_i \cdot  u_i^\top)=1$ and $\nullity(u_i \cdot  u_i^\top)=n-1$
+
+\item $\left(  v_i \cdot  v_i^\top\right) \cdot v_j = \begin{cases} v_i & j=i \\ 0 & j \neq i\end{cases}  $ and hence $\rank(v_i \cdot  v_i^\top)=1$ and $\nullity(v_i \cdot  v_i^\top)=m-1$
+
+\item $v_i \cdot v_i^\top$, and  $u_i \cdot u_i^\top$ have e-values $\lambda_1=1$ distinct and $\lambda_2=0$ repeated $m-1$ and $n-1$ times, respectively. 
+
+\item \textbf{Hint:} $\left(  u_i \cdot  v_i^\top\right) \cdot v_j =u_i \cdot  \left(   v_i^\top \cdot v_j\right)  = \begin{cases} u_i & j=i \\ 0 & j \neq i\end{cases}  $ because the $\{v_1, v_2, \ldots, v_m \}$ are orthonormal.
+
+\end{itemize}
+
+\end{tcolorbox}
+
+\vspace*{.2cm}
+
+So far, we have only defined the norm of a vector. However, it is also useful to measure the ``length'' of matrices. \\
+
+\begin{definition} \textbf{(Induced Matrix Norm)}
+Given an $n \times m$ real matrix  $A$, the \textbf{matrix norm induced by the Euclidean vector norm} is given by:
+$$||A|| :=\max_{x^\top x = 1} ||Ax|| = \sqrt{ \lambda_{\rm max}(A^\top A) }$$
+where $\lambda_{\rm max}(A^\top A)$ denotes the largest eigenvalue of the matrix $A^\top A$. \textbf{ (Recall that the matrices of the form $A^\top A$ are at least positive semidefinite and hence their e-values are real and non-negative.  Therefore, the square root exists.) }
+\end{definition}
+
+
+\begin{tcolorbox}[title=\textbf{Numerical Rank}]
+
+
+\textbf{Facts:} Suppose that $\rank(A) = r$, so that $\sigma_r$ is the smallest non-zero singular value of $A$. 
+
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+\item If an $n \times m$ matrix $E$ satisfies $||E|| < \sigma_r$, then $\rank(A+E)\ge r.$
+
+\item There exists an $n \times m$ matrix $E$ with $||E|| = \sigma_r$ and $\rank(A+E) < r$.
+
+\item In fact, for $E=-\sigma_r u_r v_r^\top$,  $\rank(A+E) =r-1$.
+
+\item Moreover, for $E=-\sigma_r u_r v_r^\top - \sigma_{r-1} u_{r-1} v_{r-1}^\top$,  $\text{rank}(A+E) =r-2$.
+
+\end{enumerate}
+
+\textbf{Corollary:}  Suppose $A$ is square and invertible. Then $\sigma_r$ measures the distance from $A$ to the nearest singular matrix.
+\end{tcolorbox}
+
+
+\textbf{Illustration Continued}
+
+ \begin{lstlisting}[language=Julia]
+u5=U[:,5]; v5=V[:,5]; sig5=Sigma[5]
+E=-sig5*u5*v5'
+# Induced Norm
+M=E'*E
+SquareRootEigs=(abs.(eigvals(E'*E))).^0.5
+#
+(U ,Sigma2, V) = svd(A+E)
+\end{lstlisting}
+
+\begin{align*}
+E&=\left[
+\begin{array}{rrrrr}
+4.169e-02 & -1.212e-01 & -9.818e-02 & 2.189e-01 & -5.458e-02 \\
+-2.031e-02 & 5.906e-02 & 4.784e-02 & -1.066e-01 & 2.659e-02 \\
+-1.966e-02 & 5.716e-02 & 4.629e-02 & -1.032e-01 & 2.574e-02 \\
+-7.041e-02 & 2.048e-01 & 1.658e-01 & -3.697e-01 & 9.220e-02 \\
+8.160e-02 & -2.373e-01 & -1.922e-01 & 4.284e-01 & -1.068e-01 \\
+\end{array}
+\right] \bigskip \\
+\sqrt{\lambda_i(E^\top \cdot E)} &=\left[
+\begin{array}{c}
+7.376e-09 \\
+2.406e-09 \\
+1.977e-09 \\
+4.163e-09 \\
+7.916e-01 \\
+\end{array}
+\right] \bigskip\\
+\Sigma_2&= \left[
+\begin{array}{rrrrr}
+1.325e+02 & 0.000e+00 & 0.000e+00 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 3.771e+01 & 0.000e+00 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 3.342e+01 & 0.000e+00 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 0.000e+00 & 1.934e+01 & 0.000e+00 \\
+0.000e+00 & 0.000e+00 & 0.000e+00 & 0.000e+00 & 1.775e-15 \\
+\end{array}
+\right]
+\end{align*}
+
+\vspace*{0.2cm}
+We added a matrix with norm 0.7916 and made the (exact)  rank drop from 4 to 5! How cool is that? This example shows that SVD can exactly measure how close a matrix is to being singular. We also see that $E^\top \cdot E$ has rank one: there is one non-zero e-value and the rest are (essentially) zero as the theory promised.
+
+\vspace*{.2cm} 
+
+\begin{tcolorbox}[title=\textbf{Other Interesting and Useful Facts}]
+\begin{enumerate}
+\setlength{\itemsep}{.2cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\item \textbf{Null space:} $\nullspace(A):=\{ x\in \real^m~|~ Ax = 0\}$
+
+
+\item \textbf{Range:} $\range(A):=\{ y\in \real^n~|~~\text{such that}~~ y = Ax~~\text{for some}~~x \in \real^m \}$
+
+
+ \item \textbf{Fact:} Suppose $A = U \cdot \Sigma \cdot V^\top$. Then the columns of $U$ corresponding to non-zero singular values are a basis for $\range(A)$ and the columns of $V$ corresponding to zero singular values are a basis for $\nullspace(A)$, viz
+ \begin{align*}
+    \range(A) &:= \spanof{u_1, ..., u_r}, \text{and}\\
+    \nullspace(A) &:= \spanof{v_{r+1}, ..., v_m}.
+\end{align*}
+
+\item The SVD can also be used to compute an ``effective'' range and an ``effective'' null space of a matrix.
+
+\item \textbf{Fact:} Suppose that $\sigma_1 \geq ... \geq \sigma_r > \delta \ge  \sigma_{r+1} \geq ... \sigma_p \geq 0$, so that $r$ is the ``effective'' or ``numerical rank'' of $A$. (Note the $\delta$ inserted between $\sigma_r$ and $\sigma_{r+1}$ to denote the break point.)
+
+\item \textbf{Fact:} Let $\range_{\rm eff}(A)$ and $\nullspace_{\rm eff}(A)$ denote the effective range and effective null space of $A$, respectively. Then we can calculate bases for these subspaces by choosing appropriate singular vectors:
+\begin{align*}
+    \range_{\rm eff}(A) &:= \spanof{u_1, ..., u_r}, \text{and}\\
+    \nullspace_{\rm eff}(A) &:= \spanof{v_{r+1}, ..., v_m}.
+\end{align*}
+
+\end{enumerate}
+
+\end{tcolorbox}
+
+\section{Lower Upper (LU) Factorization}
+
+This material comes from ROB 101 Computational Linear Algebra. The textbook and more can be found at \url{https://github.com/michiganrobotics/rob101/tree/main/Fall%202021}.
+
+\begin{definition}
+An $n \times n$ matrix $P$ consisting of only zeros and ones and satisfying $P^\top P = P P^\top = I$ is called a \textbf{permutation matrix}. 
+\end{definition}
+
+\begin{exercise} A permutation matrix can be viewed in two ways: (a) as a permutation of the rows of an identity matrix; or (b) as a permutation of the columns of an identity matrix. Hence, it is common and useful to identify an $n \times n$ permutation matrix $P$ with a list of indices $p= \{ i_1, i_2, \ldots, i_n\}$ formed by permuting the list $\{1, 2, \ldots, n\}$. Show the following:
+\begin{itemize}
+\item Each row and each column of a permutation matrix has exactly one $1$. 
+    \item Let $x\in \real^n$, $I$ be the $n \times n$ identity matrix, and define $P:=I[p,:]$, a row permutation of $I$. Then $Px = \begin{bmatrix} x_{i_1} & x_{i_2} & \cdots & x_{i_n} \end{bmatrix}^\top$. If $P:=I[:,p]$, a column permutation of $I$, then $x^\top P = \begin{bmatrix} x_{i_1} & x_{i_2} & \cdots & x_{i_n} \end{bmatrix}$. 
+    \item Every $n \times n$ permutation matrix can be written as $P:=I[p,:]$ and as $P:=I[:,\widetilde{p}]$ for appropriate permutations $p$ and $\widetilde{p}$ of the list $\{1, 2, \ldots, n\}$.
+    \item Multiplying a matrix $A$ on the left by a permutation matrix (of appropriate size) permutes the order of its rows, while multiplying it on the right permutes the order of its columns.
+    \item The product of two permutation matrices is a permutation matrix.
+    \end{itemize}
+\end{exercise}
+
+
+\begin{definition}
+A possibly rectangular matrix $L$ is \textbf{lower triangular} if all entries above the diagonal are zero. A possibly rectangular matrix $U$ is \textbf{upper triangular} if all entries below the diagonal are zero. Recall that the \textbf{diagonal} of an $n \times m$ matrix $M$ consists of all entries of the form $m_{ii}$, $1 \le i \le \min\{n, m\}$. $L$ is uni-lower triangular if its diagonal consists of all ones. By a slight abuse of terminology, we'll allow an empty matrix to be called uni-lower triangular because its diagonal, being empty, has no terms that violate the definition.
+\end{definition}
+
+\begin{fact} Assume the matrices in the following are non-empty.
+\begin{itemize}
+    \item If $M$ is square and either upper or lower triangular, then its determinant is given by the product of the terms on its diagonal.
+    \item If the lower triangular matrix $L$ is square and has non-zero determinant, then the equation $Lx = b$ can be solved by forward substitution; see the ROB 101 textbook.
+       \item If the upper triangular matrix $U$ is square and has non-zero determinant, then the equation $Ux = b$ can be solved by back substitution; see the ROB 101 textbook.
+    \end{itemize}
+\end{fact}
+
+\textbf{As a lead in to LU Factorization}, you can check that if $L$ is a lower triangular matrix and $U$ is an upper triangular matrix, then in general, their product  $A:= L U$ is neither. Can this process be reversed? That is, given a generic square matrix, can it be factored as the product of a lower-triangular matrix and an upper-triangular matrix? And if we can do such a factorization, would it be helpful?\\
+
+
+\begin{example}
+The goal here is to show you the secret sauce that underlies a very nice method for constructing the required triangular matrices. We call it \textcolor{red}{\bf peeling the onion:} \textbf{starting from the top left corner and working down the diagonal, it successively zeros out columns and rows of a matrix!} Consider the square matrix 
+$$M=\left[\begin{array}{rrr} 
+    1   &  4   &  5 \\
+     2  &   9  &  17 \\
+     3  &  18  &  58 \end{array}  \right]. $$
+Our goal is to find a column vector $C_1$ and a row vector $R_1$ such that  $$M-C_1 \cdot R_1 = \left[\begin{array}{rrr} 
+    0  &  0   &  0 \\
+     0  &   \ast &  \ast \\
+    0  &  \ast  &  \ast \end{array}  \right], $$   
+where $\ast$ denotes ``don't care'' in the sense that we do not care about their particular values. We want to zero out the first column and the first row of $M$. That means, $C_1$ and $R_1$ are chosen so that the first column and first row of their matrix product $C_1 \cdot R_1$ match the first column and first row of $M$. How can you do that?\\
+
+We perform a \textbf{special case  of ``peeling the onion'' that works when the top left entry equals 1.0}. The general case will be treated later.\\
+
+We define $C_1$  and $R_1$  to be the first column of $M$ and the first row of $M$, respectively, that is
+$$C_1=\left[\begin{array}{r} 
+    1  \\ 2 \\ 3  \end{array}  \right]~~\text{and}~~R_1=\left[\begin{array}{rrr} 
+    1   &  4   &  5 \end{array}  \right].  $$
+Then
+$$
+ C_1 \cdot R_1 =  \left[\begin{array}{r} 
+    1  \\ 2 \\ 3  \end{array}  \right] \cdot \left[\begin{array}{rrr} 
+    1   &  4   &  5 \end{array}  \right] = \left[\begin{array}{rrr} 
+    1   &  4   &  5 \\
+     2  &   8  &  10 \\
+     3  &  12  &  15 \end{array}  \right],
+$$
+and voil\`a, 
+$$M=\left[\begin{array}{rrr} 
+   \RED 1   &   \RED 4   &  \RED  5 \\
+     \RED 2  &   9  &  17 \\
+   \RED   3  &  18  &  58 \end{array}  \right] \text{ and~~} C_1 \cdot R_1 = \left[\begin{array}{rrr} 
+    \RED 1   &  \RED 4   &  \RED 5 \\
+   \RED   2  &   8  &  10 \\
+  \RED    3  &  12  &  15 \end{array}  \right].
+$$
+Consequently,
+\begin{align*} 
+M - C_1 \cdot R_1 &= \left[\begin{array}{rrr} 
+    1   &  4   &  5 \\
+     2  &   9  &  17 \\
+     3  &  18  &  58 \end{array}  \right] -  \left[\begin{array}{r} 
+    1  \\ 2 \\ 3  \end{array}  \right] \cdot \left[\begin{array}{rrr} 
+    1   &  4   &  5 \end{array}  \right] \\
+    &=  \left[\begin{array}{rrr} 
+    1   &  4   &  5 \\
+     2  &   9  &  17 \\
+     3  &  18  &  58 \end{array}  \right] - 
+     \left[\begin{array}{rrr} 
+    1   &  4   &  5 \\
+     2  &   8  &  10 \\
+     3  &  12  &  15 \end{array}  \right]\\
+     &=\left[\begin{array}{rrr} 
+      \RED 0  &    \RED 0  &   \RED  0 \\
+      \RED  0   &  1   &  7 \\
+     \RED   0   &  6   & 43 \end{array}  \right].
+\end{align*}
+
+Oh! We have taken a $3 \times 3$ matrix and essentially made it into a $2 \times 2 $ matrix!! Can we do this again? Let's try. We define $C_2$  and $R_2$  to be the second column and second row of $M- C_1 \cdot R_1$, that is
+$$C_2=\left[\begin{array}{r} 
+    0  \\ 1 \\ 6  \end{array}  \right]~~\text{and}~~R_2=\left[\begin{array}{rrr} 
+   0   &  1   &  7 \end{array}  \right].  $$
+ Then we compute that 
+$$
+ \left[\begin{array}{r} 
+    0  \\ 1 \\ 6  \end{array}  \right] \cdot \left[\begin{array}{rrr} 
+   0   &  1   &  7 \end{array}  \right] = \left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  1   &  7 \\
+     0   &  6   & 42 \end{array}  \right],
+$$
+ and we obtain
+ $$
+\left(M - C_1 \cdot R_1 \right) = \left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   & \RED 1   &  \RED 7 \\
+     0   &  \RED 6   & 43 \end{array}  \right] \text{ and~~} C_2 \cdot R_2 = \left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  \RED 1   & \RED  7 \\
+     0   & \RED  6   & \RED 42 \end{array}  \right]. 
+ $$
+Consequently, 
+   \begin{align*} 
+\left(M - C_1 \cdot R_1 \right)  -  C_2 \cdot R_2 &= \left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  1   &  7 \\
+     0   &  6   & 43 \end{array}  \right] -  \left[\begin{array}{r} 
+    0  \\ 1 \\ 6  \end{array}  \right] \cdot \left[\begin{array}{rrr} 
+   0   &  1   &  7 \end{array}  \right] \\
+     &=\left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  1   &  7 \\
+     0   &  6   & 43 \end{array}  \right] -\left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  1   &  7 \\
+     0   &  6   & 42 \end{array}  \right]\\
+     &=\left[\begin{array}{rrr} 
+      \RED   0  &   \RED  0  &   \RED  0 \\
+     \RED  0   &  \RED  0   &  \RED  0 \\
+    \RED   0   &  \RED  0   & 1 \end{array}  \right]
+\end{align*}
+     
+ Oh! Now we are essentially down to a $1 \times 1 $ matrix!!  You might be seeing the pattern! We very quickly note that if we define  
+ $C_3$  and $R_3$  to be the third column and third row of $M- C_1 \cdot R_1 - C_2 \cdot R_2$, 
+$$C_3=\left[\begin{array}{r} 
+    0  \\ 0\\ 1  \end{array}  \right]~~\text{and}~~R_3=\left[\begin{array}{rrr} 
+   0   &  0   &  1 \end{array}  \right],  $$
+   then 
+   $$C_3 \cdot R_3 = \left[\begin{array}{rrr} 
+       0  &   0  &   0 \\
+     0   &  0   &  0 \\
+     0   &  0   & \RED 1 \end{array}  \right],
+     $$
+     and hence, $M - C_1 \cdot R_1 - C_2 \cdot R_2 - C_3 \cdot R_3 = 0_{3 \times 3}$. We prefer to write this as
+     $$ \boxed{M = C_1 \cdot R_1 + C_2 \cdot R_2 + C_3 \cdot R_3 = \underbrace{\left[\begin{array}{rrr} 
+  C_1   &  C_2   &  C_3\end{array}  \right]}_{L} \cdot \underbrace{\left[\begin{array}{r} 
+    R_1  \\ R_2\\ R_3 \end{array}  \right]}_{U}.} $$
+    
+    Moreover, 
+    \begin{itemize}
+        \item  $L:=\left[\begin{array}{rrr} 
+   C_1   &  C_2   &  C_3\end{array}  \right] = 
+   \left[\begin{array}{rrr} 
+       1  &   0  &   0 \\
+    2  &  1   &  0 \\
+     3  &  6   & 1 \end{array}  \right]$ is \textbf{uni-lower triangular}, 
+     \item $U:=   \left[\begin{array}{r} 
+    R_1 \\ R_2\\ R_3  \end{array}  \right] = \left[\begin{array}{rrr} 
+     1  &   4   &  5 \\
+     0  &   1   &  7 \\
+     0  &   0   &  1 \end{array}  \right]$ is \textbf{upper triangular}, and \\
+     \item $M=L \cdot U$, the product of a lower triangular matrix and an upper triangular matrix.
+    \end{itemize}
+    \Qed
+\end{example} 
+
+In the example, we arranged that the first non-zero entry of $C_i$ was equal to one. This is a particularly special case chosen to illustrate that, at least in some cases, one can systematically factor a matrix. We now build toward the general case. 
+
+\begin{definition} A $n \times m$ matrix $A$ is \textbf{left zeroed of order} $0\le k \le \min\{n,m\}$ if it has the form 
+$$ A= \left[\begin{array}{lc}
+   0_{k \times k}  &  0_{k \times (m-k)}  \medskip \\
+    0_{(n-k) \times  k} & \widetilde{A}
+\end{array}  \right].$$
+\end{definition}
+
+\begin{rem} When $k=0$, the matrices $0_{k \times k}$, $0_{k \times (m-k)} $, and $0_{(n-k) \times  k}$ are empty. Hence, every matrix is \emph{left-zeroed of order} zero. When $k=\min\{n,m\}$, then $\widetilde{A}$ is the empty matrix and hence $A$ is identically zero.
+\end{rem}
+
+\begin{lem}
+\label{lem:PeelOnion}
+\textbf{(Peeling the Onion)} Suppose that A is an $n \times m$ left-zeroed matrix of order $0\le  k< \min\{n,m\}$. Then there exist a permutation matrix $P$, a column vector $C$, and a row vector $R$ such that 
+\begin{enumerate}
+\setlength{\itemsep}{.2cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item $P A -C R $ is left-zeroed of order $(k+1)$, 
+\item $C$ and $R$ have zeros in their first $k$ entries, 
+\item the $(k+1)$-st entry of $C$ equals one (i.e., $[C]_{k+1}=1.0$), and
+\item the first $k$ rows of $P$ are equal to the first $k$ rows of the identity matrix.
+\end{enumerate}
+\end{lem}
+
+\textbf{Proof:} We use proof by exhaustion to cover three cases. We let $[A]_{ij}$ and $a_{ij}$ denote the $ij$ entry of $A$, and $a^{\rm row}_{i}$ and $a^{\rm col}_{j}$ denote the $i$-th row and $j$-th column, respectively.\\
+
+\textbf{Case 1:} Suppose $a_{k+1, k+1} \neq 0$. Then we define $P=I$, the identity matrix, $C:=a^{\rm col}_{k+1}/a_{k+1, k+1}$, and $R:= a^{\rm row}_{k+1}$. Note that the column $C$ has been normalized by $a_{k+1, k+1}$, the first non-zero entry of $C$, and that $a_{k+1, k+1}$ is also the first non-zero entry of $R$.  Moreover, by construction, the first $k$ entries of $C$ and $R$ are zero. Based on these observations, we leave it to the reader to check that
+$$[C \cdot R]_{ij}=[P A]_{ij} $$
+for $i=k+1$ and $j \in \{k+1, \ldots, m\}$ and for $j=k+1$, and $i \in \{k+1, \ldots,  n\}$. Hence, $P A - CR$ is left-zeroed of order $(k+1)$. 
+
+\hfill $\square$
+
+\textbf{Case 2:} Suppose $a^{\rm col}_{k+1} = 0_{n \times 1}$.  Then we define $P=I$, the identity matrix, the column vector $C$ by  
+$$[C]_i:=\begin{cases} 1 & i = (k+1) \\ 0 & \text{otherwise}  \end{cases},$$ and the row vector
+$R:= a^{\rm row}_{k+1}$. Note that as before, $C$ has a one in its $(k+1)$-st entry, its first $k$ entries are zero, and  the first $k$ entries of $R$ are zero. Based on these observations, we leave it to the reader to check that
+$$[C \cdot R]_{ij}=[P A]_{ij} $$
+for $i=k+1$ and $j \in \{k+1, \ldots, m\}$ and for $j=k+1$, and $i \in \{k+1, \ldots,  n\}$. Hence, $P A - CR$ is left-zeroed of order $(k+1)$. 
+
+\hfill $\square$
+
+\textbf{Case 3:} Suppose $a_{k+1, k+1} = 0$ and $a^{\rm col}_{k+1}\neq 0_{n \times 1}$ so that there exists $k+1 < \rho \le n$ such that $a_{\rho, k+1} \neq 0$. Then we define $p$ to be the unique permutation of $\{1, 2, \ldots, n\}$ such that 
+$$p_i= \begin{cases} \rho & i= k+1\\ k+1 &  i = \rho \\  i &  i \not \in \{k+1, \rho \}. \end{cases} $$
+Upon defining $P:=I[p,:]$, the matrix $\check{A}:=P A$ now satisfies the conditions of \textbf{Case 1} and its proof can be followed \textit{mutatis mutandis} (i.e., by making the necessary simple changes). We thus leave the rest of the proof to the reader. 
+\hfill $\square$
+
+\Qed
+
+\begin{thm}
+\textbf{(LU Factorization)}
+Let $A$ be an $n \times m$ real matrix and define $r=\min(n,m)$. There always exist an $n \times n$ permutation matrix $P$, an $n \times r$ uni-lower triangular matrix $L$, and an $ r \times m$ upper triangular matrix $U$ such that
+$$P \cdot A = L \cdot U. $$
+\end{thm}
+
+\textbf{Proof:} We use proof by induction. At the base step $k=0$, we set $P_0:=I$, and $L_0$, $U_0$ empty matrices. \\
+
+% We use proof by induction. At the base step zero, we set $P_0:=I$, $L_0$, $U_0$ to be empty matrices, and $C_0$, $R_0$ to be empty column and row vectors, respectively.\\
+
+At step $k\ge0$, we assume that $A_k:= P_kA - L_k U_k$ is a left-zeroed matrix of order $k$, $L_k$ is an $n \times k$ uni-lower triangular matrix, and $U_k$ is a $k \times m$ upper triangular matrix. By Lemma~\ref{lem:PeelOnion}, there exist a permutation matrix $P$, column vector $C$, and row vector $R$ such that 
+\begin{enumerate}
+\setlength{\itemsep}{.2cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item $PA_k - C R $ is left-zeroed of order $(k+1)$, 
+\item $C$ and $R$ have zeros in their first $k$ entries, 
+\item the $(k+1)$-st entry of $C$ is one, and
+\item the first $k$ rows of $P$ are equal to the first $k$ rows of the identity matrix.
+\end{enumerate}
+Based on this we define 
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+\setlength{\itemsep}{.2cm}
+\item $P_{k+1}:=P\cdot P_k$;
+\item $L_{k+1}:=\left[ \begin{array}{rl} P \cdot L_k & C\end{array} \right]$; and
+\item $U_{k+1}:=\left[ \begin{array}{l} U_k \\ R\end{array} \right]$.
+\end{enumerate}
+Then 
+$$L_{k+1} \cdot U_{k+1} = \left[ \begin{array}{ll} P \cdot L_k & C\end{array} \right] \cdot \left[ \begin{array}{l} U_k \\ R\end{array} \right] = P \cdot L_k \cdot U_k + C \cdot R,$$
+and therefore 
+ $$P_{k+1} \cdot A - L_{k+1} \cdot U_{k+1} = P \cdot P_k\cdot  A -P \cdot L_k \cdot U_k - C \cdot R =  P \cdot \left(P_k \cdot A -L_k \cdot U_k \right) - C \cdot R = P \cdot A_k - C \cdot R.$$
+Hence, $P_{k+1} \cdot A - L_{k+1} \cdot U_{k+1}$ is left zeroed of order $(k+1)$.\\
+
+Because $L_k$ is an $n \times k$ uni-lower triangular and the first $k$ rows of $P$ are equal to the identity matrix, it follows that $P \cdot L_k$ is also uni-lower triangular. Because the first $k$ entries of $C$ are equal to zero and its $(k+1)$-st entry is one, it follows that $[P \cdot L_k ~~ C]$ is an $n \times (k+1)$ uni-lower triangular matrix. Because $U_k$ is a $k \times m$ upper triangular matrix and the first $k$ entries of $R$ are equal to zero, it follows that $[U_k^\top ~~ R^\top]^\top$ is a $(k+1)  \times m$ upper triangular matrix.\\
+
+The algorithm stops at step $r=\min\{n,m\}$, producing the required matrices. 
+
+\Qed
+
+\begin{tcolorbox}[title=\textbf{\large Solving $\mathbf{Ax=b}$  via LU Factorization}]
+We seek to solve the system of linear equations $Ax=b$, when $A$ is a real square matrix. Suppose we factor $P \cdot A=L \cdot U$, where $P$ is a permutation matrix, $L$ is lower triangular and $U$ is upper triangular. Would that even be helpful for solving linear equations? \\
+
+Because $P^\top \cdot P = I$, $\det(P) = \pm 1$ and therefore $P$ is always invertible. Hence, 
+ $$Ax = b \iff P \cdot A x = P \cdot b \iff L \cdot U x = P \cdot b. $$
+If we define $Ux=y$, then $L \cdot U x = P \cdot b$ becomes two equations
+\begin{align}
+  \label{eq:LUFactorizationAppliedA02}
+  L y &= P\cdot b \\
+    \label{eq:LUFactorizationAppliedB02}
+ U x &=y.
+\end{align}
+Furthermore,  
+$$ (P \cdot A=L \cdot U) \implies \det(A) = \pm \det(L) \det(U)$$ and $A$ is invertible if, and only if, both $L$ and $U$ are invertible. Our solution strategy is therefore to solve \eqref{eq:LUFactorizationAppliedA02} by forward substitution, and then, once we have $y$ in hand, we solve \eqref{eq:LUFactorizationAppliedB02}
+by back substitution to find $x$, the solution to $Ax=b$.
+\end{tcolorbox}
+
+\begin{example}
+\label{ex:SolveUsingLu01WithPerm} 
+Use LU Factorization to solve the system of linear equations
+\begin{equation}
+    \label{eq:Chap5pt4AwithPerm}
+\underbrace{\left[\begin{array}{rrr} -2 & -4 & -6\\
+-2 & 1 & -4 \\ -2 & 11 & -4 \end{array}\right]}_{A}  \underbrace{\left[\begin{array}{r} x_1\\
+x_2 \\ x_3\end{array}\right]}_{x} 
+= \underbrace{\left[\begin{array}{r} 2\\
+3 \\ -7 \end{array}\right]}_{b}. 
+\end{equation}
+\end{example}
+
+\textbf{Solution:} We use the native LU function in Julia to compute $P \cdot A = L \cdot U$, with
+\begin{equation}
+    \label{eq:Chap5pt4LUwithPerm}
+    \begin{aligned}
+        P&= \left[
+\begin{array}{ccc}
+1.0 & 0.0 & 0.0 \\
+0.0 & 0.0 & 1.0 \\
+0.0 & 1.0 & 0.0 \\
+\end{array}
+\right]\\
+L&= \left[ \begin{array}{ccc}
+1.000 & 0.000 & 0.000 \\
+1.000 & 1.000 & 0.000 \\
+1.000 & 0.333 & 1.000 \\
+\end{array}
+\right]\\
+U&= 
+\left[
+\begin{array}{rrr}
+-2.000 & -4.000 & -6.000 \\
+0.000 & 15.000 & 2.000 \\
+0.000 & 0.000 & 1.333 \\
+\end{array}
+\right].
+ \end{aligned}
+\end{equation}
+Even though $A$ admits an LU Factorization without row permutations, Julia inserts a permutation matrix. This is to improve the numerical accuracy on large problems. On our small problem, it's not really needed. Nevertheless, we'll use it to show that we obtain the same answer with essentially the same amount of work.\\
+
+We first compute 
+$$P b = \left[
+\begin{array}{ccc}
+1.0 & 0.0 & 0.0 \\
+0.0 & 0.0 & 1.0 \\
+0.0 & 1.0 & 0.0 \\
+\end{array}
+\right] \left[
+\begin{array}{r}
+2.0 \\
+3.0 \\
+-7.0 \\
+\end{array}
+\right] = \left[
+\begin{array}{r}
+2.0 \\
+-7.0 \\
+3.0 \\
+\end{array}
+\right]. $$
+We then solve $L y = P b$ for the intermediate variable $y$, using forward substitution, 
+$$\underbrace{\left[ \begin{array}{ccc}
+1.000 & 0.000 & 0.000 \\
+1.000 & 1.000 & 0.000 \\
+1.000 & 0.333 & 1.000 \\
+\end{array}
+\right]}_{L} \underbrace{\begin{bmatrix}y_1 \\y_2 \\ y_3 \end{bmatrix}}_{y} =\underbrace{ \left[
+\begin{array}{r}
+2.0 \\
+-7.0 \\
+3.0 \\
+\end{array}
+\right]}_{P b} \implies\begin{bmatrix}y_1 \\y_2 \\ y_3 \end{bmatrix} = \left[
+\begin{array}{r}
+2.0 \\
+-9.0 \\
+4.0 \\
+\end{array}
+\right]. $$
+And finally, we use this result to solve $U x = y$ for $x$, using back substitution,
+$$ \underbrace{\left[
+\begin{array}{rrr}
+-2.000 & -4.000 & -6.000 \\
+0.000 & 15.000 & 2.000 \\
+0.000 & 0.000 & 1.333 \\
+\end{array}
+\right]}_{U} \underbrace{\begin{bmatrix}x_1 \\x_2 \\ x_3 \end{bmatrix}}_{x} =\underbrace{\left[
+\begin{array}{r}
+2.0 \\
+-9.0 \\
+4.0 \\
+\end{array}
+\right]}_{y} \implies\begin{bmatrix}x_1 \\x_2 \\ x_3 \end{bmatrix} = \left[
+\begin{array}{r}
+-8.0 \\
+-1.0 \\
+3.0 \\
+\end{array}
+\right]. $$
+\Qed
+
+\section{LDLT or Cholesky Factorization (LU specialized for Positive Semi-definite Matrices)}
+
+Matrices that are positive semi-definite can be factored in a special form. We send the reader to the ROB 101 textbook for further details. To preserve the symmetric nature of positive semi-definite matrices when doing the factorization, it is necessary to use both row and column perturbations. 
+
+\begin{tcolorbox}[title=\textbf{ \large Enhanced LU Factorization and Rank of a Matrix}]
+A real positive semi-definite matrix $M$ always has an \textbf{LDLT Factorization (aka, Cholesky Factorization)}
+\begin{equation}
+    \label{eq:LDLTfactorization}
+    P\cdot M \cdot P^\top = L\cdot D \cdot L^\top,
+\end{equation}
+where
+\begin{itemize}
+    \item $P$ is a (row) permutation matrix;
+    \item $P^\top$, the transpose of $P$, permutes the columns of $M$;
+    \item $L$ is uni-lower triangular and $L^\top$, the transpose of $L$, is therefore uni-upper triangular; and
+    \item $D$ is diagonal and has non-negative entries.
+\end{itemize}
+
+The terminology LDLT comes from $L, D, L$ with the T being short for transpose. If $M=A^\top \cdot A$, then the number of non-zero entries on the diagonal of $D$ is equal to $\rank(A)$.
+\end{tcolorbox}
+
+\begin{rem} Recall that permutations in the LU Factorization only arise in Case 3 of Lemma~\ref{lem:PeelOnion} on ``peeling the onion''. Theorem~\ref{thm:SchurComplementTest} on Schur complements can be used to show that if Case 2 or Case 3 ever occurs, then $M$ is not positive definite. Hence, for positive definite matrices, a simpler factorization is possible. 
+\end{rem}
+
+\begin{tcolorbox}[title=\textbf{ \large Factorization of Positive Definite Matrices}]
+A real positive definite matrix $M$ always has an \textbf{LDLT Factorization (aka, Cholesky Factorization)} without requiring permutations,
+\begin{equation}
+    \label{eq:LDLTfactorization}
+   M  = L\cdot D \cdot L^\top,
+\end{equation}
+where
+\begin{itemize}
+    \item $L$ is uni-lower triangular and $L^\top$, the transpose of $L$, is therefore uni-upper triangular; and
+    \item $D$ is diagonal and has positive entries.
+\end{itemize}
+
+\end{tcolorbox}
+
+\vspace*{.2cm}
+Wikipedia \url{https://en.wikipedia.org/wiki/Cholesky_decomposition} provides additional information on Cholesky Factorization.

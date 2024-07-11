@@ -1,0 +1,662 @@
+%*****************************************************
+%Change Names and Lecture #'s here.
+%*****************************************************
+% {\Large \bf
+% \begin{center}
+% Rob 501 Fall 2014\\
+% Lecture 01\\
+% Typeset by:  Jimmy Amin\\
+% Proofread by: Ross Hartley
+% \end{center}
+% }
+
+\section*{Learning Objectives}
+
+\begin{itemize}
+\item Establish notation
+\item Cover basic proof techniques, some of which may be a review
+\item Set the stage for cool things to come.
+\end{itemize}
+
+\section*{Outcomes} 
+\begin{itemize}
+\item Learn how to read mathematical statements such as ``$\forall~\epsilon>0, \exists~\delta>0$ such that $\forall~x\in B_\delta(x_0),  ||f(x) - f(x_0)|| < \epsilon$. '' This is the definition of a function being continuous at a point $x_0$, by the way.
+
+\item Learn how to negate mathematical statements such as the above.
+ 
+\item Review or learn methods of proofs that we will use on a daily basis in the course.
+
+\item In particular, overcome reluctance to use ``proof by contradiction''. 
+\end{itemize}
+
+\newpage
+
+\section{Mathematical Notation}
+    \begin{itemize}
+        \item[] $\mathbb{N} = \{1,2,3,\dotsb\}$ Natural numbers or counting numbers
+        \item[] $\mathbb{Z} = \mathcal{Z} = \{\dotsb, -3, -2, -1, 0, 1, 2, 3, \dotsb\}$ Integers or whole numbers
+        \item[] $\mathbb{Q} = \left\{\dfrac{m}{q}~ |~ m,q \in \whole, q \neq 0, \textnormal{no common factors (reduce all fractions)}\right\}$ Rational numbers
+        \item[] $\mathbb{R}$ = Real numbers
+        \item[] $\mathbb{C}$ = \{$\alpha$ + $j\beta$ | $\alpha, \beta \in \real$, $j^2$ = -1\} Complex numbers
+        \item[] $\forall$ means ``for every'', ``for all'', ``for each''
+        \item[] $\exists$ means ``for some", ``there exist(s)'', ``there is/are'', ``for at least one''
+        \item[] $\in$ means ``element of'' as in ``$x\in A$'', i.e., $x$ is an element of the set $A$
+        \item[] $\sim$ denotes ``logical not''.  You will also often see $\neg$. We'll use both in these notes. 
+        \item[] $p \implies q$ means ``if the logical or mathematical statement  $p$ is true, then the statement $q$ is true''
+        \item[] $p \iff q$ means ``$p$ is true if, and only if , $q$ is true''. While $p \text{ iff } q$ is another way to write $p \iff q$, we will mostly avoid using it in these notes.
+        \item[] $p \iff q$ is logically equivalent to 
+        \begin{itemize}
+            \item[] (a) $p \implies q$ and\ %\ is equal to a space
+            \item[] (b) $q \implies p$
+        \end{itemize}
+        \item[] The \emph{contrapositive} of $p \implies q$ is $\sim q \implies \sim p$ 
+        \item[] The \emph{converse} of $p \implies q$ is $q \implies p$. It is very important to note that in general, $(p \implies q)$ \emph{DOES NOT IMPLY} $(q \implies p)$, and vice-versa. If they did, we would not need $p \iff q$.
+        \item[] \emph{Relation}: $(p \implies q) \Leftrightarrow (\sim q \implies \sim p)$. The two statements are logically equivalent, and hence in principle, we do not need both of them. We will see, however, that sometimes one of them is easier to use in a proof than the other. 
+        \item[] \emph{Logical and}: $ p_1 \land p_2$ is read $p_1$ and $p_2$. It is true when both $p_1$ and $p_2$ are true. 
+                \item[] \emph{Logical or}: $ p_1 \lor p_2$ is read $p_1$ or $p_2$. It is true when at least one of $p_1$ and $p_2$ is true. We do not use ``exclusive or'' in this course. Hence, if \textbf{T} stands for true and \textbf{F} for false, then $ \textbf{T}  \lor \textbf{T} = \textbf{T}  \lor \textbf{F} = \textbf{F}  \lor \textbf{T}  = \textbf{T} $.
+        \item[] Q.E.D. or QED is an abbreviation of the Latin ``quod erat demonstrandum'' which means ``thus it was demonstrated''; it is used to alert the reader that a proof has been completed.  Nowadays, you more frequently see $\square$ or $\blacksquare$ instead of QED. 
+    \end{itemize}
+    
+    \textbf{Warning:} In the beginning, it is quite frequent that students confuse the meanings of \emph{contrapositive} and \emph{converse}. Just be careful. With practice, it becomes second nature. The fact that they both start with ``con-'' is not helpful!
+
+\section{Vocabulary} 
+The following definitions borrow liberally from Math 299, Michigan State University, \url{https://users.math.msu.edu/users/duncan42/AxiomNotes.pdf}\\
+
+\textbf{Meanings:}
+\begin{itemize}
+\item Definition : An explanation of the mathematical meaning of a word.
+\item Theorem : A statement that has been proven to be true.
+\item Proposition : A less important but nonetheless interesting true statement.
+\item Lemma: A true statement used in proving other true statements (that is, a less important theorem that is helpful in the proof of other results).
+\item Claim: A true statement that is sometimes made as a step toward proving a theorem, in which case it is similar to a lemma. It is also sometimes used to highlight a property of a mathematical object that a reader might miss. 
+For example, one might define a matrix $A$ to be \emph{invertible} if there exists a second matrix $B$ such that $A\cdot B = B \cdot A = I$, where $I$ is the identity matrix. Nowhere in this definition have we explicitly stated that $A$ must be square. Hence, you might then 
+\emph{Claim:} An invertible matrix is square. And then prove the claim by using the rules (i.e., definition) of matrix multiplication.
+\item Corollary: A true statement that is a ``simple'' deduction from a theorem or proposition.
+\item Proof: The explanation of why a statement is true.
+\item Conjecture: A statement believed to be true, but for which we have no proof. (A statement that is being proposed to be a true statement).
+\item Axiom: A basic assumption about a mathematical situation, or said another way, a statement Mathematicians assume to be true. One example comes from Euclid `` two distinct parallel lines in the plane never intersect''. This is a fundamental tenet of Euclidean geometry and is false in geometries where lines are curved. Another example is the axiom that for any two integers $a$ and $b$, the symbol ``$+$'' called sum has the property $a+b=b+a$, that is, the sum of $a$ and $b$ is equal to the sum of $b$ and $a$. In this sense, axioms and definitions are very similar. Axioms are reserved for the ``bedrock'' definitions in a logical or mathematical system, the definitions on which everything else is based.  
+\end{itemize}
+
+
+
+
+
+\section{Review of Proof Techniques}
+
+When constructing a proof of a statement, axioms, definitions, theorems, lemmas, propositions, claims, and corollaries all have the same ``power'' because they consist of true statements. It is common practice to place the most fundamental description of an idea as its definition and then to provide theorems that show how to check, compute, or apply the property in the definition.
+
+\subsection{Direct Proofs}
+A proof is \emph{direct} if the result is obtained by directly applying ``simple rules of logic'', such as $p \implies q$, to the given assumptions, definitions, axioms, and already known theorems. Employing the method of ``proof by contradiction'' would not be a direct proof. A better elaboration is given here \url{https://en.wikipedia.org/wiki/Direct_proof}\\
+
+\begin{definition}
+An integer $n$ is \emph{even} if $n = 2k$ for some integer $k$; $n$ is \emph{odd} if \ $n = 2k+1$ for some integer $k$. 
+\end{definition} 
+
+\begin{rem}
+In a definition, the convention is that ``if'' means ``if, and only if''. \emph{It would be considered bad style (form) to write} the above definition as follows: An integer $n$ is \emph{even} if, and only if $n = 2k$ for some integer $k$; $n$ is \emph{odd} if, and only if \ $n = 2k+1$ for some integer $k$. What you have to understand is that the two meanings are identical when used in a definition. In a lemma, theorem, claim, proposition, corollary, etc., the two meanings are very different. Yes, this takes time before it becomes second nature.
+\end{rem} 
+
+\begin{example} 
+Provide a direct proof that the sum of two odd integers is even.
+\end{example}
+
+\textbf{Proof:} Let $n_1$ and $n_2$ be odd integers. Then by the definition of odd, there exist integers $k_1$ and $k_2$ such that
+    \begin{align*}
+        n_1 &= 2k_1+1\\
+        n_2 &= 2k_2+1.
+    \end{align*}
+Then using the rules of arithmetic, 
+    \begin{equation*}
+        n_1+n_2 = (2k_1+1) + (2k_2+1) = 2(k_1+k_2+1).
+    \end{equation*}
+Because $k_1+k_2+1$ is the sum of three integers, it is also an integer, and therefore $2(k_1+k_2+1)$ is by definition, an even integer. Because $n_1+n_2=2(k_1+k_2+1)$, it is even. 
+\Qed
+
+\vspace*{.2cm}
+
+Did we really need to say the last line in the proof, namely, ``Because $n_1+n_2=2(k_1+k_2+1)$, it is even''? It's a matter of taste. A proof is supposed to convince a skeptical reader that something is true. Sometimes, when writing a paper, you do have to restate the obvious to ensure that a reviewer does not miss it. 
+
+
+
+\subsection{Proof by Contrapositive:} A proof by \emph{contrapositive} means that to establish $p \implies q$, we prove its logical equivalent, $\sim q \implies \sim p$. Once you have written down what is $\sim q$ and what is $\sim p$, the proof often proceeds like a direct proof. 
+
+\vspace*{.2cm}
+\begin{example} 
+\label{ex:nSquaredEven}
+Let $n$ be an integer. Prove that if $n^2$ is even, then $n$ is even.
+\end{example}
+
+\textbf{Proof:} In the beginning of your proof writing career, it is highly recommended to explicitly write down what is $p$ and what is $q$. This helps you to understand what you are trying to show and what is/are the given hypothesis(eses).\\
+
+\begin{itemize}
+    \item $p = (n^2 \text{ is even})$. Hence, $\sim p = (n^2 \text{ is odd})$.
+   \item $q = (n \text{ is even})$. Hence, $\sim q = (n \text{ is odd})$.
+\end{itemize}
+    Our proof of $p \implies q$ is to show $\sim q \implies \sim p$, that is, if $n$ is odd, then $n^2$ is odd.  Hence, let $n$ be an odd integer. By the definition of $n$ being odd, there exists an integer $k$ such that $ n = 2k+1$. Therefore,
+ $$n^2 = (2k+1)^2 = 4k^2 + 4k + 1 = 2(2k^2+2k)+1.$$
+    Because $(2k^2+2k)$ is an integer, we are done. 
+\Qed
+
+\vspace*{.2cm}
+
+Here, we simply took it as ``obvious to the most casual observer'' that once we arrived at $n^2 = 2m+1$ for $m=2k^2+2k$, that it was game over, we've said enough to convince ``anyone'' that $n^2$ is odd. Was it enough for you? 
+
+\subsection{Proof by Exhaustion} 
+
+Proof by \emph{exhaustion} means to reduce the proof to a finite number of cases, and then prove each case separately. As its name suggests, these proofs can be tedious at times. The \emph{Famous Four Color Problem} \url{https://en.wikipedia.org/wiki/Four_color_theorem} was proved by using computer algebra to reduce the problem to checking a finite number of map cases, and then checking them one by one. In particular, 1,834 map configurations (later reduced to 1,482) had to be checked one by one and took a computer of its day over a thousand hours. \\
+
+On occasion, we will do a proof by exhaustion. For us, four cases will already be a lot!
+
+\subsection{Proofs by Induction}
+
+There are two forms of proof by \emph{induction}, that are in fact equivalent. Most engineers only know one, the first one:\\
+
+ \textbf{First Principle of Induction (Standard Induction):}~ Let $P(n)$ denote a statement about the natural numbers with the following properties:
+        \begin{itemize}
+            \item[] (a) \textbf{Base case:} $P(1)$ is true
+            \item[] (b) \textbf{Induction hypothesis:} If $P(k)$ is true, then $P(k+1)$ is true.
+        \end{itemize}
+Then $P(n)$ is true for all $n \geq 1$. \\
+
+\begin{rem}
+Suppose the base case involves an integer $k_0 \neq 1$. Then you can re-index things and reduce it to the base case having $k_0=1$. Alternatively, you assume that $P(k)$ true for $k \ge k_0$ implies  $P(k+1)$ is true, and then you get $P(n)$ is true for all $n \geq k_0$. A common mistake is to not use the correct base case. For an example, you should read about how ``to prove by induction'' that all horses are the same color \url{https://en.wikipedia.org/wiki/All_horses_are_the_same_color}. 
+\end{rem} 
+
+
+    \vspace*{.2cm}
+\begin{example} 
+Let's prove the \textbf{Claim:}  For all $n \geq 1$, $1+3+5+\dotsb+(2n-1)=n^2$.
+\end{example}
+
+\textbf{Proof:} 
+
+    \begin{itemize}
+    \item \underline{Step 0:} Write down $P(k)$: $1+3+5+\dotsb+(2k-1)=k^2$. 
+        \item \underline{Step 1:} Check the base case, $P(1)$: For  $k=1$, we have that $ 1 = 1^2 $, and hence the base case is true. 
+        \item \underline{Step 2:} Show the induction hypothesis is true. That is, using the fact that $P(k)$ is true, show that $P(k+1)$ is true. Often, this involves re-writing $P(k+1)$ as a sum of terms that show up in $P(k)$ and another term.\\
+  
+    \end{itemize}
+ 
+ For us,  
+ $$P(k+1): 1+3+5+\dotsb+(2k-1)+(2(k+1)-1)=(k+1)^2. $$
+For the induction step, we assume that
+$$
+        P(k): = 1+3+5+\dotsb+(2k-1)=k^2 
+$$
+is true and thus $P(k+1)$ is true if, and only if 
+$$ 
+k^2 +(2(k+1)-1) =(k+1)^2.
+$$
+Using the known (and accepted) rules of algebra, we check that
+$$       
+k^2 + (2(k+1)-1) = k^2+2k+2-1 = k^2+2k+1 = (k+1)^2,
+$$
+and hence $P(k+1)$ is true. Because we have shown that $P(1)$ is true and for all $k\ge 1$, $P(k) \implies P(k+1)$, by the Principle of Induction, we conclude that for all $k\ge 1$,
+$$ 1+3+5+\dotsb+(2k-1)=k^2.$$
+\Qed
+\vspace*{.2cm}
+
+
+\begin{rem}
+When the base case $P(1)$ seems so totally trivial that you are unsure whether there is anything to show, it's OK to check $P(2)$, just to convince yourself that it is true too. In our case you would check $P(2): 1 + 3 = 2^2 $; since this is easily established to be true, you may now be more confident of your proof. If you do one more, $P(3): 1 + 3 + 5 = 3^3$, you are now on a roll and ready to attack the general case by induction. Bottom line: In the beginning, it's natural to be tentative when you do a proof. It takes practice to learn the art of proving things. When you write a proof, we will not take off points for doing a bit more work than is strictly required. We understand that you are slowly building up your confidence.
+\end{rem} 
+
+      
+\textbf{Warning:} When you seek to establish the \emph{induction hypothesis}, that $P(k+1) \implies P(k)$, you need to make sure that your reasoning works for all $k$, including the base case, $k=1$. In the infamous ``all horse are the same color proof (spoof)'', the statement $P(1) \implies P(2)$ fails. People overlook it by starting at $P(2) \implies P(3)$ or they make a mistake on $P(1) \implies P(2)$. Oooops! \\
+
+
+\noindent \textbf{Second Principle of Induction (Strong Induction):}~ Let $P(n)$ be a statement about the natural numbers with the following properties:
+    \begin{enumerate}
+        \item[] (a) \textbf{Base Case:} $P(1)$ is true.
+        \item[] (b) \textbf{Induction hypothesis:} If $P(j)$ is true for all $1\leq j\leq k$, then $P(k+1)$ is true.
+    \end{enumerate}
+Then $P(n)$ is true for all $n\geq 1$ (or, $n$ greater than or equal to the  $n_0$ used in the Base Case).\\
+
+\begin{rem}
+You can see why it is sometimes called \emph{Strong Induction:}  we have access to all of the logical statements $P(j)$ up to, and including, $P(k)$, when we are trying to prove the induction step $P(k+1)$ is true. We will show a bit later that the two principles of induction are logically equivalent. Nevertheless, sometimes one method is easier to apply than the other.
+\end{rem}
+
+\begin{definition}
+A natural number $n \ge 2$ is \emph{composite} if it can be factored as $n=a\cdot b$, where $a$ and $b$ are natural numbers satisfying $1 < a,  b < n$. Otherwise, $n$ is \emph{prime}.
+\end{definition} 
+
+\begin{rem}
+It follows from the above definition that a natural number greater than or equal to two is either prime or composite, and it cannot be both. The first prime number is $2$. What is the number $1$?
+\end{rem} 
+
+\vspace*{.2cm}
+\begin{example} 
+Let's prove the \textbf{Theorem}: (Fundamental Theorem of Arithmetic) Every natural number $n\geq 2$ can be factored as a product of one or more primes.
+\end{example}
+
+\textbf{Proof:} 
+
+    \begin{itemize}
+    \item \underline{Step 0:} We write down the statements. For $k \ge 2$, $P(k)$: there exist $i_k \ge 1$ and prime numbers $p_1, p_2, \ldots, p_{i_k}$ such that the product  $p_1 \dotsb p_{i_k} = k$. 
+        \item \underline{Step 1:} Check the base case, $P(2)$: For  $k=2$, we have that $ 2 = 2$, and hence the base case is true. 
+        \item \underline{Step 2:} Show the induction hypothesis is true. That is, using the fact that $P(j)$ is true for $1 \le j \le k$, show that $P(k+1)$ is true, that is, $k+1$ can be expressed as a product of primes. 
+         There are two cases:
+    \begin{enumerate}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+        \setlength{\itemsep}{.1cm}
+        \item \underline{Case 1:} $k+1$ is prime. In this case, we are done because $k+1$ is already the product of one prime, namely itself.
+        \item \underline{Case 2:} $k+1$ is composite. Then, there exist two natural numbers $a$ and $b$, $2\le a, b \le k$, such that $k+1 = a \cdot b$. \\
+        
+         Because $a$ and $b$ are natural numbers that are greater than or equal to $2$ and less than or equal to $k$, by the induction step:
+    \begin{align*}
+   P(a) \implies      a &= p_1 \cdot p_2 \cdot \dotsb \cdot p_{i_a}, \text{ for some primes } p_i\\
+   P(b) \implies      b &= q_1 \cdot q_2 \cdot \dotsb \cdot q_{j_b}, \text{ for some primes } q_j
+    \end{align*}
+Hence, $a\cdot b = (p_1 \cdot p_2 \cdot \dotsb \cdot p_{i_a})\cdot (q_1 \cdot q_2 \cdot \dotsb \cdot q_{j_b})$, which is a product of primes.
+    \end{enumerate}
+    \end{itemize}
+    
+\Qed   
+
+\vspace*{.2cm}
+
+Strong Induction was useful here because we needed to ``reach back'' and use our statements $P(j)$ for values of $j$ not equal to $k$. If we relied only on Ordinary Induction, we would have been stuck. This raises the question again, is Strong Induction really more powerful than Ordinary Induction? The answer is NO, it is just sometimes more convenient. \\
+
+\textbf{Equivalence of Strong and Ordinary Induction:} Let $P(k)$ be the set of logical statements that are used with Strong Induction. Then the induction step is equivalent to
+\begin{equation}
+\label{eq:WeakEqualsStong}
+   (P(1) \land P(2) \land \cdots \land P(k)) \implies P(k+1), 
+\end{equation} 
+because we assume that $P(j)$ is true for $1 \le j \le k$. Next, you can note that \eqref{eq:WeakEqualsStong} is equivalent to 
+\begin{equation}
+\label{eq:WeakEqualsStong02}
+   P(1) \land P(2) \land \cdots \land P(k) \implies  P(1) \land P(2) \land \cdots \land P(k) \land P(k+1), 
+\end{equation} 
+because if $P(1) \land P(2) \land \cdots \land P(k) = \textbf{T}$, then 
+$$( P(1) \land P(2) \land \cdots \land P(k) \land P(k+1) = \textbf{T})  \iff (P(k+1) =  \textbf{T}).$$
+It follows that Ordinary Induction on 
+$$ Q(k):= P(1) \land P(2) \land \cdots \land P(k)$$
+is equivalent to Strong Induction on $P(k)$. \\
+
+If we return to our proof of the Fundamental Theorem of Arithmetic, then what is $Q(k)$? Well, $Q(k)$ true means that $P(1), P(2), \ldots, P(k)$ are all true, and hence
+$$Q(k): \text{ for all integers } 2 \le j \le k, \text{ there exist primes } p_1, p_2, \ldots, p_{i_j}, \text{ such that } j = p_1 \cdot p_2 \cdots p_{i_j}.$$
+The proof of the induction step $Q(k) \implies Q(k+1)$ is then identical to the proof we gave for $P(1) \land \cdots \land P(k) \implies P(k+1).$
+
+
+\vspace*{.2cm}
+
+\subsection{Proof by Contradiction} 
+
+\begin{definition}
+A \emph{logical contradiction}, or \emph{contradiction} for short, is a logical statement $R$ such that $R \land (\sim R) = \textbf{T}$. 
+\end{definition} 
+
+Initially, students tend to dislike proofs by contradiction. It seems to be a contradiction to logical thinking that such a method of proof can even be correct! A statement that is both true and false is called a \emph{contradiction}. The basis for a \emph{proof by contradiction} is that if you start with only true statements and correctly apply the rules of logic, you cannot generate a contradiction. Hence, if you start with a statement, say $p$, and through valid application of the rules of logic, arrive at a second statement, say $R$ that is both \textbf{T} and \textbf{F}, then the statement $p$ must be false.  We can write this as
+$$ \big( p \implies \left(\exists~R  \text{ such that } R \land (\sim R) = \textbf{T}\right) \big) \iff p = \textbf{F}. $$
+Only false statements can generate contradictions.\\
+
+\textbf{The game plan for a proof by contradiction:} We want to show that a statement $p$ is true. We assume instead that the statement is false. On the basis of $p$ being false, we derive a ``contradiction'', meaning some statement $R$ that we show to be both true and false. We conclude that $\sim p$ is false, because it led to a contradiction. Hence, $p$ must be true.\\
+
+Once we do a few examples, it becomes much easier to digest. 
+
+\vspace*{.2cm}
+
+\begin{example}
+Use proof by contradiction to show that $\sqrt{2}$ is an irrational number.
+\end{example} 
+
+\vspace*{.2cm}
+
+\textbf{Proof:} Our statement is $p: \sqrt{2}$ is irrational. We assume $\sim p: \sqrt{2}$ is rational. We seek to show that this leads to the existence of a statement $R$ that is both true and false, a contradiction. \\
+
+If $\sqrt{2}$ is rational, then there exist natural numbers $m$ and $n$ such that 
+\begin{itemize}
+    \item $m$ and $n$ have no common factors, 
+    \item $n \neq 0$, and 
+\end{itemize}
+\begin{equation}
+\label{eq:Euclid01}
+        \sqrt{2} = \frac{m}{n}.
+\end{equation}
+All we have done is apply the definition of a rational number. Next, we square both sides of \eqref{eq:Euclid01} to arrive at  
+$$ \left(2 = \frac{m^2}{n^2} \right) \implies \left(2n^2 = m^2 \right) \implies \left(m^2\textnormal{ is even}\right).$$ 
+From our result in Example~\ref{ex:nSquaredEven}, we deduce that $m$ must be even, and hence there must exist an integer $k$ such that $m=2 k$.\\
+
+From $2 n^2 = m^2$, we deduce that 
+$$ \left(2 n^2 = (2 k)^2 \right) \implies \left(2 n^2 = 4 k^2 \right) \implies \left( n^2 = 2 k^2 \right)  \implies n^2  \textnormal{ is even}.$$
+Once again appealing to our result in Example~\ref{ex:nSquaredEven}, we deduce that $n$ must be even, and hence there must exist an integer $j$ such that $n=2 j$.\\
+
+Because both $m$ and $n$ are even, they have $2$ as a common factor, which is a contradiction to $m$ and $n$ have no common factors. \\
+
+Because we arrived at this contradiction from the statement ``$\sqrt{2}$ is rational'', we deduce that ``$\sqrt{2}$ is rational'' must be false. Hence, $\sqrt{2}$ is irrational.
+\Qed.
+
+\vspace*{.2in}
+
+\textbf{Here is a blow by blow recap of the proof.} 
+\begin{itemize}
+    \item We define $p: \sqrt{2}$ is an irrational number.
+
+\item  We start with the assumption $(\sim p = \textbf{T})$, that is, $\sqrt{2}$ is a rational number.
+\item  Based on that assumption, we can deduce there exist integers $m$ and $n$, $n\neq 0$,  such that $\sqrt{2}=\frac{m}{n}$ and $m$ and $n$ do not have a common factor.
+\item We now define ($R:$ $m$ and $n$ do not have a common factor) and know that $R = \textbf{T}$.
+\item  However, from $\sqrt{2}=\frac{m}{n}$, we show that $m$ and $n$ have 2 as a common factor.
+\item We now have $\sim R = \textbf{T}$.
+\item Hence,  $ (R \land (\sim R)) = \textbf{T}$, \textcolor{red}{\bf which is a contradiction}.
+\item  Conclusion: $\sim p = \textbf{T}$ is impossible, and therefore $\sim p = \textbf{F}$ .
+\item  Hence, $p = \textbf{T}$ and we have proved that $\sqrt{2}$ is irrational. Pretty cool!
+  \end{itemize}
+  
+\begin{rem}
+You can also use \emph{proof by contradiction} to prove $p \implies q$. What you do is start with $p \land (\sim q)$, that is, you assume $p$ is true and $\sim q$ is true. This gives you an easy way of generating a statement that you believe to be false, and hence should lead to a contradiction. 
+\end{rem}
+  
+  
+  
+\subsection{Summary:} In conclusion, we have the  following proof techniques.
+    \begin{itemize}
+        \item Direct Proof: $p \implies q$
+        \item Proof by Contrapositive: $\sim q \implies \sim p$.   (Start with the conclusion being false, that is $\sim q$ and do logical steps to arrive at $\sim p$)
+         \item Proof by Contradiction Version I: To show that $p$ is a true statement, you assume instead that $\sim p$ is true and seek a statement $R$ such that both $R$ and $\sim R$ are true, which is a contradiction. Deduce that $\sim p = \textbf{F}$ and hence $p= \textbf{T}$.
+        \item Proof by Contradiction Version II: Start with $p \land (\sim q)$ (assume $p$ is true and $q$ is false. Find a statement $R$ such that both $R$ and $\sim R$ are true, which is a contradiction. Deduce that $\sim(p \land (\sim q)) = \textbf{T}$, that is, $(p \land (\sim q)) = \textbf{F}$, and hence, if $p=\textbf{T}$ then $q=\textbf{T}$. That is, $p \implies q$. 
+        \item Hence, we have that $(p \implies q) \iff \sim(p \land (\sim q))$.
+        \item Proof by Induction, which can be done in two forms.
+        \item Proof by Exhaustion, where we enumerate a finite set of cases and check them one by one.
+        \item To show $p \iff q$ is true, we need to show \textbf{both} $p \implies q$ \textbf{and its converse}, $q \implies p$. \\
+        
+        A rookie mistake is to prove ``both''  $p \implies q$ and its contrapositive , $\sim q \implies \sim p$. The problem here is that $\sim q \implies \sim p$ is logically equivalent to $p \implies q$ and hence all you have done is prove the same thing two different ways, which is not what you wanted to do! 
+    \end{itemize}
+
+\section{Truth Tables}
+
+\emph{Logic Tables} or \emph{Truth Tables} are simply a list of the possible logical values of a statement's inputs followed by the corresponding value of the statement's output. Here is a \emph{truth table} for the negation operation, which has one input, $p$ and one output $\lnot p$.
+
+\begin{center}
+\Large
+ \begin{tabular}{ |c|c|}
+ \hline
+ $p$   & $\lnot p$ \\
+ \hline
+T   & F\\
+ \hline
+F & T  \\
+\hline
+\end{tabular}
+\end{center}
+
+Here is a \emph{truth table} for $p \land q$, which has two inputs, $p$ and $q$, and one output $p \land q $.
+\begin{center}
+\Large
+ \begin{tabular}{ |c|c|c|}
+ \hline
+$p$    & $q$  & $p \land q $\\
+ \hline
+T   & T & T\\
+ \hline
+T   & F & F\\
+ \hline
+F   & T & F\\
+ \hline
+F   & F & F\\
+\hline
+\end{tabular}
+\end{center}
+
+Here is a \emph{truth table} for $p \implies q$ using \emph{proof by contradiction}. The table has two inputs $p$ and $q$, and one output $\sim(p \land (\sim q))$, the last column. We include several intermediate columns required to compute the output. The input and output are highlighted in blue.
+\begin{center}
+\Large
+ \begin{tabular}{ |c|c|c|c|c|}
+ \hline
+$p$    & $q$  & $\lnot q$ & $p \land \lnot q $ & $\lnot (p \land \lnot q) $\\
+ \hline
+\BLUE T   & \BLUE T & F & F &\BLUE T\\
+ \hline
+\BLUE T   &\BLUE F & T & T &\BLUE F\\
+ \hline
+\BLUE F   &\BLUE T & F & F & \BLUE T\\
+ \hline
+\BLUE F   &\BLUE F & T  & F & \BLUE T\\
+\hline
+\end{tabular}
+\end{center}
+It is remarkably easy to check that the above table is correct because it only involves logical negation and logical and. The hard part is accepting that 
+$(p \implies q) \iff \lnot (p \land \lnot q)$. \\
+
+
+Now we give you a partially filled \emph{truth table} for $p \implies q$, which has two inputs, $p$ and $q$, and one output $p \implies q $ and ask you to complete it. 
+\begin{center}
+\Large
+ \begin{tabular}{ |c|c|c|}
+ \hline
+$p$    & $q$  & $p \implies q $\\
+ \hline
+T   & T & T\\
+ \hline
+T   & F & F\\
+ \hline
+F   & T & \RED ?\\
+ \hline
+F   & F & \RED ?\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{rem} Here is one way to think about it that I once found on the web and have lost the link: We define $p:$ (you score 100\% on all exams and assignments) and $q:$ (I assign you an A$^+$ grade for the course). We all agree that $p \implies q$ must be a correct statement. In fact, it should be so deep into the bedrock of grading that we can call it an axiom! It's just that until now, you maybe never thought to complete a truth table for it! So, consider the following four scenarios, which correspond to the four lines in the truth table:
+\begin{itemize}
+    \item[]  $p=$ you score 100\% and $q=$ your grade is an A$^+$, then $(p\implies q) = \textbf{T}$ (easy)
+        \item[]  $p=$ you score 100\% and $q=$ your grade is an A$^-$, then $(p\implies q) = \textbf{F}$ (easy)
+            \item[]  $p=$ you score 85\% and $q=$ your grade is an A$^+$, then $(p\implies q) = \textbf{?}$ (ask yourself, does this invalidate the statement?)
+        \item[]  $p=$ you score 85\% and $q=$ your grade is an A$^-$, then $(p\implies q) = \textbf{?}$ (ask yourself, does this invalidate the statement?)
+\end{itemize}
+To get the answers, look at the truth table of $\lnot (p \land \lnot q)$. If this makes your head spin, don't worry about it. After we do a bunch of proofs, you can come back to this riddle. The reasoning is, once you fail to live up to the 100\% standard, then $p = \textbf{F}$. Then, no matter what grade I give you, I am not invalidating the promise, $p \implies q$. Hence, the questions marks cannot be \textbf{F}. Because we are using binary logic, $\lnot \textbf{F} = \textbf{T}$. Therefore, the question marks must be replaced with  
+\textbf{T}. Pretty cool, right?
+ 
+\end{rem} 
+
+
+\section{Negating Logical Statements}
+
+By now, you've noticed that several of the proof techniques require you to negate a logical statement. Some are super easy, such as, when $p:x >0$, you easily see that $\sim p: x \le 0$. In the beginning, for more complex statements, we recommend you first ``translate them to English (or your preferred language), negate that statement, and then ``translate'' back into math. The math symbols are simply shortcuts for word phrases, so there is nothing illogical or wrongheaded about doing negations this way. It does take more time, and with practice, you will learn to skip the ``translation'' step, altogether. 
+
+\begin{example}
+Let $p: \forall~x \in \real,~ f(x) >0$. Compute its negation.
+\end{example}
+
+\vspace*{.2cm}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item Math form: $p: \forall~x \in \real,~ f(x) >0$
+    \item Word form: $p:$ for all $x\in \real$, $f(x) >0$
+    \item Negate: $\sim p:$ not (for all $x\in \real$, $f(x) >0$)
+    \item Equivalent: $\sim p:$ for some $x\in \real$, not[$f(x) >0$]
+     \item Equivalent: $\sim p:$ for some $x\in \real$, $f(x) \le 0$
+      \item Math form: $\sim p:~ \exists~x\in \real$, such that $f(x) \le 0$
+\end{itemize}
+\Qed
+\vspace*{.2cm}
+
+
+\vspace*{.2cm}
+
+\begin{example}
+Let $y\in \real$ and define $p: \forall~\delta>0, \exists x \in {\cal Q}$ such that $|x-y| < \delta$. Determine its negation. Recall, $\mathcal{Q}$ is the set of rational numbers.
+\end{example}
+
+\vspace*{.2cm}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item Math form: $p: \forall~\delta>0, \exists x \in {\cal Q}$ such that $|x-y| < \delta$
+    \item Word form: $p:$ for all $\delta >0$, there exists $x \in {\cal Q}$ such that $|x-y| < \delta$
+    \item Negate: $\sim p:$ not (for all $\delta >0$, there exists $x \in {\cal Q}$ such that $|x-y| < \delta$)
+    \item Equivalent: $\sim p:$ for some $\delta >0$, not[there exists $x \in {\cal Q}$ such that $|x-y| < \delta$]
+    %  \item Equivalent:  $\sim p:$ for some $\delta >0$, not[there exists $x \in {\cal Q}$ such that $|x-y| < \delta$]
+    \item Equivalent:  $\sim p:$ for some $\delta >0$, there does not exist $x \in {\cal Q}$ such that $|x-y| < \delta$
+        \item Equivalent:  $\sim p:$ there exists $\delta >0$, such that for all $x \in {\cal Q}$, not[$|x-y| < \delta$]
+        \item Equivalent:  $\sim p:$ there exists $\delta >0$, such that for all $x \in {\cal Q}$, $|x-y| \ge \delta$
+      \item Math form: $\sim p:~ \exists ~\delta>0, \forall  x \in {\cal Q}, |x-y| \ge  \delta$ 
+\end{itemize}
+\Qed
+\vspace*{.2cm}
+
+When negating statements with $\exists$ and $\forall$, here are the logical equivalents of their negations:
+\begin{align*}
+    \sim \forall & \iff \exists \\
+    \sim \exists & \iff \forall
+\end{align*}
+
+\begin{rem}  It is better to avoid $\not \forall$ and $\not \exists$, but they are legal symbols.
+\end{rem}
+
+\vspace*{.2cm}
+
+\begin{example}
+Negate the statement $p:\forall y \in \real,  \forall~\delta>0, \exists x \in {\cal Q}$ such that $|x-y| < \delta$. 
+\end{example}
+
+\vspace*{.2cm}
+
+\textbf{Solution:}
+$\sim p: \exists y \in \real \text{ and } \exists \delta >0$ such that, $\forall~x \in {\cal Q}, |x-y| \ge \delta $.
+\Qed
+
+\vspace*{.2cm}
+
+
+\section{Key Properties of Real Numbers} 
+
+Let $A$ be a subset of the reals, $\real$.\\
+
+\begin{definition}
+An element $b\in A$ is a \emph{maximum} of $A$ if $x \le b$ for all  $x\in A$. We note that in the definition, $b$ \underline{must} be an element of $A$. We denote it by $$\max~A \text{ or } \max \{ A\}.$$
+\end{definition}
+
+It is very important to note that a \emph{max of a set may not exist}! Indeed, the set $A = \{  x\in \real~|~ 0  < x < 1\}$ does not have a maximum element. We will see later that it does not have a minimum either. This is what motivates the notions of supremum and infimum.\\
+
+\begin{definition}
+An element $b\in \real$ is an \emph{upper bound} of $A$ if $x \le b$ for all  $x\in A$.  We say that $A$  is \emph{bounded from above}.
+\end{definition}
+
+\begin{rem}
+We note that in the definition of upper bound,  $b$ does NOT have to be an element of $A$.
+\end{rem}
+
+\begin{definition}
+An element $b^*\in \real$ is the \emph{least upper bound} of $A$ if
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.2cm}
+\item $b^*$ is an upper bound, that is $\forall ~x\in A$,~$x \le b^*$, and
+\item  if $b\in \real$ satisfies $ x \le b$ for all $x\in A$, then $b^* \le b$. (This means that there is no other upper bound that is strictly smaller than $b^\ast$.)
+\end{enumerate}
+\end{definition}
+
+\begin{notvocab}
+The least \emph{least upper bound} of $A$ is also called the \emph{supremum} of $A$ and is denoted
+$$\sup A~~~\mbox{or}~~~\sup\{A\}$$
+\end{notvocab} 
+
+
+\begin{center}
+
+\fbox{\fbox{\large \textbf{Key Theorem} If $A \subset \real$ is bounded from above, then $\sup\{A\}$ exists in $\real$.}}
+    
+\end{center}
+\vspace*{.5cm} 
+
+\begin{rem}
+The rational numbers ${\cal Q}$ do not satisfy the above property, namely, sets that are bounded from above may not have a supremum within the rational numbers. Let $A \subset {\cal Q}$ be defined as
+$$A:=\{ x \in {\cal Q}~|~ \exists~ n \ge 1, x + \frac{1}{n} \le \sqrt{2} \}.$$
+The number $1.5 \in {\cal Q} $ is an upper bound of $A$, but there is no rational number that is a \emph{least upper bounded}. Of course, viewed as a subset of the real numbers, $A$ has a least upper bound, namely $\sqrt{2}$. This is a subtle but important difference. In fact, one can construct the real numbers from the rational numbers as the ``smallest set that (i) contains the rationals and (ii) all subsets that are bounded from above have a least upper bound, that is, a supremum. 
+
+\end{rem} 
+
+
+\begin{example} \mbox{ }
+\begin{itemize}
+\item $A = \{  x\in \real~|~ 0  < x < 1\}$. Then $\sup A =1$.
+\item $A= \{ x\in \real~|~ x^2 \le 2\}.$ Then  $\sup A =\sqrt{2}$.
+\end{itemize}
+\end{example}
+
+\begin{rem}
+\textbf{(Dej\`a Vu All Over Again)} The existence of a \emph{supremum} is a special property of the real numbers. If you are working within the rational numbers, an upper bounded set may not have a \underline{rational} supremum. If you view the set as a subset of the reals, it will then have a supremum, but the supremum may be an irrational number.
+\end{rem}
+
+\vspace*{.2cm} 
+
+\begin{example} \mbox{ }
+\begin{itemize}
+\item $A = \{  x\in \mathbb{Q}~|~ 0  < x < 1\}$. Then $\sup A =1$. Indeed, 1.0 is a rational number, it is an upper bound, and it less than or equal to any other upper bound; hence it is the supremum.
+\item $A= \{ x\in \mathbb{Q}~|~ x^2 \le 2\}.$  Then $(1.42)^2 = 2.0164$, and thus $b=1.42$ is a rational upper bound. Also $(1.415)^2 = 2.002225$, and thus $b=1.1415$ is a smaller rational upper bound. However, there is no least upper bound within the set of rational numbers. When we view the set $A$ as being a subset of the real numbers, then there is a real number that is a least upper bound and we have $\sup A =\sqrt{2}$. This is what we mean when we say that the existence of a supremum is a special or distinguishing property of the real numbers.
+\end{itemize}
+\end{example}
+
+
+\begin{center}
+
+\fbox{\fbox { \parbox { .8\linewidth}{\large \noindent \textbf{Important Fact:} Suppose $A \subset \real$. If the \emph{supremum} of $A$ is in the set $A$, then it is equal to the \emph{maximum}. In fact, $$b^\ast = \max \{A\} \iff (b^\ast = \sup \{A\}) \land (b^\ast \in A). $$}}}
+    
+\end{center}
+\vspace*{.5cm}
+
+Everything we have done above can be repeated with \emph{minimum} replacing \emph{maximum}, \emph{greatest lower bound} replacing \emph{least upper bound}, and \emph{infimum} replacing \emph{supremum}. Consider once again a set $A \subset \real$.\\
+
+\begin{definition}
+An element $b\in A$ is a \emph{minimum} of $A$ if $b \le x$ for all  $x\in A$.
+We note that in the definition,  $b$ \underline{must} be an element of $A$. We denote it by $\min~A$ or $\min \{ A\}$. \\
+\end{definition}
+
+It is important to note that a \emph{min} of a set may not exist! Indeed, the set $A = \{  x\in \real~|~ 0  < x < 1\}$ does not have a minimum element.\\
+
+\begin{definition}
+An element $b\in \real$ is a \emph{lower  bound} of $A$ if $b\le x$ for all  $x\in A$.  We say that $A$  is \emph{bounded from below}.
+\end{definition}
+
+\begin{rem}
+ We note that in the definition of lower bound,  $b$ does NOT have to be an element of $A$.
+\end{rem}
+
+\begin{definition}
+An element $b^*\in \real$ is the \emph{greatest lower bound} of $A$ if
+\vspace*{0.2cm}
+\begin{enumerate}
+\item $b^*$ is a lower bound, that is $\forall ~x\in A$,~$b^* \le x$, and
+\item  if $b\in \real$ satisfies $b\le x$ for all $x\in A$, then $b^* \ge b$.
+\end{enumerate}
+\end{definition}
+
+\begin{notvocab}The greatest lower bound of $A$ is also called the \textbf{infimum} and is denoted
+$$\inf A~~~\mbox{or}~~~\inf\{A\}$$
+\end{notvocab} 
+
+
+
+\begin{center}
+
+\fbox{\fbox{\large \textbf{Key Theorem}  If the set $A$ is bounded from below, then $\inf~A$ exists.}}
+    
+\end{center}
+\vspace*{.5cm} 
+
+
+
+\begin{example} \mbox{ }
+\begin{itemize}
+\item $A = \{  x\in \real~|~ 0  < x < 1\}$. Then $\inf A =0$.
+\item $A= \{ x\in \real~|~ x^2 \le 2\}.$ Then  $\inf A =-\sqrt{2}$.
+\end{itemize}
+\end{example}
+
+
+\begin{rem}
+ If the \emph{infimum} is in the set $A$, then it is equal to the \emph{minimum}.
+\end{rem}
+
+\begin{definition}
+If a set $A\subset \real$ is not bounded from above, we define $\sup~A = +\infty$. If $A\subset \real$ is not bounded from below, we define $\inf~A = -\infty$. \emph{The symbols  $+\infty$ and $-\infty$ are not real numbers}. The \textbf{extended real numbers} are sometimes defined as
+$$\real_e:=\{-\infty\} \cup \real \cup \{+\infty \}.$$
+\end{definition} 
+
+
+\begin{rem}
+ \textbf{(Final)} Michigan's MATH 451 \emph{constructs} the real numbers from the rational numbers. This is a very cool process to learn. Unfortunately, we do not have the time to go through this material in ROB 501. The existence of supremums and infimums for bounded subsets of the real numbers is a consequence of how the real numbers are defined (i.e., constructed).
+\end{rem}
+
+

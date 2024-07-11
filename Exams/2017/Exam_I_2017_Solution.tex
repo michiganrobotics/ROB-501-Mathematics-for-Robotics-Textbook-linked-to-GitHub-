@@ -1,0 +1,451 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{mathtools}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-I Solutions}\\
+31 October 2017
+\end{center}
+
+\vspace*{0.5cm}
+
+%Prob. 1
+
+
+
+
+\bigskip
+
+%Prob. 2
+\noindent \textbf{Problem 1:} The answers are (a) and (c). \\
+
+(a) True. It is the contrapositive, $\neg q \implies \neg p$. \\
+
+(b) False. The given information is nonsense. You want to show that some logical statement $R$ and $\neg R$ are true simultaneously.  \\
+
+(c) True. You can check with the truth table. This is one of the De Morgan's laws. \\
+
+(d) False. We know the truth value for $p \implies q$ when $p=0$ and $q=0$ is $1$,
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+p &q & $p \implies q$ \\  \hline
+1 & 1 & 1  \\
+1 & 0 & 0  \\
+0 & 1 & 1  \\
+0 & 0 & 1  \\ \hline
+\end{tabular}
+\end{center}
+
+
+\bigskip
+
+%Prob. 5
+\noindent \textbf{Problem 2:} The answers are (a) and (b). \\
+
+(a) and (b): \texttt{Statement:}   $\forall~x \in A$, $\exists~y \in B$   such that $x+y=0$. \\
+
+\texttt{Negation:} $ \neg (\forall~x \in A$, $\exists~y \in B$   such that $x+y=0)$\\
+
+\texttt{Is same as:} $ \exists~ x \in A$, $\neg (\exists~y \in B$  such that  $x+y = 0)$\\
+
+\texttt{Is same as:} $ \exists~ x \in A$, $\nexists~y \in B$  such that  $x+y = 0$\\
+
+\texttt{Is same as:} $ \exists~ x \in A$, $\forall~y \in B$,  $x+y\neq 0$\\
+
+
+(a) True. See above.\\
+
+(b) True.  See above. \\
+
+
+(c) and (d)  \texttt{Statement:}  For every  $x\in \real$ and $\epsilon>0$, there is some pair of integers $n$ and $m$ such that $m\neq0$ and $|\frac{n}{m} -x| < \epsilon$. \\
+
+\texttt{Statement:}  $\forall~x \in \real,~ \forall~\epsilon \in \real, ~\exists~ m,n \in \mathbb Z$ such that $m \neq 0$ and $|\frac{n}{m} -x| < \epsilon$. \\
+
+\texttt{Negation:} $\exists~x \in \real,~ \exists~\epsilon \in \real, ~\nexists~ m,n \in \mathbb Z $ such that $m \neq 0$ and $|\frac{n}{m} -x| < \epsilon$. \\
+
+\texttt{Negation:} $\exists~x \in \real,~ \exists~\epsilon \in \real, ~\forall~ m,n \in \mathbb Z $, $m \neq 0$, $|\frac{n}{m} -x| > \epsilon$. \\
+
+(c) False. Does not have to be for every $x$. You need just one $x$ which does not satisfy\\
+
+(d) False. Does not have to be for every $\epsilon$. You need just one $\epsilon$ which does not satisfy \\
+
+\bigskip
+
+\bigskip
+
+%Prob. 3
+\noindent \textbf{Problem 3:} The answer are (c) and (d). \\
+
+(a) False. $\{v^1, v^2, v^3\}$ could be linearly dependent. In that case $\{v^1, v^2, v^3, v^4\}$ do not form a basis for $\mathcal X$ \\
+
+(b) False. $S \cap S^\perp = \{0\}$. The intersection of two subspaces always contains the zero vector.\\
+
+(c) True. $\mathcal X = S \oplus S^\perp = \spanof{v^1, v^2, v^3} \oplus \spanof{v^4}= \spanof{v^1, v^2, v^3, v^4} $\\
+
+(d) True. Since, all $v^i$'s are non zero, dim$\{S^\perp\}$ = 1 and dim$\{S\}$ = number of linearly independent vectors in the set $\{v^1,v^2,v^3\}$. Hence the maximum dimension of $\mathcal X =  1 + 3 =4$.
+
+
+
+\bigskip
+\vspace{1cm}
+
+
+%Prob. 4
+\noindent \textbf{Problem 4:} The answers are (a), (b) and (c). \\
+
+(a) True. You could check the eigenvalues by brute force. The faster way to do is use the block matrix method and partition the matrix. M is symmetric, hence we can write $M= \begin{bmatrix} A & B \\ B^\top & C\end{bmatrix}$, where $A=\begin{bmatrix} 3 & 1 \\ 1 & 4\end{bmatrix}, B = \begin{bmatrix}  1 \\ 4\end{bmatrix}, C = 10 $. We can see that $C>0$. The Schur's complement of $C$ in $M$, is $A - BC^{-1}B^\top $.
+$$\begin{bmatrix} 3 & 1 \\ 1 & 4\end{bmatrix} - \begin{bmatrix}  1 \\ 4\end{bmatrix} \times\frac{1}{10}\times \begin{bmatrix}  1 & 4\end{bmatrix} = \begin{bmatrix} 3 & 1 \\ 1 & 4\end{bmatrix} - \begin{bmatrix} 0.1 & 0.4 \\ 0.4 & 1.6\end{bmatrix} = \begin{bmatrix} 2.9 & 0.6 \\ 0.6 & 2.4\end{bmatrix}= \begin{bmatrix} A' & B' \\ B'^\top & C'\end{bmatrix}$$
+Now again looking the above matrix, $C' > 0$, and its Schur's complement $= 2.4 - 0.6\times \frac{1}{2.9} \times 0.6= 2.2759 >0 $. Hence the Schur's complement of $C$ in $M$ is positive definite and hence M is positive definite. Since M is positive definite, all its eigenvalues are all strictly positive.
+\\
+
+(b) True. Let $ M = \begin{bmatrix} A & B \\ B^\top & C\end{bmatrix}$, where $ A = \begin{bmatrix} 2 & 0 \\ 0 & 2\end{bmatrix}$, $ B = \begin{bmatrix} 0 & 1 \\ 0 & 1\end{bmatrix}$, $ C = \begin{bmatrix} 3 & 0 \\ 0 & 4\end{bmatrix}$. Since $M$ is symmetric, if $A$ and its Schur's completement are both positive definite, then $M$ is also postive definite. Since $A$ is diagonal and the eigenvalues are its diagonal entries. Since all the diagonal entries are $> 0$ $A $ is positive definite.  Schur's complement of $A $ is given by,  $$C - B^\top A^{-1}B= \begin{bmatrix} 3 & 0 \\ 0 & 4\end{bmatrix} - \begin{bmatrix} 0 & 0 \\ 1 & 1\end{bmatrix} \begin{bmatrix} 0.5 & 0 \\ 0 & 0.5\end{bmatrix} \begin{bmatrix} 0 & 1 \\ 0 & 1\end{bmatrix}= \begin{bmatrix} 0 & 0 \\ 0 & 1\end{bmatrix} = \begin{bmatrix} 3 & 0 \\ 0 & 3\end{bmatrix} >0 $$
+Hence M is positive definite.\\
+
+(c) True. $N^\top N = \begin{bmatrix} -1 \\ 2 \end{bmatrix} \begin{bmatrix} -1 & 2 \end{bmatrix} = \begin{bmatrix} 1 & -2  \\ -2 & 4\end{bmatrix}$. You can check the eigenvalues of this to be 0 and 5, and hence deduce it is positive semi-definite, but that is the hard way to work the problem. All you need to do is note that for any $x\in \real^2$,  $x^\top N^\top N x = (Nx)^top (Nx)\ge 0$, and thus the matrix is positive semidefinite.\\
+
+(d) False. To be positive definite, the matrix must have rank 2. But, we know that $${\rm rank}~N^\top N = {\rm rank} ~N =1$$
+in our case.
+
+
+
+\bigskip
+
+\newpage
+
+%Prob. 5
+\noindent \textbf{Problem 5:} The answer is (a). \\
+
+(a) True. You are multiplying two real numbers. The order does not matter. \\
+
+(b) False. $(\real^2, \mathbb C) $ is not a valid vector space because, with the usual rules of multiplication, any complex element of the proposed field times a proposed vector is no longer a vector. \\
+
+(c) False. The matrix representation of $Id$ would be the change of basis matrix.\\
+
+(d) False. $\Vert \cdot \Vert_1$ is not a strict norm in $(\real^2, \real) $. We have seen this in the homework.
+
+
+
+\newpage
+
+%Prob. 6
+\noindent \textbf{Problem 6:}
+
+\textbf{(a)}
+You can use the normal equations to compute the closest approximation of $x$ in $\spanof{y^1, y^2}$ . \\
+$$\begin{bmatrix}	<y^1, y^1> & <y^1, y^2> \\ <y^2, y^1> & <y^2, y^2>\end{bmatrix}
+\begin{bmatrix}	\alpha_1 \\ \alpha_2 \end{bmatrix} =
+\begin{bmatrix}	<x, y^1> \\ <x, y^2>\end{bmatrix}$$
+$$\therefore \begin{bmatrix} 2 & -1 \\ -1 & 3\end{bmatrix} \begin{bmatrix}	\alpha_1 \\ \alpha_2 \end{bmatrix} = \begin{bmatrix}	1 \\ 2\end{bmatrix}$$
+$$\begin{bmatrix}	\alpha_1 \\ \alpha_2 \end{bmatrix} = \begin{bmatrix} 2 & -1 \\ -1 & 3\end{bmatrix}^{-1} \begin{bmatrix}	1 \\ 2\end{bmatrix} = \frac{1}{5}\begin{bmatrix} 3 & 1 \\ 1 & 2\end{bmatrix} \begin{bmatrix}	1 \\ 2\end{bmatrix}= \frac{1}{5} \begin{bmatrix}	5 \\ 5\end{bmatrix} = \begin{bmatrix}	1 \\ 1	\end{bmatrix}$$
+
+\fbox{\rule[-0.5cm]{0cm}{1cm}  $\hat x= y^1 +  y^2$ ~~}\\ \\
+
+\textbf{(b)} : \\
+
+	
+ \textbf{Solution 1}: Using the Cauchy-Schwarz inequality, we know that
+ %%$$\Vert \tilde y^1  \tilde y^2 \Vert \leq \Vert \tilde y^1 \Vert \cdot \Vert \tilde y^2 \Vert$$
+ $$ \vert < \tilde y^1 , \tilde y^2 > \vert ~~\leq~~ < \tilde y^1, \tilde y^1 >^{\frac{1}{2}} \cdot < \tilde y^2 , \tilde y^2 >^{\frac{1}{2}}$$
+
+We can see that, with the given values, we would have $2 \leq 1 \times \sqrt{3}$. This is not true and hence your friend is correct.	\\
+
+\textbf{Solution 2}: Make a Gram Matrix and check that it is not positive definite.
+
+$$ G = \begin{bmatrix}<\tilde y^1, \tilde y^1> & <\tilde y^1,\tilde y^2> \\ <\tilde y^2,\tilde y^1> & <\tilde y^2, \tilde y^2>\end{bmatrix} = \begin{bmatrix} 1 & 2 \\ 2 & 3 \end{bmatrix} $$
+Using Schur's complements, you can check that $1 > 0$, but $1-2 \times \frac{1}{3} \times 2 < 0$. Hence the matrix is not positive definite. You can also check that $3-4<0$ and hence it is not positive definite. No matter how you go about it, your friend is correct. Bummer! \\
+
+\textbf{Solution 3}: Here is a solution that one of the students discovered. We compute 
+$$ ||\tilde y^1 - \tilde y^2 ||^2 = <\tilde y^1 - \tilde y^2, \tilde y^1 - \tilde y^2> = <\tilde y^1 , \tilde y^1> + <\tilde y^2 , \tilde y^2> -2 <\tilde y^1 , \tilde y^2>=1+ 3 - 2\times 2=0$$
+This means that $\tilde y^1 = \tilde y^2$ and we therefore must have
+$$<\tilde y^1 , \tilde y^1> = <\tilde y^2 , \tilde y^2> , $$
+but that is not true (the right-hand side equals 1.0 while the other equals 3.0)! Hence the calculations have to be wrong. This is a clever solution. Your instructor did not try to make the numbers work out like this. He wanted you to find solution (1). While not the desired method, it is perfectly valid and received full credit. \\
+
+
+%AV 30 Oct-  I have completed solutions till now. Need to write the solutions for the partial credit part
+
+
+
+
+\noindent \textbf{Grading Notes:}
+\begin{enumerate}
+  \item[\bf (a)] You will lose points for the following:
+    \begin{itemize}
+      \item (-7) Not attempted or nothing is relevant.
+      \item (-3) If you write $\hat\alpha$ in place of $\hat x$.
+      \item (-1) If your $\hat\alpha$ is wrong but your gram matrix is correct
+      \item (-1) Minor errors including error while copying down the answer into the box
+
+    \end{itemize}
+  \item[\bf (b)] You will lose points for the following:
+    \begin{itemize}
+	  \item (-8) Not attempted.
+	  \item (-6) Most of the solution is irrelevant.	
+      \item (-4) If you do not have enough facts to solve the problem, but have shown relevant facts.
+      \item (-3) If you conclusion is incorrect. i.e. using irrelevant facts to conclude after showing most of the relevant parts.
+      \item (-3) If approach was correct, but some terms were missing or if huge mistake in  algebra.
+      \item (-1) Approach is correct, but have stated the wrong theorem.
+      \item (-1) Small mistakes in algebra or mistakes in copying down values.
+      \end{itemize}
+\end{enumerate}
+%
+
+%\end{enumerate}
+
+\newpage
+
+
+%Prob. 7
+\noindent \textbf{Problem 7:}
+
+We label the matrices $\{ y^1, y^2, y^3\}$ as in class. %%You easily compute that $<y^1, y^2>=0$.
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item The first vector is easy, $v^1 = y^1= \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix}$.\\
+
+$$v^2= y^2 - \dfrac{<y^2, v^1>}{<v^1, v^1>} v^1$$
+$${<v^1, v^1>} = \trace{\left(\begin{bmatrix}1 & 0 \\ 1 & 1 \end{bmatrix} \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}1 & * \\ * & 2 \end{bmatrix}\right)}= 3$$
+$${<y^2, v^1>} = \trace{\left(\begin{bmatrix}1 & 0 \\ -1 & 0 \end{bmatrix} \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}1 & * \\ * & -1 \end{bmatrix}\right)}= 0$$
+$$\therefore v^2 = y^2 - 0 \times v^1 = y^2 =\begin{bmatrix}1 & -1 \\ 0 & 0 \end{bmatrix}$$ \\
+$$v^3= y^3 - \dfrac{<y^3, v^1>}{<v^1, v^1>} v^1 - \dfrac{<y^3, v^2>}{<v^2, v^2>} v^2$$
+
+$${<v^2, v^2>} = \trace{\left(\begin{bmatrix}1 & 0 \\ -1 & 0 \end{bmatrix} \begin{bmatrix}1 & -1 \\ 0 & 0 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}1 & * \\ * & 1 \end{bmatrix}\right)}= 2$$
+$${<y^3, v^1>} = \trace{\left(\begin{bmatrix}0 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}0 & * \\ * & 3 \end{bmatrix}\right)}= 3$$
+$${<y^3, v^2>} = \trace{\left(\begin{bmatrix}0 & 1 \\ 1 & 2 \end{bmatrix} \begin{bmatrix}1 & 0 \\ -1 & 0 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}-1 & * \\ * & 0 \end{bmatrix}\right)}= -1$$
+
+$$\therefore v^3 = y^3 - \dfrac{3}{3} \times v^1 - \dfrac{-1}{2} \times v^2 = \begin{bmatrix}0 & 1 \\ 1 & 2 \end{bmatrix}- \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix} - \begin{bmatrix} \frac{1}{2} & -\frac{1}{2} \\ 0  & 0  \end{bmatrix}=  \begin{bmatrix} -\frac{1}{2} & -\frac{1}{2} \\ 1  & 1  \end{bmatrix}=\frac{1}{2}  \begin{bmatrix} -1 & -1 \\ 2  & 2  \end{bmatrix}$$\\
+
+
+
+\item \textbf{Solution 1:} We can start by choosing a vector, $y^\top$ so that $\{v^1, v^2, v^3, y^\top\}$ is a basis for inner product space $(\real^{2 \times 2}, \real, <\bullet, \bullet>)$. We know that such a vector exists, but do not have a systematic way to find it, so we will simply make a guess. Once we make such a choice, we can then apply Gram Schmidt to $y^\top$ and obtain $v^\top$ normal to $\{v^1, v^2, v^3\}$.\\
+
+Let's start with $y^\top = \begin{bmatrix}1 & 1 \\1 & 1 \end{bmatrix}$. (you can start with any other guess. However, your end result, $v^\top$, must be a scalar multiple of what we get below.)
+
+$${<y^\top, v^1>} = \trace{\left(\begin{bmatrix}1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix}1 & 1 \\ 0 & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}1 & * \\ * & 2 \end{bmatrix}\right)}= 3$$
+
+$${<y^\top, v^2>} = \trace{\left(\begin{bmatrix}1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix}1 & -1 \\ 0 & 0 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}1 & * \\ * & -1 \end{bmatrix}\right)}= 0$$
+
+$${<y^\top, v^3>} = \trace{\left(\begin{bmatrix}1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix}-\frac{1}{2} & -\frac{1}{2} \\ 1  & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}\frac{1}{2} & * \\ * & \frac{1}{2} \end{bmatrix}\right)}= 1$$
+
+$${<v^3, v^3>} = \trace{\left(\begin{bmatrix} -\frac{1}{2} & 1 \\ -\frac{1}{2}  & 1 \end{bmatrix} \begin{bmatrix}-\frac{1}{2} & -\frac{1}{2} \\ 1  & 1 \end{bmatrix}\right)} = \trace{\left(\begin{bmatrix}\frac{5}{4} & * \\ * & \frac{5}{4} \end{bmatrix}\right)}= \frac{5}{2}$$
+
+$$\therefore v^\top = y^\top - \dfrac{3}{3} \times v^1 - 0 \times v^2 - \dfrac{2}{5} \times v^3 = \begin{bmatrix}1 & 1 \\ 1 & 1 \end{bmatrix}- \begin{bmatrix} 1 & 1 \\ 0  & 1  \end{bmatrix}- \begin{bmatrix}-\frac{1}{5} & -\frac{1}{5} \\[0.5em] \frac{2}{5} & \frac{2}{5} \end{bmatrix} =  \begin{bmatrix} \frac{1}{5} & \frac{1}{5} \\[0.5em] \frac{3}{5} & -\frac{2}{5}  \end{bmatrix}= \frac{1}{5}\begin{bmatrix}1 &1 \\[0.5em]3 & -2  \end{bmatrix} $$\\
+
+As long as your initial guess, $y^\top_{\mathtt{guess}}$, was not chosen from $\spanof{v^1, v^2, v^3}$, your result should be a scalar multiple of the above, $v^\top$. If you were unlucky and ended up choosing a $y^\top_{\mathtt{guess}}$ from $\spanof{v^1, v^2, v^3}$, then you would have ended up with a $v^\top_{\mathtt{guess}} = 0$. That should have prompted to restart with a better $y^\top_{\mathtt{guess}}$. If at this point you ran out of time, do not worry, you have demonstrated that you clearly understand the process, so you will still receive most of the points.
+
+\textbf{Solution 2:} We posit $v^\top =  \begin{bmatrix}a & b \\ c & d \end{bmatrix}$ and then impose that $<v^\top, y^i>=0$ for $1 \le i \le 3$. This gives us three simultaneous equations in the unknowns $a, b, c, d$. We select one non-zero solution of the equations. It will be proportional to the $v^\top$ computed above. Carrying out this plan of action, we compute that
+\begin{align*}
+<v^\top, y^1>&=a + b +d \\
+<v^\top, y^2>&=a -b \\
+<v^\top, y^1>&=b+c+2d.
+\end{align*}
+One solution is $a=b=1, d=-2, c=3$, that is
+ $$v^\top =  \begin{bmatrix}1 & 1 \\ 3 & -2 \end{bmatrix},$$
+ which is indeed proportional to the solution computed above via Gram Schmidt. Both solutions are equally valid because we seek a basis for $S^\perp$ and have no requirements on the length of the basis vector.
+
+\end{enumerate}
+
+\noindent \textbf{Grading Notes:}
+\begin{enumerate}
+  \item[\bf (a)] You will gain points for the following:
+    \begin{itemize}
+      \item (+1.5) If $v^1$ is correct.
+      \item (+1.5) If you have checked if $<y^2, v^1>= 0$ and $v^2$ is correct.
+      \item (+2) If $v^3$ is formulated correctly.
+      \item (+2) Value of $v^3$ is computed correctly.
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+  \item[\bf (b)] You will gain points for the following:
+    \begin{itemize}
+      \item (+4) If the method you have mentioned is correct.
+      \item (+2) Writing down the correct formulation for your method.
+      \item (+2) Plugging in your values and computing the correct $v^3$
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+\end{enumerate}
+
+
+\newpage
+
+%Prob. 8
+\noindent \textbf{Problem 8:} \\
+
+\noindent \textbf{Proposition} $\sqrt{13}$ is an irrational number.\\
+
+The problems states that in our solution, we are allowed to use the following facts:
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item 13 is a prime number.
+\item Because 13 is a prime number, it not a composite number and thus there \underline{do not} exist natural numbers $n_1\ge 2$ and $n_2\ge 2$ such that $13 = n_1 \times n_2$, where $\times$ is the usual multiplications of two integers.
+\end{enumerate}
+
+\noindent \underline{Proof} We first state a preliminary result. I will give it for an arbitrary prime number, $p$, while you only need something like this for $p=13$. Recall that an integer $n_1$ divides an integer $n_2$ if there exists an integer $k$ such that $n_2 = k n_1$. We will write this as $n_1|n_2$ (the integer $n_1$ divides the integer $n_2$).\\
+
+\noindent \textbf{Claim:} Let $a$ be a natural number and $p$ a prime number. If $p|a^2$, then $p|a$. \\
+
+We delay the proof of the Claim until the very end and first give the part of the proof that is familiar from lecture and HW \#2. \\
+
+\noindent \textbf{To show:} There do \underline{not} exist non-zero integers $m$ and $n$ with no common divisors other than 1, such that
+$$\sqrt{13}=\frac{m}{n}.$$\\
+
+\noindent \textbf{Method:} We do a proof by contradiction. Hence we assume that there do exist nonzero integers ${m}$ and ${n}$, having no common divisor other than 1, such that
+$$\sqrt{13}=\frac{{m}}{{n}}.$$
+Because $\sqrt{13}=\frac{{m}}{{n}}$, we have
+$$13=\frac{{m}^2}{{n}^2}$$
+and thus $13{n}^2={m}^2$. Thus, 13 divides ${m}^2$, and by our Claim, it is also divides ${m}$.
+$$\begin{aligned}
+&~~~~~~~~~~~\therefore~{m}=13\cdot k \text{     for some integer } k \\
+&~~~~~~~~~~~\therefore~{m}^2=13^2\cdot k^2
+\end{aligned}$$
+and thus
+$$ 13{n}^2={m}^2=13^2 \cdot k^2$$
+Cancelling 13 on both sides, we have
+$${n}^2=13\cdot k^2$$
+and thus 13 divides ${n}^2$, and by our Claim, it also divides ${n}$.
+\medskip \\
+Hence, we have shown that 13 is a common divisor of ${m}$ and ${n}$, CONTRADICTING our assumption that ${m}$ and ${n}$ have no common divisors other than 1.
+\medskip \\
+We conclude that $\sqrt{13}$ cannot be expressed as the ratio of two integers with no common factors other than 1, and hence it is irrational. \hfill $\Box$\\
+
+\noindent \textbf{Proof of the Claim:} Let $a$ be a natural number and $p$ a prime. By definition, $p\ge 2$, and hence if $p|a^2$, then $a\ge2$. Because $a$ is a natural number, we know from lecture that it can be factored as a product of one or more primes:
+$$a = p_1 p_2 \cdots p_\ell.$$
+Therefore,
+$$a^2 = (p_1)^2 (p_2)^2 \cdots (p_\ell)^2.$$
+It follows that all of the possible factors of $a^2$ are formed by products of the primes $p_1, \ldots, p_\ell$ and their squares, and if the factor is a prime itself, then it must be one of these prime numbers (the last part follows from the given fact that prime numbers are not composite and hence are not the product of other natural numbers greater than or equal to 2; this in turn implies that our prime $p$ (for you, $p=13$) is not the product of other primes). Therefore, if $p|a^2$, then $p=p_i$ for some $1 \le i \le \ell$. Hence, $p$ also divides $a$. \hfill $\Box$ \\
+
+
+\textbf{Grading Notes:}
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item The main body of the proof is worth 10 points and the \textbf{Claim} 5 points.
+
+\item In the main body:
+\begin{itemize}
+\item  (+2) State method is proof by contradiction.
+\item  (+2) Write $\sqrt{13}=\frac{m}{n}$, with $m$ and $n$ having no common factors other than one.
+\item (+2) Writing $13 n^2 = m^2$ and deducing that 13 divides into $m^2$.
+\item (+2) Deducing with good reasoning that $m$ and $n$ have 13 as a common factor.
+\item (+2) Concluding that this contradicted how $m$ and $n$ were chosen.
+\end{itemize}
+
+\item Stating and Proving that $13|a^2 \Rightarrow 13|a$
+\begin{itemize}
+\item  (+2) Recognizing that you needed something like the given \textbf{Claim}  earned you 2 of the 5 points. Note that in HW \#2, you were given the fact that if 7 dives $k^2$ then 7 divides $k$. Here, you need to replace that with the equivalent fact for the number 13.
+
+\item (0) If you immediately stated that 13 divides $m^2$ implies that 13 divides $m$ without offering some kind of reasoning.
+
+\item (+1) If you referred to the HW for $13|a^2 \Rightarrow 13|a$. That meant that you at least recognized that it was worth covering the issue.
+
+ \item Note that if $k$ is not a prime number, then $k|m^2 \not \Rightarrow k|m$. Indeed, 32 divides $(8)^2$, but 32 does not divide into 8!
+
+ \end{itemize}
+
+\item The proof of the \textbf{Claim} is worth 3 points. The proof given in the solution lacks one step: we proved in class that any composite number can be factored as a product of primes. We did not prove that the factorization is unique, and that fact is needed to assert that ``all of the possible factors of $a^2$ are formed by products of the primes $p_1, \ldots, p_\ell$ and their squares''. If you noted that uniqueness was required, you earned one more $A+$ point. The uniqueness part of the factorization by primes is easily found on the web. Once again, you were NOT expected to prove this.
+
+\item There were other interesting approaches taken in the solutions. One was to derive a contradiction by showing that 13 is not a prime number (i.e., it is composite). Additional interest is added by noting that this happened on consecutively numbered exams.
+
+\end{enumerate}
+
+
+
+%https://answers.yahoo.com/question/index?qid=20130425190519AAzVUuS
+%Best Answer:  Assume to the contrary that p does not divide a. Then by the division algorithm, a = pq + r for some r > 0.
+%
+%Since p|a^2, we know that a^2 (mod p) = 0.
+%
+%Observe that
+%
+%a^2 = (pq + r)^2 = (pq)^2 + 2pqr + r^2 = p^2q^2 + 2pqr + r^2
+%
+%Taking this mod p,
+%
+%p^2q^2 + 2pqr + r^2 (mod p) = r^2.
+%
+%But r is a non-zero least residue mod p. Hence, p does not divide a^2, a contradiction. The result follows.
+%. · 5 years ago
+%0 Thumbs up 0 Thumbs down Report Abuse Comment
+%
+% No Mythology
+%Suppose p|a² but that p does not divide a. Since p has no positive divisors other than 1 and p, it must be that gcd(p, a) = 1. This guarantees the existence of integers x and y such that
+%
+%xa + yp = 1.
+%
+%Now, multiply through by a. We know that p|a² means that a² = np for some integer n. Observe what we get.
+%
+%xa² + yap = a, and a² = np ==> xnp + yap = a ==> (xn + ya)p = a.
+%
+%But this is equivalent to p|a contrary to our hypothesis.
+%No Mythology · 5 years ago
+%
+%
+
+
+\newpage
+
+
+
+%Prob. 9
+\noindent \textbf{Problem 9:}
+
+This is a Matrix Inversion Lemma Problem. \\
+
+Choose $A= \begin{bmatrix} 2 &0 & 0 & 0\\ 0 &  2& 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1
+\end{bmatrix}$, $B= \begin{bmatrix} 1 \\1 \\ 1 \\ 1\end{bmatrix}$, $C=1$, $D= \begin{bmatrix} 1 &1 & 1 & 1\end{bmatrix}$ \\
+
+We can see that $M= A + BCD$, hence $M^{-1}= (A + BCD)^{-1}$\\
+
+Since $A$ is a diagonal matrix, its inverse is a diagonal matrix with entires as the inverse of each entry in the original matrix. Hence $A^{-1}=\begin{bmatrix} 0.5 &0 & 0 & 0\\ 0 &  0.5& 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1
+\end{bmatrix}$\\
+
+Using the Lemma, $M^{-1}=(A + BCD)^{-1}=A^{-1}-A^{-1}B(C^{-1}+DA^{-1}B)^{-1}DA^{-1}$
+$$C^{-1}=1$$
+$$~~ DA^{-1} = \begin{bmatrix} 1 &1 & 1 & 1\end{bmatrix}\begin{bmatrix} 0.5 &0 & 0 & 0\\ 0 &  0.5& 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1
+\end{bmatrix} =  \begin{bmatrix} 0.5 &0.5 & 1 & 1\end{bmatrix}$$
+$$ DA^{-1}B =  \begin{bmatrix} 0.5 &0.5 & 1 & 1\end{bmatrix}\begin{bmatrix} 1 \\1 \\ 1 \\ 1\end{bmatrix} = 3$$
+$$A^{-1}B= \begin{bmatrix} 0.5 &0 & 0 & 0\\ 0 &  0.5& 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1
+\end{bmatrix} \begin{bmatrix} 1 \\1 \\ 1 \\ 1\end{bmatrix}=\begin{bmatrix} 0.5 \\0.5 \\ 1 \\ 1\end{bmatrix} $$
+$$A^{-1}B(C^{-1}+DA^{-1}B)^{-1}DA^{-1}=  \begin{bmatrix} 0.5 \\0.5 \\ 1 \\ 1\end{bmatrix} 4^{-1}  \begin{bmatrix} 0.5 &0.5 & 1 & 1\end{bmatrix} = \frac{1}{4} \begin{bmatrix} 0.25 &0.25 & 0.5 & 0.5\\ 0.25 &0.25 & 0.5 & 0.5\\ 0.5 & 0.5 & 1 & 1\\ 0.5 & 0.5 & 1 & 1
+\end{bmatrix} $$
+$$M^{-1}= \begin{bmatrix} 0.5 &0 & 0 & 0\\ 0 &  0.5& 0 & 0\\ 0 & 0 & 1 & 0\\ 0 & 0 & 0 & 1
+\end{bmatrix} - \begin{bmatrix} 0.0625 &0.0625 & 0.125 & 0.125\\ 0.0625 &0.0625 & 0.125 & 0.125\\ 0.125 & 0.125 & 0.25 & 0.25\\ 0.125 & 0.125 & 0.25 & 0.25
+\end{bmatrix} = \begin{bmatrix} 0.4375 &-0.0625 & -0.125 & -0.125\\ -0.0625 &0.4375 & -0.125 & -0.125\\ -0.125 & -0.125 & 0.75 & -0.25\\ -0.125 & -0.125 & -0.25 & 0.75
+\end{bmatrix}$$
+
+\noindent \textbf{Grading Notes:}
+\begin{itemize}
+  \item (5 points) Everything is perfect.
+  \item (2.5 points) You identified the correct matrices for $A, B, C$ and $D$. However, did not reach the correct solution/ have errors (including minor ones) in the final result.
+  \item (2 points) Did not use Matrix Inversion Lemma but found the final solution.
+  \item (0 point) Not attempted or incorrect method/approach.
+\end{itemize}
+
+\end{document}

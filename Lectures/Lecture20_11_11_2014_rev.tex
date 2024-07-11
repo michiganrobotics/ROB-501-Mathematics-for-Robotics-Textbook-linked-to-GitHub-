@@ -1,0 +1,113 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{mathrsfs}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 20\\
+Typeset by:  Yevgeniy Yesilevskiy\\
+Revised by Ni on 21 Nov. 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}
+    \textbf{Multivariate Random Variables or Vectors}
+\end{center}
+
+\noindent Let $(\Omega,\ \mathscr{F},\ P)$ be a \underline{probability space}.
+    \begin{equation*}
+        X = \begin{bmatrix}
+            X_1\\
+            X_2
+        \end{bmatrix}
+    \end{equation*}
+    where $X_1\in\mathbb{R}^n$ and $X_2\in\mathbb{R}^m$, and let $p=n+m$.\\
+    Then, \underline{the distribution function}
+    \begin{align*}
+        F_{X_1X_2}(x_1,\ x_2)&=P(X_1\leq x_1,\ X_2\leq x_2)\\
+        &=P(\{\omega\in\Omega|X_1(\omega)\leq x_1,\ X_2(\omega)\leq x_2\})
+    \end{align*}
+
+\noindent \textbf{Conditioning:}
+    \begin{align*}
+        F_{X_1|X_2}(x_1|x_2)&=P(X_1\leq x_1|X_2=x_2)\\
+        &=\lim_{\epsilon\rightarrow 0}\frac{P(A\cap B_\epsilon)}{P(B_\epsilon)}
+    \end{align*}
+    where $A=\{\omega|X_1(\omega)\leq x_1\}$, $B_\epsilon=\{\omega|x_2-\epsilon\leq X_2(\omega)\leq x_2+\epsilon\}$
+
+\noindent \textbf{Conditional Density:}
+    \begin{equation*}
+        f_{X_1|X_2}=\frac{f_{X_1X_2}(x_1,\ x_2)}{f_{X_2}(x_2)}
+    \end{equation*}
+    Sometimes, it is convenient to write $f(x_1|x_2)$.
+
+\noindent \textbf{Conditional Mean (Expectation):}
+    \begin{align*}
+        \mu(x_2)&=E\{X_1|X_2=x_2\}=\int_{\mathbb{R}^n}x_1f(x_1|x_2)dx_1\\
+        &=\int_{\mathbb{R}^n}x_1f_{X_1|X_2}(x_1|x_2)dx_1
+    \end{align*}
+
+\noindent \textbf{Theorem:} Let $\hat{x}=\operatorname*{argmin}_{z=g(x_2)}E\{\|X_1-z\|^2|X_2=x_2\}$, where $g$ varies over all functions $g:\ \mathbb{R}^m\rightarrow\mathbb{R}^n$.\\
+    Then, $\hat{x}=\mu(x_2)=E\{X_1|X_2=x_2\}$.
+
+\noindent \textbf{Remark:} $g:\ \mathbb{R}^m\rightarrow\mathbb{R}^n$ includes linear, quadratic, cubic ... terms.
+
+\end{document}

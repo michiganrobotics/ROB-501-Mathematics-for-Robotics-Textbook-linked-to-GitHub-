@@ -1,0 +1,187 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 22\\
+Typeset by Ni on 18 Nov. 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}
+    \textbf{Real Analysis}
+\end{center}
+
+\noindent Let $(\mathcal{X},\ \real,\ \|\cdot\|)$ be a real normed space.\\
+Recall $\|\cdot\|:\ \mathcal{X}\rightarrow[0,\ +\infty)$ such that
+    \begin{enumerate}
+        \item $\|x\|\geq 0$ and $\|x\|=0\ \Leftrightarrow\ x=0$
+        \item $\|\alpha\cdot x\|=|\alpha|\cdot\|x\|$ for all $\alpha\in\real$, $x\in\mathcal{X}$
+        \item $\|x+y\|\leq\|x\|+\|y\|$ for all $x,\ y\in\mathcal{X}$.
+    \end{enumerate}
+Recall:\\
+\textbf{Def.}
+    \begin{enumerate}
+        \item For $x,\ y\in\mathcal{X}$, $d(x,\ y):=\|x-y\|$.
+        \item For $x\in X$, $S\subset\mathcal{X}$ a subset
+            \begin{equation*}
+                d(x,\ S):=\inf_{y\in S}\|x-y\|.
+            \end{equation*}
+    \end{enumerate}
+
+\noindent \textbf{Def.}~ Let $x_0\in X$ and $a\in\real$, $a>0$. The \underline{open ball of radius $a$ center at $x_0$} is
+    \begin{equation*}
+        B_a(x_0)=\{x\in\mathcal{X}|\|x-x_0\|<a\}.
+    \end{equation*}
+
+\noindent \textbf{Examples:}~
+    \begin{enumerate}
+        \item $\left(\real^2,\ \|\cdot\|_2\right)$: Euclidean norm
+        \item $\left(\real^2,\ \|\cdot\|_1\right)$: One norm
+            \begin{equation*}
+                \|(x_1,\ x_2)\|_1=|x_1|+|x_2|
+            \end{equation*}
+        \item $\left(\real^2,\ \|\cdot\|_\infty\right)$ : Max norm
+            \begin{equation*}
+                \|\cdot\|_\infty=\max_{1\leq i\leq n}|x_i|
+            \end{equation*}
+    \end{enumerate}
+
+\noindent \textbf{Lemma:}~ Let $\left(\mathcal{X},\ \|\cdot\|\right)$ be a normed space, $x\in\mathcal{X}$, and $S\subset\mathcal{X}$. Then,
+    \begin{align*}
+        d(x,\ S)=0 &\Leftrightarrow \forall\epsilon>0,\ \exists y\in S,\ \|x-y\|<\epsilon\\
+        &\Leftrightarrow \forall\epsilon>0,\ B_\epsilon(x)\cap S\neq \varnothing.
+    \end{align*}
+
+\noindent \textbf{Corollary:}
+    \begin{align*}
+        d(x,\ S)>0 &\Leftrightarrow \exists\epsilon>0,\ \forall y\in S,\ \|x-y\|\geq\epsilon\\
+        &\Leftrightarrow \exists\epsilon>0 \textnormal{ such that } B_\epsilon(x)\cap S = \varnothing
+    \end{align*}
+    In the following, we assume $\left(\mathcal{X},\ \|\cdot\|\right)$ is given.
+
+\noindent \textbf{Def.}~
+    \begin{enumerate}
+        \item Let $P\subset\mathcal{X}$, a subset of $\mathcal{X}$. A point $p\in P$ is \underline{an interior point of $P$} if $\exists\epsilon>0$ such that $B_\epsilon(p)\subset P$.
+        \item \begin{align*}
+                \mathring{P}&=\{p\in P\ |\ p\textnormal{ is an interior point}\}\\
+                &=\{p\in P\ |\ \exists\epsilon>0\textnormal{ such that } B_\epsilon(p)\subset P\}
+            \end{align*}
+            Remark for later use: $p\in \mathring{P}\Leftrightarrow\exists\epsilon>0,\ B_\epsilon(p)\subset P\Leftrightarrow\exists\epsilon>0$ such that $B_\epsilon(p)\cap(\sim P)=\varnothing\Leftrightarrow d(p,\ \sim P)>0$
+            \begin{equation*}
+                \sim P = P^C=\textnormal{complement}=\{x\in\mathcal{X}|x\notin P\}
+            \end{equation*}
+        \item $P$ is open if $P=\mathring{P}$. (Every point in $P$ is an interior point.)
+    \end{enumerate}
+
+\noindent \textbf{Proposition:}~ $x\in \mathring{P}\Leftrightarrow d(x,\ \sim P)>0$
+
+\noindent \textbf{Example:}
+    \begin{itemize}
+        \item $P=(0,\ 1)\subset(\real,\ \|\cdot\|)$ is open
+            \begin{align*}
+                x&\in P,\ 0<x\leq\frac{1}{2},\ \epsilon=\frac{x}{2},\ B_\epsilon(x)\subset P\textnormal{, and}\\
+                x&\in P,\ \frac{1}{2}\leq x<1,\ \epsilon=1-\frac{x}{2},\ B_\epsilon(x)\subset P.
+            \end{align*}
+        \item $P=[0,\ 1)\subset(\real,\ |\cdot|)$ is not open because $0\in P$, $\forall\epsilon>0$, $B_\epsilon(0)\cap(\sim P)\neq\varnothing$ or $0\in P$, $d(0,\ \sim P)=0$.
+    \end{itemize}
+
+\noindent \textbf{Def.}
+    \begin{enumerate}
+        \item A point $x\in \mathcal{X}$ is a \underline{closure point} of $P$ if $\forall\epsilon>0$, $\exists p\in P$ such that dis$\|x-p\|<\epsilon$, $[d(x,\ P)=0]$.
+        \item \begin{align*}
+                \textnormal{\underline{Closure of P}}=\overline{~P~}:&=\{x\in\mathcal{X}\ |\ \mathcal{X}\textnormal{ is a closure point}\}\\
+                &=\{x\in\mathcal{X}\ |\ d(x,\ P)=0\}
+            \end{align*}
+        \item $P$ is \underline{closed} if $P=\overline{~P~}$.
+    \end{enumerate}
+
+\noindent \textbf{Example:}
+    \begin{enumerate}
+        \item $P=\{x\in[0,\ 1]\ |\ x\textnormal{ rational}\}\Rightarrow\overline{~P~}=[0,\ 1]$
+        \item $P=(0,\ 1)\Rightarrow\overline{~P~}=[0,\ 1]$
+    \end{enumerate}
+
+\noindent \textbf{Proposition:}
+    \begin{align*}
+        &x\in\mathcal{X},\ x\in\overline{~P~}\Leftrightarrow d(x,P)=0.\\
+        &x\in\mathcal{X},\ x\in\mathring{P}\Leftrightarrow d(x,\sim P)>0.
+    \end{align*}
+
+\noindent \textbf{Proposition:}
+    \begin{align*}
+        &P\textnormal{ is closed}\Leftrightarrow P=\overline{~P~}.\\
+        &P\textnormal{ is open}\Leftrightarrow P=\mathring{P}.
+    \end{align*}
+
+\noindent \textbf{Proposition:}
+    \begin{align*}
+        &P\textnormal{ is closed}\Leftrightarrow\ \sim P\textnormal{ is open}.\\
+        &P\textnormal{ is open}\Leftrightarrow\ \sim P\textnormal{ is closed}.
+    \end{align*}
+
+\noindent \underline{Proof:}
+\begin{equation*}
+    \underbrace{\sim P=\sim(\mathring{P})}_{P\textnormal{ is open}}=\{x\in\mathcal{X}\ |\ d(x,\ \sim P)=0\}=\underbrace{\overline{\sim P}=\sim P}_{\sim P\textnormal{ is closed}}\ \square
+\end{equation*}
+
+\end{document} 

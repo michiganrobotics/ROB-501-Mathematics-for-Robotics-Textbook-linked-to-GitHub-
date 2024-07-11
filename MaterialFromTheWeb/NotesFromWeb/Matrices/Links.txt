@@ -1,0 +1,39 @@
+
+QR
+(Apply Gram Schmidt to Colums of A!!)
+http://www.seas.ucla.edu/~vandenbe/103/lectures/qr.pdf
+
+
+http://mathworld.wolfram.com/QRDecomposition.html
+
+http://people.sc.fsu.edu/~jpeterson/linear_algebra_part2.pdf
+
+SVD
+
+http://alfanotes.wordpress.com/2012/07/04/svd-a-simple-proof/   <-----------simple proof
+
+http://en.wikipedia.org/wiki/Singular_value_decomposition
+
+http://web.mit.edu/be.400/www/SVD/Singular_Value_Decomposition.htm
+
+http://mathworld.wolfram.com/SingularValueDecomposition.html
+
+http://www.cs.princeton.edu/courses/archive/spring12/cos598C/svdchapter.pdf
+
+
+Cholesky
+http://mathworld.wolfram.com/CholeskyDecomposition.html
+
+http://www.seas.ucla.edu/~vandenbe/103/lectures/chol.pdf
+
+LU
+http://mathworld.wolfram.com/LUDecomposition.html
+
+Overview of All Decompsotions
+http://www.ece.northwestern.edu/~mya671/files/Matrix_YM_.pdf
+
+
+
+
+
+

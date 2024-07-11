@@ -1,0 +1,188 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 12\\
+Typeset by:  Yong Xiao\\
+Proofread by: Pedro Donato
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Positive Definite Matrices and Schur Complement}\end{center}
+
+\noindent \textbf{Notation:}~ $P>0$: $P$ is \underline{positive definite}. (Does not mean all entries of $P$ are positive)
+
+\noindent \textbf{Theorem:}~ A symmetric matrix $P$ is \underline{positive definite} if and only if all of its eigenvalues are greater than $0$.
+
+\noindent \textbf{Proof:}\\
+    \underline{Claim 1:} $P$ is positive definite. $\Rightarrow$ All eigenvalues of $P$ are greater than $0$.\\
+    \underline{Proof:} Let $\lambda \in \real $, $Px = \lambda x$, $x \neq 0$. ($\lambda$ is an eigenvalue of $P$).\\
+        Then, we have:
+        $$x^\top P x = x^\top \lambda x = \lambda \left\| x \right\| ^2 >0$$
+        $\therefore\left\|x\right\| > 0 \Rightarrow \lambda > 0.\ \square$
+
+    \underline{Claim 2:}   All eigenvalues of $P$ are greater than $0$. $\Rightarrow$  $P$ is positive definite. \\
+    \underline{Proof:} To show $x \neq 0 \Rightarrow x^\top P x >0$.\\
+        Without loss of generality, assume $\left\| x \right\| = 1$,\\
+	    $$\therefore x^\top x = 1.$$
+	    $$x^\top P x \geq \displaystyle \min_{x \in \real^n,\ \|x\| = 1} x^\top P x = \lambda_{min} (P) $$
+	where $\lambda_{min} (P)$ is the smallest eigenvalue of $P$.\\
+    Meanwhile, $ \lambda_{min} (P) > 0$ because all eigenvalues of $P$ are positive and there is only a finite number of them.
+	$$\therefore x^\top P x \geq \lambda_{min} (P) > 0.\ \square$$
+	
+\noindent	\textbf{Exercise:}~ Show
+	$$ P = \left[  \begin{array}{cc} 	 2 & -1 \\ 	 -1 & 2 	\end{array}	 \right] > 0		$$
+
+\noindent \textbf{Definition:}~ $P=P^\top$ is \underline{positive semidefinite} if $x^\top P x \geq 0$ for all $x \neq 0$.
+
+\noindent \textbf{Theorem:}~ $P$ is \underline{positive semidefinite} if and only if all eigenvalues of $P$ are non-negative. (Notation: $P \geq 0$	or $P \succcurlyeq 0$.)
+
+\noindent \textbf{Definition:} $N$ is a \underline{square root of a symmetric matrix} $P$ if $N^\top N = P$.\\
+    \underline{Note:} $N^\top N = \left(N^\top N\right)^\top \Rightarrow N^\top N$ is always symmetric.
+
+\noindent \textbf{Theorem:} $P\geq 0$ $ \Leftrightarrow$ $ \exists N$ such that $N^\top N = P$.\\
+\underline{Proof:}	
+    \begin{enumerate}
+        \item Suppose $N^\top N = P$, and let $x\in\real^n$.\\
+            $$  x^\top P x = x^\top N^\top N x = (N x)^\top (N x) = \left\| N x \right\| ^2 \geq 0.$$
+		\item Now suppose $P\geq 0$. To show $\exists N$ such that $N^\top N = P$.
+
+		Since $P$ is symmetric, there exists an orthogonal matrix $O$ such that
+		$$ P = O^\top \Lambda O $$
+		where $\Lambda = \mbox{diag}\left(\lambda _1,\lambda_2, \dotsb, \lambda_n\right)$. \\
+        Since $P \geq 0$, $\lambda_i \geq 0\textnormal{ for all }i=1,2,\dots,n$.\\
+        Define $\Lambda ^{1/2} := diag(\sqrt{\lambda_1}, \sqrt{\lambda_2}, \dots, \sqrt{\lambda_n})$,
+		$$ \Lambda = (\Lambda^{1/2})^\top \Lambda^{1/2} =\Lambda^{1/2} \Lambda^{1/2}.$$
+        Let $N = \Lambda ^ {1/2} O $, then
+		$$ N ^\top N = O^\top \left(\Lambda^{1/2}\right)^\top \Lambda^{1/2} O = O^\top \Lambda O = P.$$
+		$$ \therefore N^\top N = P.\ \square$$
+    \end{enumerate}
+		
+\noindent	\textbf{Exercise:}~ For a symmetric matrix $P$, $x,y \in \mathbb{R}^n$, prove $(x+y)^\top P (x+y) = x^\top Px+y^\top Py + 2x^\top Py$. (Because $y^\top Px$ is scalar)
+
+\noindent \textbf{Theorem:}~ (Schur Complement) Suppose that $A=n \times n$ is symmetric and invertible, $B=n \times m$,
+	$C=m \times m$ is symmetric and invertible, and
+	$$M = \left[ \begin{array}{cc} A & B \\	B^\top & C \end{array} \right]$$
+	symmetric.
+
+	Then the following are equivalent:
+	\begin{enumerate}
+		\item $M>0$.
+		\item $A>0$, and $C-B^\top A^{-1} B > 0$.
+		\item $C>0$, and $A - B C ^{-1} B^\top >0$.
+	\end{enumerate}
+		
+\noindent	\textbf{Definition:}~ $C-B^\top A^{-1}B$ is the Schur Complement of $A$ in $M$.
+
+\noindent	\textbf{Definition:}~ $A-B C^{-1} B^\top$ is the Schur Complement of $C$ in $M$.
+		
+\noindent \underline{Proof:}~
+	We will show $1. \Leftrightarrow 2.$. The proof of $1. \Leftrightarrow 3.$ is identical.
+
+	Firstly, let's show $1. \Rightarrow 2.$.\\
+    Suppose $M>0$, then for all $x \in \mathbb{R}^n$, $x\neq 0$,
+		$$ \begin{bmatrix}  x \\ 0  \end{bmatrix} ^\top 	M  \begin{bmatrix}  x \\ 0  \end{bmatrix} > 0 $$
+		$$ 0 < \begin{bmatrix}  x \\ 0 \end{bmatrix} ^\top \begin{bmatrix} A & B \\	B^\top & C	\end{bmatrix}
+		    \begin{bmatrix}  x \\ 0 \end{bmatrix} = \begin{bmatrix} x^\top & 0 \end{bmatrix}
+	        \begin{bmatrix}  Ax \\ B^\top x \end{bmatrix} = x^\top A x.$$
+		$ \therefore A$ is positive definite.\\
+        We will make a nice choice of $ \begin{bmatrix} x \\y \end{bmatrix}$ to show $C-B^\top A^{-1} B > 0$.
+
+		We want $Ax+By=0$, thus let $x=- A^{-1} B y$, $y \neq 0$.
+		\begin{align*}		
+            0 < 	\begin{bmatrix} x \\ y \end{bmatrix} ^\top \begin{bmatrix} A & B \\	B^\top & C \end{bmatrix}
+			\begin{bmatrix} x \\ y \end{bmatrix}
+			&= 	\begin{bmatrix} -A^{-1}By \\ y \end{bmatrix} ^\top
+			\begin{bmatrix} A & B \\ 	B^\top & C	\end{bmatrix}
+			\begin{bmatrix} -A^{-1}By \\ y \end{bmatrix} \\
+			&= \begin{bmatrix} -y^\top B^\top A^{-1} &  y^\top \end{bmatrix}
+			\begin{bmatrix} 0 \\ -B^\top A^{-1} B y+ Cy \end{bmatrix} \\
+			&= y^\top Cy - y^\top B^\top A^{-1} By\\
+			&= y^\top ( C - B^\top A^{-1} B )y.
+		\end{align*}
+		$ \therefore C-B^\top A^{-1} B > 0 $.
+
+		Secondly, let's show $2. \Rightarrow 1.$.\\
+		Suppose $A>0$, $C- B^\top A^{-1} B > 0$. To show $M>0$.\\
+		(Equivalently, to show: for an arbitrary $\begin{bmatrix} x \\ y \end{bmatrix}$,
+		$\begin{bmatrix} x \\ y \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$,
+		$\begin{bmatrix} x \\ y \end{bmatrix}^\top M \begin{bmatrix} x \\ y \end{bmatrix} > 0$)
+
+		For an arbitrary $\begin{bmatrix} x \\ y \end{bmatrix}$, define $\bar{x} = x+A^{-1} B y$.\\
+        Note that
+		$\begin{bmatrix} x \\ y \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+		$\Leftrightarrow$
+		$\begin{bmatrix} \bar{x} \\ y \end{bmatrix} \neq \begin{bmatrix} 0 \\ 0 \end{bmatrix}$.
+        \begin{align*}
+		\begin{bmatrix} x \\ y  \end{bmatrix} ^\top M \begin{bmatrix} x \\ y \end{bmatrix}
+		  	& = \begin{bmatrix} \bar{x} -A^{-1}By \\ y  \end{bmatrix}^\top M
+						\begin{bmatrix} \bar{x}-A^{-1}By \\ y   \end{bmatrix}  \\
+		  	& =	\begin{bmatrix} \bar{x}  \\ 0 \end{bmatrix} ^\top M
+		     		\begin{bmatrix} \bar{x} \\  0 \end{bmatrix} +
+				 		\begin{bmatrix} -A^{-1} B y  \\ y	\end{bmatrix} ^\top M
+						\begin{bmatrix} -A^{-1} B y \\  y	\end{bmatrix}
+				 +  2 \begin{bmatrix} \bar{x} \\ 0 \end{bmatrix} ^\top M
+						\begin{bmatrix} -A^{-1} B y \\  y	\end{bmatrix} \\
+			  & = \bar{x}^\top A \bar{x} + y^\top (C-B^\top A^{-1} B) y + 0 > 0.\ \square
+		\end{align*}
+
+\end{document}

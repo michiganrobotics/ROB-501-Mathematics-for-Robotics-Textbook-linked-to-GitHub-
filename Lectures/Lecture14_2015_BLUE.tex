@@ -1,0 +1,176 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2015\\
+Lecture 14
+\end{center}
+}
+
+\Large
+
+\begin{center}
+    \textbf{Best Linear Unbiased Estimator (BLUE)}
+\end{center}
+    Let $y=Cx+\epsilon$, $y\in \mathbb{R}^m$, $x \in \mathbb{R}^n$, $E\{\epsilon\}=0$, $\operatorname{cov}\{\epsilon,\epsilon\}=E\{\epsilon \epsilon^\top \}=Q>0$.
+    \newline
+    We assume no stochastic (random) model for the unknown $x$. We also assume that columns of $C$ are linearly independent.
+    \newline
+    \textbf{Seek:} $\hat{x}=Ky$ that minimizes $E\{\|\hat{x}-x\|^2\}=E\{ \sum \limits_{i=1}^n |\hat{x_i}-x_i|^2\} $ where $\|\cdot \|$ is the standard Euclidean norm on $\real^n$.
+    \newline\newline
+    \underline{Aside:}~
+    \begin{align*}
+        (v+w)^\top (v+w)&=v^\top v+w^\top w+v^\top w+w^\top v\\
+        &=\|v\|^2+\|w\|^2+2v^\top w\textnormal{ (Because } v^\top w \textnormal{ is a scalar.)}
+    \end{align*}
+    \begin{align*}
+        \therefore E\{\|\hat{x}-x\|^2\}&=E\{\|Ky-x\|^2\}\\
+        &= E\{\|KCx+K\epsilon-x\|^2\}\\
+        & =E\{(KCx-x+K\epsilon)^\top (KCx-x+K\epsilon)\}\\
+        & =E\{(KCx-x)^\top(KCx-x)+2(K\epsilon)^\top(KCx-x)+\epsilon^\top  K^\top  K \epsilon\}
+    \end{align*}
+    From $E\{\epsilon\}=0$ and $x$ is deterministic, we have
+    \begin{equation*}
+        2E\{(K\epsilon)^\top(KCx-x)\}=0.
+    \end{equation*}
+    Moreover, by using the properties of the trace, we have
+    \begin{equation*}
+        \epsilon^\top K^\top K\epsilon= \operatorname{tr}\left( \epsilon^\top K^\top K\epsilon \right)=\operatorname{tr}\left(K\epsilon\epsilon^\top K^\top\right).
+    \end{equation*}
+    \begin{align*}
+        \therefore E\{\|x-\hat{x}\|^2\}&=\|KCx-x\|^2+\operatorname{tr}E\{K\epsilon\epsilon^\top K^\top\}\\
+        &=\|KCx-x\|^2 + \operatorname{tr}(KQK^\top ).
+    \end{align*}
+    \underline{Difficulty:}~ Optimal $K$ depends on the unknown $x$ through $\|KCx-x\|^2$!
+    \newline\newline
+    \underline{Observation:} If $KC=I$, then the problematic term disappears, i.e.,
+    \begin{equation*}
+        \|KCx-x\|^2=0.
+    \end{equation*}
+    \underline{Interpretation:} Estimator is \underline{unbiased}.
+    \begin{align*}
+        E\{\hat{x}\}&=E\{Ky\}\\
+        &=E\{KCx+K\epsilon\}\\
+        &=KCx\\
+        &=x.\ \ \ \ \ \ \ \ (\textnormal{if }KC=I)
+    \end{align*}
+    \underline{New Problem:}~
+    \begin{equation*}
+        \hat{K}=\operatorname{argmin}\{\operatorname{tr}(KQK^\top )\}\textnormal{ subject to }KC=I.
+    \end{equation*}
+    \underline{New Observation:}
+    \newline\newline
+    Write $K = \begin{bmatrix}
+        k_1\\
+        k_2\\
+        \vdots\\
+        k_n
+    \end{bmatrix}$ (partition $K$ by rows).
+    \newline\newline
+    Then, $K^\top =\begin{bmatrix}
+        k_1^\top | k_2^\top  | \dotsb | k_n^\top
+    \end{bmatrix}$
+    \begin{align*}
+        \operatorname{tr}\left(\begin{bmatrix}
+            \underline{k_1}\\
+            \vdots\\
+            \overline{k_n}
+            \end{bmatrix}Q\begin{bmatrix}k_1^\top|\dotsb|k_n^\top\end{bmatrix}\right) &=\sum^{n}_{i=1}k_iQk_i^\top\\
+        &=\sum^{n}_{i=1}\|k_i^\top\|_Q^2
+    \end{align*}
+    \begin{align*}
+        KC=I &\Leftrightarrow C^\top K^\top =I_{n\times n}\\
+        &\Leftrightarrow C^\top \begin{bmatrix}k_1^\top|\dotsb|k_n^\top\end{bmatrix}=\begin{bmatrix}e_1|\dotsb|e_n\end{bmatrix}\\
+        &\Leftrightarrow C^\top k_i^\top=e_i\ \ \ \ 1\leq i\leq n.
+    \end{align*}
+    $\therefore $ We have $n$-separate optimization problems involving the column vectors $k_i^\top $.
+    \begin{equation*}
+        \hat{k_i}^\top = \operatorname{argmin} \|k_i^\top \|_Q^2\textnormal{  subject to  } C^\top k_i^\top=e_i.
+    \end{equation*}
+    From our formula for under determined equations, we have
+      \newline
+    $\therefore \hat{k}_i^\top = Q^{-1}C(C^\top Q^{-1}C)^{-1}e_i$, which yields
+    \newline
+    $\therefore \hat{K}^\top = [\hat{k}_1^\top| \cdots |\hat{k}_n^\top]=Q^{-1}C(C^\top Q^{-1}C)^{-1}.$
+    \newline
+    Therefore,
+    \begin{equation*}
+        \underline{\hat{K}= (C^\top Q^{-1}C)^{-1}C^\top Q^{-1}}
+    \end{equation*}
+
+
+    \textbf{Theorem:}~ Let $x\in\real^n$, $y\in\real^m$, $y=Cx+\epsilon$, $E\{\epsilon\}=0$, $E\{\epsilon\epsilon^\top\}=:Q>0$, and $\operatorname{rank}(C)=n$. The Best Linear Unbiased Estimator (BLUE) is $\hat{x}=\hat{K}y$ where
+    \begin{equation*}
+        \hat{K}=\left(C^\top Q^{-1}C\right)^{-1}C^\top Q^{-1}.
+    \end{equation*}
+    Moreover, the covariance of the error is
+    \begin{equation*}
+        E\{\left(\hat{x}-x\right)\left(\hat{x}-x\right)^\top\}=\left(C^\top Q^{-1}C\right)^{-1}.
+    \end{equation*}
+
+
+    \textbf{Remark:} Error covariance computation is an exercise. Solution (from previous calculations)
+    \begin{align*}
+        E\{\left(\hat{x}-x\right)\left(\hat{x}-x\right)^\top\}&=KQK^\top\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}C^\top Q^{-1}QQ^{-1}C\left(C^\top Q^{-1}C\right)^{-1}\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}\left[C^\top Q^{-1}C\right]\left(C^\top Q^{-1}C\right)^{-1}\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}
+    \end{align*}
+    \underline{Indeed}
+    \begin{align*}
+        \hat{x}-x&=Ky-x\\
+        &=KCx+K\epsilon-x\\
+        &=K\epsilon~(\text{because}~KC=I)\\
+        \therefore E\{(\hat{x}-x)(\hat{x}-x)^\top\}&=E\{(K\epsilon)(K\epsilon)^\top\}\\
+        &=E\{K\epsilon\epsilon^\top K^\top\}\\
+        &=KQK^\top
+    \end{align*}
+\end{document}

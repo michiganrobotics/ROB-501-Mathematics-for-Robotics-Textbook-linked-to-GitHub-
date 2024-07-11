@@ -1,0 +1,202 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+ROB 501 Fall 2014 \\
+Lecture 06 \\
+Typeset by: Katie Skinner \\
+Proofread by: Meghan Richey \\
+Edited by Grizzle: 24 Sept 2015
+
+\end{center}
+}
+
+
+
+\Large
+
+\begin{center}
+\textbf{Abstract Linear Algebra (Continued)}
+\end{center}
+
+\noindent \textbf{Def.}~$ \Delta (\lambda) = \textnormal{det}(\lambda I - A) $ is called the \underline{characteristic polynomial}. $ \Delta (\lambda) = 0$ is called the \underline{characteristic equation}.  $$ \Delta (\lambda) = (\lambda - \lambda_1)^{m_1}(\lambda - \lambda_2)^{m_2}\dotsb(\lambda - \lambda_p)^{m_p} $$
+\noindent where $\lambda_1, \dotsb, \lambda_p$ are the distinct eigenvalues, and $m_i$ is the \underline{multiplicity} of $\lambda_i$ such that $$ m_1 + m_2 + \dotsb + m_p = n$$
+
+\noindent \textbf{Theorem:}~ Let $A$ be an $n \times n$ matrix with coefficients in $\mathbb{R}$ or $\mathbb{C}$. If the e-values $\{ \lambda_1,\dotsb, \lambda_n \}$ are distinct, that is, $\lambda_i \neq \lambda_j $ for all $1 \le i \neq j \le n$, then the e-vectors $\{ v^1,\dotsb,v^n \}$ are linearly independent in ($\mathbb{C}^n$,$\mathbb{C}$).
+
+\noindent \textbf{Remark:}~ Restatement of the theorem: If $\{ \lambda_1,\dotsb,\lambda_n \}$ are distinct then $\{ v^1,\dotsb,v^n \}$ is a basis for ($\mathbb{C}^n$,$\mathbb{C}$).
+
+\underline{Proof:}~We prove the contrapositive and show there is a repeated e-value ($\lambda_i = \lambda_j$ for some $ i \neq j$).
+
+    $\{ v^1,\dotsb,v^n \}$ linearly dependent $\Rightarrow \exists$  $\alpha_1,\dotsb,\alpha_n \in \mathbb{C}$, not all zero, such that $ \alpha_1 v^1 + \dotsb + \alpha_n v^n = 0(*)$.
+
+    \noindent Without loss of generality, we can suppose $\alpha_1 \neq 0$. (that is, we can always reorder of e-values so that the first coefficient is nonzero.)
+
+    Because $v^i$ is an e-vector, $$(A - \lambda_j I)v^i = A v^i - \lambda_j v^i = \lambda_i v^i - \lambda_j v^i = (\lambda_i - \lambda_j) v^i$$
+
+\underline{Side Note:}~It is an easy exercise to show $$(A - \lambda_2 I)(A - \lambda_3 I)\dotsb(A - \lambda_n I)v^i = (\lambda_i - \lambda_2)(\lambda_i - \lambda_3)\dotsb(\lambda_i - \lambda_n)v^i, 2 \leq i \leq n$$
+    Let $i = 1$ $$ (\lambda_1 - \lambda_2)(\lambda_1 - \lambda_3)\dotsb(\lambda_1 - \lambda_n)v^1$$
+    Let $i = 2$ $$ (\lambda_2 - \lambda_2)(\lambda_2 - \lambda_3)\dotsb(\lambda_2 - \lambda_n)v^2 = 0 $$
+    Etc.
+
+    Combining the above with $(*)$, we obtain
+    \begin{align*}
+        0 &= (A - \lambda_2 I)(A - \lambda_3 I)\dotsb(A - \lambda_n I)(\alpha_1 v^1 + \dotsb + \alpha_n v^n)\\
+        \nonumber\\
+        & = \alpha_1 (\lambda_1 - \lambda_2)(\lambda_1 - \lambda_3)\dotsb(\lambda_1 - \lambda_n)v^1
+    \end{align*}
+
+    We know $\alpha_1 \neq 0$, as stated above, and $v^1 \neq 0$, by definition of e-vectors. $$\therefore 0 = (\lambda_1 - \lambda_2)(\lambda_1 - \lambda_3)\dotsb(\lambda_1 - \lambda_n)$$
+    At least one the terms $(\lambda_1-\lambda_k)$, $2 \le k \le n$, must be zero, and thus there is a repeated e-value $\lambda_1 = \lambda_k $ for some $2 \leq k \leq n$. $\square$
+
+\noindent \textbf{Def.}~ Let ($\mathcal{X}, \mathcal{F}$) and ($\mathcal{Y}, \mathcal{F}$) be vector spaces. $\mathcal{L}: \mathcal{X} \rightarrow \mathcal{Y}$ is a \underline{linear operator} if for all $x, z \in \mathcal{X}$, $\alpha, \beta\in \mathcal{F}$, $$ \mathcal{L}(\alpha x + \beta z) = \alpha \mathcal{L}(x) + \beta \mathcal{L}(z)$$
+
+    Equivalently,
+    \begin{align*}\mathcal{L}(x + z) &= \mathcal{L}(x) + \mathcal{L}(z)\\
+        \mathcal{L}(\alpha x) &= \alpha \mathcal{L}(x)
+    \end{align*}
+
+\newpage
+\noindent \textbf{Example:}~
+    \begin{enumerate}
+        \item Let $A$ be an $n \times m$ matrix with coefficients in $\mathcal{F}$.
+
+            Define $\mathcal{L}: \mathcal{F}^m \rightarrow \mathcal{F}^n$ by $\mathcal{L}(x) = A x$, then $\mathcal{L}$ is a linear operator. Check that linearity and multiplication by scalar are satisfied to prove this.
+
+        \item Let $\mathcal{X} = \{ $polynomials whose degrees $\leq 3 \}, \mathcal{F} = \mathbb{R}, \mathcal{Y} = \mathcal{X}$. Then for $p \in \mathcal{X}, \mathcal{L}(p) = \frac{d}{dt} p(t)$.
+    \end{enumerate}
+
+\noindent \textbf{Def.}~ Let ($\mathcal{X}, \mathcal{F}$) and ($\mathcal{Y}, \mathcal{F}$) be finite dimensional vector spaces, and $\mathcal{L}: \mathcal{X} \rightarrow \mathcal{Y}$ be a linear operator. A \underline{matrix representation} of $\mathcal{L}$ with respect to a basis $\{u^1,\dotsb,u^m\}$ for $\mathcal{X}$ and $\{v^1,\dotsb,v^n\}$ for $\mathcal{Y}$ is an $n \times m$ matrix $A$, with coefficients in $\mathcal{F}$, such that $\forall x \in \mathcal{X}, \begin{bmatrix} \mathcal{L}(x) \end{bmatrix}_{\{v^1,\dotsb,v^n\}} = A \begin{bmatrix} x \end{bmatrix}_{\{u^1,\dotsb,u^m\}}$.
+
+\noindent \textbf{Theorem:}~ Let ($\mathcal{X}, \mathcal{F}$) and ($\mathcal{Y}, \mathcal{F}$) be finite dimensional vector spaces, $\mathcal{L}: \mathcal{X} \rightarrow \mathcal{Y}$ a linear operator, $\{u^1,\dotsb,u^m\}$ a basis for $\mathcal{X}$ and $\{v^1,\dotsb,v^n\}$ a basis for $\mathcal{Y}$, then $\mathcal{L}$ has a matrix representation $A = \begin{bmatrix} A_1 | \dotsb | A_m \end{bmatrix}$, where the $i^{th}$ column of $A$ is given by $$A_i = \begin{bmatrix}\mathcal{L}(u^i)\end{bmatrix}_{ \{v^1,\dotsb,v^n\} }, ~~1 \le i \le m$$
+
+\underline{Proof:}~ $x \in \mathcal{X}, x = \alpha_1 u^1 + \dotsb + \alpha_m u^m $ so that its representation is
+$$\begin{bmatrix}x\end{bmatrix}_{ \{u^1,\dotsb,u^m\}} = \begin{bmatrix}\alpha_1 \\ \alpha_2 \\ \vdots \\ \alpha_m \end{bmatrix}\in \mathcal{F}^m$$
+
+    As in the theorem, we define $$A_i = \begin{bmatrix}\mathcal{L}(u^i)\end{bmatrix}_{ \{v^1,\dotsb,v^n\} }, ~~1 \le i \le m$$.
+
+    \newpage
+    Using linearity
+    \begin{align*}
+        \mathcal{L}(x) &= \mathcal{L}(\alpha_1 u^1 + \dotsb + \alpha_m u^m)\\
+        &= \alpha_1 \mathcal{L}(u^1) + \dotsb + \alpha_m \mathcal{L}(u^m)
+    \end{align*}
+
+
+    Hence, computing representations, we have
+
+    \begin{align*}
+        [\mathcal{L}(x)]_{ \{v^1,\dotsb,v^n\}}  &= [\alpha_1 \mathcal{L}(u^1) + \dotsb + \alpha_m \mathcal{L}(u^m) ]_{ \{v^1,\dotsb,v^n\}} \bigskip\\
+        \\
+        & = \alpha_1 [\mathcal{L}(u^1)]_{ \{v^1,\dotsb,v^n\}} + \cdots  + \alpha_m [\mathcal{L}(u^m)]_{ \{v^1,\dotsb,v^n\}} \bigskip \\
+        \\
+        &= \alpha_1 A_1 + \cdots + \alpha_m A_m \\
+        \\
+        & = \begin{bmatrix} A_1 | A_2 | \dotsb | A_m \end{bmatrix} \begin{bmatrix}\alpha_1 \\ \alpha_2 \\ \vdots \\ \alpha_m \end{bmatrix} \\
+        \\
+        &= A \begin{bmatrix} x \end{bmatrix}_{ \{u^1,\dotsb,u^m\} }
+    \end{align*}
+
+    $$ \therefore \begin{bmatrix} \mathcal{L}(x) \end{bmatrix}_{ \{v^1,\dotsb,v^n\} } = A \begin{bmatrix} x \end{bmatrix}_{ \{u^1,\dotsb,u^m\} }\ \square$$
+
+\newpage
+\noindent \textbf{Example:}~
+
+    $\mathcal{F} = \mathbb{R}, \mathcal{X} = \{ $polynomials, degrees $\leq 3 \}, \mathcal{Y} = \{$polynomials, degrees $ \leq 3 \}$.
+
+    Put the same basis on $\mathcal{X}$ and $\mathcal{Y}$, $\{ 1, t, t^2, t^3\}$.  Let $\mathcal{L}: \mathcal{X} \rightarrow \mathcal{Y}$ be differentiation. Find the matrix representation, $A$, which will be a real $4 \times 4$ matrix.
+
+\underline{Solution:}~ Compute $A$ column by column, where $A = \begin{bmatrix} A_1 | A_2 | A_3 | A_4 \end{bmatrix}$.
+    \begin{align*}
+        A_1 &= \begin{bmatrix}\mathcal{L}(1)\end{bmatrix}_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}0 \\ 0 \\ 0 \\ 0  \end{bmatrix}\\
+        A_2 &= \begin{bmatrix}\mathcal{L}(t)\end{bmatrix}_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}1 \\ 0 \\ 0 \\ 0  \end{bmatrix}\\
+        A_3 &= \begin{bmatrix}\mathcal{L}(t^2)\end{bmatrix}_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}0 \\ 2 \\ 0 \\ 0  \end{bmatrix}\\
+        A_4 &= \begin{bmatrix}\mathcal{L}(t^3)\end{bmatrix}_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}0 \\ 0 \\ 3 \\ 0  \end{bmatrix}
+    \end{align*}
+
+    and thus
+
+    $$A = \begin{bmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0 \\ 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0  \end{bmatrix} $$
+
+    \newpage
+
+    Let's check that it makes sense
+
+    $$p(t) = a_0 + a_1 t + a_2 t^2 + a_3 t^3 $$
+    and
+    $$\begin{bmatrix}p(t)\end{bmatrix}_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}a_0 \\ a_1 \\ a_2 \\ a_3  \end{bmatrix} $$
+
+    $$ A [p(t)]_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0 \\ 0 & 0 & 0 & 3 \\ 0 & 0 & 0 & 0  \end{bmatrix} \begin{bmatrix}a_0 \\ a_1 \\ a_2 \\ a_3  \end{bmatrix} = \begin{bmatrix}a_1 \\ 2 a_2 \\ 3 a_3 \\ 0  \end{bmatrix} $$
+
+    Does this correspond to differentiating the polynomial $p(t)$? We see that
+
+    $$ \frac{d}{dt} p(t)  = a_1 + 2 a_2 t + 3 a_3 t^2 $$
+
+    $$[\frac{d}{dt} p(t) ]_{ \{1, t, t^2, t^3\} } = \begin{bmatrix}a_1 \\ 2 a_2 \\ 3 a_3 \\ 0  \end{bmatrix}  $$
+
+    and thus, yes indeed,
+
+    $$ A [p(t)]_{ \{1, t, t^2, t^3\} } = [\frac{d}{dt}p(t)]_{ \{1, t, t^2, t^3\} } $$.
+
+\end{document}
+
+
+

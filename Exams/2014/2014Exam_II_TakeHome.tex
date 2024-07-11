@@ -1,0 +1,273 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\markboth{\bf Place name or initials here:\underline{\hspace*{1.5in}}}{\bf Place name or initials here:\underline{\hspace*{1.5in}}}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-II \\
+Take-home Portion \\
+\large
+Due November 20, 2014, 10:39 AM, In Lecture
+\end{center}
+
+\vspace*{1in}
+
+\noindent {\bf HONOR PLEDGE:} Copy and SIGN: I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code. In addition, I have followed the rules stated below.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{2.5in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item Use this page as a cover page for your exam solution. Place a staple in the upper left hand corner. Do not staple along the edges to form a booklet.
+\item You can use MATLAB.
+\item You can use your class notes and HW solutions.
+ \item You can use anything that is posted on the course C-TOOLS site.
+ \item You can work as long as you want.
+ \item No outside sources. This means no web searches, no books, no talking to anyone.
+ \item Violation of these rules means a trip to the Honor Council. The last time I gave a take-home exam in a 600-level course, 4 students collaborated. This is not fun for anyone. Believe me.
+\end{enumerate}
+\vspace*{.4in}
+
+
+
+\newpage
+
+\vspace*{1in}
+
+
+
+\begin{center}
+\begin{tabular}{|p{2in}|p{1in}|p{1in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1&  &   15\\
+\hline
+& &  \\
+\hline
+Problem 2 &  &   25\\
+\hline
+& &  \\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{40}$\\
+\hline
+& & \\
+\hline
+%Optional Bonus Question&  &   $\pm5$\\
+%
+\end{tabular}
+\end{center}
+
+\vspace{5cm}
+
+\begin{center}
+\LARGE \bf
+Write on only one side of a page. Handwriting is fine. Start each problem's solution on a new page. When turning in MATLAB code to document a problem, place the code with the relevant problem solution.
+\end{center}
+
+\newpage
+
+\begin{enumerate}
+\setlength{\itemsep}{1cm}
+
+%Prob. 1   Under determined continued
+\input{Prob1TakeHome}
+   % %%Prob 2
+
+\vspace*{2cm}
+   \begin{figure}[h!]
+   \label{Fig1}
+	\begin{minipage}[t]{\linewidth}
+		\centering
+		\includegraphics[width=0.5\textwidth]{InvertedPendulumOnCart.png}
+		\setlength{\abovecaptionskip}{0pt}
+		\caption{\textcolor{red}{For Prob. 2} The model has 4 state variables, just like the Segway. We will call the horizontal position $s(t)$ instead of $x(t)$ as shown in this diagram, but otherwise, this is a nice representation of the system. Also, our model already has a closed-loop controller included in it, so the input $u(t)$ is actually an external force being applied to make the cart roll around. The controller is trying to keep the pendulum upright, despite the external perturbations.}
+	\end{minipage}
+\end{figure}
+
+\newpage
+
+\item (25 points total) \textbf{The famous EKF:} This problem will introduce the Extended Kalman Filter or EKF for short. Its objective is to estimate the state of a nonlinear model, perturbed by noise terms:
+\begin{align*}
+x_{k+1} &= f(x_k,u_k)+Gw_k \\
+y_k &= h(x_k)+v_k.
+\end{align*}
+The filter is given later in this exam booklet. For a nonlinear system, the Kalman filter is no longer an exact computation of the conditional mean of $x_k$ given all of the measurements up to time $k$, but rather, it is an approximate calculation of $\widehat{x}_{k|k}$. We apply the EKF to the equally famous \textit{inverted pendulum on a cart} shown in Figure~\ref{Fig1}, with state variables
+ $$x=\left[ \begin{array}{r} \theta \\ \dot{\theta} \\ s \\ \dot{s} \end{array} \right] $$
+ The output of the model is actually a linear function of the state
+ $$y=h(x) = [0, 0, 1, 0] x, $$
+ and hence
+ $$C=[0, 0, 1, 0]$$
+ in this problem. We will compare the EKF, which attempts to deal with the nonlinear dynamics, to the ``normal'' KF applied to a linear approximation of the system about the origin.
+
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item Study the EKF algorithm given on the last page of this exam. Then download the file \texttt{Prob02Exam2.zip} from the CTOOLS site and unzip it. The contents of the file are described following the exam problem statements. Execute the script \texttt{>> TestPendulum} and enjoy the low-budget animation. The main purpose of the file is to show you how to call the animation. The real work starts below. There is nothing to turn in here.
+
+ \item  (10 points) We start with a linearized model about the origin of the inverted pendulum on a cart:
+     \begin{align*}
+          x_{k+1} &= Ax_k + Bu_k + Gw_k \\
+y_k &= Cx_k + v_k.
+     \end{align*}
+You obtain the model data via
+     \begin{verbatim}
+     >> load plant_data
+     >> whos
+     \end{verbatim}
+The model matrices are constant: $A_k=A$, $B_k=B$, and $C_k=C$. The noise covariance matrices are constant as well: $R_k = R$, and $Q_k = Q$. A deterministic input sequence $u$ is provided to excite the plant. The measurement sequence is $y$. The mean and covariance of the initial condition are $x0$ and $P0$.\\
+
+This part of the problem is very similar to the Segway we did in HW. To change things up a bit, implement the Kalman filter algorithm as given on page 3 of the handout \texttt{KalmanFilterDerivationUsingConditionalRVs.pdf}. Sure, it is fine to run your ``combined version'' from HW 8 as an initial step, but do implement the full Kalman filter on page 3. It is optional to run the animation, but it is strongly suggested. On page 3, you need to include the input term in the \textbf{Time Update}\\
+$$ \widehat{x}_{k+1|k} = A_k \widehat{x}_{k|k} \longrightarrow \color{blue}\widehat{x}_{k+1|k} = A \widehat{x}_{k|k}  + B u_k~~\text{\textcolor{red}{(constant matrices used here)}}$$
+
+\noindent \textbf{Turn in:} (I) Plots of the four state variables vs time $t$ or index $k$, labeled appropriately ($\widehat{s}$, $\widehat{\theta}$, etc.).  On the plots of $\widehat{\theta}(t)$ and $\widehat{s}(t)$, overlay the true values $\theta(t)$ and $y(t)=s(t)$, because it corresponds to the measured value of the cart's horizontal position. Label the plots clearly as applying to the KF for the linearized model. (II) Also turn in your MATLAB code for this problem, and place it right after your plots.
+
+\item (15 points) Implement the EKF. Use the covariance data from the linearized model. Once you have your filter working, it is optional to run the animation, but it is strongly suggested. In the animation, you should see a very different behavior. In fact, it is very close to the true system's evolution. \\
+
+    \noindent \textbf{Remark 1:} You are provided a file to compute $x_{k+1}$ as a function of $x_k$ and $u_k$. It is called as follows:
+    \begin{verbatim}
+    xkplus1=system_dynamic(x_k,u_k);
+    \end{verbatim}
+
+    \noindent \textbf{Remark 2:} As indicated in the EKF algorithm, you will need to compute the linearization of the nonlinear model along the estimated trajectory. You should do this using symmetric differences as in HW \#9. If you are unable to get this working, a file has been provided that will compute the derivatives for you. It is called as follows:
+    \begin{verbatim}
+    Ak=numerical_jacobian(x_k,u_k); % linearization
+    \end{verbatim}
+    To get full credit for the problem, you have to compute your own partial derivatives. \textbf{If you rely on the provided file, your score will be reduced by 5 points.}\\
+
+     \noindent \textbf{Remark 3:} Computing the Jacobians numerically slows down the filter. It is suggested that you only process a few data points initially. Once your filter is working, process the entire set of measured outputs. In practice, you would work hard to obtain an analytical expression for the Jacobians or a a fast way to compute them numerically, such as a \texttt{mex} file. \\
+
+\noindent \textbf{Turn in:} (III) Plots of the four state variables vs time $t$ or index $k$, labeled appropriately ($\widehat{s}$, $\widehat{\theta}$, etc.).  On the plots of $\widehat{\theta}(t)$ and $\widehat{s}(t)$, overlay the true values $\theta(t)$ and $y(t)=s(t)$. Label the plots clearly as applying to the EKF for the nonlinear model. (IV) Turn in your MATLAB code for this problem, and place it right after your plots. (V) State clearly if you computed your own Jacobian matrices or if you used the provided file to compute the Jacobians. You must included a copy of your file for computing the Jacobians.
+
+\end{enumerate}
+
+\end{enumerate}
+
+\vspace*{2cm}
+\noindent \textbf{Provided data:}
+\begin{itemize}
+\item A test file \texttt{TestPendulum.m} : it runs an animation of the inverted pendulum on a cart.
+\item Model data for the linearized KF: $A$, $B$, $C$, $G$
+\item Statistical data for the random variables, $\bar{x}_0$, $P_0$, $Q_k$, $R_k$
+    \item Measured output sequence $y_k$, and the input sequence $u_k$. These are used for both the linear and nonlinear versions of the filter. The input and measurement sequences are given in MATLAB's \texttt{time series} data type: u(k)=u.Data(k), t(k)=u.Time(k), y(k)=y.Data(k). The file \texttt{TestPendulum.m} shows you how to convert them to a plain vector if you prefer that format.
+    \item Nonlinear dynamics for the EKF
+    \item If you need it, a file to compute the Jacobians; you are supposed to compute them yourself, but if you have problems, use the provided file.
+\end{itemize}
+
+\newpage
+
+
+\textbf{Definition of Terms:} ({\textcolor{blue}{Changes for EKF given in color})
+\begin{align*}
+\widehat{x}_{k|k} &:\approx \ExpectofGiven{x_k}{y_0, \cdots, y_k}\\
+P_{k|k} &:\approx\ExpectofGiven{(x_k-\widehat{x}_{k|k})(x_k-\widehat{x}_{k|k})^\top}{y_0, \cdots, y_k}\\
+& \\
+\widehat{x}_{k+1|k} &:\approx \ExpectofGiven{ x_{k+1} }{ y_0, \cdots, y_k}\\
+P_{k+1|k}&:\approx \ExpectofGiven{(x_{k+1}-\widehat{x}_{k+1|k})(x_{k+1}-\widehat{x}_{k+1|k})^\top}{y_0, \cdots, y_k}\\
+\end{align*}
+
+\textbf{Initial Conditions:}
+$$\widehat{x}_{0|-1} :=\bar{x}_0 = \Expectof{x_0},~~\mbox{and}~~P_{0|-1}:=P_0=\cov(x_0)  $$
+
+\textbf{For $k \ge 0$}\\
+
+\textbf{~~~Measurement Update Step:}
+\begin{align*}
+\color{blue}{ {C}_k }&:= \color{blue}{ \left. \frac{\partial h(x)}{\partial x} \right|_{ \widehat{x}_{k|k-1} } }~~~\text{\color{red}(For our problem, this is a constant matrix)}, C\\
+K_k &= P_{k|k-1}C_k^\top \left(C_k P_{k|k-1} C_k^\top + Q_k\right)^{-1} \\
+& ~~~~~(\text{Kalman Gain})\\
+\widehat{x}_{k|k} &= \widehat{x}_{k|k-1}  + K_k \left( y_k -  {\color{blue} h(\widehat{x}_{k|k-1})} \right)  ~~~\text{\color{red}(For our problem:} ~~ h(\widehat{x}_{k|k-1})=C \widehat{x}_{k|k-1}) \\
+P_{k|k} &= P_{k|k-1} - K_k C_k  P_{k|k-1}
+\end{align*}
+
+\textbf{~~~Time Update or Prediction Step:}
+\begin{align*}
+\color{blue}\widehat{x}_{k+1|k} &= \color{blue}f( \widehat{x}_{k|k}, u_k) ~~~\text{\color{red}(Use the nonlinear model provided to you)} \\
+\color{blue}{A_k}&:=\color{blue}{\left. \frac{\partial f(x,u_k)}{\partial x}\right|_{\widehat{x}_{k|k}}}~~~\text{\color{red}(Partial with respect to x only; u is fixed)}\\
+P_{k+1|k} &= A_k P_{k|k} A_k^\top + G_k R_k G_k^\top
+\end{align*}
+
+\textbf{End of For Loop} (Just stated this way to emphasize the recursive nature of the filter)
+
+\vspace*{2cm} \textbf{Remark:} An important reason for developing the KF for time-varying linear systems is that it can then be applied to the linearization of a nonlinear system along the estimated trajectory, which gives the EKF.
+
+ \newpage
+
+\end{document}
+
+
+
+
+
+

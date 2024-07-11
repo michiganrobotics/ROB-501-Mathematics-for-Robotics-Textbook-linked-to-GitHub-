@@ -1,0 +1,149 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+
+
+
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Proof by Contradiction
+\end{center}
+}
+
+\Large
+
+
+
+\textbf{Proof by Contradiction:}
+
+We want to show that a statement $p$ is true.\\
+We assume instead that the statement is false.\\
+We derive a "contradiction", meaning some statement that is obviously false, such as "$(1+1=3)$". More generally, we derive that $R$ is true and $R$ is also false [This is a contradiction].
+We conclude that $\sim$p is impossible (led to a contradiction), hence, p must be true!
+
+\textbf{The Classic Example:} Proving $\sqrt{2}$ is an irrational number. The proof goes back to the Greek mathematician, Euclid!
+
+\textbf{Claim:} $\sqrt{2}$ is an irrational number.
+
+\textbf{Proof by Contradiction:}
+
+We assume that $\sqrt{2}$ is rational and deduce a contradiction.\\
+
+If $\sqrt{2}$ is rational, then there exist natural numbers $m$ and $n$, $n\neq 0$, such that
+
+\begin{itemize}
+\item \textbf{R1:} $m$ and $n$ have no common factors, and
+\item \textbf{R2:} $\sqrt{2} = m/n$.
+\end{itemize}
+
+By R2, we deduce that $2 = m^2/n^2$ and therefore $2n^2 = m^2$. Hence, $m^2$ is even, and by our previous work, we know that $m$ must be even.
+
+Because $m$ is even, $\exists$ a natural number $k$ such that $m=2k$.\\
+
+$\therefore 2n^2 = m^2 = (2k)^2 = 4k^2$, and we deduce that
+$$n^2 = 2k^2 \implies n^2 \textnormal{ is even } \implies n \textnormal{ is even}$$
+
+We have therefore shown that \\
+
+\textbf{R3:} $ m \textnormal{ and } n \textnormal{ have 2 as a common factor.}$\\
+
+
+R3 contradicts R1 ($m$ and $n$ having no common factors), and thus it cannot be the case that $\sqrt{2}$ is a rational number.\\
+
+$\therefore \sqrt{2} \textnormal{ must be irrational. } \square$
+
+
+\textbf{\underline{Summary or explanation}}\\
+\begin{center}
+$p: \sqrt{2}$ irrational \\
+We assumed:
+$\neg p: \sqrt{2}$ rational \\
+We deduced: \\
+$R: \exists m,n, n\neq 0, m$ and $n$ having no common factors \\
+\textbf{and} \\
+$\neg R: m$ and $n$ have a common factor (namely 2)\\
+$\therefore R \wedge (\neg R)$, which is a \underline{contradiction}\\
+
+ $ \therefore\neg p$ is FALSE\\
+$\therefore p$ is TRUE
+\end{center}
+
+\newpage
+
+\textbf{Relation to contrapositive?}
+
+In a contrapositive argument, to prove $p \implies q$, we \underline{assume} $\neg q$ and \underline{deduce} $\neg p$.
+
+In a proof by contradiction, we \underline{assume} BOTH $p$ and $\neg q$, that is $(p \land \neg q)$. We work hard to deduce $R$ and $\neg R$, a contradiction. We then conclude
+$$\neg (p \land \neg q) $$
+(because otherwise we have a contradiction), and this proves that
+ $p \implies q$.
+
+In many cases, a proof by contradiction is easier than a proof by contrapositive, but not always, and it takes experience to see when one might be better than another. We'll use both methods during the term. Practice is the only way to remove any fears or unease you have with proofs by contradiction!
+
+\textbf{TFAE} (The Following Are Equivalent)
+\begin{itemize}
+\item $p \implies q$
+\item $\neg q \implies \neg p$
+\item $\neg (p \land \neg q)$
+\end{itemize}
+
+
+\end{document}
+
+
+
+
+
+
+
+

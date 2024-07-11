@@ -1,0 +1,6 @@
+Optimization Web Site from Berkeley
+https://inst.eecs.berkeley.edu/~ee127a/book/login/index.html
+
+
+Linear programing problems
+https://www.princeton.edu/~chiangm/ele539l3a.pdf

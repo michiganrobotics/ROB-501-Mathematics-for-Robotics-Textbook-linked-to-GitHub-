@@ -1,0 +1,169 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\varepsilon}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+
+\begin{document}
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 25\\
+Typeset by:  Yunxiang Xu\\
+Proofread by: Jakob Hoellerbauer\\
+Revised by Ni on Nov. 29, 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Continuous Functions and Compact Sets (Continued)}\end{center}
+
+\noindent \textbf{Def.}~ A set $C$ is \underline{bounded} if $\exists r \textless \infty$ such that $C \subset B_r(0)$.\\\\
+\noindent \textbf{Bolzano-Weierstrass Theorem (Sequential Compactness Theorem):}~ In a finite dimensional normed space $(\mathcal{X},\real,||\cdot||)$,
+the following two properties are equivalent for a set $C \subset \mathcal{X}$.
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+\item
+$C$ is closed and bounded;
+\item
+For every sequence $(x_n)$ in $C$ (i.e. $x_n \in C$), there exists $x_0 \in C$ and a subsequence
+$(x_{n_i})$ of $(x_n)$ such that $x_{n_i} \to x_0$ (Every sequence in $C$ contains a convergent subsequence).\\
+Subsequence: $1\leqslant n_1 \textless n_2 \textless n_3 \textless \dotsb$
+\end{enumerate}
+
+\noindent \textbf{Def.}~ $C$ satisfies (a) or (b) is said to be \underline{compact}.
+
+
+\noindent \textbf{Example:}~ $C=[0,1]$ is a compact subet of $\real$. For all $(x_n)$ in $C$, it will have two following possibilities.
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+\item
+$(x_n)$ has finite number of distinct values and at least one of them has to be used for infinite times.
+\item
+$(x_n)$ has infinite number of distinct values.
+\end{enumerate}
+
+\noindent \textbf{Weierstrass Theorem:}~ If $C$ is compact and $f: C \to \real$ is continous, then $f$ achieves its extreme values. That is,
+    \begin{equation*}
+        \exists x^* \in C\textnormal{, s.t. }f(x^*)=\sup\limits_{x\in C}f(x)
+    \end{equation*}
+    and
+    \begin{equation*}
+        \exists x_* \in C\textnormal{, s.t. }f(x_*)=\inf\limits_{x\in C}f(x).
+    \end{equation*}
+
+\noindent \underline{Proof:}~ Let $f^*:=\sup\limits_{x\in C}f(x)$. To show $\exists x^* \in C$, s.t. $f(x^*)=f^*$.\\ \\
+    Assume $f^*$ is finite (Can be shown, but we skip it).
+    \begin{equation*}
+        f^*=\textnormal{supremum}=\textnormal{least upper bound}
+    \end{equation*}
+    $\forall \varepsilon>0, \exists x_{\varepsilon}\in C\textnormal{, s.t. }|f^*-f(x_{\varepsilon})|<\varepsilon$.\\ \\
+    Set $\varepsilon=\frac{1}{n}$, and deduce that $\exists (x_n)$ in $C$ such that $|f^*-f(x_n)|<\frac{1}{n}$\\
+    $C$ is compact $\Rightarrow \exists (x_{n_i})$ and $x^* \in C$, s.t.	$x_{n_i} \to x^*$.\\ \\
+    By $f$ continuous, $f(x_{n_i})\to f(x^*)$
+    \begin{align*}
+        |f^*-f(x^*)|&=|f^*-f(x_{n_i})+f(x_{n_i})-f(x^*)|\\
+        &\leqslant|f^*-f(x_{n_i})|+|f(x_{n_i})-f(x^*)|\\
+        &\leqslant \frac{1}{n_i}+|f(x_{n_i})-f(x^*)|\\
+        &\xrightarrow[i\rightarrow\infty]{} 0
+    \end{align*}
+    $\therefore f^*=f(x^*)$. $\square$
+
+\begin{center}\textbf{Convex Sets and Convex Functions}\end{center}
+
+    \noindent \textbf{Def.}~ Let$(V,\real)$ is a vector space. $C \subset V$ is \underline{convex} if $\forall x,y \in C , 0\leqslant \lambda \leqslant 1$. Then, $\lambda x +(1-\lambda)y \in C$.
+    
+\noindent \textbf{Remark:}
+$$\includegraphics[height=2in]{convex}$$
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+\item
+$x,y \in C$, then line connecting $x$ and $y$ also lies in $C$.
+\item
+Balls are always convex.
+\end{enumerate}
+
+\noindent \textbf{Def.}~ Suppose $C$ is convex. Then
+$f:C\to \real$ is \underline{convex} if $\forall x,y \in C, 0 \leqslant \lambda \leqslant 1$,
+$f\left(\lambda x+(1-\lambda) y\right)\leqslant \lambda f(x)+(1-\lambda)f(y)$.
+$$\includegraphics[height=3in]{convexfunction}$$
+
+\noindent \textbf{Def.}~ Suppose $(V,\real,||\cdot||)$ a normed space. $D\subset V$ a subset, and $f:D\to \real$ a function.
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+\item
+$x^* \in D$ is a \underline{local minimum} of $f$ if $\exists \delta >0$ s.t.$\forall x\in B_\delta(x^*)$,
+$f(x^*) \leqslant f(x)$.
+\item
+$x^* \in D$ is a \underline{global minimum} if $\forall y \in D$, $f(x^*) \leqslant f(y)$.
+\end{enumerate}
+
+\noindent \textbf{Theorem:}~ If $D$ and $f$ are both convex, then any local miniumum is also a global minimum.
+
+\noindent \underline{Proof:}~ We prove by contrapositive statement.\\ \\
+We show that if $x$ is not a global minimum, then it cannot be a local minimum.\\
+$x\in D$, $x$ is not a global minimum, hence $\exists y\in D$ s.t. $f(y)<f(x)$.\\ \\
+To show: $\forall \delta >0$. $\exists z\in B_\delta(x)$, s.t. $f(z)<f(x)$.
+
+\noindent \textbf{Claim:}~$\forall \delta >0$, $\exists 0<\lambda<1$, s.t. $z=(1-\lambda)x+\lambda y\in B_\delta (x)$.
+    \begin{align*}
+        ||z-x||&=||(1-\lambda)x+\lambda y-x||\\
+        &=||\lambda(y-x)||\\
+        &=\lambda||y-x||\\
+        &<\delta
+    \end{align*}
+$\therefore \lambda <\frac{\delta}{||y-x||}$. It works!\\
+    \begin{align*}
+        f(z)&=f((1-\lambda)x+\lambda y)\\
+        &\leqslant(1-\lambda)f(x)+\lambda f(y)\\
+        &<(1-\lambda)f(x)+\lambda f(x)\\
+        &=f(x)
+    \end{align*}
+$\therefore f(z)<f(x)$. $x$ is not a local minimum. $\square$
+
+
+
+\end{document} 

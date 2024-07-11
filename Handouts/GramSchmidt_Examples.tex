@@ -1,0 +1,275 @@
+% $RCSfile: handout_in_EECS_560.tex,v $
+% $Revision: 1.1 $
+% $Date: 1999/12/22 13:11:28 $
+
+%\documentclass{article}
+\documentclass[11pt,twoside]{nsf_jwg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages used
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{alltt}
+%\usepackage{psboxit}
+
+\newenvironment{definition}{\vspace*{.3in}\noindent{\bf Definition: }}{ }
+\newenvironment{example}{\vspace*{.3in}\noindent{\bf Example: }}{ }
+\newenvironment{examples}{\vspace*{.3in}\noindent{\bf Examples: }}{ }
+\newenvironment{theorem}{\vspace*{.3in}\noindent{\bf Theorem: }}{ }
+\newenvironment{lemma}{\vspace*{.3in}\noindent{\bf Lemma: }}{ }
+\newenvironment{corollary}{\vspace*{.3in}\noindent{\bf Corollary: }}{ }
+\newenvironment{problem}{\vspace*{.3in}\noindent{\bf Problem:}}{ }
+\newenvironment{claim}{\vspace*{.3in}\noindent{\bf Claim:}}{ }
+\newenvironment{solution}{\vspace*{.1in}\noindent{\bf Solution: }}{ }
+\newenvironment{prooff}{\vspace*{.1in}\noindent{\bf Proof: }}{ }
+%\def\QEDD{\fbox{\begin{minipage}{.1in}
+%\hspace{.008in}
+%\vspace{.02in}
+%\end{minipage}} }
+\def\QEDD{$\blacksquare$}
+\def\prooff{\vspace*{.2in}\noindent{\bf Proof: }}
+\def\endprooff{\hspace*{\fill}~\QEDD\par\endtrivlist\unskip}
+
+
+% The set of real numbers and complex numbers
+% $\RR$ and $\CC$ will produce boldfaced R and C, respectively
+\newcommand{\RR}{{\mathbb{R}}}
+\newcommand{\CC}{{\mathbb{C}}}
+\newcommand{\Span}{\mbox{Span}}
+
+% Changing the item numbering of the outermost level of `enumerate'
+% environment from `1', `2', ...  to `(a)', `(b)', ...
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\title{\Large \bf ROB 501 Handout: Grizzle}
+	\author{{\bf Gram Schmidt Process}}
+	\date{}
+	\maketitle
+	
+	\Large
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\noindent \textbf{Given:} $({\cal X, F}, <\cdot, \cdot>)$ an inner product space.\\
+
+
+\noindent \textbf{Proposition:}
+Let $\{ y^1, \cdots, y^k\}$ be a linearly independent set and suppose the set
+$\{ v^1, \cdots, v^{k-1} \}$ is orthogonal and
+ $$\mbox{span}\{ v^1, \cdots, v^{k-1} \} = \mbox{span}\{ y^1, \cdots, y^{k-1} \} .$$
+ Define
+ \begin{equation}
+	v^k = y^k - \sum_{j=1}^{k-1}
+	\frac{<y^k,v^j>}{\| v^j \|^2} \cdot v^j		\label{gram_schmidt}
+\end{equation}
+where $ \| v^j \|^2 = <v^j,v^j>$. Then, $\{ v^1, \cdots, v^{k} \}$ is orthogonal and
+ $$\mbox{span}\{ v^1, \cdots, v^{k} \} = \mbox{span}\{ y^1, \cdots, y^{k} \} $$
+
+
+ \noindent \textbf{Proof:} The orthogonality is by construction. Indeed, one writes
+ $$v^k = y^k - \sum_{j=1}^{k-1} a_{kj}v^j	 $$
+ and then $<v^k,v^j>=0$ for $1 \le j < k$  if, and only if,
+ $$ a_{kj}=	\frac{<y^k,v^j>}{\| v^j \|^2} .$$
+
+
+ We next show that $y^k \in \mbox{span}\{ v^1, \cdots, v^k \}$ and $v^k \in \mbox{span}\{ y^1, \cdots, y^k \}$.\\
+
+From (\ref{gram_schmidt}),
+\[
+	y^k = v^k + \sum_{j=1}^{k-1}
+	\frac{<y^k,v^j>}{\| v^j \|^2} \cdot v^j \ \Rightarrow \
+	y^k \in
+		\mbox{span}\{ v^1, \cdots, v^k \}.
+\]
+Left to show: $v^k \in \mbox{span}\{ y^1, \cdots, y^k \}$. By hypothesis,
+\[
+	v^j \in \mbox{span}\{ y^1, \cdots, y^{k-1} \}
+		\mbox{ for all } 1 \leqslant j \leqslant k-1,
+\]
+so
+\[
+	\sum_{j=1}^{k-1}
+	\left( \frac{<v^j,y^k>}{\| v^j \|^2} \right) v^j \
+		\in \ \mbox{span}\{ y^1, \cdots, y^{k-1} \} \
+		\subset \ \mbox{span}\{ y^1, \cdots, y^k \}.
+\]
+Clearly, $y^k \in \mbox{span}\{ y^1, \cdots, y^k \}$.
+\[
+	\therefore v^k = y^k - \sum_{j=1}^{k-1}
+	\left( \frac{<v^j,y^k>}{\| v^j \|^2} \right) v^j \
+		\in \ \mbox{span}\{ y^1, \cdots, y^k \}
+\]
+because $\mbox{span}\{ y^1, \cdots, y^k \}$ is a subspace. \hfill  $\blacksquare$
+
+
+\newpage
+
+\noindent
+\underline{Inner Products: Example Computation for $(\RR^3,\RR)$}\\
+\textbf{Given data:}
+\begin{gather*}
+	<p,q> = p^T q = \sum_{i=1}^3 p_i q_i \\
+	\{ y^1, y^2, y^3 \} = \left\{
+		\left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right],
+		\left[ \begin{array}{c} 1 \\ 2 \\ 3 \end{array} \right],
+		\left[ \begin{array}{c} 0 \\ 1 \\ 1 \end{array} \right]
+		\right\}
+\end{gather*}
+\textbf{Apply Gram-Schmidt to Produce an Orthogonal Basis:}
+	\begin{align*}
+		v^1 &= y^1 = \left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right]\\
+		\quad \| v^1 \|^2 &= (v^1)^T v^1 = 2 ;\\
+		\\
+		v^2	&= y^2 - \frac{<v^1,y^2>}{\| v^1 \|^2} v^1 \\
+		&= \left[ \begin{array}{c} 1 \\ 2 \\ 3 \end{array} \right]
+		- \underbrace{%
+		   \left[ \begin{array}{ccc} 1 & 1 & 0 \end{array} \right]
+		   \left[ \begin{array}{c} 1 \\ 2 \\ 3 \end{array} \right]%
+		   }_{3}
+		\frac{1}{2}
+		   \left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right]
+		= \left[ \begin{array}{r}
+			- \frac{1}{2} \medskip \\ \frac{1}{2} \medskip \\ 3
+			\end{array} \right] \\
+		\| v^2 \|^2 &= 9 \frac{1}{2} = \frac{19}{2} ;\\
+		\\
+		v^3	&= y^3 - \frac{<v^1,y^3>}{\| v^1 \|^2} v^1
+			- \frac{<v^2,y^3>}{\| v^2 \|^2} v^2 \\
+		&= \left[ \begin{array}{c} 0 \\ 1 \\ 1 \end{array} \right]
+		- \underbrace{%
+		   \left[ \begin{array}{ccc} 1 & 1 & 0 \end{array} \right]
+		   \left[ \begin{array}{c} 0 \\ 1 \\ 1 \end{array} \right]%
+		   }_{1}
+		\frac{1}{2}
+		   \left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right]
+		- \underbrace{%
+		   \left[ \begin{array}{ccc}
+			-\frac{1}{2} & \frac{1}{2} & 3 \end{array} \right]
+		   \left[ \begin{array}{c} 0 \\ 1 \\ 1 \end{array} \right]%
+		   }_{3\frac{1}{2}}
+		\frac{1}{\frac{19}{2}}
+		   \left[ \begin{array}{r}
+			-\frac{1}{2} \medskip \\ \frac{1}{2} \medskip \\ 3 \end{array} \right] \\
+		&= \left[ \begin{array}{c} 0 \\ 1 \\ 1 \end{array} \right]
+		- \left[ \begin{array}{c}
+			\frac{1}{2} \\ \frac{1}{2} \\ 0 \end{array} \right]
+		- \left[ \begin{array}{r}
+			-\frac{7}{38} \medskip \\ \frac{7}{38} \medskip \\ \frac{21}{19}
+			\end{array} \right]
+		= \left[ \begin{array}{r}
+			-\frac{6}{19} \medskip \\ \frac{6}{19} \medskip \\ -\frac{2}{19}
+			\end{array} \right].
+	\end{align*}
+
+\noindent\textbf{Normalize to obtain Orthonormal Basis (often useful to do this, but not always required):}\\
+	\begin{align*}
+		\tilde{v}_1 &= \frac{v^1}{\| v^1 \|} = \left[ \begin{array}{c} \frac{1}{\sqrt{2}} \medskip \\ \frac{1}{\sqrt{2}} \medskip \\ 0 \end{array} \right]\\
+		\tilde{v}_2 &= \frac{v^2}{\| v^2 \|} = \left[ \begin{array}{r} \frac{-1}{\sqrt{38}} \medskip \\ \frac{1}{\sqrt{38}} \medskip \\ 3\sqrt{\frac{2}{19}} \end{array} \right]\\
+		\tilde{v}_3 &= \frac{v^3}{\| v^3 \|} = \frac{19}{\sqrt{76}} \left[ \begin{array}{r} -\frac{6}{19} \medskip \\ \frac{6}{19} \medskip \\ -\frac{2}{19}
+			\end{array} \right]\\
+	\end{align*}
+	
+
+\newpage
+
+\underline{Inner Products: Example Computation for $(C[0,1],\RR)$}
+
+\textbf{Given data:}\\
+	$$C[0,1] = \{ f:[0,1] \rightarrow \RR \mid f~~\mbox{continuous} \},\quad
+		<f,g> = \int_0^1 f(\tau) g(\tau) d\tau$$ \\
+	$$\{ y^1, y^2, y^3 \} = \{ 1, t, t^2 \} \\$$
+
+\vspace*{1cm}
+
+\textbf{Apply Gram-Schmidt to Produce an Orthogonal Basis:}\\
+	\begin{align*}
+		v^1 &= y^1 = 1\\
+		\qquad \| v^1 \|^2 &= \int_0^1 (1)^2 d\tau = 1 ;\\
+		\\
+		v^2	&= y^2 - \frac{<v^1,y^2>}{\| v^1 \|^2} v^1 \\
+		&= t - \underbrace{%
+			\int_0^1 1 \cdot \tau d\tau%
+			}_{\frac{1}{2}} \cdot \frac{1}{1} \cdot 1
+		= t - \frac{1}{2} \\
+		\| v^2 \|^2 &= \int_0^1 (\tau - \frac{1}{2})^2 d\tau = \frac{1}{12} ;\\
+		\\
+		v^3	&= y^3 - \frac{<v^1,y^3>}{\| v^1 \|^2} v^1
+		- \frac{<v^2,y^3>}{\| v^2 \|^2} v^2 \\
+		&= t^2 - \underbrace{%
+			\int_0^1 1 \cdot \tau^2 d\tau%
+			}_{\frac{1}{3}} \cdot \frac{1}{1} \cdot 1
+		- \underbrace{%
+			\int_0^1 (\tau - \frac{1}{2}) \tau^2 d\tau%
+			}_{\frac{1}{12}} \left( \frac{1}{\frac{1}{12}} \right)
+				\Bigl( t - \frac{1}{2} \Bigr) \\
+		&= t^2 - \frac{1}{3} - \Bigl( t - \frac{1}{2} \Bigr) \\
+		&= t^2 - t + \frac{1}{6}.
+	\end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\bigskip
+\begin{center}\large\bf
+Doing Inner products on $C[a,b]$ in MATLAB
+\end{center}
+
+\begin{alltt}
+>> clear *
+>> syms t % declare to be a symbolic variable
+
+>> % INT(S,a,b) is the definite integral of S with respect to
+   % its symbolic variable from a to b.  a and b are each
+   % double or symbolic scalars.
+
+>> y1=1+0*t % Otherwise MATLAB is too dumb to realize
+            % that y1 is a trivial function of the symbolic
+            % variable t
+y1 = 1
+
+>> y2=t;
+>> y3=t^2;
+
+% Start the G-S Procedure. Here we assume C[0,1], that is
+% C[a,b], with [a,b]=[0,1]
+
+>> v1=y1
+
+v1=1
+
+>> v2=y2-int(v1*y2,0,1)*v1/int(v1^2,0,1)
+
+v2=t-1/2
+
+>> v3=y3-int(v1*y3,0,1)*v1/int(v1^2,0,1)-
+int(v2*y3,0,1)*v2/int(v2^2,0,1)
+
+v3=t^2+1/6-t
+
+% Next, normalize to length one
+
+v1_tilde=v1/int(v1^2,0,1)^.5
+
+v1_tilde=1
+
+>> v2_tilde=v2/int(v2^2,0,1)^.5
+
+v2_tilde=(t-1/2)*12^(1/2)
+
+>> simplify(v2_tilde);
+
+ans=(2*t-1)*3^(1/2)
+
+>> v3_tilde=simplyfy(v3/int(v3^2,0,1)^.5)
+
+v3_tilde=(6*t^2+1-6*t)*5^(1/2)
+\end{alltt}
+
+\end{document}

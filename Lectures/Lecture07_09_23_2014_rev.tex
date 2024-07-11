@@ -1,0 +1,199 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
+\usepackage{tikz}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\tr}{tr}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 07\\
+Typeset by:  Zhiyuan Zuo\\
+Proofread by: Vittorio Bichucher\\
+Revised by Ni on 31 October 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}
+\textbf{Abstract Linear Algebra (Continued)}
+\end{center}
+
+\noindent \textbf{Elementary Properties of Matrices (Assumed Known)}\\
+    $A = n\times m$ matrix with coefficients in $\mathbb{R} $ or   $\mathbb{C} $.\\
+    \noindent \underline{Def.} \underline{Rank} of $A$ = $\#$ of linearly independent columns of A. \\
+    \noindent \underline{Theorem:} rank($A$) = rank($A^\top $) = rank($AA^\top $) = rank($A^\top A$). \\
+    \noindent \underline{Corollary:} $\#$ of linearly independent rows  = $\#$ of linearly independent columns.
+
+\noindent \textbf{Normed Spaces:}\\
+    Let Field $\mathcal{F} $ be $\mathbb{R} $ or $\mathbb{C} $,  \\
+    \noindent \textbf{Def.} A function $\| \cdot \|$: $\mathcal{X} \to\mathbb{R} $ is a norm if it satisfies
+    \vspace{-5mm}
+    \begin{enumerate}[(a)]
+        \item $\| x \| \ge 0$, $\forall x \in \mathcal{X}$ and $\| x \| = 0 \Leftrightarrow \ x = 0$
+        \item Triangle inequality: $\| x+y \| \le \|x\| + \|y\|, \forall x, y \in \mathcal{X}$
+        \item $\| \alpha x\| = |\alpha| \cdot \|x\|$, $\forall x\in \mathcal{X}, \alpha \in \mathcal{F}$,
+            $
+            \begin{cases}
+                \textnormal{If } \alpha \in \mathbb{R}\textnormal{, } |\alpha| \textnormal{ means the absolute value}\\
+                \textnormal{If } \alpha \in \mathbb{C}\textnormal{, } |\alpha| \textnormal{ means the magnitude}
+            \end{cases}
+            $.
+    \end{enumerate}
+
+
+\noindent \textbf{Examples:}~
+\vspace{-5mm}
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+    \item $\mathcal{F} = \mathbb{R}$ or $\mathbb{C}$, $\mathcal{X} = \mathbb{F}^n$.
+	    \begin{enumerate}[i)]
+	        \item $\|x\|_2 = \left(\sum\limits_{i=1}^{n} |x_i|^2\right)^\frac{1}{2}$, Two norm, Euclidean norm
+	        \item $\|x\|_p = \left(\sum\limits_{i=1}^{n} |x_i|^p\right)^\frac{1}{p}, 1\le p < \infty$, p-norm
+	        \item $\|x\|_\infty = \max\limits_{1 \le i \le n}|x_i|$, max-norm, sup-norm, $\infty$-norm
+	    \end{enumerate}
+    \item $\mathcal{F} = \mathbb{R}$, $\mathcal{D}\subset \mathbb{R}$, $\mathcal{D}=[a, b]$, $a<b<\infty$,\\
+    $\mathcal{X} = \{f:\mathcal{D}\rightarrow \mathbb{R}\ |\ f \text{ is continuous} \}$.\\
+        \begin{enumerate}[i)]
+            \item $\|f\|_2 = (\int_a^b \! |f(t)|^2 \, \mathrm{d}t)^\frac{1}{2}$
+            \item $\|f\|_p = (\int_a^b \! |f(t)|^p \, \mathrm{d}t)^\frac{1}{p}$, $1 \le p < \infty$
+            \item $\|f\|_\infty = \max\limits_{a \le t \le b}|f(t)|$, which is also written $\|f\|_\infty = \sup \limits_{a \le t \le b} |f(t)|$
+        \end{enumerate}
+\end{enumerate}
+
+\noindent \textbf{Def.}~ $(\mathcal{X}, \mathcal{F}, \|\cdot\|)$ is called a \underline{normed space}.\\
+    \underline{Distance:} For $x, y \in \mathcal{X}$,
+    $d(x, y) := \|x-y\|$ is called the distance from $x$ to $y$.\\
+    \underline{Note:} $d(x, y) = d(y, x)$.\\
+    \underline{Distance to a set:} Let $S\subset \mathcal{X}$ be a subset.
+    \begin{equation*}
+        d(x, S):= \inf\limits_{y\in S}\|x-y\|
+    \end{equation*}
+    If $\exists x^{*} \in S$ such that $d(x, S) = \|x-x^{*}\|$, then $x^{*}$ is \underline{a best approximation of $x$ by} \underline{elements of $S$}.\\
+    Sometimes, write $\hat{x}$ for $x^{*}$ because we are really thinking of the solution as an approximation.
+
+\noindent \textbf{Important questions:}
+\vspace{-5mm}
+\begin{enumerate}[a)]
+    \item When does an $x^{*}$ exist?
+    \item How to characterize (compute) $x^{*}$ such that $\|x-x^{*}\| = d(x, S)$, $x^{*}\in S$?
+    \item If a solution exists, is it unique?
+\end{enumerate}
+
+\noindent \textbf{Notation:} When $x^{*}$ (or $\hat{x}$) exists, we write $x^{*} = {\underset{y \in S}{\operatorname{\argmin}}} \|x-y\|$.
+
+\noindent \textbf{Inner Product Space:}\\
+    \underline{Recall:}  $z = \alpha + j\beta \, \in \mathbb{C}$, $\alpha, \beta \in \mathbb{R}$, $\bar{z} = z$'s complex conjugate $= \alpha -  j\beta$\\
+\\
+\noindent \textbf{Def.}
+    Let $(\mathcal{X}, \mathbb{C})$ be a vector space, a function $\langle \cdot \, , \cdot \rangle: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{C}$
+is an inner product if
+    \vspace{-5mm}
+    \begin{enumerate}[(a)]
+        \item $\langle a, b\rangle = \overline{\langle b, a\rangle}$.
+        \item $\langle \alpha_1 x_1 + \alpha_2 x_2, y \rangle = \alpha_1 \langle x_1, y \rangle + \alpha_2 \langle x_2, y \rangle$, linear in the left argument. Sum can also appear on the right, just use the property (a).
+        \item $\langle x, x \rangle \, \ge \, 0$ for any $x \in \mathcal{X}$, and $\langle x, x \rangle\,=\, 0$ $\Leftrightarrow$ $x = 0$. ($\langle x, x \rangle$ is a real number. Therefore, it can be compared to 0.)
+    \end{enumerate}
+
+\noindent \textbf{Remarks:}
+    \vspace{-5mm}
+    \begin{enumerate}[1)]
+        \item $\langle x, x \rangle\, =\, \overline{\langle x, x \rangle}$, by (a). Hence, $\langle x, x \rangle$ is always a real number.
+        \item If the vector space is defined as $(\mathcal{X}, \mathbb{R})$, replace (a) with $(\text{a}^{'})$ $\langle a, b \rangle \, =\, \langle b, a \rangle$
+    \end{enumerate}
+
+\noindent \textbf{Examples:}
+    \vspace{-5mm}
+    \begin{enumerate}[a)]
+        \item $(\mathbb{C}^n, \mathbb{C})$, $\langle x, y\rangle\, =\, x^\top \overline{y}\, =\, \sum\limits_{i=1}^{n}x_i\overline{y_i}$.
+        \item $(\mathbb{R}^n, \mathbb{R})$, $\langle x, y\rangle\, =\, {x^\top }{y}\, =\, \sum\limits_{i=1}^{n}{x_i}{y_i}$.
+        \item $\mathcal{F} = \mathbb{R}$, $\mathcal{X} = \{A\, |\, n\times m \,\, \text{real matrices} \}$, $\langle A, B\rangle\, =\, \tr(AB^\top )\, = \, \tr(A^\top  B)$.
+        \item $\mathcal{X} = \{ f: [a, b]\rightarrow\mathbb{R}, \text{$f$ continuous}\}$, $\mathcal{F} = \mathbb{R}$, $\langle f, g\rangle\, =\,  \int_a^b \! f(t)g(t) \, \mathrm{d}t$.
+    \end{enumerate}
+
+
+\noindent \textbf{Theorem:}~ \underline{(Cauchy-Schwarz Inequality)} Let $\mathcal{F}$ be $\mathbb{R}$ or $\mathbb{C}$, $(\mathcal{X}, \mathcal{F}, \langle \cdot\,,\cdot \rangle)$ be an inner product space. Then, for all $x, y\in \mathcal{X}$
+    \begin{equation*}
+        |\langle x, y\rangle|\, \le\, {\langle x, x \rangle}^{1/2}\langle y, y \rangle ^{1/2}.
+    \end{equation*}
+\\
+\noindent \underline{Proof:} (Will assume $\mathcal{F} = \mathbb{R}$).\\
+    If $y = 0$, the result is clearly to true.\\
+    Assume $y \neq 0$ and let $\lambda \in \mathbb{R}$ to be chosen, we have
+    \begin{align*}
+        0\, &\le\, \langle x-\lambda y,\, x-\lambda y \rangle\\
+        &=\langle x,\, x-\lambda y \rangle - \lambda\langle y,\, x-\lambda y\rangle\\
+        &=\langle x, x\rangle - \lambda\langle x, y\rangle - \lambda\langle y, x\rangle +
+        \lambda^2 \langle y, y\rangle \\
+        &=\langle x, x\rangle - 2\lambda\langle x, y\rangle + \lambda^2\langle y,y\rangle.
+    \end{align*}
+    Now, select $\lambda = \langle x, y \rangle/\langle y, y \rangle$.\\
+    Then,
+    \begin{align*}
+        0&\le \langle x-\lambda y, x-\lambda y\rangle\\
+        &=\langle x,x\rangle - 2{|\langle x, y\rangle|}^2/\langle y,y \rangle + {|\langle x, y \rangle|}^2/{\langle y, y\rangle}\\
+        &=\langle x,x\rangle - |\langle x,y\rangle|^2/\langle y, y\rangle.
+    \end{align*}
+    Therefore, we can conclude that $|\langle x,y\rangle|^2\leq\langle x,x\rangle\langle y,y\rangle$ $\Rightarrow$ $|\langle x,y\rangle|\leq\langle x,x\rangle^{1/2}\langle y,y\rangle^{1/2}.\ \square$
+
+\end{document} 

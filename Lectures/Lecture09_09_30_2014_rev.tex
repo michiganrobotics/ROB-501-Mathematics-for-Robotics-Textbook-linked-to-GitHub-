@@ -1,0 +1,165 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 09\\
+Typeset by:  Pengcheng Zhao\\
+Proofread by: Xiangyu Ni\\
+Revised by Ni on 1 November 2015
+\end{center}
+}
+
+
+
+\Large
+
+\begin{center}
+\textbf{Orthogonal Bases (Continued)}
+\end{center}
+
+\noindent \textbf{Gram-Schmidt Process:} Let $\{y^1, \cdots , y^n\}$ be a linearly independent set of vectors. We will produce $\{v^1, \cdots , v^n\}$ orthogonal such that, $\forall 1 \leq k \leq n$, ${\rm span}\{v^1, \cdots, v^k\}={\rm span}\{y^1, \cdots, y^k\}$.
+
+    \underline{Step 1}$$v^1 = y^1$$
+    \underline{Step 2}
+        \begin{align*}
+            v^2&=y^2-a_{21}v^1\\
+            \langle v^2,v^1 \rangle &=0 \Leftrightarrow a_{21}=\frac{ \langle y^2, v^1 \rangle }{{\|v^1\|}^2}
+        \end{align*}
+    \underline{Step 3}$$v^3=y^3 - a_{31}v^1 - a_{32}v^2$$
+        Choose coefficients such that $ \langle v^3, v^1 \rangle =0$ and $ \langle v^3, v^2 \rangle =0$,
+        $$0= \langle v^3,v^1 \rangle = \langle y^3, v^1 \rangle -a_{31} \langle v^1, v^1 \rangle -a_{32} \underbrace{\langle v^2, v^1 \rangle}_{=0} $$
+        $$0= \langle v^3,v^2 \rangle = \langle y^3, v^2 \rangle -a_{31} \underbrace{\langle v^1, v^2 \rangle}_{=0} -a_{32} \langle v^2, v^2 \rangle $$
+        $$\therefore \quad a_{31}=\frac{ \langle y^3, v^1 \rangle }{{\|v^1\|}^2} \qquad a_{32}=\frac{ \langle y^3, v^2 \rangle }{{\|v^2\|}^2}$$\\
+    Therefore, we can conclude that $v_k=y_k-\sum_{j=1}^{k-1}\frac{\langle y_k, v_j\rangle}{\|v_j\|^2}v_j$.\\
+    \underline{Proof of G-S Process:}~ Need to show $\textnormal{span}\{v^1, \cdots, v^k\}=\textnormal{span}\{y^1, \cdots, y^k\}$
+    \begin{equation*}
+        \Leftrightarrow
+        \begin{cases}
+            \{v^1, \cdots, v^k\}\subseteq\textnormal{span}\{y^1, \cdots, y^k\}\Leftrightarrow v^k\in\textnormal{span}\{y^1, \cdots, y^k\}\\
+            \{y^1, \cdots, y^k\}\subseteq\textnormal{span}\{v^1, \cdots, v^k\}\Leftrightarrow y^k\in\textnormal{span}\{v^1, \cdots, v^k\}
+        \end{cases}.
+    \end{equation*}
+
+\noindent \textbf{Intermediate Facts}\\
+\noindent \textbf{Proposition:}~ Let$(\cal X, F)$ be an n-dimensional vector space and let $\{v^1, \cdots, v^k\}$ be a linearly independent set with $0<k<n$. Then, $\exists v^{k+1}$ such that $\{v^1, \cdots, v^k, v^{k+1}\}$ is linearly independent.
+
+\noindent \underline{Proof:}~(By contradiction)\\
+    Suppose no such $v^{k+1}$ exists. Hence, $\forall x \in \cal X$, $x \in {\rm span} \{v^1, \cdots, v^k\}$.\\
+    $\therefore {\cal X} \subset {\rm span} \{v^1, \cdots, v^k\}$.\\
+    $\therefore {\rm dim}({\cal X}) \leq {\rm dim}({\rm span} \{v^1, \cdots, v^k\})$.\\
+    $\therefore n \leq k$, which contradicts $k<n$. $\square$
+
+\noindent \textbf{Corollary:}~In a finite dimensional vector space, any linearly independent set can be completed to a basis. More precisely, let $\{v^1, \cdots, v^k\}$ be linearly independent, $n = {\rm dim}({\cal X}), k<n$.\\
+Then, $\exists v^{k+1}, \cdots, v^n$ such that $\{v^1, \cdots, v^k, v^{k+1}, \cdots, v^n\}$ is a basis for $\cal X$.
+
+\noindent \underline{Proof:}~Previous proposition+Induction
+
+\noindent \textbf{Def.}~ Let $({\cal X, F},  \langle \cdot,\cdot \rangle )$ be an inner product space, and $S \subseteq {\cal X}$ a subset. (Doesn't have to be a subspace.)
+$$S^{\perp}:= \{x \in {\cal X}|x \perp S\} = \{x \in {\cal X}|  \langle x,y \rangle =0 \textnormal{ for all }y \in S\}$$
+is called \underline{the orthogonal complement of $S$}.
+
+\noindent \textbf{Exercise:}~$S^{\perp}$ is always a subspace.
+
+\noindent \textbf{Proposition:}~ Let $({\cal X, F}, \langle \cdot, \cdot \rangle )$ be a finite dimensional inner product space, $M$ a subspace of $\cal X$. Then,
+$${\cal X} = M \oplus M^{\perp}.$$
+
+\noindent \underline{Proof:}~ If $x\in M\cap M^\perp$, $ \langle x,x \rangle =0 \Leftrightarrow x=0$.\\
+    Hence, $M \cap M^{\perp} = \{0\}$.
+
+    Let $\{y^1, \cdots, y^k\}$ be a basis of $M$. Complete it to be a basis for $\cal X$: $$\{y^1, y^2, \cdots, y^k, y^{k+1}, \cdots, y^n\}$$
+    Apply G.S. to produce orthogonal vectors $\{v^1, \cdots, v^k, v^{k+1}, \cdots, v^n\}$ such that ${\rm span}\{v^1, \cdots, v^k\} = {\rm span}\{y^1, \cdots, y^k\} = M$.\\
+    An easy calculation gives
+    $$M^{\perp} = {\rm span}\{v^{k+1}, \cdots, v^n\}$$
+
+\underline{Why?}
+    \begin{align*}
+        &x = \alpha_1 v^1 + \cdots + \alpha_k v^k + \alpha_{k+1} v^{k+1} + \cdots + \alpha_n v^n\\
+        &x \perp M \Leftrightarrow  \langle x, v^i \rangle =0, \quad 1 \leq i \leq k\\
+        \langle x, v^i \rangle  &= \alpha_1  \underbrace{\langle v^1, v^i \rangle}_{=0}  + \cdots + \alpha_i  \langle v^i, v^i \rangle  + \cdots + \alpha_n  \underbrace{\langle v^n, v^i \rangle}_{=0} \\
+        &= \alpha_i  \langle v^i, v^i \rangle\\
+        &= \alpha_i {\|v^i\|}^2\\
+        \therefore x &= \alpha_{k+1} v^{k+1} + \cdots + \alpha_n v^n \Leftrightarrow x \in {\rm span}\{v^{k+1}, \cdots, v^n\}.\\
+        \therefore x &\in M^{\perp} \Leftrightarrow x \in {\rm span}\{v^{k+1}, \cdots, v^n\}.
+    \end{align*}
+
+\begin{center}
+\textbf{Projection Theorem}
+\end{center}
+
+\noindent \textbf{Theorem:}~(Classical Projection Theorem)\\
+    Let $\cal X$ be a finite dimensional inner product space and $M$ a subspace of $\cal X$. Then, $\forall x \in {\cal X}, \exists \textnormal{ unique }m_0 \in M$ such that
+    \begin{equation*}
+        \|x - m_0\| = d(x, M) = \inf\limits_{m \in M} \|x - m\|.
+    \end{equation*}
+    Moreover, $m_0$ is characterized by $x-m_0 \perp M$.
+
+\noindent \underline{Proof:}~To show: $m_0$ exists. Uniqueness and orthogonality were shown in the Pre-projection Theorem.\\
+    From G.S., we learnt that ${\cal X} = M \oplus M^{\perp}$.\\
+    Hence, we can write
+    $$x = m_0 + \tilde{m}$$
+    where
+    $$m_0 \in M \quad \textnormal{ and } \quad \tilde{m} \in M^{\perp}$$
+    Hence,
+    $$x-m_0 = \tilde{m} \in M \Rightarrow x-m_0 \perp M.\ \square$$
+\end{document}
+
+
+

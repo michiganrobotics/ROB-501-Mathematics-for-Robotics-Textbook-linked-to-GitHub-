@@ -1,0 +1,708 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{ulem}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+  \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center} % 1013 Dow = 156 seats and 1006 Dow seats 48.
+\LARGE \bf
+Date is Tuesday, December 19, 2017, 10:40 AM--12:30 PM \\
+\large
+Rooms (First letter of last name)\\
+DOW 1006 (A-G)~~~DOW 1013 (H-Z) \\
+\end{center}
+
+\vspace*{0.5in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{1.in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\vspace*{2cm}
+
+\fbox{\bf FILL IN YOUR NAME NOW. COPY THE HONOR CODE NOW. DO NOT COUNT PAGES.} \\
+\fbox{\bf DO NOT OPEN THE EXAM BOOKLET UNTIL TOLD TO DO SO.}
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 3  SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, HEADSETS, nor DIGITAL DEVICES of any KIND.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\noindent The maximum possible score is 80. To maximize your own score on this exam, read the questions carefully and write legibly.  For those problems that allow partial credit, show your work clearly on this booklet.
+
+\newpage
+
+\vspace*{4cm}
+
+\begin{center}
+\bf
+
+\Large
+Enter Multiple Choice Answers Here
+\end{center}
+
+\vspace*{4cm}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+\begin{flushright}
+{\bf \large WHEN TOLD TO OPEN EXAM, Copy Exam Number from Front Page:}\bline{1.0in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center} % 1013 Dow = 156 seats and 1006 Dow seats 48.
+\bf
+Date is Tuesday, December 19, 2017, 10:40 AM--12:30 PM \\
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~{\bf LAST~~NAME}~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~{\bf FIRST~~NAME}~~}$ \\
+
+\vspace*{1cm}
+
+\fbox{\bf \LARGE FILL IN YOUR NAME}
+
+\end{center}
+
+\vspace*{1 in}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.5in}|p{2.5in}|p{1.5in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   30\\
+\hline
+Problem 6 &  &   20\\
+\hline
+Problem 7 &  &   15\\
+\hline
+Problem 8 &  &   15\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+Problem 9 &  &   A$^+$ Points (5)\\
+\hline
+& & \\
+& & \\
+\hline
+\textbf{Answer}  &   &   \\
+ Prob. 9 & \makebox[10cm][l]{$\begin{array}{ccc}\qquad  & \qquad& \qquad \\ \widehat{X} =\qquad  & \qquad & \qquad \\ \qquad & \qquad& \qquad \end{array}$} &   \\
+ & & \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\newpage
+
+
+
+\subsection*{Problems 1 - 5 {\rm (20 points: 5 $\times$ 4)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct (i.e., true) and one answer that is incorrect (i.e., false). \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5cm}
+
+%%Updated 14 Dec 2017 by JWG
+\item[{\bf 1.}]  Let $A=U\Sigma V^\top$ be the SVD of a real square matrix $A$, with $\Sigma={\rm diag}(10, 5,\sigma_3, \sigma_4)$. We recall that the entries on the diagonal of $\Sigma$ are called the singular values of $A$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+%%\item The matrix $A$ is square.
+
+\item For appropriate choices of $\sigma_3$ and $\sigma_4$, the \underline{sum} of the singular values of $A$ can equal $26$.
+
+\item If $A$ is positive definite, then $U=V$.
+
+\item The rank of $A$  equals two if, and only if, $\sigma_3 =0$.
+
+\item The rank of $A-B$ equals two when  $\sigma_3 >0$, $ \sigma_4=0$ and $$B= U\left[ \begin{array}{cccc} 10 & 0 &0 &0 \\ 0 & 0 & 0 & 0\\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{array} \right] V^\top.$$
+
+\end{enumerate}
+
+
+%%Updated 03 Dec 2017 by JWG
+\vspace*{-2cm}
+\item[{\bf 2.}] Let $({\cal X}, \real, <\cdot, \cdot>)$ be the $4$-dimensional real inner product space given by the $2 \times 2$ real matrices, with standard inner product $<A,B>=\trace(A^\top B)$. We set $$y_1=\left[ \begin{array}{rr} 1 & -1 \\ 1 & 0 \end{array} \right],$$
+    and to help you avoid unnecessary errors, we note that $||y_1||=\sqrt{3}$ and that
+    $$y_1^\top=\left[ \begin{array}{rr} 1 & 1 \\ -1 & 0 \end{array} \right].$$
+
+\begin{enumerate}
+\setlength{\itemsep}{.3cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+ \item $\frac{2}{3}\left[ \begin{array}{rr} 1 & -1 \\ 1 & 0 \end{array} \right]= \underset{<x,y_1>=2} { {\rm arg}~ \min}~ ||x||.$
+
+
+\item Let $x_0=\left[ \begin{array}{rr} 1 & 2 \\ 3& 4\end{array} \right]$ and $M=\spanof{y_1}$. Then  $\frac{2}{3}\left[ \begin{array}{rr} 1 & -1 \\ 1 & 0 \end{array} \right]= \underset{y\in M } { {\rm arg}~ \min}~ ||x_0-y||.$
+
+
+ \item Let  $M=\spanof{y_1}$. Then, $M^\perp = \spanof{ \left[ \begin{array}{rr} 0 & 1 \\ 1 & 0 \end{array} \right], \left[ \begin{array}{rr} 1 & 2 \\ 1 & 0 \end{array} \right] }$.
+
+
+\item There exists a \underline{symmetric} matrix $A\in {\cal X}$ such that $<A,y_1>=0$ and rank of $A$ is two.
+
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+
+
+\newpage
+%%Updated 13 Dec 2017 by JWG
+\item[{\bf 3.}]  Let $({\cal X}, \real, ||\cdot||)$ be a finite-dimensional normed space and let $S \subset {\cal X}$ be a nonempty subset of ${\cal X}$. Recall that $\mathring{S}$ is the interior of $S$, $\bar{S}$ is the closure of $S$ and $\sim S$ is the (set) complement of $S$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item Suppose $P:S \to S$ and for  $x_0\in S$, define a sequence $(x_k)$ by $x_{k+1}=P(x_k)$, $k \ge0$. Then $(x_k)$ is Cauchy.
+
+
+
+\item Let $(x_k)$ be a Cauchy sequence such that $x_k \in S$ for all $k\ge1$. If $S$ is closed, then $\exists~x^* \in {S}$ such that $ x_k\to x^*$.
+
+\item Suppose $P:S \to S$ and $\forall x,y \in S$, $||P(x)-P(y)|| \le 0.8 ||x-y|| $. Let  $x_0\in S$ and define a sequence $(x_k)$ by $x_{k+1}=P(x_k)$, $k \ge0$. Then there exists $x^* \in \bar{S}$ such that $ \lim_{k \to \infty} x_k=x^*$.
+
+
+\item Suppose that $S$ is an unbounded set and that $(x_k)$ is a sequence in $S$. Then $\sup_{k \ge 1} ||x_k|| = \infty.$
+
+\end{enumerate}
+
+
+
+
+%%Updated 03 Dec 2017 by JWG
+\item[{\bf 4.}] This problem is checking whether you understand WLS\footnote{Weighted Least Squares.}, BLUE, and MVE: Consider a problem with $y=Cx+e$, where $x\in \real^n$, $y\in \real^m$, and both $n$ and $m$ are greater than or equal to one. To be clear, unless stated in the problem data, you cannot assume that $m \ge n$ or that $n \ge m$. You measure $y$, but $e\in \real^m$ is unknown. In the following $M >0$ means that $M$ is a positive definite matrix and $M\ge0$ means that $M$ is positive semidefinite. Given this data, select the true statements. Note that as in HW, if for some of the given estimation problems you are given more data than you need, you are free to ignore the extra data.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+
+
+
+\item  Suppose  $E\{e\}=0$, $E\{e e^\top\}=Q >0$ and the columns of $C$ are linearly independent. Then a Best Linear Unbiased Estimate (BLUE) of $x$ gives the same result as the weighted least square result, with inner product on $\real^m$ given by $<z_1, z_2>=z^\top Q z_2$.
+
+
+\item  Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P > 0$, $E\{e e^\top\}=Q > 0$,   $m < n$, and the rows of $C$ are linearly independent. Then a Best Linear Unbiased Estimate (BLUE) of $x$ can be determined.
+
+
+
+
+\item Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P = I_{n \times n}$  and $E\{e e^\top\}=Q=10^{10}~I_{m \times m}$. Then a Minimum Variance Estimate (MVE) of $x$ can be determined and is approximately equal to zero.
+
+\item Suppose $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P \ge 0$  and $E\{e e^\top\}=Q > 0$. Then a  Minimum Variance Estimate (MVE) of $x$ can be determined.
+
+\end{enumerate}
+
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+\newpage
+
+%\item[{\bf 5.}] \textbf{Wubing to replace this with a new problem on Gaussian Random Vectors:} We consider three jointly normal random variables $(X,Y,Z)$, with
+%$$ \mbox{mean}~~\mu = \left[\begin{array}{r} 3\\  2\\  1\end{array} \right] ~~\mbox{and covariance}~~ \Sigma = \left[  \begin{array}{rrr}  2&   1&   1\\  1&   4&   0\\  1&   0&   2\end{array}
+%\right] $$
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item $X$ and $Y$ are independent.
+%\item The conditional random variables $X{\Big|Z=z}$ and $Y{\Big|Z=z}$ are uncorrelated.
+%\item The conditional mean, $\ExpectofGiven{\left[ \begin{array}{r} X \\  Y \end{array} \right]}{Z=2} = \left[ \begin{array}{r} 3\\  2 \end{array} \right]$.
+%\item The variance\footnote{For a random variable, meaning a scalar as oposed to a random vector, variance and covariance are the same thing.} of the random variable $W=X + 2 Y + Z$ is 26, that is, $\mathrm{var}(W) = \mathrm{cov}(W)=26.$
+%\end{enumerate}
+
+%\item[{\bf 5.}] Suppose we are given three random variables\footnote{For a random variable, meaning a scalar as opposed to a random vector, variance and covariance are the same thing.} $X_{1},\,X_{2}$ and $X_3$, which are jointly normally distributed, with the following information:
+%    \begin{itemize}
+%      \item $\mathcal{E}\{X_{1}\} = 1, \mathcal{E}\{X_{2}\} = 2, \mathcal{E}\{X_{3}\} =3$.
+%      \item $\mathrm{var}(X_{1}) =1,\,\mathrm{var}(X_{2}) = 4,\,\mathrm{var}(X_{3}) =2.$
+%      \item $\mathrm{cov}(X_{1},\, X_{2}) =1, \,\mathrm{cov}(X_{2}, X_{3}) = 2$,
+%      \item the random variables $X_{1}$ and $X_{3}$ are independent.
+%    \end{itemize}
+%
+%    Which of the following statements are true?
+%    \begin{enumerate}
+%        \setlength{\itemsep}{.15in}
+%        \renewcommand{\labelenumi}{(\alph{enumi})}
+%        \setlength{\itemsep}{.1in}
+%        \item The random variables $X_{4} = 2X_{1}-X_{2}$ and $X_{1}$ are independent.
+%        \item The random vector $\tilde{X }= \begin{bmatrix}X_{1}\\X_{2}\end{bmatrix}$ is normally distributed with
+%         mean $\tilde{\mu}=\begin{bmatrix}1\\2\end{bmatrix} $ and covariance $\tilde{\Sigma}=\begin{bmatrix}1 & 1\\ 1&4 \end{bmatrix}$.
+%
+%        \item The following two conditional random variables have the same normal distribution:
+%             \begin{itemize}
+%               \item $X_{1}$ conditioned on $\begin{bmatrix}X_{2} =8\\ X_{3}=2\end{bmatrix}$,
+%               \item $(X_{1}\,|_{\{X_{3} =2\}})$ conditioned on $\left(X_{2}|_{\{ X_3=2}\right)=8$.
+%             \end{itemize}
+%
+%        \item Define the random variable $W=X_{1}+ X_{2}$.  Then the conditional random variable \\
+%        $Z = W\,\Big|_{ X_{3}=2}$ has a normal distribution with mean $\mathcal{E}\{Z\}=2$ and variance $\mathrm{var}(Z)=5$.
+%    \end{enumerate}
+
+\item[{\bf 5.}] Below is the model for a system: \\
+$$x_{k+1} = A_k x_k  + G_k w_k$$
+$$y_k = C_k x_k + v_k $$
+The notation used here is similar to the handout:
+	\begin{enumerate}
+	\item[$\bullet$] The random vectors $x_0$ , and, $k \geq 0 , w_k , v_k$ are all independent Gaussian random vectors
+	\item[$\bullet$] $\forall ~k \geq 0, \forall~ l \geq 0 , x_0 , w_k , v_l$ are jointly Gaussian.
+	\item[$\bullet$] $x \in \real^2 , w \in \real^1 , y \in \real^1 , v \in \real^1$
+	\item[$\bullet$]$w_k $ is a 0-mean white noise process: $\Expectof{w_k}=0$ and $\cov (w_k,w_l) = R_k\delta_k$
+	\item[$\bullet$]$v_k $ is a 0-mean white noise process: $\Expectof{v_k}=0$ and $\cov (v_k,v_l) = Q_k\delta_k$
+	\end{enumerate}
+	\textbf{Data}:
+	\begin{enumerate}
+		\item[$\bullet$] $x_{k+1} = \begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix} x_k
+		+ \begin{bmatrix} 1 \\ 1 \end{bmatrix}w_k $
+		\item[$\bullet$] $y_k = \begin{bmatrix} 2 & 2\end{bmatrix} x_k + v_k$
+		\item[$\bullet$] $w_k$ and $v_k$ are (scalar) zero mean Gaussian noise with  $R = R_k= 9$ and $Q = Q_k= 16$
+		\item[$\bullet$] $\hat{x}_{3|3} := \ExpectofGiven{x_3}{y_0,y_1,y_2,y_3} = \begin{bmatrix} 5 \\ -1\end{bmatrix} $, $P_{3|3} := \ExpectofGiven{(x_3 - \hat{x}_{3|3})(x_3 - \hat{x}_{3|3})^\top	}{y_0,y_1,y_2,y_3} = \begin{bmatrix} 1 & 1 \\ 1 & 4\end{bmatrix}$.
+	\end{enumerate}
+Which of the following statements are true?
+	\begin{enumerate}
+	    \setlength{\itemsep}{.15in}
+	    \renewcommand{\labelenumi}{(\alph{enumi})}
+	    \setlength{\itemsep}{.1in}
+	    \item The estimated value, $\hat{x}_{4|3} = \begin{bmatrix} 6 \\ 0\end{bmatrix}$.
+	    \item We do not have enough data to compute the Kalman gain at time 4, $K_4$.
+	    \item  For $k\ge 4$, $P_{k|k-1} - P_{k|k} \geq 0$.
+	    \item For $k\ge 4$, $P_{k|k-1} - P_{k|k} \leq 0$ and equality holds when $K_k = 0$ (that is, when the Kalman gain at time $k$ is zero).
+	
+	\end{enumerate}
+	
+\end{enumerate}
+
+%\newpage
+%
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\textbf{(You can use it for scratch paper.)}
+%
+%\end{center}
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we proved that real symmetric matrices have real e-values. So if you need this fact, simply state it and use it.}
+
+%  \newpage
+%\vspace*{8cm}
+%
+%\begin{center}
+%{\bf \LARGE Page Intentionally Left Blank}
+%
+%\end{center}
+
+
+
+  \newpage
+
+%%Updated 14 Dec 2017 by JWG
+\noindent {\bf 6. (20 points)}  Matrix facts we have learned this term:\\
+
+
+\noindent \textbf{Show your work:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item (5 points)  For $M=\left[  \begin{array}{rrr} 4 & -1 & 6 \\ 2 & 2 &2\\0 & 0 & 9\end{array} \right]$, give a symmetric matrix $P$, such that, for all $x\in \real^3$, $x^\top M x=x^\top P x$.
+\item (7 points) Find the range of $a\in \real$ such that $M$ is positive definite, where
+$$M=\left[  \begin{array}{rrr} 4 & -1 & 6 \\ -1 & 2 &2\\6 & 2 & {\bf a}\end{array} \right]$$
+Note that $a$ is in the bottom right corner.
+
+\item (8 points) Give the QR factorization for $A=\left[  \begin{array}{rr} 1 & -1  \\ -1 & 2 \end{array} \right].$
+\end{enumerate}
+
+
+
+
+ (a) \fbox{\rule[-1.5cm]{0cm}{3cm} $P=$ \hskip3cm ~~}~~~~~~~~~~~~~~~(b) \fbox{\rule[-1cm]{0cm}{2cm}   \hskip4cm ~~}~~~~~~~~~~~~~~~~~(c) \fbox{\rule[-1cm]{0cm}{4cm} $\begin{array}{r}Q= \\ \vspace*{2cm} \\ R=  \\ \vspace*{1cm}\end{array} $\hskip2cm ~~}
+
+
+\noindent \textbf{Places your answers ni the boxes and show your work below:} \\
+
+
+
+\newpage
+\textit{Please show your work for question 6.}
+
+
+\newpage
+
+\noindent {\bf 7. (15 points)}  (Place your answers in the boxes and show your work below.)  Consider three jointly normal random variables  $W$, $Y$, and $Z$ with
+\begin{itemize}
+	\item Mean vector $\mu= \begin{bmatrix} \mu_W \\\mu_Y\\ \mu_Z \end{bmatrix}= \begin{bmatrix} 1 \\2 \\ 3 \end{bmatrix}$ and covariance matrix $\Sigma =  \begin{bmatrix} 9 & 2 & 1\\2 & 4 & 2\\ 1 & 2 & 2 \end{bmatrix}$
+ 	\item For use in parts (a) and (b), we define $X_1 = \begin{bmatrix} W \\Y \end{bmatrix}\in \real^2$ and $X_2=Z$ so that $\begin{bmatrix} X_1 \\ X_2 \end{bmatrix} = \begin{bmatrix} W \\Y\\ Z \end{bmatrix}$
+\end{itemize}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+    \item (5 points)  Find the marginal density of $X_1$.
+
+    \item (5 points)  Find the conditional density of $X_1|\{X_2=2\}$; in particular, give the conditional mean $\mu_{X_1|\{X_2=2\}}$ and conditional covariance $\Sigma_{X_1|\{X_2=2\}}$
+
+    \item (5 points)  Find the conditional mean of $Z|\{Y=4\}$, that is, $\mu_{Z|\{Y=4\}}$
+
+\end{enumerate}
+\noindent \textbf{Answer:}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{X_1}=$\hskip 3cm  ~and~~ $\Sigma_{X_1}=$\hskip4cm } (You can just give the answer)\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{X_1|\{X_2 = 2\}}=$\hskip 2cm and~~ $\Sigma_{X_1|\{X_2 = 2\}} =$ \hskip 4cm} (Show work below)\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{Z|\{Y=4\}}=$\hskip 4cm } (Show work below)
+\end{enumerate}
+
+
+%\noindent {\bf 7. (15 points)}  (Place your answers in the boxes and show your work below.)  You are given Gaussian random vectors  $X_1$ and $X_2$ with:
+%
+%\textbf{I think the notation would be simpler and cleaner if we had three jointly normal random variables W, Y, Z, with mean mu = and covariance =. For later use, we identify, X1=[W Y] and X2=Z. I know this screws up your solutions, but .... }
+%
+%\begin{itemize}
+%	\item $X_1 = \begin{bmatrix} Y \\Z \end{bmatrix}\in \real^2$, $X_2, Y,Z\in \real^1$, and hence  $\begin{bmatrix} X_1 \\X_2 \end{bmatrix} \in \real^3$
+%	\item $E\begin{Bmatrix}\begin{bmatrix} X_1 \\X_2 \end{bmatrix}\end{Bmatrix} = \begin{bmatrix} 1 \\2 \\ 3 \end{bmatrix}$ , $\Sigma =  \begin{bmatrix} 9 & 2 & 1\\2 & 4 & 2\\ 1 & 2 & 2 \end{bmatrix}$
+%  \nonumber
+%\end{itemize}
+%\begin{enumerate}
+%    \setlength{\itemsep}{.15in}
+%    \renewcommand{\labelenumi}{(\alph{enumi})}
+%    \setlength{\itemsep}{.1in}
+%    \item (5 points)  Find the marginal density of  $X_1$.
+%
+%    \item (5 points)  Find the conditional density of $X_1|\{X_2=2\}$; in particular, give the conditional mean $\mu_{X_1|\{X_2=2\}}$ and conditional covariance $\Sigma_{X_1|\{X_2=2\}}$
+%
+%    \item (5 points)  Find the conditional mean of $X_2|\{Z=4\}$, that is, $\mu_{X_2|\{Z=4\}}$
+%
+%\end{enumerate}
+%\noindent \textbf{Answer:}
+%\begin{enumerate}
+%    \setlength{\itemsep}{.15in}
+%    \renewcommand{\labelenumi}{(\alph{enumi})}
+%    \setlength{\itemsep}{.1in}
+%    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{X_1}=$\hskip 3cm  ~and~~ $\Sigma_{X_1}=$\hskip4cm } (You can just give the answer)\\
+%
+%    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{X_1|\{X_2 = 2\}}=$\hskip 2cm and~~ $\Sigma_{X_1|\{X_2 = 2\}} =$ \hskip 4cm} (Show work below)\\
+%
+%    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\mu_{X_2|\{Z=4\}}=$\hskip 4cm } (Show work below)
+%\end{enumerate}
+
+
+% \vspace*{.3in}
+% \noindent \textbf{Show your calculations below}
+\newpage
+\textit{Please show your work for question 7.}
+\newpage
+
+
+%%Updated 14 Dec 2017 by JWG
+\noindent {\bf 8. (15 points)}  The following are short answer questions. You are not supposed to give a proof; only give a few short reasons why something is TRUE or FALSE. An example of such a problem was posted in the Information Sheet.
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+%\item \textbf{(0 Points)} Suppose that $({\cal X}, || \cdot||)$ is a finite-dimensional normed space and $S \subset {\cal X}$ is a subset. Suppose that $P:S \to S$ satisfies $\forall~ x,y \in S$, $||P(x)-P(y)|| \le 0.8 ||x-y||$.  Then, for any $x_0 \in S$, the sequence $x_{k+1}=P(x_k)$ converges and has a limit in $S$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:} \fbox{False}. By the proof of the Contraction Mapping Theorem, the sequence $(x_k)$ is Cauchy. Because ${\cal X}$ is finite dimensional, it is complete, and thus Cauchy sequences have limits. But because $S$ was not stated to be closed, the limit may be an element of $S$. \textbf{Remark:} Just to give you extra practice, suppose the problem had stated that $S$ were closed. Then you could have answered like this: \fbox{True}. Because ${\cal X}$ is finite dimensional, it is complete. $S$ is then complete because it is a closed subset of complete normed space. Hence, all the hypotheses of the Contraction Mapping Theorem are met, and thus the result is true.
+
+\item \textbf{(5 Points)} Let $X$ and $Y$ be random \underline{variables}  satisfying $E\{X\}=\mu_X$, $E\{Y\}=\mu_Y$, and  $E\{(X-\mu_X)(Y-\mu_Y)\}=0$. Then $X$ and $Y$ are independent random variables. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+\vspace*{5cm}
+
+
+
+
+\item \textbf{(5 Points)}  Consider the real numbers as a normed space; that is, we take  ${\cal X} = \real$ and define the norm to be $||x|| = |x|$, the standard absolute value. The set $$ \bigcap\limits_{n=1}^{\infty} (-1- \frac{1}{n}, 1)
+    $$ is open. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+        \vspace*{4cm}
+
+    \item \textbf{(5 Points)} Suppose $({\cal X},\,\real,\, || \cdot||)$ is a finite-dimensional normed space and suppose that $S\subset{\cal X}$ is a nonempty, closed, and bounded subset. Let $f: {\cal X} \to R$ be continuous and suppose that $(x_n)$ is a sequence in $S$ such that $\lim\limits_{n\to \infty} f(x_n) =0$.  Then  $\exists~x_0\in S$ such that$\lim\limits_{n\to \infty} x_n = x_0$. \textbf{ T or F}.\\
+
+    \textbf{Answer:}
+
+
+
+
+
+
+%\item \textbf{(5 Points)} Suppose that $({\cal X},\, \real,\, || \cdot||)$ is a finite-dimensional normed space and $f:\mathcal{X}\to \real$ is a continuous function. Given that the set $S=\{x\in\mathcal{X}\,|\, f(x)\le 1\}$ is a non-empty closed and bounded set. Then $\exists\, x^\ast\in\mathcal{X}$ such that $\ds f(x^\ast)=\inf_{x\in\mathcal{X}}f(x)$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:}
+%
+%\vspace*{6cm}
+
+
+
+%\item \textbf{(5 Points)}  Suppose that $S$ is a closed subset of a finite-dimensional normed space $({\cal X},\, \real,\, || \cdot||)$. Let $(x_n)$ be a sequence of elements\footnote{Yes, this means that $x_n \in S$ for all $n\ge1$.} of $S$ and suppose that all of the convergent subsequences of $(x_n)$ have a common\footnote{Means, if $(x_{n_i})$ is a subsequence of $(x_n)$, and $x_{n_i}\to \bar{x}$, then $\bar{x} = x^\ast$.} limit $x^\ast$. Then the sequence $(x_n)$ also converges to $x^\ast$. \textbf{ T or F}.\\
+%
+%    \textbf{Answer:}
+
+
+
+\end{enumerate}
+
+\newpage
+\textit{Extra space for question 8. You should NOT need this space because the answers are meant to be short!   }
+
+\newpage
+
+%%Updated 14 Dec 2017 by JWG
+
+\noindent {\bf 9. (5 points)}  \textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 3 of the exam booklet.}\\
+
+Suppose we have a joint distribution of a state,
+$X= \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \in \real^2$,
+and measurements, $Y= \begin{bmatrix} y_1 \\ y_2 \\y_3 \end{bmatrix} \in \real^3$, all of which are zero mean Gaussian random vectors. The covariance matrix is given as:\\
+$$\begin{bmatrix} \Sigma_{XX} & \Sigma_{XY} \\\Sigma_{YX} & \Sigma_{YY}   \end{bmatrix} = \begin{bmatrix}1 & 2 & 1 & 0.5 & 0.5\\ 2 & 6 & 1 & 0.5 & 0.5\\1 & 1 & 2 & 1 & 1\\
+0.5 & 0.5 & 1 & 4 & 1 \\ 0.5 & 0.5 & 1 & 1 &9
+\end{bmatrix}  $$
+
+\textbf{Find} the minimum variance estimate of $X$ given $Y$. \\
+
+\textbf{Scoring:}
+\begin{enumerate}
+	\setlength{\itemsep}{-.1in}
+\item \textbf{(+3 points)} If you find the correct value\\
+\item \textbf{(+2 points)} If you do \textbf{one} of the following: (a) give an answer that does not require the assumption of the variables being jointly Gaussian \textbf{OR} (b) you provide a solution that does not require the inversion of a $3 \times 3$ or larger matrix to arrive at the correct answer; in (b) it's up to you if you use the Gaussian property or not.
+\end{enumerate}
+
+\newpage
+
+\newpage
+\textit{Extra space for question 9.}
+
+\newpage
+\vspace*{2cm}
+
+\begin{center}
+(Scratch Paper)\\
+{\bf \LARGE Page Intentionally Left Blank: Do Not Remove}\\
+(If you write anything here, be sure to indicate to which problem it applies.)
+
+\end{center}
+
+
+
+%\newpage
+%\noindent {\bf Remove carefully. This is your scratch paper.}
+\end{document}
+
+
+\textbf{Un-unsed Problem:}
+\noindent {\bf 6. (15 points)} (Place your answer in the box and show your work below.) Determine the Best Linear Unbiased Estimate (BLUE) of $x \in \real^2$ when
+$$ y = Cx + \epsilon$$
+and
+$$y=\left[ \begin{array}{c} 4\\ 8 \\ 0\end{array} \right]~~~C=\left[ \begin{array}{rr}1&1\\0&2\\-1&1\end{array} \right]~~~~Q=\E\{\epsilon \epsilon^\top\}=\left[
+\begin{array}{rrr}0.70&-0.40&-0.10\\-0.40&0.80&0.20\\-0.10&0.20&0.30 \end{array} \right].$$\\
+
+\noindent \textbf{Helpful remark:} You are given the following:
+ $$ Q^{-1} C C^\top = \left[ \begin{array}{rrr}6&8&2\\6&8&2\\-2&4&6\end{array} \right],~~~~  C^\top Q^{-1}=\left[ \begin{array}{rrr}2&2&-4\\4&4&2\end{array} \right],~\text{and} ~~~~ C C^\top Q^{-1} = \left[  \begin{array}{rrr}6&6&-2\\8&8&4\\2&2&6\end{array}\right].  $$
+ You do not need to verify that these are true! If they are useful, use them, and if not useful, ignore them.\\
+
+
+\textbf{2015 Final Exam Problem:}
+Consider the (real) inner product space ${({\cal X}, \real, <\cdot, \cdot>)}$  where ${\cal X}$ is the set of $2 \times 2$ real matrices and the inner product of two matrices $A$ and $B$ is ${<A,B>:= \mathrm{tr}(A^\top B)}$. \\
+
+Find $A$ of minimum norm that satisfies $<A,Y_1> = 6$ and $<A,Y_2> = 3$, for\\
+
+$$Y_1=\left[ \begin{array}{rr}1&1\\0&1 \end{array} \right]~~\text{and}~~ Y_2= \left[ \begin{array}{rr}1 & 0\\1&-1 \end{array} \right].$$\\
+
+\noindent \textbf{To make the problem quick to work, you are given:} $<Y_1,Y_2>=0$ and $<Y_2,Y_2>=3$. \\
+
+\fbox{\rule[-1cm]{0cm}{2cm} $A=$ \hskip2cm ~~}\\
+
+%\noindent \textbf{Remark:} You can maximize partial credit by summarizing the relevant equations before doing computations.\\
+
+\noindent {\bf 9. (5 points)}  \textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 3 of the exam booklet.}\\
+
+
+
+\noindent \textbf{Background:}  When we treated the MVE problem in lecture, we sought to estimate $x$ on the basis of a single (vector) measurement $y=Cx + \epsilon$. Suppose instead we have two measurements $y_1 = C_1 x + \epsilon_1$ and $y_2 = C_2 x + \epsilon_2$ such that
+\begin{itemize}
+	\item $x\in \real^n$, $y_1 \in \real^{m_1}$, $y_2 \in \real^{m_2}$, and $\epsilon_1 \in \real^{m_1}$, $\epsilon_2 \in \real^{m_2}$
+	\item $E\{x\}=0$, $E\{\epsilon_1\}=0$, $E\{\epsilon_2\}=0$
+	\item $E\{xx^\top\}=P>0$, $E\{\epsilon_1 \epsilon_1^\top\}=Q_1>0$,$E\{\epsilon_2 \epsilon_2^\top\}=Q_2>0$
+	\item $E\{\epsilon_1 \epsilon_2^\top\}=0$ and for $i=1,2$, $E\{x \epsilon_i^\top\}=0$.
+\end{itemize}
+
+\noindent \textbf{Problem:} We can estimate $x$ recursively, first using $y_1$ and then using $y_2$, or we can estimate $x$ in a batch process using the stacked vector $$ Y=\begin{bmatrix} y_1 \\ y_2 \end{bmatrix}.$$ Do we get the same answer? \textbf{ T or F} Explain why or why not. \\
+
+\noindent \textbf{Remark:}   Circle \textbf{ T or F} on page 3 of the Exam Booklet. If you get that right, then we'll look to see if we accept your reasoning or not. As in the MVE problem, there is no assumption of the random vectors being jointly Gaussian.  We cannot say more, so do not ask! \\

@@ -1,0 +1,13 @@
+
+http://math.stackexchange.com/questions/786453/proof-that-newton-raphson-method-has-quadratic-convergence
+
+Fixed Point Look at Newton Raphson
+http://nptel.ac.in/courses/122104019/numerical-analysis/Rathish-kumar/ratish-1/f3node7.html
+http://nptel.ac.in/courses/122104019/numerical-analysis/Rathish-kumar/ratish-1/f3node8.html
+
+Convergence for Newton and Accelerated Newton Raphson
+http://mathfaculty.fullerton.edu/mathews/n2003/NewtonAccelerateMod.html
+
+Proof using Fixed-point Approach
+https://www.math.ust.hk/~mamu/courses/231/Slides/ch02_3a.pdf
+

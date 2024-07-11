@@ -1,0 +1,110 @@
+
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+
+
+
+%\def\real{\mathbb{R}}
+\newcommand{\real}{\mathbb R}
+\newcommand{\nat}{\mathbb N}   
+\newcommand{\whole}{\mathbb Z}    
+\newcommand{\cp}{\mathbb C}    
+\newcommand{\rat}{\mathbb Q} 
+\newcommand{\im}{\mathbb i}
+\newcommand{\impart}[1]{\mathrm{imag} ( #1 )}
+\newcommand{\repart}[1]{\mathrm{real} ( #1 )}
+%\newcommand{\angle}[1]{\mathrm{angle} (#1 )}
+
+%\def\real{\mathbb{R}}
+\def\reals{\mathbb{R}} %????
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Boyd, Page~#1, }{Prob.~#2}}
+\newcommand{\Kuttler}[1]{Kuttler 2017, A First Course in Linear Algebra, Page(s)~#1}
+\newcommand{\spanof}[1]{\mathrm{span} \{ #1 \}}
+\newcommand{\colspanof}[1]{\mathrm{col~span} \{ #1 \}}
+\newcommand{\nullspace}[0]{\mathrm{null}}
+\newcommand{\nullity}[0]{\mathrm{nullity}}
+\newcommand{\range}[0]{\mathrm{range}}
+\newcommand{\cost}[0]{\mathrm{f}}
+\newcommand{\rank}[0]{\mathrm{rank}}
+
+\newcommand{\pardiff}[2][]{\frac{\partial#1}{\partial#2}}
+ \newcommand{\ak}[1]{a_{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%
+% Bruce added below
+%%%%%%%%%%%%%%%%%%%
+\newcommand{\transpose}{\mathsf{T}}
+\DeclareDocumentCommand{\zeros}{ O{} }{\textbf{0}_{#1}}
+\newcommand\inv[1]{#1\raisebox{1.15ex}{$\scriptscriptstyle-\!1$}}
+\newcommand{\Exp}{\mathrm{Exp}}
+\newcommand{\Log}{\mathrm{Log}}
+\newtheorem{remark}{Remark}
+%%%%%%%%%%%%%%%%%%%
+% Bruce added above
+%%%%%%%%%%%%%%%%%%%
+
+
+
+%\newcommand{\dim}[0]{\mathrm{dim}}
+ \newcommand{\cov}{\mathrm{cov}}
+  \newcommand{\var}{\mathrm{var}}
+ \newcommand{\E}{\mathcal{E}}
+  \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\notimplies}{%
+  \mathrel{{\ooalign{\hidewidth$\not\phantom{=}$\hidewidth\cr$\implies$}}}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\tr}{\rm tr}
+\DeclareMathOperator*{\diag}{\rm diag}
+
+
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}} % to use: \hl{this is some highlighted text}
+\newcommand{\red}[1]{{\textcolor{red}{#1}}}
+\newcommand{\blue}[1]{{\textcolor{blue}{#1}}}
+\newcommand{\jwg}[1]{[{\textbf{\textcolor{red}{JWG: #1}}}]}
+\newcommand{\mgj}[1]{[{\textbf{\textcolor{teal}{Maani: #1}}}]}
+\newcommand{\bh}[1]{[{\textbf{\textcolor{blue}{Bruce: #1}}}]}
+
+
+\newcommand\RED{\color{red}}
+\newcommand\BLUE{\color{blue}}
+
+\definecolor{note}{rgb}{0.3,0.7,0.25}
+\definecolor{rephase}{rgb}{0.15,0.7,0.15}
+\definecolor{bag}{rgb}{0.6,0.6,0.2}
+
+ \newcommand\x{\times}
+\newcommand\bigzero{\makebox(0,0){\text{\huge0}}}
+\newcommand*{\bord}{\multicolumn{1}{c|}{}}
+\newcommand*{\bordl}{\multicolumn{1}{|c}{}}
+
+\newcommand*{\Qed}{\hfill $\blacksquare$}
+
+\newcommand\doverline[1]{\ThisStyle{%
+  \setbox0=\hbox{$\SavedStyle\overline{#1}$}%
+  \ht0=\dimexpr\ht0-.15ex\relax% CHANGE .15 TO AFFECT SPACING
+  \overline{\copy0}%
+}}
+
+\newcommand{\rob}{\textbb{ROB 101}}
+
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%     \node[shape=circle, draw, inner sep=1pt, 
+%         minimum height={\f@size*1.6},] (char) {\vphantom{WAH1g}#1};}}
+\makeatother
+
+
+
+
+
+

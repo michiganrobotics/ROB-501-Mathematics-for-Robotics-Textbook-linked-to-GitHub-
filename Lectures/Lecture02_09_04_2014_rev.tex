@@ -1,0 +1,208 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 02\\
+Typeset by:  Ross Hartley\\
+Proofread by: Jimmy Amin
+\end{center}
+}
+
+\Large
+
+\Large
+\begin{center}
+\textbf{Review of Some Proof Techniques (Continued)}
+\end{center}
+
+\noindent \textbf{Second Principle of Induction (Strong Induction):}~ Let $P(n)$ be a statement about the natural numbers with the following properties:
+    \begin{enumerate}
+        \item[] (a) \underline{Base Case:} $P(1)$ is true.
+        \item[] (b) \underline{Induction:} If $P(j)$ is true for all $1\leq j\leq k$, then $P(k+1)$ is true.
+    \end{enumerate}
+    Conclusion: $P(n)$ is true for all $n\geq 1$ ($n\geq \textnormal{Base Case}$).
+
+\noindent \textbf{Fact:}~ Two principles of induction are equivalent. Sometimes, the second method is easier to apply.
+
+\noindent \textbf{Example:}~
+    \newline
+    \underline{Def.:} A natural number $n$ is \underline{composite} if it can be factored as $n=a\cdot b$, where $a$ and $b$ are natural numbers satisfying $1 < a,  b < n$. Otherwise, $n$ is \underline{prime}.
+
+    \underline{Theorem}: (Fundamental Theorem of Arithmetic) Every natural number $n\geq 2$ can be factored as a product of one or more primes.
+
+    \underline{Proof}:
+    \begin{itemize}
+        \item[] \underline{Base Case:} The number $2$ can be written as the product of a single prime.
+        \item[] \underline{Induction:} Assume that every integer between $2$ and $k$ can be written as the product of one or more primes.
+        \item[] \underline{To Show:} $k+1$ can be written as the product of one or more primes.
+    \end{itemize}
+    There are two cases:
+    \begin{itemize}
+        \item[] \underline{Case 1:} $k+1$ is prime. We are done because $k+1$ is the product of one or more primes (itself).
+        \item[] \underline{Case 2:} $k+1$ is composite. Then, there exist two natural numbers $a$ and $b$, $1<a, b \le k$, such that $k+1 = a \cdot b$
+    \end{itemize}
+    Therefore, by the induction step:
+    \begin{align*}
+        a &= p_1 \cdot p_2 \cdot \dotsb \cdot p_i,\ for\ some\ primes\ p_i\\
+        b &= q_1 \cdot q_2 \cdot \dotsb \cdot q_j,\ for\ some\ primes\ q_j
+    \end{align*}
+Hence, $a\cdot b = (p_1 \cdot p_2 \cdot \dotsb \cdot p_i)\cdot (q_1 \cdot q_2 \cdot \dotsb \cdot q_j)$ is a product of primes. $\square$
+\setlength{\parskip}{.3in}
+
+
+
+\noindent \textbf{Proof by Contradiction:}~ We want to show that a statement $p$ is true. We assume instead that the statement is false. We derive a "contradiction", meaning some statement that is obviously false, such as "$1+1=3$". More generally, we derive that $R$ is true and $R$ is also false (This is a contradiction.) We conclude that $\sim p$ is impossible (led to a contradiction). Hence, $p$ must be true!
+
+\textbf{Example:} Prove that $\sqrt{2}$ is an irrational number.
+    \newline
+    \underline{Proof by Contradiction:}~ Assume $\sqrt{2}$ is rational.
+    \newline
+    Conclusion: There exist natural numbers $m$ and $n$, $(n\neq 0)$, $m$ and $n$ have no common factors, such that
+    \begin{equation*}
+        \sqrt{2} = \frac{m}{n}
+    \end{equation*}
+    \newline
+    $\therefore 2 = \frac{m^2}{n^2} \Rightarrow 2n^2 = m^2 \Rightarrow m^2\textnormal{ is even} \Rightarrow m \textnormal{ has to be even.}$ (Proven in previous lecture, product of even numbers is even.)\
+    \newline
+    $\therefore \exists$ a natural number $k$ such that $m=2k$
+    \newline
+    $\therefore 2n^2 = (2k)^2 = 4k^2$
+    \newline
+    $\therefore n^2 = 2k^2 \Rightarrow n^2 \textnormal{ is even } \Rightarrow n \textnormal{ is even}$
+    \newline
+    Conclusion, $m$ and $n$ have 2 as a common factor. This contradicts $m$ and $n$ having no common factors.
+    \newline
+    Hence, $\sqrt{2}$ is not a rational number.
+    \newline
+    $\therefore \sqrt{2} \textnormal{ must be irrational. } \square$
+
+
+    \underline{Explanation:}
+    \newline
+    $p: \sqrt{2}$ irrational.
+    \newline
+    We start with the assumption that $(\sim p:) \sqrt{2}$ is a rational number.
+    \newline
+    Based on that assumption, we can deduce that $(R:)\ \exists m,n, n\neq 0, m$ and $n$ do not have common factors such that $\sqrt{2}=\frac{m}{n}$.
+    \newline
+    However, from $\sqrt{2}=\frac{m}{n}$, we can show that $(\sim R:)\ m$ and $n$ have 2 as a common factor.
+    \newline
+    $\therefore R \wedge (\sim R)$, \underline{which is a contradiction}.
+    \newline
+    Conclusion: $\sim p$ is impossible.
+    \newline
+    $\therefore p$ is true.
+
+\textbf{Proof Types:}~ In conclusion, we have following proof techniques.
+    \begin{itemize}
+        \item Direct Proof: $p \Rightarrow q$
+        \item Proof by Contrapositive: $\sim q \Rightarrow \sim p$
+            \newline
+	        (Start with the conclusion being false, that is $\sim q$ and do logical steps to arrive at $\sim p$)
+        \item Proof by Contradiction: $p \wedge (\sim q)$
+            \newline
+	        (Assume $p$ is true and $q$ is false. Find that both $R$ and $\sim R$ and true, which is a contradiction.)
+    \end{itemize}
+
+
+\textbf{Negating a Statement:}
+\newline
+\underline{Examples:}
+    \begin{itemize}
+        \item[] $p: x\geq 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \sim p: x< 0$
+        \item[] $p: \forall x \in \real, f(x) > 0\ \ \sim p: \exists x \in \real$, $f(x) \leq 0$
+        \item[] In general, $\sim \forall = \exists$ and $\sim \exists = \forall$.
+    \end{itemize}
+\underline{Exercise:}~ Let $y\in\real$,
+    \newline
+    $p: \forall\delta>0, \exists x \in \mathbb{Q}$ such that $|x-y| < \delta$
+    \newline
+    What is $\sim p$?
+\newline
+\underline{Answer:}
+    \newline
+    $\sim p: \exists\delta>0, \forall x \in \mathbb{Q}$ such that $|x-y| \geq \delta$
+
+\textbf{Key Properties of Real Numbers:} Let $A$ be a non-empty subset of $\real$.
+\newline\newline
+\textbf{Def.}
+    \begin{enumerate}
+        \item[] (1) $A$ is \underline{bounded from above} if $\exists b \in \real$ such that $x \in A \Rightarrow x \le b$.
+        \item[] (2) $A$ number $b \in \real$ is an \underline{upper bound} for $A$ if $\forall x \in A, x \le b$.
+        \item[] (3) $A$ number $b$ is a \underline{least upper bound} for $A$ if
+	    \begin{enumerate}
+	        \item[] (i) $b$ is an upper bound for $A$, and
+	        \item[] (ii) $b$ is less than or equal to every upper bound.
+	    \end{enumerate}
+    \end{enumerate}
+
+\textbf{Notation:}~ Least upper bound of $A$ is denoted by \underline{$sup(A)$}, \underline{the supremum of $A$}.
+
+\textbf{Theorem:}~ Every subset of $\real$ that is upper bounded has a supremum.
+    \newline
+    This is \underline{FALSE for $\mathbb{Q}$}.
+    \newline
+    Here is a classical example:
+    \newline
+    Assume $A = \{x\in \mathbb{Q} | x^2 < 2\}$
+    \newline
+    An obvious candidate for the supremum is $x = \sqrt{2}$, but $\sqrt{2}$ is irrational.
+
+\end{document} 

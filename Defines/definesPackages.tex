@@ -1,0 +1,154 @@
+
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+\usepackage{scalerel}
+\usepackage{setspace}
+
+%\usepackage{url}
+\usepackage{amsmath,amssymb}
+\let\proof\relax 
+\let\endproof\relax
+\usepackage[cm]{fullpage}
+%\usepackage{epsfig}
+\usepackage{float}
+\usepackage{alltt}
+%\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage[utf8]{inputenc} % for boxes
+\usepackage{pdfpages}
+\usepackage{enumerate}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+\usepackage{tcolorbox}
+\usepackage[linewidth=1pt]{mdframed}
+
+\usepackage{mathdots}
+\usepackage{xfrac}
+\usepackage{fix-cm} % Fixes warnings about missing fonts; see http://tex.stackexchange.com/questions/32378/xfrac-siunitx-gives-me-a-font-warning
+
+
+% Font Settings
+\usepackage{avant} % Use the Avantgarde font for headings
+%\usepackage{mathptmx} % Use the Adobe Times Roman as the default text font together with math symbols from the Sym­bol, Chancery and Com­puter Modern fonts
+
+\usepackage{subcaption}
+%\usepackage{subfig}
+\usepackage{graphicx} 
+\graphicspath{{graphics/}}
+%\usepackage[T1]{fontenc}
+%\usepackage[usenames,dvipsnames,svgnames,table, xcdraw]{xcolor}
+%\usepackage[caption=false,font=footnotesize]{subfig}
+%\usepackage[utf8]{inputenc}
+%\usepackage{bmpsize}
+% \usepackage{caption}
+% \captionsetup{size=footnotesize,
+%     %justification=centering, %% not needed
+%     skip=5pt, position = bottom}
+% \let\proof\relax 
+% \let\endproof\relax
+%\usepackage{amsthm}
+%\usepackage{algorithm}
+\usepackage{algorithmicx}
+%\usepackage{algpseudocode}
+\usepackage{mathrsfs}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{times}
+\usepackage{multicol}
+%\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{balance}
+%\usepackage[sort,numbers]{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{dblfloatfix} 
+
+\usepackage{bbm}
+\usepackage{bbold}
+\usepackage{makecell}
+\usepackage{hhline} % double-line in a table
+% \usepackage[]{hyperref}
+\usepackage[colorlinks]{hyperref}
+\definecolor{BrickRed}{rgb}{0.7,0.15,0.15}
+\hypersetup{
+  colorlinks=true,pdfpagemode=UseNone,citecolor=black,linkcolor=black,urlcolor=BrickRed
+}
+
+\usepackage{comment}
+
+
+\usepackage{xparse}
+\usepackage{lipsum}
+%\usepackage{subcaption}
+\usepackage{soul} 
+\usepackage{times}
+%\usepackage{cite} % to group references
+\usepackage[usenames,dvipsnames,svgnames,table,xcdraw]{xcolor}
+% \usepackage[sort, numbers]{natbib}
+%\usepackage{balance}
+\usepackage{enumitem}
+
+% \usepackage{hyperref}
+% \usepackage{breakurl}[preserveurlmacro]
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {Ã}{{\~A}}1 {ã}{{\~a}}1 {Õ}{{\~O}}1 {õ}{{\~o}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{black},
+    stringstyle=\color{black},
+    basicstyle=\ttfamily\normal,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
+\usepackage{mathtools}
+\usepackage[english]{babel}
+%\usepackage{minted}
+
+\makeatletter
+% \usepackage{tikz}
+% \usetikzlibrary{calc}
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+%     \node[shape=circle, draw, inner sep=1pt, 
+%         minimum height={\f@size*1.6},] (char) {\vphantom{WAH1g}#1};}}
+\makeatother

@@ -1,0 +1,15 @@
+\begin{verbatim}
+
+>> N=100;A=[1,N;0,1]; [U,S,V]=svd(A); A,S
+
+A =
+
+     1   100
+     0     1
+
+
+S =
+
+  100.0100         0
+         0    0.0100
+\end{verbatim}

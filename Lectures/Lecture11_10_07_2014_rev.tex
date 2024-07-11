@@ -1,0 +1,167 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 11\\
+Typeset by:  Su-Yang Shieh\\
+Proofread by: Zhiyuan Zuo\\
+Updated by Grizzle on 8 October 2015
+\end{center}
+}
+
+\Large
+
+
+
+\begin{center}\textbf{Symmetric Matrices}\end{center}
+
+\textbf{Def.}~ An $n\times n$ real matrix $A$ is \underline{symmetric} if $A^\top=A$.
+
+\textbf{Claim 1:} The eigenvalues of a symmetric matrix are real.
+
+\underline{Proof:} Let $\lambda\in \cp$ be an eigenvalue. To show: $\lambda=\bar{\lambda}$ where $\bar{\lambda}$ is the complex conjugate of $\lambda$.\\
+    Because $\lambda\in \cp$ is an eigenvalue, $\exists v \in \cp^n$, $v\neq0$, such that
+    $$Av=\lambda v.$$
+    Take the complex conjugate of both sides, yielding $$\bar{A}\bar{v}=\bar{\lambda} \bar{v}.$$
+    Because $A$ is real, we have $\bar{A} = A$ and thus $$A\bar{v}=\bar{\lambda} \bar{v}.$$
+    Now, take the transpose of both sides to obtain
+    $$\bar{v}^\top A^\top =\bar{\lambda} \bar{v}^\top.$$
+    Because $A$ is symmetric,  $A^\top =A$, and hence,
+    \begin{align*}
+        \bar{v}^\top A&=\bar{\lambda} \bar{v}^\top \\
+        \Rightarrow\bar{v}^\top Av&=\bar{\lambda} \bar{v}^\top v\\
+        \Rightarrow\bar{v}^\top \lambda v&=\bar{\lambda} \bar{v}^\top v\\
+        \therefore \lambda\Arrowvert v\Arrowvert^2&=\bar{\lambda}\Arrowvert v\Arrowvert^2\\
+    \end{align*}
+    where $\langle x,y \rangle=x^\top \bar{y}$ and $ \Arrowvert x  \Arrowvert ^2=\langle x,x \rangle =x^\top \bar{x}=\bar{x}^\top  {x}$. Because $\Arrowvert v\Arrowvert^2 \neq 0$, we deduce that $\lambda =\bar{\lambda}$, proving the result. $\square$
+
+\textbf{Remark:} We now know that when $A$ is real and symmetric, an eigenvalue $\lambda$ is real, and therefore we can assume the corresponding eigenvector is real. Indeed, $$\underbrace{\left( A-\lambda I\right)}_\text{real}v=0.$$ Hence we have $v\in \real^n$ and we can use the real inner product on  $\real^n$, namely $\langle x,y \rangle=x^\top y$.
+
+\textbf{Claim 2:}~ Eigenvectors corresponding to distinct eigenvalues are orthogonal. That is, let $\lambda_1, \lambda_2 \in \real, v^1, v^2 \in \real^n, Av^1=\lambda_1 v^1, Av^2=\lambda_2 v^2, v^1\neq0, v^2\neq0$. Then,
+$$\lambda_1 \neq \lambda_2 \Rightarrow \langle v^1, v^2\rangle=0.$$
+
+\underline{Proof:}~ $Av^1=\lambda_1v^1$.\\
+    Take the transpose of both sides, and use $A=A^\top $. Then,
+    \begin{align*}
+        &(v^1)^\top A=\lambda_1(v^1)^\top\\
+        & (v^1)^\top Av^2=\lambda_1(v^1)^\top v^2\\
+        &(v^1)^\top \lambda_2 v^2=\lambda_1(v^1)^\top v^2\\
+        &(\lambda_1-\lambda_2)(v^1)^\top v^2=0\\
+        &\lambda_1\neq\lambda_2, \Rightarrow (v^1)^\top v^2=0.\ \square
+    \end{align*}
+
+\textbf{Def.:} A matrix $Q$ is orthogonal if $Q^\top Q=I$. That is, $Q^{-1}=Q^\top $.
+
+\textbf{Claim 3:}~ Suppose the eigenvalues of $A$ are all distinct. Then there exists an orthogonal matrix $Q$ such that $$Q^\top AQ=\Lambda=\mathrm{diag}(\lambda_1,\dotsb ,\lambda_n).$$
+
+\underline{Proof:}~ $\lambda_1,\dotsb ,\lambda_n$ distinct implies that the eigenvectors $v_1,\dotsb, v_n$ are orthogonal, and thus
+    $$ \langle v^i, v^j \rangle = (v^i)^\top v^j = 0 ~~ i \ne j.$$
+    WLOG (without loss of generality), we can assume:$\Arrowvert v^i \Arrowvert=1$
+    $$\therefore \Arrowvert v^i \Arrowvert^2=1\Leftrightarrow(v^i)^\top v^i=\|v^i\|^2=1.$$
+    We define $$Q=\left[v^1|v^2|\dotsb |v^n \right]$$
+    Then
+    $$\left[Q^\top Q\right]_{ij}=(v^i)^\top v^j=
+    \begin{cases}
+        1,& i=j  \\
+        0,& i\neq j
+    \end{cases}$$
+    $$\therefore Q^\top Q=I\textnormal{, is orthogonal.}\ \square$$
+
+\noindent \textbf{Fact:} [See HW06] Even if the eigenvalues are repeated, $A=A^\top \Rightarrow \\ \exists\, Q$ orthogonal such that $Q^\top AQ=\Lambda=\mathrm{diag}(\lambda_1,\dotsb ,\lambda_n)$. Symmetric matrices are rather special in that one can ALWAYS find a basis consisting of e-vectors.
+
+\textbf{Useful Observation:} Let $A$ be $m \times n$ real matrix. Then both $A^\top A$ and $AA^\top $ are symmetric, and hence their eigenvalues are real.
+
+\textbf{Claim 4:} Eigenvalues of $A^\top A$ and $AA^\top $ are non-negative.
+
+\underline{Proof:} We do the proof for $A^\top A$.\\
+    Let $A^\top Av=\lambda v$ where $v\in \real^n$, $v \neq 0$, $\lambda \in \real$, $v\in\real^n$. To show: $\lambda \geq 0$.\\
+    Multiply both sides by $v^\top $
+    \begin{align*}
+        v^\top A^\top Av &= v^\top\lambda v\\
+        \langle Av, Av \rangle &=\lambda \langle v,v \rangle\\
+        \therefore \Arrowvert Av \Arrowvert^2 &= \lambda \Arrowvert v \Arrowvert ^2
+    \end{align*}
+    $\therefore \lambda \geq 0,~\text{because}~\Arrowvert v \Arrowvert^2 > 0, \Arrowvert Av \Arrowvert^2 \geq 0.\ \square$
+
+\newpage
+
+\begin{center}\textbf{Quadratic Forms}\end{center}
+
+\textbf{Def.}~ Let $M$ be an $n \times n$ real matrix and $x \in \real^n.$ Then $x^\top Mx$ is called a \underline{quadratic form}.
+
+\textbf{Def.}~ An $n \times n$ matrix $W$ is skew symmetric if $W=-W^\top$.
+
+\textbf{Exercise:}~ If $W$ is skew symmetric, then $x^\top Wx=0$ for all $x \in \real^n$.
+
+\textbf{Exercise:}~ $M$ a real matrix, $M=\underbrace{\frac{M+M^\top }{2}}_\text{symmetric}+\underbrace{\frac{M-M^\top }{2}}_\text{skew symmetric}$.
+
+\textbf{Def.}~ $\frac{M+M^\top }{2}$ is the symmetric part of $M$.
+
+\textbf{Exercise:}~ $x^\top Mx=x^\top \left(\frac{M+M^\top }{2} \right)x$.
+
+\textbf{Consequence:}~ When working with a quadratic form, always assume $M$ is symmetric.
+
+\textbf{Def.}~ A real symmetric matric $P$ is positive definite, if, for all $x \in \real^n$, $x\neq 0 \Rightarrow x^\top Px>0.$
+
+
+
+
+\end{document} 

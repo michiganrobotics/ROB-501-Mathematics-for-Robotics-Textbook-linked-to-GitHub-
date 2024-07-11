@@ -1,0 +1,383 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-I Solutions}\\
+3 November 2015
+\end{center}
+
+\vspace*{1cm}
+
+%Prob. 1
+\noindent \textbf{Problem 1:} The answers are (b) and (c). \\
+
+(a) False. The dimensions of $A_i$ and $B_i$ do not even allow their product to be defined! \\
+
+(b) True. Used multiple times in class. Also proven via the Gram matrix when we did the normal equations. \\
+
+(c) True. Apply the Matrix Inversion Lemma to $(A+BCD)^{-1}$ with $A=A$, $B=B_1$, $C=1$ and $D=B_1^\top$.\\
+
+(d) False.  Any skew symmetric matrix will satisfy $x^{\top} A x=$ for all $x \in \real^n$.
+
+
+
+\bigskip
+
+%Prob. 2
+\noindent \textbf{Problem 2:} The answers are (a), (b) and (c). \\
+
+(a) True: Basis of a contrapositive argument. \\
+
+(b) True: Basis of a proof by contradiction. \\
+
+(c) True by applying $\neg(\tilde{p} \land \tilde{q})$ if, and only if, $ (\neg \tilde{p}) \lor (\neg \tilde{q})$ to (b), with
+$\tilde{p}=p$ and $\tilde{q}= \neg q$. \\
+
+(d) False. Because the first three are true, this one must be false! See also the truth table below.
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$p$ & $q$ & $p \implies q$ & $ (p \land \neg q)$ & $ \neg (p \land \neg q)$ & $ (\neg p) \lor  q$ & $ p \lor  (\neg q)$ \\ \hline
+1 & 1 & 1 & 0 & 1 & 1 & 1\\
+1 & 0 & 0 & 1 & 0 & 0& 1\\
+0 & 1 & 1 & 0 & 1 & 1 &0 \\
+0 & 0 & 1 & 0 & 1 & 1 & 1 \\ \hline
+\end{tabular}
+\end{center}
+
+\bigskip
+
+%Prob. 3
+\noindent \textbf{Problem 3:} The answer is (c). \\
+
+(a) False. The linear combination $\alpha (v^1-v^2) + \beta(v^2+v^3)=0$, if, and only if  $\alpha v^1+(\beta-\alpha)v^2 + \beta v^3=0$. But because $\{ v^1, v^2, v^3, v^4\}$  is linearly independent, we must have $\alpha=0$, $\beta-\alpha=0$ and $\beta=0$, and thus $\alpha (v^1-v^2) + \beta(v^2+v^3)=0$ if, and only if $\alpha=0$ and $\beta=0$, and thus the vectors are linearly independent. \\
+
+
+(b) False. $\left[ v^2 + 3 v^4 \right]_{\{ v^1, v^2, v^3, v^4 \}} = \left[ \begin{array}{c} 0\\1\\0\\3\end{array} \right]$  \\
+
+(c) True. We should show a double inclusion. For the first part, $\spanof{ v^1, v^2, v^3, v^4} \subset {\cal X}$ by definition. Because $\{ v^1, v^2, v^3, v^4\}$ is linearly independent, the condition $\forall~x \in {\cal X}$, the set $\{ v^1, v^2, v^3, v^4, x\}$ is linearly dependent implies that $\forall x\in{\cal X}$, $x \in  \spanof{ v^1, v^2, v^3, v^4}$, and thus ${\cal X} \subset \spanof{ v^1, v^2, v^3, v^4} $.\\
+
+(d) False.  If the set $\{ w^1, w^2,...,w^k\}$ were \textit{linearly independent} and spanned ${\cal X}$, then the statement would be true. However, without linear independence, it is false. Indeed, $\spanof{ v^1, v^2, v^3, v^4, 2v^1+4v^4} = {\cal X}$, and yet the set contains five vectors.
+
+\newpage
+
+%Prob. 4
+\noindent \textbf{Problem 4:} The answers are (b), (c) and (d). \\
+
+(a) False. See (b) below.\\
+
+(b) True. Denote the basis vectors by $\{ v^1, v^2, v^3, v^4\}= \{\sin(t), \cos(t), \sin(2t), \cos(2t)\}$ The $i$-th column of $A$ is given by $$A_i=[L(v^i)]_{\{ v^1, v^2, v^3, v^4\}}.$$\\
+We quickly compute that $L(v^1)=v^2$,   $L(v^2)=-v^1$,  $L(v^3)=2v^4$,  and $L(v^4)=-2v^3$, giving us the matrix $A$ proposed in the answer. \\
+
+(c) True. \textbf{Solution 1:} Let $f(t) = \alpha_1 \sin(t) +  \alpha_2 \cos(t) +  \alpha_3 \sin(2t) +  \alpha_4 \cos(2t) \in {\cal X}$
+be arbitrary and let $\alpha^\top =[\alpha_1, \alpha_2, \alpha_3, \alpha_4]$ be its vector representation with respect to the basis  $\{ \sin(t), \cos(t), \sin(2t), \cos(2t) \}$. Then $L(f(t)) = 0$
+if, and only if $A \alpha =0$. But $A$ in part (b) has full rank, and thus $\alpha =0$ and $f(t) = 0$. \\
+
+\textbf{Solution 2:} If $f(t) = \alpha_1 \sin(t) +  \alpha_2 \cos(t) +  \alpha_3 \sin(2t) +  \alpha_4 \cos(2t)$, then  $L(f(t)) = \alpha_1 \cos(t) -  \alpha_2 \sin(t) +  2 \alpha_3 \cos(2t) -2  \alpha_4 \sin(2t)$. By the linear independence of  $\{ \sin(t), \cos(t), \sin(2t), \cos(2t) \}$, we deduce that $L(f(t))= 0$ if, and only if $[\alpha_1, \alpha_2, \alpha_3, \alpha_4]=0$.\\
+
+(d) True. The matrix representation of the second derivative is $B=\mathrm{diag}  (-1, -1, -4, -4)$. Diagonal matrices are symmetric, and from lecture and HW, symmetric matrices always have an orthogonal set of e-vectors, even in the case that there are repeated e-values.
+
+\bigskip
+
+%Prob. 5
+\noindent \textbf{Problem 5:} The answers are (a), (b) and (d). \\
+
+(a) True. Follows from linearity of the inner product. Indeed, let $m\in M$ and write it as a linear combination of vectors in  $S$, such as $$ m = \alpha_1v^1 + \cdots + \alpha_k v^k,$$
+where $v^i \in S,~ \alpha_i \in \real, ~1 \le i \le k.$ Because $x \perp S$, $<v^i,x>=0, ~1 \le i \le k.$ Then,
+$$<m,x> = <\sum_{i=1}^k \alpha_i v^i, x> = \sum_{i=1}^k \alpha_i <v^i, x>=0. $$\\
+
+(b) True. Pythagorean Theorem.\\
+
+(c) False. Consider $\real^3$ and let $M=\spanof{e_1}$. Then $m=0$, $x=e_2$ and $y=e_3$ satisfy the statement, but $x\neq y$.
+
+(d) True. Uniqueness result proven in the pre-Projection Theorem. \\
+
+\newpage
+
+%Prob. 6
+\noindent \textbf{Problem 6:} \\
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item  $\widehat{x}_{3}= (A_3^\top A_3)^{-1}A_3^\top Y_3$. We compute
+$$A_3^\top A_3 = \left[ \begin{array}{rr} 2 & 0 \\ 0& 3\end{array}  \right]~~\text{and}~~A_3^\top Y_3=\left[ \begin{array}{c} 4 \\6 \end{array} \right]$$
+
+\fbox{\rule[-1cm]{0cm}{2cm} $ \widehat{x}_{3}= \left[ \begin{array}{c} 2 \\2 \end{array} \right]$ \hskip1cm ~~}\\
+
+\item
+\fbox{\rule[-1cm]{0cm}{2cm} $ \widehat{x}_{7}= \left[ \begin{array}{r} \frac{11}{5}  \medskip \\ -\frac{1}{5}\end{array} \right]$ \hskip1cm ~~}\\
+
+\begin{align*} Q_6 &= \sum\limits_{i=1}^6 C_i^\top C_i \\
+Q_{7} &= Q_6+C_{7}^\top C_{7} \\
+\hat{x}_{7}& =\hat{x}_6+\underbrace{ Q_{7}^{-1} C_{7}^\top }_{\text{Kalman gain}} \underbrace{ (y_{7}-C_{7}\hat{x}_6)}_{\text{Innovations} } \\
+&\text{or, also fine} \\
+\hat{x}_{7} &=Q_{7}^{-1} \left( Q_6\hat{x}_6+C_{7}^\top y_{7} \right)\end{align*}
+
+The relevant calculations are therefore,
+    \begin{align*}  \\
+Q_{7} &= Q_6+C_{7}^\top C_{7} \\
+\\
+&= \left[ \begin{array}{rr}  2&  1\\  1& 1\end{array} \right] + \left[ \begin{array}{c} 2 \\ 0 \end{array} \right] [ 2, 0] = \left[ \begin{array}{rr}  2&  1\\  1& 1\end{array} \right] + \left[ \begin{array}{rr}  4&  0\\  0&0\end{array} \right] = \left[ \begin{array}{rr}  6&  1\\  1& 1\end{array} \right] \\
+\\
+Q_{7}^{-1} &=  \left[ \begin{array}{rr}  6&  1\\  1& 1\end{array} \right]^{-1} = \frac{1}{5}\left[ \begin{array}{rr}  1&  -1\\  -1& 6\end{array} \right] \\
+\\
+Q_{7}^{-1}C_7^\top &= \frac{1}{5}\left[ \begin{array}{rr}  1&  -1\\  -1& 6\end{array} \right] \left[ \begin{array}{c} 2 \\ 0 \end{array} \right] = \left[ \begin{array}{r} \frac{2}{5}  \medskip \\ -\frac{2}{5}\end{array} \right]\\
+\\
+Q_{7}^{-1}Q_6&= \frac{1}{5}\left[ \begin{array}{rr}  1&  -1\\  -1& 6\end{array} \right]  \left[ \begin{array}{rr}  2&  1\\  1& 1\end{array} \right] = \frac{1}{5}\left[ \begin{array}{rr}  1&  0\\  4& 5\end{array} \right]
+ \end{align*}
+
+ Finally,
+
+ \begin{align*}
+ \hat{x}_{7}& =\hat{x}_6+Q_{7}^{-1} C_{7}^\top (y_{7}-C_{7}\hat{x}_6)\\
+ \\
+ &=\left[ \begin{array}{c} 1 \\ 1 \end{array} \right] + \left[ \begin{array}{r} \frac{2}{5}  \medskip \\ -\frac{2}{5}\end{array} \right] ( 5 - [2,~0] \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] \\
+ \\
+ &=\left[ \begin{array}{c} 1 \\ 1 \end{array} \right] + \left[ \begin{array}{r} \frac{6}{5}  \medskip \\ -\frac{6}{5}\end{array} \right] \\
+ \\
+ &= \left[ \begin{array}{r} \frac{11}{5}  \medskip \\ -\frac{1}{5}\end{array} \right]
+ \end{align*}
+
+ or
+
+  \begin{align*}
+ \hat{x}_{7} &=Q_{7}^{-1} \left( Q_6\hat{x}_6+C_{7}^\top y_{7} \right)\\
+ \\
+ &=Q_{7}^{-1}  Q_6\hat{x}_6+ Q_{7}^{-1}C_{7}^\top y_{7} \\
+ \\
+ &= \frac{1}{5}\left[ \begin{array}{rr}  1&  0\\  4& 5\end{array} \right]  \left[ \begin{array}{c} 1 \\ 1 \end{array} \right] +\left[ \begin{array}{r} \frac{2}{5}  \medskip \\ -\frac{2}{5}\end{array} \right] 5
+ \\
+ \\
+ &= \left[ \begin{array}{r} \frac{1}{5}  \medskip \\ \frac{9}{5}\end{array} \right] + \left[ \begin{array}{r} 2 \\ -2 \end{array} \right] \\
+ \\
+  &= \left[ \begin{array}{r} \frac{11}{5}  \medskip \\ -\frac{1}{5}\end{array} \right]
+ \end{align*}
+
+
+
+\end{enumerate}
+
+%\end{enumerate}
+
+\newpage
+
+%\noindent \textbf{Remarks on Grading the Proof:} 11 of the 30 proofs were pretty good, where the plan of attack was clear, and if a mistake was made, it was relatively minor. 19 of 30 proofs had significant errors, in which case, I tried to break down the arguments into pieces and assign as much partial credit as possible:
+%\begin{itemize}
+%\item[0] Recognized that there are two directions to be shown:  (4 points)
+%\item[1] That leaves 8 points for each direction. First direction
+%\begin{itemize}
+%\item[1.a] Stated method of proof (direct, contrapositive, contradiction), and thus what was assumed and what was to be shown (2 points)
+%\item[1.b] Correctly applied definition of linear independence or dependence, depending on your method of proof (2 points)
+%\item[1.c] Carried the remainder of the argument through correctly (4 points).
+%\end{itemize}
+%\item[2] Second direction
+%\begin{itemize}
+%\item[2.a] Stated method of proof (direct, contrapositive, contradiction), and thus what was assumed and what was to be shown (2 points)
+%\item[2.b] Correctly applied definition of linear independence or dependence, depending on your method of proof (2 points)
+%\item[2.c] Carried the remainder of the argument through correctly (4 points).
+%\end{itemize}
+%
+%After giving essentially free points for doing both directions, and stating what was to be proven, I was less generous when the definitions of linear independence or dependence were not used correctly.
+%\end{itemize}
+
+\newpage
+
+%Prob. 7
+\noindent \textbf{Problem 7:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item \begin{align*}
+||h||^2 &= <h,h> \\
+&= \int_{-1}^{1} \tau^2 d \tau \\
+&= \left. \frac{\tau^3}{3}  \right|_{\tau=-1}^{\tau=1} \\
+&= \frac{2}{3}.
+\end{align*}
+Hence, $\boxed{||h|| = \frac{\sqrt{2}}{\sqrt{3}} = \frac{\sqrt{6}}{3} .}$
+
+\item Applying the normal equations, we have $\hat{f}(t) = 3 \hat{\alpha}_1 + 5 \hat{\alpha}_2 t^2$, where $ G^\top \hat{\alpha} = \beta$.
+
+\begin{align*}
+G_{11} &= <3, 3> = \int_{-1}^{1} 9 d \tau = 18\\
+G_{12}&= <3, 5t^2> =  \int_{-1}^{1} 15 \tau^2 d \tau = 10\\
+G_{21}&=G_{12}\\
+G_{22} &= <5t^2, 5t^2> = \int_{-1}^{1} 25 \tau^4 d \tau = 10\\
+\\
+%\beta_1 &= <4t + \pi^2 \cos(\pi t), 1> = \int_{-1}^{1} \left( 4 \tau +  \pi^2 \cos(\pi \tau) \right)d \tau = 0\\
+%\\
+%\beta_1 &= <4t + \pi^2 \cos(\pi t), t^2> = \int_{-1}^{1} \left(4 \tau^3 +  \pi^2 \tau^2 \cos(\pi \tau) \right) d \tau = 1 - 4 =-3
+\beta_1 &= <\pi^2 \cos(\pi t), 3> = \int_{-1}^{1} 3 \pi^2 \cos(\pi \tau)d \tau = 0\\
+\\
+\beta_2 &= <\pi^2 \cos(\pi t), 5t^2> = \int_{-1}^{1} 5 \pi^2 \tau^2 \cos(\pi \tau) d \tau = -20
+\end{align*}
+
+Therefore, the normal equations are
+$$\left[ \begin{array}{rr}  18&  10\\  10 & 10\end{array} \right] \hat{\alpha} = \left[ \begin{array}{r} 0 \\ -20 \end{array} \right] $$
+and thus
+ \begin{align*} \hat{\alpha} & = \left[ \begin{array}{rr}  18&  10\\  10 & 10\end{array} \right]^{-1} \left[ \begin{array}{r} 0 \\ -20\end{array} \right] = \frac{1}{80} \left[ \begin{array}{rr}  10&  -10\\  -10 & 18\end{array} \right] \left[ \begin{array}{r} 0 \\ -20\end{array} \right]\\
+ \\
+ &=\left[ \begin{array}{r} \frac{5}{2} \medskip \\ -\frac{9}{2}\end{array} \right]
+ \end{align*}
+ Hence,
+ $$\boxed{\hat{f}(t) =  \frac{15}{2} - \frac{45}{2} t^2 }$$
+
+\end{enumerate}
+
+\newpage
+
+%Prob. 8
+\noindent \textbf{Problem 8:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item \textbf{Claim:} $x-y \perp y$
+
+\textbf{Proof of claim:}
+
+\noindent \underline{Proof 1:}
+%%%%
+Define $M := \spanof{v^1, v^2}$ and $\hat{x} := \textrm{arg~min}_{m \in M} ||x-m||$.  By the normal equations,
+$$\hat{x}= \alpha_1 v^1 + \alpha_2 v^2,~\text{with}~~ G^\top \alpha = \beta,~~\text{and} ~~\alpha = [\alpha_1, \alpha_2]^\top$$
+
+$G_{ij}=<v^i,v^j>$ and thus $G=I_{2\times 2}$. Moreover, $\beta_i = <x,v^i>$. Hence, we conclude that
+$$ \hat{x}=y.$$
+From the Projection Theorem, $x-\hat{x} \perp M$. Since $y \in M$ and $\hat{x}=y$, we conclude that
+$x-y \perp y$ \hfill $\square$ \\
+\\
+
+\noindent \underline{Proof 2:}
+Because $\{v^1, v^2, v^3\}$ is a basis, there exist scalars $\beta_i$ such that
+$$x=\beta_1 v^1 + \beta_2 v^2 + \beta_3 v^3$$
+Using the fact that $\{v^1, v^2, v^3\}$ is an orthonormal set, we obtain that
+$$<x,v^j> = <\sum_{i=1}^3 \beta_i v^i, v^j> = \sum_{i=1}^3 \beta_i< v^i, v^j> = \beta_j$$
+and thus $$ \beta_i = <x,v^i>, 1\le i \le 3 ~~ \text{and}~~\alpha_j = \beta_j,  1 \le j \le 2$$
+
+Hence, $x-y = <x,v^3>v^3 \in \spanof{v^3}$, and $y \in \spanof{v^1,v^2}$. Because $\{v^1, v^2, v^3\}$ is orthogonal, we have $\spanof{v^3} \perp \spanof{v^1,v^2} $, and thus $(x-y) \perp y$.  \hfill $\square$
+
+\noindent \underline{Proof 3:}
+Because $\{v^1, v^2, v^3\}$ is orthonormal, $<v^i,v^j>= \begin{cases} 1 & \text{if}~ i=j \\
+0 & \text{otherwise} \end{cases}$
+\begin{align*}
+<x,y>&= <x,\sum_{i=1}^2 \alpha_i v^i>\\
+&= \sum_{i=1}^2 \alpha_i <x,  v^i>\\
+&= \sum_{i=1}^2 (\alpha_i)^2.\\
+\\
+<y,y>&= <\sum_{i=1}^2 \alpha_i v^i,\sum_{j=1}^2 \alpha_j v^j>\\
+&= \sum_{i=1}^2 \sum_{j=1}^2 \alpha_i\alpha_j < v^i,v^j>\\
+&=\sum_{i=1}^2 (\alpha_i)^2
+\end{align*}
+and therefore $<x-y,y>= <x,y>-<y,y>=0$. \hfill $\square$ \\
+
+
+\newpage
+\item \textbf{Claim:} $||y|| \le ||x|| $.
+
+
+\textbf{Proof of claim:} \\
+\noindent \underline{Proof 1:} Using (a), we apply the Pythagorean Theorem to obtain
+$$||x||^2 = ||x-y + y||^2= ||x-y||^2 + ||y||^2 \ge ||y||^2.$$
+Taking the square root of both sides completes the proof.
+\hfill $\square$ \\
+
+\noindent \underline{Proof 2} Because $\{v^1, v^2, v^3\}$ is a basis, there exist scalars $\beta_i$ such that
+$$x=\beta_1 v^1 + \beta_2 v^2 + \beta_3 v^3$$
+Using the fact that $\{v^1, v^2, v^3\}$ is an orthonormal set, we obtain that
+$$<x,v^j> = <\sum_{i=1}^3 \beta_i v^i, v^j> = \sum_{i=1}^3 \beta_i< v^i, v^j> = \beta_j$$
+and thus $$ \beta_i = <x,v^i>, 1\le i \le 3 ~~ \text{and}~~ \alpha_j = \beta_j,  1 \le j \le 2$$
+Repeating the calculations we made in part (a) we obtain
+
+\begin{align*}
+ ||y||^2 &= <y,y> \\
+ &= \sum_{i=1}^2 (\alpha_i)^2\\
+ \\
+ ||x||^2 &= <x,x> \\
+ &= \sum_{i=1}^3 (\beta_i)^2\\
+ &= \left( \sum_{i=1}^2 (\beta_i)^2  \right)+ (\beta_3)^2\\
+  &= \left(\sum_{i=1}^2 (\alpha_i)^2 \right)+ (\beta_3)^2 \\
+  \\
+  & = ||y||^2 + (\beta_3)^2 \\
+  \\
+  & \ge ||y||^2.
+\end{align*}
+and hence,
+$$||y||^2 \le ||x||^2$$
+Taking the square root of both sides completes the proof. \hfill $\square$ \\
+
+\newpage
+
+\noindent \underline{Proof 3} (Provided by one of the students. All but the very last step was given correctly.)
+
+\begin{align*}
+ ||y||^2 &= <y,y> \\
+ &= \sum_{i=1}^2 (\alpha_i)^2\\
+ \\
+ <x,y>&=<x, \sum_{i=1}^2 \alpha_i v^i> \\
+ &= \sum_{i=1}^2 \alpha_i <x,  v^i> \\
+ &= \sum_{i=1}^2 (\alpha_i)^2 \\
+ \\
+ ||x+y||^2 & = <x+y, x+y>\\
+ &= ||x||^2 +||y||^2 + 2 <x,y>\\
+ &= ||x||^2 + 3 \sum_{i=1}^2 (\alpha_i)^2
+ \end{align*}
+
+ From the triangle inequality,
+ \begin{align*}
+ ||x + y||^2 &\le (||x|| + ||y||)^2\\
+  &\le ||x||^2 + ||y||^2 + 2 ||x||~||y||
+ \end{align*}
+
+ Hence,
+  \begin{align*}
+  ||x||^2 +  3 \sum_{i=1}^2 (\alpha_i)^2 &\le ||x||^2 + \sum_{i=1}^2 (\alpha_i)^2 + 2 ||x||~||y||\\
+  &\Updownarrow \\
+  2 \sum_{i=1}^2 (\alpha_i)^2 &\le 2 ||x||~||y||\\
+    &\Updownarrow \\
+  \sum_{i=1}^2 (\alpha_i)^2 &\le  ||x||~||y|| \\
+      &\Updownarrow \\
+  ||y||^2 &\le  ||x||~||y||
+  \end{align*}
+
+ \textbf{Final step:} If $||y|| \ne 0$, then the above gives $||y|| \le ||x||$. If $||y|| = 0$, then $||y|| \le ||x||$ automatically. Hence, we have proven that $||y|| \le ||x||$.
+
+\textbf{Remark:} Not easy, but it is correct!
+
+\newpage
+
+\textbf{Grading notes:}
+\begin{itemize}
+\item In Proof 2 of Part (a), several people wrote $x=\alpha_1 v^1 + \alpha_2 v^2 + \alpha_3 v^3$ and then said that $x-y = \alpha_3 v^3$. This leaves out the step of showing that  $x=<x,v^1> v^1 + <x,v^2> v^2 + <x,v^3> v^3$. Four (4) points were taken off for this lacuna. Why so many points off? Because the expression $x=<x,v^1> v^1 + <x,v^2> v^2 + <x,v^3> v^3$ is the key to Proof 2. From $x\in \spanof{v^1, v^2, v^3}$, you obtain that $x$ can be written as a linear combination of those vectors. You need to express $x=\gamma_1 v^1 + \gamma_2 v^2 + \gamma_3 v^3$, for some $\gamma_i \in \real$, and then show $\gamma_i = <x, v^i>$. The problem statement had already defined $\alpha_1=<x,v^1>$ and $\alpha_2=<x,v^2>$, and therefore, when you wrote $x=\alpha_1 v^1 + \alpha_2 v^2 + \alpha_3 v^3$, you were really writing $x=<x,v^1> v^1 + <x,v^2>v^2 + \alpha_3 v^3$ without justifying it.
+
+    \item In part (b), if you dropped the squares on the Pythagorean Theorem, two (2) points were taken off.
+    
+    \item Several people assumed $<x,y> = x^\top y$. I think that we have used five different inner products this term. The whole point of our ``bracket'' notation is that we can prove things for a general (finite-dimensional) inner product space, and then specialize to any case that interests us.
+
+\end{itemize}
+
+\end{enumerate}
+\end{document}

@@ -1,0 +1,324 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-III Solutions}
+\end{center}
+
+\vspace*{1cm}
+
+\begin{enumerate}
+%Prob. 1
+\item \noindent \textbf{Problem 1:}
+The answers are (a) and (c).
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item True. The converse of $P \Rightarrow Q$ is $Q \Rightarrow P$. Another way to say this is, the converse of ``if $P$ then $Q$'' is ``if $Q$ then $P$''.
+
+\item False. The negation is ``$\exists~\epsilon>0$ such that $\forall ~ \delta>0$,  $ \exists~x \in B_{\delta}(x_0)$, such that $f(x) \not \in B_\epsilon(f(x_0))$.''
+
+\item True. The contrapositive of  $P \Rightarrow Q$ is $\neg Q \Rightarrow \neg P$. Another way to say this is, the converse of ``if $P$ then $Q$'' is ``if $\neg Q$ then $\neg P$''.
+
+\item False. A proof by \underline{contradiction} will typically assume that both $P$ and $\neg Q$ are true, and then seek to show that this leads to a contradiction, namely $R\land \neg R$ for some statement $R$.
+\end{enumerate}
+
+%Prob. 2
+\item \noindent \textbf{Problem 2:}
+The answer is (b).
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item False. The zero vector is always in the intersection.
+
+\item True. Because we are working with subspaces, ``for every $x\in {\cal X}$, there exist a unique $v\in V$ and a unique $ w \in W$ such $x=v-w$'' is equivalent to ``for every $x\in {\cal X}$, there exist a unique $v\in V$ and a unique $ w \in W$such $x=v+w$''. From HW \#3, Prob. 5, this is equivalent to ${\cal X} =V \oplus W$.
+
+    \item False. Because the zero vector is not in the set $\{ x \in V~|~ x \not \in W\}$, it cannot be a subspace.
+
+        \item False. We consider $\real^3$ and let $v^1 = e_1, v^2=e_2$, $w^1 = e_1+e_2$ and $w^2 = e_3$.
+\end{enumerate}
+
+%Prob. 3
+\item \noindent \textbf{Problem 3:}
+The answers are (a), (c), and (d).
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\item True. Using the linearity of the inner product, it is easy to show that if $V \perp W$, then $\spanof{V} \perp W$. Applying the same reasoning again, we obtain $\spanof{V} \perp \spanof{W}$.
+
+\item False. We consider $R^3$ and let $V=\spanof{e_1}$ and $W=\spanof{e_2}$. Then $V^\perp \cap W^\perp = \spanof{e_3}$, and thus they are not orthogonal.
+
+\item True. Let $p = \dim (V+W)$. Let $\{y_1, \cdots, y_m\}$ be a basis for $V$. Complete this to a basis $\{y_1, \cdots, y_m, y_{m+1}, \cdots, y_p\}$ for $V+W$. Apply Gram Schmidt to $\{y_1, \cdots, y_m, y_{m+1}, \cdots, y_p\}$ to produce orthogonal vectors $\{v_1, \cdots, v_m, v_{m+1}, \cdots,v_p\}$. Then $V=\spanof{v_1, \cdots, v_m}$ and  $Y:=\spanof{v_{m+1}, \cdots,v_p}$ satisfies
+    $$ V \perp Y~~\text{and}~~ V+Y = V + W.$$
+
+
+\item True. We show that $\sim W$, the complement of $W$, is open. Because ${\cal X}$ is finite dimensional and $W$ is linearly independent, there can only be a finite number of vectors in $W$,  say $W=\{ w_1, \cdots, w_k\}$. Let $x_0$ be an arbitrary point in $\sim W$, Then $x_0 \not \in W$, and thus for $1 \le i \le k$,  $||x_0-w_i|| >0$. Therefore
+    $$ \delta := \min_{1 \le i \le k} ||x_0-w_i|| >0.$$
+Because $|| x_0 -w_i||\ge \delta >0$, it follows that $w_i \not \in B_{\delta}(x_0)$ for $1 \le i \le k$, and thus
+$$ B_{\delta}(x_0) \subset \sim W.$$
+Hence, about any point in the complement of $W$, we can find an open ball contained in the complement, and thus it is open.
+
+\end{enumerate}
+
+
+%Prob. 4
+\item \noindent \textbf{Problem 4:}
+The answers are (c) and (d).
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+
+\item False. Let ${\cal X} = \real$ and $f(x) = e^x$. The result is that continuous functions on compact sets attain their max and min.
+
+\item False.  For any $a>0$, the open ball about the origin $B_a(0)$ is convex.
+
+\item True. Compact sets are closed and bounded. Closed sets contain their limit points.
+
+\item True. Because ${\cal X}$ is finite dimensional, it is complete. In a complete normed  space, Cauchy sequences have limits.
+
+
+\end{enumerate}
+
+%Prob. 5
+\item \noindent \textbf{Problem 5:}
+The answers are (b) and (d).  We work the problem completely, then answer the questions. \\
+
+Assume that $\widehat{x} = K y$ for some $n \times m$ real matrix $K$. Then we compute
+$$ E\{\widehat{x}  \}  = E\{ K(Cx + \epsilon)  \} = KC E\{x  \}+ K E\{ \epsilon  \} =0 = E\{x  \},$$
+because $E\{x  \}=0$ and $E\{ \epsilon  \}=0$. In BLUE, $x$ was deterministic, and thus $E\{x  \}=x$ instead of zero gave us $E\{\widehat{x}  \} = KC x$, which was the source of the constraint, $KC=I$. In MVE, we do not have this restriction.\\
+
+We set $\widehat{x}_i = k_i y$ and note that $x_i = e_i^\top x$. We then compute
+\begin{align*}
+ \left( \widehat{x}_i - x_i \right)^2 &=  \left(k_i [Cx+\epsilon] - x_i \right)^2 \\
+ &=  \left(k_i [Cx+\epsilon] - e_i^\top x \right)^2\\
+ &= \left([ k_i C - e^\top_i ]x+k_i\epsilon \right)^2 \\
+ &= \left([ k_i C - e^\top_i ]x+k_i\epsilon \right) \left([ k_i C - e^\top_i ]x+k_i\epsilon \right)^\top \\
+  &= [ k_iC-e_i^\top] x x^\top [C^\top k_i^\top-e_i] + 2 [k_iC-e_i^\top] x \epsilon^\top k_i^\top + k_i\epsilon \epsilon^\top k_i^\top \\
+ &= [C^\top k_i^\top-e_i]^\top x x^\top [C^\top k_i^\top-e_i] + 2 [C^\top k_i^\top-e_i]^\top x \epsilon^\top k_i^\top + k_i\epsilon \epsilon^\top k_i^\top,
+\end{align*}
+where we have used the fact that a scalar squared is equal to the scalar times its transpose.
+
+We now use the given statistical data to conclude that
+\begin{align*}
+ E\{ \left( \widehat{x}_i - x_i \right)^2 \} &=   [C^\top k_i^\top-e_i]^\top P~ [C^\top k_i^\top-e_i] +  k_i Q k_i^\top \\
+ &=\left[ \begin{array}{c} C^\top k_i^\top - e_i \\ k_i^\top\end{array} \right]^\top \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right] \left[ \begin{array}{c} C^\top k_i^\top - e_i \\ k_i^\top\end{array} \right].
+\end{align*}
+It follows that
+$$\widehat{k}_i = {\rm arg}~\min  E\{ \left( \widehat{x}_i - x_i \right)^2 \} =\text{arg}~ \min E\{ \left( k_i (Cx+\epsilon)  - x_i \right)^2 \},$$
+is also the solution to the over determined equation\footnote{The columns of $A$ are linearly independent because the lower block is the identity matrix.}
+$$\widehat{k}_i^\top = {\rm arg}~\min ||A  k_i^\top - b||^2$$
+with
+$$A=\left[\begin{array}{c}  C^\top \\ I_{m\times m}\end{array} \right],~~b=\left[\begin{array}{c}  e_i \\ 0_{m\times 1}\end{array} \right],$$
+and the norm on $\real^{n+m}$ given by $$||\left[ \begin{array}{c} \alpha \\ \beta\end{array} \right]||^2 = \left[ \begin{array}{c} \alpha \\ \beta\end{array} \right]^\top \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right] \left[ \begin{array}{c} \alpha \\ \beta\end{array} \right].$$
+
+Indeed, applying our ``Magic Formula'' gives
+ \begin{align*}
+ \widehat{k}_i^\top &= \left( A^\top \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right]A \right)^{-1} A^\top  \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right] b \bigskip \\
+ \\
+ & = (CPC^\top + Q)^{-1} CPe_i.
+ \end{align*}
+Therefore
+ $$ \widehat{K}^\top =  (CPC^\top + Q)^{-1} CP  $$
+ and
+  $$ \widehat{K} = PC^\top  (CPC^\top + Q)^{-1}, $$
+  the result from lecture.
+
+
+\textbf{The answers to the questions are therefore:}
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+
+\item False. This was given in lecture.
+
+\item True.  This was a bit messy in terms of matrix algebra, but otherwise straightforward.
+
+\item False.  Clear once (b) is known.
+
+\item True.  If the answer were not given so that all you had to do was check it, then, yes, it would have been pretty tough to see it. As given, it was not so bad. Nevertheless, the solution developed in lecture, applying the Projection Theorem to a vector space of random variables, seems far superior to the method used here: (1) the method in lecture allowed a more general solution, namely $CPC^\top + Q \succ 0$ instead of $P\succ0$ and $Q\succ0$; (2) the Projection Theorem in lecture resulted in easier computations, and each step was well motivated through the calculation of the Gram matrix.
+
+\end{enumerate}
+
+\newpage
+
+%Prob. 6
+\item \noindent \textbf{Problem 6:}
+
+There are many possible solutions. Here are a few:
+
+\begin{verbatim}
+    N=3
+    SuperDiag=ones(1,N-1);
+    Ac=diag(SuperDiag,1);
+    Bc=zeros(N,1);Bc(N)=1;
+    Cc=zeros(1,N); Cc(1)=1;
+    SysCont=ss(Ac,Bc,Cc,0);
+    load  DataHW05_Prob6
+    Ts=t(2)-t(1);
+    SysDisc=c2d(SysCont,Ts);
+    [A,G,C] = ssdata(SysDisc);
+    Q=1e-9;
+    R=1e4;
+    [K,P,Z,E] = dlqe(A,G,C,R,Q)
+    x0=zeros(N,1);
+    dyhat=0*dy;
+    for k = 1:length(t)
+        % x[n|n]   = x[n|n-1] + M(y[n] - Cx[n|n-1] - Du[n])
+        % x[n+1|n] = Ax[n|n] + Bu[n]
+        x=x0+ K*(y(k)-C*x0);
+        x0=A*x;
+        dyhat(k)=x(2);
+    end
+
+    figure(1),plot(t,dy,'g',t,dyhat,'r'),legend('dy','dy_{KF}'),grid on
+    e_dy=norm(dy-dyhat)/length(t);
+    title(['With noise KF vs true Signal:  Error = ',num2str(e_dy)])
+    print -dpng KF_problem
+\end{verbatim}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{KF_problem_v04.png}
+\setlength{\abovecaptionskip}{0pt}
+\caption{KF Estimate vs True Signal: N=3, R=1e13, and Q=1.0}
+\label{fig:Prob6}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{KF_problem.png}
+\setlength{\abovecaptionskip}{0pt}
+\caption{KF Estimate vs True Signal: N=3, R=1e4, and Q=1e-9 (same R/Q as the previous solution)}
+\label{fig:Prob6}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{KF_problem_v02.png}
+\setlength{\abovecaptionskip}{0pt}
+\caption{KF Estimate vs True Signal: N=2, R/Q=1e11}
+\label{fig:Prob6}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.7\textwidth]{KF_problem_v03.png}
+\setlength{\abovecaptionskip}{0pt}
+\caption{KF Estimate vs True Signal: N=4, R/Q=1e17}
+\label{fig:Prob6}
+\end{figure}
+
+\clearpage
+
+\newpage
+
+%Prob. 7
+\item \noindent \textbf{Problem 7:}
+
+\textbf{Solutions:}
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\item
+
+$$E=\left[ \begin{array}{rrr}0.4703& 0.0488& -0.4502\\0.1002& 0.0104& -0.0959\\-0.0650& -0.0067& 0.0622\\-0.5325& -0.0552& 0.5097\end{array} \right]
+$$
+
+\item
+
+$$v=\left[ \begin{array}{r}0.2773\\-0.9423\\0.1875\end{array} \right].$$
+
+\item
+    $$O= \left[ \begin{array}{rrrr}-0.1904& 0.5996& 0.7435& 0.2267\\-0.6370& -0.5724& 0.3986& -0.3284\\-0.0202& 0.4567& -0.1042& -0.8833\\-0.7467& 0.3229& -0.5267& 0.2462\end{array} \right].$$
+\end{enumerate}
+
+\textbf{Reasons:}
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\item This problem is nearly identical to HW \#9, Problem 6. Referring to page 13 of the SVD handout,
+\begin{verbatim}
+    load Prob07
+    [U,S,V] = svd(A);
+    D=-S;
+    D(1,1)=0; D(2,2)=0;
+    E=U*D*V'
+    rank(A+E)
+\end{verbatim}
+
+$$E=\left[ \begin{array}{rrr}0.4703& 0.0488& -0.4502\\0.1002& 0.0104& -0.0959\\-0.0650& -0.0067& 0.0622\\-0.5325& -0.0552& 0.5097\end{array} \right]
+$$
+
+\item The columns of $V$ are e-vectors of $A^\top A$ and elements of the diagonal of $S$ are the square roots of the e-values of $A^\top A$. From part (a) we have that
+
+    $$S=\left[ \begin{array}{rrr}   3.0&    0.0&   0.0\\   0.0&   2.0&    0.0\\   0.0&   0.0&   1.0\\   0.0&    0.0&    0.0\end{array} \right]
+$$
+and
+$$V=\left[ \begin{array}{rrr}-0.6358& 0.2773& 0.7204\\-0.3263& -0.9423& 0.0747\\-0.6995& 0.1875& -0.6896\end{array} \right]
+$$
+
+$||Av||_2^2 = v^\top A^\top A v = \lambda v^\top v$, if  $v$ is an e-vector of $A^\top A$. And thus if $||v||_2=1$, we have
+$$||Av||_2 = \sqrt{\lambda}.$$
+
+From this, we see that we are after the second column of $V$, giving us
+$$v=\left[ \begin{array}{r}0.2773\\-0.9423\\0.1875\end{array} \right].$$
+
+\item   We write $A=QR$, using the ``full'' (not the economy) QR-factorization. And then $Q^\top A = Q^\top Q R = R$. Thus we set
+    $$O=Q^\top = \left[ \begin{array}{rrrr}-0.1904& 0.5996& 0.7435& 0.2267\\-0.6370& -0.5724& 0.3986& -0.3284\\-0.0202& 0.4567& -0.1042& -0.8833\\-0.7467& 0.3229& -0.5267& 0.2462\end{array} \right],$$
+    and obtain
+    $$O A = \left[ \begin{array}{rrr}-2.1129& -0.4145& -1.7577\\-0.0000& 2.0842& 0.2722\\-0.0000& -0.0000& 1.3625\\-0.0000& 0.0000& 0.0000\end{array} \right].$$
+
+\end{enumerate}
+\newpage
+
+%Prob. 8
+\item \noindent \textbf{Problem 8:} We only work the first one! :-) \\
+
+ \textbf{Idea:} By Taylor's theorem, $f(x_0 + \delta x) \simeq f(x_0) + \frac{\partial f(x_0)}{\partial x} \delta x$. Hence, estimating the Jacobian is the same as fitting a linear function $Y = b + A \delta x$ to data, where the matrix $A$ is the Jacobian. Because it is a fitting problem, we can apply regression.\\
+
+ \textbf{Result:} $$ \frac{\partial f(x_0)}{\partial x}  \simeq
+ \left[ \begin{array}{rrr}-0.8279& -0.3934& 6.0418\\1.9936& 1.0022& 0.9921\end{array} \right] ~~\text{and}~~f(x_0) \simeq \left[ \begin{array}{r}13.9071\\6.0010\end{array} \right]$$
+
+ The true values are $$ \frac{\partial f(x_0)}{\partial x} =\left[ \begin{array}{rrr}-0.8323& -0.4161& 6.0000\\2.0000& 1.0000& 1.0000\end{array} \right]~~\text{and}~~f(x_0) = \left[ \begin{array}{r}13.9093\\6.0000\end{array} \right]$$
+
+ \textbf{MATLAB Code:}
+ \begin{verbatim}
+    load  Prob08
+    for k = 1:n
+        A(k,:)=[ 1 delX(:,k)'];
+    end
+    theta = inv(A'*A)*A'*Y'  %Magic Formula
+    f0=theta(1,:)'
+    Jac=theta(2:end,:)'
+ \end{verbatim}
+
+\textbf{Remark:} If you leave off the constant term, it still works because the vector of all ones is approximately orthogonal to the $\delta x_i$'s.
+
+\end{enumerate}
+\end{document}

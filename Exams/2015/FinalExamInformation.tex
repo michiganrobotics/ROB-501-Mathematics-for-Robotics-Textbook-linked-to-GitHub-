@@ -1,0 +1,132 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+Information for ROB 501 Exam-II (Final)\\
+\large
+It will be an In Class Exam, Just Like Exam 1
+\end{center}
+\vspace*{1in}
+
+\begin{center}
+\LARGE \bf
+Date is Thursday, December 17, 2015, 4:10 PM-- 6:00 PM \\
+\large
+The Rooms are assigned as follows: \\
+(First letter of last name)\\
+ EECS 1303 (A-K) and EECS 1200 (L-Z) \\
+\end{center}
+\vspace*{2in}
+
+\noindent \textbf{Remark:} When you receive your exam, please PRINT your name on it and COPY the honor pledge. DO NOT OPEN THE EXAM UNTIL TOLD TO DO SO.
+
+
+
+\vspace*{1in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item  3  SHEETS OF NOTE PAPER (Front and Back), US Letter Size. You can write anything you want on your ``cheat sheets''
+\item NO CALCULATORS, CELL PHONES, HEADPHONES, SMART WATHCES, etc.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\newpage
+\subsection*{Material Covered}
+
+\begin{itemize}
+\item Lecture 1 through the material on Real Analysis on Dec. 4, 2015, with emphasis on material since Exam 1.
+\item May have to invert by hand a $2 \times 2$ matrix.
+\item There will be NO questions on compact sets, convex sets, QPs and LPs.
+\item HW \#1 through HW \#10, except remove Lagrange multipliers and 'SVD for image processing'; emphasis is definitely on material since Exam 1.
+\item Probability at the level of BLUE, MVE, and the handout on Gaussian Random Vectors.
+\item Least squares problems of all types (inner product spaces, weighted least squares\footnote{Means the inner product uses a positive definite matrix other than the identity.}, over determined, under determined, RLS, BLUE, MVE). RLS with forgetting factor is NOT on the exam.
+\item Matrix Inversion Lemma, Symmetric matrices, Orthogonal matrices,  QR factorizations, SVD, matrix 2-norm (see SVD handout).
+\item Positive definite matrices, Schur complement.
+\item Kalman filter. There is no question on the Extended Kalman Filter (EKF)
+\item Modified Gram Schmidt is NOT on the exam. Proof of the SVD is not on the exam.
+\item General probability as covered in lecture on Nov. 10 and the first part of Nov 12 is NOT on the exam.
+\item Hermetian matrices are NOT on the exam (present in SVD handout).
+\end{itemize}
+
+\subsection*{Type of Questions}
+
+\begin{itemize}
+
+\item Almost identical to Exam 1, except there are 4 workout problems worth 15 points each instead of 3 worth 20 points each. Also, \textbf{there are no written proofs on the final exam.}
+
+    \item When looking at the old exams:
+    \begin{itemize}
+    \item  Exam II in class has good examples.
+    \item  Exam II Take Home, ignore the EKF problem.
+    \item  Exam III (Take Home Final), you have to realize that the Multiple Choice Problems are HARDER because the 2014 students had LOTS of time to think about them!
+\item  Exam III (Take Home Final) Ignore Problem 4 because I have said that compactness and convexity are NOT on your exam.
+\item  Exam III (Take Home Final) Forget about Prob. 5...it is MUCH MUCH too hard for an in class exam.
+\item  Exam III (Take Home Final) Prob. 6 is interesting and is a very useful thing to know. Of course, without MATLAB, you cannot work the problem, hence it cannot be on an in class exam.
+    \item  Exam III (Take Home Final) Problem 7 parts (a) and (c) are worth studying. Ignore part (b). Keep in mind that your calculations would have to be simple enough that you could do them without a calculator!
+        \item  Exam III (Take Home Final)  Ignore Problem 8. Once again, it is a cool thing to know, but cannot really be done without MATLAB.
+
+    \end{itemize}
+
+
+\end{itemize}
+
+
+
+
+\end{document}

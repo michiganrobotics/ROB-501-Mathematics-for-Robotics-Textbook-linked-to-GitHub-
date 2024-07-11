@@ -1,0 +1,139 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-II Solutions}\\
+(Take Home)
+\end{center}
+
+\vspace*{1cm}
+
+\begin{enumerate}
+%Prob. 1
+\item \noindent \textbf{Problem 1:} We use the result of HW\#8, Problem 6. The Gram matrix satisfies
+$$G_{ij} = <Y_i,Y_j>,$$
+and direct calculation gives
+$$G = \left[ \begin{array}{rrrrr}772.00& 252.00& 176.00& 96.00& 196.00\\252.00& 204.00& -19.00& -4.00& 45.00\\176.00& -19.00& 170.00& 9.00& 20.00\\96.00& -4.00& 9.00& 88.00& -1.00\\196.00& 45.00& 20.00& -1.00& 126.00\end{array} \right].$$
+
+We solve $G \alpha = c$ and obtain
+$$\alpha = \left[ \begin{array}{r}1.00\\-1.00\\-1.00\\-1.00\\-1.00\end{array} \right] .$$
+
+From the Theorem, $$A^* = \sum_{i=1}^{5} \alpha_i Y_i = \left[ \begin{array}{rrrrr}1.00& 1.00& 1.00& 1.00& 1.00\\1.00& 1.00& 1.00& 1.00& 1.00\\1.00& 1.00& 1.00& 1.00& 1.00\\1.00& 1.00& 1.00& 1.00& 1.00\end{array} \right].$$
+
+When you saw saw this nice answer, you probably were pretty happy.
+
+\begin{verbatim}
+  load DataProb01_TakeHome2
+  N=5;
+       for i = 1:N
+            for j=1:N
+                G(i,j)=trace(Y{i}'*Y{j});
+            end
+        end
+
+alpha=inv(G)*c;
+
+Astar=zeros(4,5);
+        for i = 1:N
+            Astar=Astar+alpha(i)*Y{i};
+        end
+Astar
+\end{verbatim}
+
+\newpage
+
+\item The answers to parts (b) and (c) are combined and plotted in Figure 1 against the true values of states of the plant. You could not do this because you did not have all of the true states. This really emphasizes that the EKF can lock on and track the states of the model quite well. Why it works is partially explained in the following journal paper. Yongkyu Song was an Aerospace graduate student who did his PhD work with me. He was PhD student \#2.
+
+    Y.K. Song and J.W. Grizzle, The Extended Kalman Filter as a Local Asymptotic Observer for Nonlinear Discrete-Time Systems, Journal of Mathematical Systems, Estimation and Control, Vol. 5, No. 1, 1995, pp. 59-78. \url{http://web.eecs.umich.edu/~grizzle/papers/ekf.pdf}
+
+   \begin{figure}[h!]
+   \label{Fig1}
+	\begin{minipage}[t]{\linewidth}
+		\centering
+		\includegraphics[width=1.0\textwidth]{CombinedResults.png}
+		\setlength{\abovecaptionskip}{0pt}
+		\caption{\textcolor{red}{For Prob. 2, parts (b) and (c) combined.}}
+	\end{minipage}
+\end{figure}
+
+\newpage
+
+   \begin{figure}[h!]
+   \label{Fig1}
+	\begin{minipage}[t]{\linewidth}
+		\centering
+		\includegraphics[width=1.0\textwidth]{CombinedResults2.png}
+		\setlength{\abovecaptionskip}{0pt}
+		\caption{This shows a ZOOM so that initial transients are more apparent.}
+	\end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{verbatim}
+load plant_data
+
+x_pre=x0;
+P_pre=P0;
+N=length(y.time);
+tic
+for i=1:N %%Linear KF
+    K=P_pre*C'*(C*P_pre*C'+Q)^(-1);
+    x=x_pre+K*(y.data(i)-C*x_pre);
+    P=P_pre-K*C*P_pre;
+    x_rec(:,i)=x;
+    x_pre=A*x+B*u.data(i);
+    P_pre=A*P*A'+G*R*G';
+end
+toc
+display('Linear KF done')
+pend_anim(y.Time,x_rec(3,:), x_rec(1,:))
+
+
+%%%%%%%%%%%%  Extended kalman filter
+
+%initialize
+x_pre=x0;
+P_pre=P0;
+tic
+for i=1:N %% EKF
+    K=P_pre*C'*inv(C*P_pre*C'+Q);
+    x=x_pre+K*(y.data(i)-C*x_pre);
+    P=P_pre-K*C*P_pre;
+    x_rec_ekf(:,i)=x;
+    x_pre=system_dynamic(x,u.data(i));
+    [A]=numerical_jacobian(x,u.data(i)); % Jacobian approximation
+    P_pre=A*P*A'+G*R*G';
+end
+toc
+
+pend_anim(y.Time,x_rec_ekf(3,:), x_rec_ekf(1,:))
+
+\end{verbatim}
+
+
+
+\end{enumerate}
+\end{document} 

@@ -1,0 +1,214 @@
+% $RCSfile: handout_in_EECS_560.tex,v $
+% $Revision: 1.1 $
+% $Date: 1999/12/22 13:11:28 $
+
+%\documentclass{article}
+\documentclass[11pt,twoside]{nsf_jwg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Packages used
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{alltt}
+%\usepackage{psboxit}
+
+\newenvironment{definition}{\vspace*{.3in}\noindent{\bf Definition: }}{ }
+\newenvironment{example}{\vspace*{.3in}\noindent{\bf Example: }}{ }
+\newenvironment{examples}{\vspace*{.3in}\noindent{\bf Examples: }}{ }
+\newenvironment{theorem}{\vspace*{.3in}\noindent{\bf Theorem: }}{ }
+\newenvironment{lemma}{\vspace*{.3in}\noindent{\bf Lemma: }}{ }
+\newenvironment{corollary}{\vspace*{.3in}\noindent{\bf Corollary: }}{ }
+\newenvironment{problem}{\vspace*{.3in}\noindent{\bf Problem:}}{ }
+\newenvironment{claim}{\vspace*{.3in}\noindent{\bf Claim:}}{ }
+\newenvironment{solution}{\vspace*{.1in}\noindent{\bf Solution: }}{ }
+\newenvironment{prooff}{\vspace*{.1in}\noindent{\bf Proof: }}{ }
+%\def\QEDD{\fbox{\begin{minipage}{.1in}
+%\hspace{.008in}
+%\vspace{.02in}
+%\end{minipage}} }
+\def\QEDD{$\blacksquare$}
+\def\prooff{\vspace*{.2in}\noindent{\bf Proof: }}
+\def\endprooff{\hspace*{\fill}~\QEDD\par\endtrivlist\unskip}
+
+
+% The set of real numbers and complex numbers
+% $\RR$ and $\CC$ will produce boldfaced R and C, respectively
+\newcommand{\RR}{{\mathbb{R}}}
+\newcommand{\CC}{{\mathbb{C}}}
+\newcommand{\Span}{\mbox{Span}}
+
+% Changing the item numbering of the outermost level of `enumerate'
+% environment from `1', `2', ...  to `(a)', `(b)', ...
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END OF PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THE TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\title{\Large \bf ROB 501 Handout: Grizzle}
+	\author{{\bf Inner Product Spaces: Basic Definitions and Facts}}
+	\date{}
+	\maketitle
+	
+	\Large
+
+% Use the following if `author' and `date' is not required
+%\begin{center}\huge\bf
+%Handout in EECS 560
+%\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{}			
+\label{inner_product_spaces}
+\noindent \textbf{Review Complex Numbers:} Let $z=z_R + j z_I \in {\mathbb C}$, where $z_R, z_I \in {\mathbb R}$. We note that:
+\begin{itemize}
+\item $\bar{z} := z_R - j z_I$ is the complex conjugate of $z$
+\item $z \in {\mathbb  R} \Leftrightarrow z = \bar{z}$
+\item $z \cdot \bar{z} = |z|^2$, and thus, $|z|=\sqrt{z \cdot \bar{z} }$
+\end{itemize}
+
+\begin{definition}				\label{inner_product}
+Let $(X,\CC)$ be a vector space.  A function
+\[
+	<\cdot,\cdot>: X \times X \rightarrow \CC
+\]
+is an \textbf{inner product} if
+\begin{enumerate}
+\setlength{\itemsep}{.3cm}
+\setlength\itemindent{25pt}
+\item $\forall x,y \in X$, $<x,y> \, = \, \overline{<y,x>}$		\label{commutative_law}
+\item $\forall x_1,x_2,y \in X$ and $\forall \alpha_1,\alpha_2 \in {\mathbb C}$, (i.e., linear in the left argument) $$<\alpha_1 x_1 + \alpha_2 x_2, y> \, = \, \alpha_1 <x_1,y> + \alpha_2 <x_2,y>$$
+\item $\forall x\in X$, $<x,x> \, \geqslant \, 0$
+      \mbox{ and } $<x,x>=0 \, \Leftrightarrow \, x=0$. \medskip
+\end{enumerate}
+\end{definition}
+\vspace*{.2cm}
+\noindent \textbf{Remarks:}
+\begin{itemize}
+\setlength{\itemsep}{.3cm}
+\setlength\itemindent{25pt}
+\item In the case of a real vector space $(X,\RR)$, replace (\ref{commutative_law})
+with \\ \\
+(\ref{commutative_law}$'$): $<x,y> \, = \, <y,x>$. It is easy to show that we then have linearity in both the left and right sides.
+
+\item Going back to the complex case, $(X,\CC)$, (a)  and (b) together imply that
+\item $\forall x,y_1,y_2 \in X$ and $\forall \alpha_1,\alpha_2 \in {\mathbb C}$,
+\begin{align*}
+<x, \alpha_1 y_1 + \alpha_2 y_2> =& \overline{<\alpha_1 y_1 + \alpha_2 y_2,x>} \\
+=&\overline{ <\alpha_1 y_1, x>} + \overline{ <\alpha_2 y_2, x>} \\
+=&\overline{ \alpha_1 <y_1, x>} + \overline{ \alpha_2 <y_2, x>} \\
+=&\overline{ \alpha_1} ~\overline{ <y_1, x>} + \overline{ \alpha_2} ~\overline{ <x,y_2>}\\
+=&\overline{ \alpha_1} ~ <x, y_1> + \overline{ \alpha_2} ~ <x, y_2>\\
+\end{align*}
+
+\end{itemize}
+
+
+
+\begin{examples} \mbox{}
+\begin{enumerate}
+\setlength{\itemsep}{.3cm}
+\setlength\itemindent{25pt}
+\item $(\CC^n,\CC)$ \quad $<x,y> = {x}^\top \overline{y}$
+\item $(\RR^n,\RR)$ \quad $<x,y> = x^\top y$
+\item The field is the real numbers $\RR$ and the vector space is the set of $n\times m$ real matrices \\
+$$X=\{ A~|~ A~\text{real} ~n \times m~\text{matrix} \},$$ with inner product\\
+$$ <A,B> = \mathrm{tr} \big( A^\top B \big)$$
+\item $X = C[a,b] = \mbox{space of continuous real-valued functions on $[a,b]$}$
+	\[
+		<f,g> = \int_a^b f(t) g(t) dt
+	\]
+\end{enumerate}
+\end{examples}
+
+
+
+\begin{theorem}[Cauchy-Schwarz Inequality]
+					\label{cauchy_schwarz_inequality} Suppose that ${\cal F} = \RR$ or $\CC$.
+Let $(X,{\cal F},<\cdot,\cdot>)$ be an \textbf{inner product space} (i.e. $(X,{\cal F})$ is a
+vector space and $<\cdot,\cdot>$ is an inner product on $X$).
+Then, for all $x,y \in X$,
+\[
+	\mid <x,y> \mid \ \leqslant \ <x,x>^{1/2} \cdot <y,y>^{1/2}.
+\]
+\end{theorem}
+\noindent
+
+%%% proof %%%
+
+\begin{prooff} If $y=0$, the result is obviously true. Hence, assume $y \not = 0$. For all scalars $\lambda$ we have that
+$$0 \le ~ <x-\lambda y, x-\lambda y> = <x,x> - \lambda < y, x> - \overline{\lambda} < x, y> + |\lambda|^2 <y,y>,$$
+because the inner product of a vector with itself is a non-negative real number. For the particular choice $\lambda = \frac{<x, y>}{<y,y>}$, direct calculation shows
+$$0 \le~ <x,x> - \frac{|<x,y>|^2}{<y,y>}, $$
+which gives
+$$|<x,y>| \le \sqrt{<x,x> <y,y>} = <x,x>^{1/2} \cdot <y,y>^{1/2} .$$
+\end{prooff}
+
+\noindent \textbf{Suggested Exercise:} Redo the proof yourself for the case ${\cal F}=\RR$.
+
+%\newpage
+
+\begin{corollary}
+Let $(X,{\cal F},<\cdot,\cdot>)$ be an inner product space.  Then
+\[
+	\| x \| := <x,x>^{1/2}
+\]
+is a norm on $X$.
+\end{corollary}
+%%% proof %%%
+
+
+
+\begin{prooff} The main thing to establish is the triangle inequality:
+\[
+	\| x + y \| \leqslant \| x \| + \| y \|.
+\]
+This is equivalent to showing:
+\[
+	\| x + y \|^2 \leqslant \| x \|^2 + 2 \| x \| \, \| y \| + \| y \|^2.
+\]
+Brute force computation:
+\begin{align*}
+	\| x + y \|^2 &= <x+y,x+y> \\
+	&= <x,x+y> + <y,x+y>\\
+&= \overline{<x+y,x>} + \overline{<x+y,y>}\\
+&= \overline{<x,x> + <y,x>} + \overline{<x,y> + <y,y>}\\
+	&= <x,x> +  <x,y> +   \overline{<x,y>}+ <y,y> \\
+	&= \| x \|^2 + \| y \|^2 + 2 \mathrm{Re}\{ <x,y>\}
+\end{align*}
+where $\mathrm{Re}\{ <x,y>\}$ denotes the real part of the complex number $<x,y>$. However, for any complex number $\alpha$, $\mathrm{Re}\{\alpha \} \le | \alpha|$, and thus we have
+
+\begin{align*}
+\| x + y \|^2 &= \| x \|^2 + \| y \|^2 + 2 \mathrm{Re}\{ <x,y>\} \\
+	&\leqslant \| x \|^2 + \| y \|^2 +
+		 2 |<x,y>| \\
+	&\leqslant \| x \|^2 + \| y \|^2
+		+ 2 \|x \| \|y\|,
+\end{align*}
+where the last inequality is from the Cauchy-Schwarz Inequality.
+\end{prooff}
+
+\newpage
+
+\begin{definition} \mbox{}
+\begin{enumerate}
+\setlength\itemindent{25pt}
+\item Two vectors $x$ and $y$ are \textbf{orthogonal} if $<x,y>=0$.
+      \textbf{Notation:} $x \bot y$.
+\item A \textbf {set of vectors} $S$ is \textbf{orthogonal} if
+      \[
+	\forall x,y \in S,\quad x \not= y, \ <x,y> = 0~~(\text{i.e.}~~x \bot y).
+      \]
+\item If in addition $\| x \| = 1 \ \forall x \in S$, $S$ is an
+      \textbf{orthonormal set}.
+\end{enumerate}
+\end{definition}
+\vspace{0.5in}
+
+\end{document}

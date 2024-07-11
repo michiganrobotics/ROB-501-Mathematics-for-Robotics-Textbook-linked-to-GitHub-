@@ -1,0 +1,164 @@
+\documentclass{article}
+    \usepackage{mathrsfs}
+    \usepackage{amssymb}
+    \usepackage{indentfirst}
+    \usepackage{geometry}
+    \geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+    \title{Random Vector}
+
+    \newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+
+\begin{document}
+    \pagestyle{plain}
+
+    {\Large \bf
+    \begin{center}
+    Rob 501 Fall 2014\\
+    Lecture 18\\
+    Lecture: Random Vector\\
+    Typeset by:  Xianan Huang\\
+    Proofread by: Josh Mangelson\\
+    Revised by Grizzle 10 Nov 2015
+    \end{center}
+    }
+    \Large
+
+    \begin{center}\textbf{Probability Review}\end{center}
+
+    \section{Random Variables}
+    \setlength{\parskip}{0.5\baselineskip}
+    \noindent
+    I will assume known the definition of a probability space, a set of events, and random variable. My scanned lecture notes are attached at the end of this handout.
+
+
+    Given: $(\Omega,\mathscr{F},P)$ a probability space
+
+    \setlength\parindent{3em}
+    $X: \Omega \rightarrow R$ random variable
+
+    \section{Random Vectors}
+        \noindent
+        \textbf{Def.} A random vector is a function $X: \Omega \rightarrow \real^p$ where each component of $X=\left( \begin{array}{ccc}
+        X_1\\X_2\\\vdots\\X_p\end{array} \right)$ is a random variable, that is, $X_i: \Omega \rightarrow \real$ for $1 \le i \le p.$
+
+        \noindent
+        \textbf{Assumption:} $\forall x \in \real^p $, the set $\{\omega \in \Omega \mid X(\omega) \le x\} \in \mathscr{F}$ where the inequality is understood pointwise, that is, $$\{\omega \in \Omega \mid X(\omega) \le x \} = \bigcap\limits^p_{i=1} \{\omega \in \Omega \mid X_i(\omega) \le x_i\}$$
+
+        \noindent
+        \textbf{Distributions and Densities} For a random vector $X: \Omega \rightarrow \real^p$, the cumulative probability distribution function is $$F_X(x)=P(X \le x) = P(\{\omega \in \Omega \mid X(\omega) \le x\})$$
+
+        \noindent
+        The probability density function of a continuous random vector $X$ is
+                $$f_X(x)= \frac{\partial^p F_X(x)}{\partial x_1 \partial x_2 ... \partial x_p}$$
+         which is equivalent to
+         $$F_X(x_1,x_2,...x_p)=\int_{-\infty}^{x_p} ... \int_{-\infty}^{x_2} \int_{-\infty}^{x_1}f_X(\bar{x}_1,\bar{x}_2...\bar{x}_p) d \bar{x}_1 d \bar{x}_2 ... d \bar{x}_p$$
+
+%\newpage
+        \noindent
+        Suppose the vector $X$ is partitioned into two components $X_1$ and $X_2$, so that, by abuse notation, we have $$ X = \left( \begin{array}{cc} X_1 \\
+                                               X_2 \end{array} \right)
+                             \begin{array}{cc} X_1 : \Omega \rightarrow R^n \\
+                                               X_2 : \Omega \rightarrow R^m \end{array}$$
+
+        $$ X: \Omega \rightarrow \real^p \mbox{ with } p = n+m $$
+
+        \noindent
+        \textbf{Def. }$X_1$ and $X_2$ are independent if the distribution function factors
+        $$F_X(x)=F_{X_1,X_2}(x_1,x_2)=F_{X_1}(x_1)F_{X_2}(x_2).$$
+        The same is true for densities.\\
+
+         \noindent
+        \section{Conditioning}
+
+        \noindent
+        \textbf{Recall} For two events $A,B \in \mathscr{F}, P(B) > 0$
+        $$P(A \mid B):=\frac{P(A\bigcap B)}{P(B)}$$
+        \noindent
+        \textbf{Note}
+        $$B\subset A \mbox{, } P(A \mid B)=\frac{P(A\bigcap B)}{P(B)}=\frac{P(B)}{P(B)}=1$$
+        $$A\subset B \mbox{, } P(A \mid B)=\frac{P(A\bigcap B)}{P(B)}=\frac{P(A)}{P(B)}\ge P(A)$$
+
+\newpage
+        \noindent
+        \\
+          \textbf{Def.} The conditional distribution of $X_1$ given $X_2 = x_2$ is
+        $$F_{X_1 \mid X_2}(x_1 \mid x_2)=\lim\limits_{\varepsilon \rightarrow 0}P(X_1 \le x_1 \mid x_2-\varepsilon \le X_2 \le x_2+\varepsilon)=\lim\limits_{\varepsilon \rightarrow 0}\frac{P(A\bigcap B_\varepsilon)}{P(B_\varepsilon)}$$
+        where
+        $A=\{\omega \in \Omega~|~ X_1(\omega) \le x_1\}$ and $B_\epsilon=\{ \omega \in \Omega~|~ x_2-\varepsilon \le X_2(\omega) \le x_2+\varepsilon \}$
+
+        \noindent
+        \\
+        In general, this is unpleasant to compute, but for Gaussian random vectors, the handout ``\textit{Useful Facts About Gaussian Random Variables and Vectors}'' shows that it is quite easy.\\ \\
+%\newpage
+       \textbf{Def.} The conditional density is $f_{X_1\mid X_2}(x_1 \mid x_2)=\frac{f_{X_1X_2}(x_1,x_2)}{f_{X_2}(x_2)}$.
+        Sometimes we simply write $f(x_1 \mid x_2)$\\ \\
+
+        \noindent         \textbf{Very important:}
+        $X_1$ given $X_2=x_2$ is a random vector. We have produced its distribution and density!
+
+
+       %\newpage
+%
+%       \section{Conditional Mean or Conditional Expectation}
+%
+%       \noindent \textbf{Def.} The conditional mean or expectation is
+%       $$\mu(x_2):= E\{X_1~|~ X_2=x_2\} := \int_{\real^n} x_1 f( x_1~|x_2)~ dx_1$$
+%       We note that it is a function of $x_2$. \\ \\
+%
+%       \noindent \textbf{Fact:} $\mu(x_2):= E\{X_1~|~ X_2=x_2\}$
+%
+%
+%       et $g:\real^m \to \real^n$ be ''any'' function.
+%
+
+       \newpage
+
+
+        \section{Moments} Suppose $g: \real^p \rightarrow R$
+        $$E\{g(X)\}=\int_{\real^p}g(x)f_X(x)dx=\int_{-\infty}^{\infty}...\int_{-\infty}^{\infty}g(x_1...x_p)f_X(x_1...x_p)dx_1...dx_p$$
+
+        \noindent
+        \textbf{Mean or Expected Value}$$\mu=E\{X\}=E\{\left( \begin{array}{ccc}x_1\\\vdots\\x_p\end{array} \right)\}=\left( \begin{array}{ccc}\mu_1\\\vdots\\\mu_p \end{array} \right)$$
+
+        \noindent
+        \textbf{Covariance Matrices}$$cov(X)=cov(X,X)=E\{(X-\mu)(X-\mu)^T\}$$
+        where
+        $$(X-\mu) \mbox{ is }p\times 1 \mbox{, } (X-\mu)^T \mbox{ is }1\times p\mbox{, } (X-\mu)(X-\mu)^T \mbox{ is }p\times p$$
+
+        \noindent
+        \textbf{Exercise} cov(X) is positive semidefinite \\ \\
+
+
+        \noindent
+        If we have X decomposed in blocks $X = \left( \begin{array}{cc} X_1 \\
+                                               X_2 \end{array} \right)
+                             \begin{array}{cc} X_1 : \Omega \rightarrow R^n \\
+                                               X_2 : \Omega \rightarrow R^m \end{array}$
+                                               we may compute $$cov(X_1,X_2)=E\{(X_1-\mu_1)(X_2-\mu_2)^T\}$$ where $$(X_1-\mu_1) \mbox{ is }m\times 1 \mbox{, } (X_2-\mu_2)^T \mbox{ is }1\times n\mbox{, } (X_1-\mu_1)(X_2-\mu_2)^T \mbox{ is }m\times n$$
+
+        \noindent
+        \\
+        \textbf{Def. }$X_1$ and $X_2$ are uncorrelated if $cov(X_1,X_2)=0$ \\ \\
+
+        \noindent
+        \textbf{Fact:} In general, independence $\Rightarrow$ uncorrelated, but the converse is false.
+
+ \newpage
+
+
+       \section{Derivation of the conditional density formula from the definition of the conditional distribution:}
+
+        $$P(A\bigcap B_{\varepsilon})=\int^{x_1}_{-\infty}\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_1X_2}(\bar{x}_1,\bar{x}_2)d\bar{x}_2d\bar{x}_1 $$
+        $$P(B_{\varepsilon})=\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_2}(\bar{x}_2)d\bar{x}_2 $$
+        $$F_{X_1 \mid X_2}(x_1\mid x_2) = \frac{P(A\bigcap B_{\varepsilon})}{P(B_{\varepsilon})}
+        =\frac{\int^{x_1}_{-\infty}\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_1X_2}(\bar{x}_1,\bar{x}_2)d\bar{x}_2d\bar{x}_1}
+        {\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_2}(\bar{x}_2)d\bar{x}_2}\mbox{, } \varepsilon \mbox{ small}$$
+
+        \noindent
+        Density: differentiate w.r.t. $x_1$
+        $$f_{X_1 \mid X_2}(x_1\mid x_2)
+        =\frac{\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_1X_2}(x_1,\bar{x}_2)d\bar{x}_2}
+        {\int^{x_2+\varepsilon}_{x_2-\varepsilon}f_{X_2}(\bar{x}_2)d\bar{x}_2}
+        =\frac{f_{X_1X_2}(x_1,x_2)\cdot 2\varepsilon}{f_{X_2}(x_2)\cdot 2\varepsilon}
+        =\frac{f_{X_1X_2}(x_1,x_2)}{f_{X_2}(x_2)}$$
+\end{document}

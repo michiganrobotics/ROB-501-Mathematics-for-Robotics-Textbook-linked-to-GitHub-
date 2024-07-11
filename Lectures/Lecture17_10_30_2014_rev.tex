@@ -1,0 +1,151 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 17\\
+Typeset by:  Joshua Mangelson\\
+Proofread by: Katie Skinner\\
+Revised by Ni on Nov. 20, 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Singular Value Decomposition}\end{center}
+
+We will use the SVD (Singular Value Decomposition) to understand "numerical" rank of a matrix, "numerical linear independence", etc.
+
+\textbf{Def.}~ Rectangular diagonal matrix: $\Sigma$ is an $m \times n$ matrix.
+    \begin{enumerate}[a)]
+        \item  $m > n$  \;\;\;  $\Sigma = \left[ \begin{array}{c} S \\ 0 \end{array} \right]$,  $S$ is an $n \times n$ diagonal matrix
+        \item $m < n$ \;\;\; $\Sigma = \left[ \begin{array}{cc} S & 0 \end{array} \right]$,  $S$ is an $m \times m$ diagonal matrix
+    \end{enumerate}
+    \noindent
+    Diagonal of $\Sigma$ is equal to diagonal of $ S $.\\
+    Another way to say Rectangular Diagonal Matrix is $\left[ \Sigma \right]_{ij} = 0~~\text{for}~~ i \ne j$.
+
+\noindent \textbf{SVD Theorem:}~ Any $m \times n$ $\real$ matrix A can be factorized as $A = Q_1 \Sigma Q_2^\top$, where $Q_1$ is an $m \times m$ orthogonal matrix, $Q_2$ is an $n \times n$ orthogonal matrix, $\Sigma$ is an $m \times n$ rectangular diagonal matrix, and diagonal of $\Sigma$ $\operatorname{diag}(\Sigma) = \left[ \sigma_1, \sigma_2, \dotsb , \sigma_k \right]$, which satisfies $ \sigma_1 \ge \sigma_2 \ge \dotsb  \ge \sigma_k \ge 0$, where $k=\operatorname{min}(n,m)$.\\
+    Moreover, the columns of $Q_1$ are eigenvectors of $AA^\top$, the columns of $Q_2$ are eigenvectors of $A^\top A$, and $(\sigma_1^2, \sigma_2^2, \dotsb , \sigma_k)^2$ are eigenvalues of $A^\top A$ and $AA^\top$.
+
+\newpage
+
+\noindent \textbf{Remark:}~ The entries of $\operatorname{diag}(\Sigma)$ are called \underline{singular values}.
+
+\noindent Generalizes decomposition of symmetric matrix.
+    $$P = O \Lambda O^\top$$
+
+\noindent \textbf{Projection process embedded in SVD:}~ Interpret SVD in the case of over-determined system of equations.
+    $$Y = Ax,~~Y \in \real^m,~~X \in \real^n,~~A \in\real^{m \times n}$$
+    where $\operatorname{rank}(A)=n$ $(m>n)$, $A = Q_1 \Sigma Q_2^\top$, $\Sigma = \left[ \begin{array}{c} S \\ 0 \end{array} \right]$, $S$ is an $n \times n$ diagonal matrix.
+    \begin{align*}
+        A^\top A &= Q_2 \Sigma^\top Q_1^\top Q_1 \Sigma Q_2^\top\\
+        &= Q_2 \left[ \begin{array}{cc} S & 0 \end{array} \right] Q_1^\top Q_1 \left[ \begin{array}{c} S\\0 \end{array} \right] Q_2^\top\\
+        &= Q_2 \left[ \begin{array}{cc} S & 0 \end{array} \right] I \left[ \begin{array}{c} S\\0 \end{array} \right] Q_2^\top\\
+        &=Q_2 S^2 Q_2^\top\\
+        A^\top Y &= Q_2 \left[ \begin{array}{cc} S & 0 \end{array} \right] Q_1^\top Y\\
+        \tilde{Y} &= Q_1^\top Y = \left[ \begin{array}{c} \tilde{Y_1}\\\tilde{Y_2} \end{array} \right], ~~ \tilde{Y_1} \in \real^n, ~~ \tilde{Y_2} \in \real^{m\times n}\\
+        A^\top Y &= Q_2 \left[ \begin{array}{cc} S & 0 \end{array} \right] \tilde{Y}\\
+        &= Q_2 \left[ \begin{array}{cc} S & 0 \end{array} \right] \left[ \begin{array}{c} \tilde{Y_1}\\\tilde{Y_2} \end{array} \right]\\
+        &= Q_2 S \tilde{Y_1}
+    \end{align*}
+
+\noindent Projection! Notice how $\tilde{Y_2}$ gets multiplied by $0$, in the last line above.  Here we are throwing away the orthogonal parts.
+
+\noindent We decomposed Y into part in column span of $A$, $\tilde{Y_1}$, and a part not in the span $\tilde{Y_2}$.
+\begin{align*}
+    &\ \ \ \ \ Ax=Y\\
+    &\Rightarrow A^\top A \hat{x} = A^\top Y\\
+    &\Rightarrow Q_2 S^2 Q_2^\top \hat{x} = Q_2 S \tilde{Y_1}\\
+    &\Rightarrow S^2 Q_2^\top \hat{x} = S \tilde{Y_1}\ (\operatorname{rank}(A) = \#\ \text{columns} \Rightarrow S ~ \text{invertible.})\\
+    &\Rightarrow S Q_2^\top \hat{x} = \tilde{Y_1}
+\end{align*}
+$\therefore \hat{x} = Q_2 S^{-1} \tilde{Y_1}$
+
+\noindent \textbf{Remarks:}
+    \begin{itemize}
+        \setlength{\itemsep}{.4cm}
+        \item $Q_2$ only rotates, no scaling.
+        \item Only $S^{-1}$ scales.
+        \item If $S$ has small elements, elements of $S^{-1}$ are big. Therefore, $\hat{x}$ is too sensitive to the noise perturbation in measurements.
+    \end{itemize}
+
+\noindent \textbf{Hermitian of X:}~ Consider $x\in \mathbb{C}^n$. Then we define the vector "$x$ Hermitian" by $x^H:={\bar{x}}^\top$. That is, $x^H$ is the complex conjugate transpose of $x$. Similarly, for a matrix $A\in\mathbb{C}^{m\times n}$, we define $A^H\in\mathbb{C}^{n\times m}$ by ${\bar{A}}^\top$. We say that a square matrix $A\in\mathbb{C}^{n\times n}$ is a \underline{Hermitian matrix} if $A=A^H$.
+
+\newpage
+
+\noindent \textbf{Another common way to write the SVD:}
+
+   $$A = \left\{
+     \begin{array}{lr}
+       U \left[ \begin{array}{c} \Sigma \\ 0 \end{array} \right] V^H, & m > n\\
+       U \left[ \begin{array}{cc} \Sigma & 0 \end{array} \right] V^H, & m < n
+     \end{array}
+   \right.$$
+
+\noindent \textbf{Unitary Matrix:}~ A matrix $U\in\mathbb{C}^{n\times n}$ is \underline{unitary} if $U^HU=UU^H=I_n$.
+
+\noindent \textbf{Numerical Rank:}~ numerical rank$(A)=\#$ of nonzero singular values larger than a threshold.
+
+\noindent \textbf{Fact:}~ The \underline{numerical rank} of $A$ is the number of singular values that are larger than a given threshold. Often the threshold is chosen as a percentage of the largest singular value.
+
+\end{document}
+

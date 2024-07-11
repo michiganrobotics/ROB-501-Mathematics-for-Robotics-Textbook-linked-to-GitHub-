@@ -1,0 +1,632 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{ulem}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{mathtools}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\argmin}{\arg\~\min}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\markboth{\bf Place name or initials here:\underline{\hspace*{1.5in}}}{\bf Place name or initials here:\underline{\hspace*{1.5in}}}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-I \\
+\textbf{[DO NOT OPEN UNTIL TOLD TO DO SO]}\\
+\large
+Tuesday, October 31, 2017, 6:10 PM--8:00 PM \\
+Rooms (First letter of last name): (A-L) in EECS 1500; (M-We) in EECS 1311; and (Wu-Z) in EECS 1008.
+\end{center}
+
+\vspace*{0.3in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{1.in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\vspace*{2cm}
+
+\fbox{\bf FILL IN YOUR NAME NOW. COPY THE HONOR CODE NOW. DO NOT COUNT PAGES.} \\
+\fbox{\bf DO NOT OPEN THE EXAM BOOKLET UNTIL TOLD TO DO SO.}
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 2  SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, HEADSETS, nor DIGITAL DEVICES of any KIND.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\noindent The maximum possible score is 80. To maximize your own score on this exam, read the questions carefully and write legibly.  For those problems that allow partial credit, show your work clearly on this booklet.
+
+\newpage
+
+\vspace*{4cm}
+
+\begin{center}
+\bf
+
+\Large
+Enter Multiple Choice Answers Here
+\end{center}
+
+\vspace*{4cm}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+
+\begin{flushright}
+{\bf \large WHEN TOLD TO OPEN EXAM, Copy Exam Number from Front Page:}\bline{1.0in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE
+ROB 501 Exam-I \\
+\large
+Tuesday, October 31, 2017, 6:10 PM--8:00 PM
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\vspace*{1cm}
+
+\fbox{\bf \large FILL IN YOUR NAME ABOVE \& SIGN BELOW}
+
+\vspace*{2cm}
+
+
+\end{center}
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{1.in}} \\
+{\bf SIGNATURE \\
+(My signature reaffirms the honor code from page one. )}
+\end{flushright}
+
+\vspace*{1 in}
+
+\begin{center}
+\LARGE
+\begin{tabular}{|p{1.5in}|p{2.6in}|p{1.5in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   30\\
+\hline
+Problem 6 &  &   20\\
+\hline
+Problem 7 &  &   15\\
+\hline
+Problem 8 &  &   15\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+Problem 9 &  &   A$^+$ Points (5)\\
+\hline
+& & \\
+\hline
+\textbf{Answers}  &   &   \\
+ Prob. 9 & \makebox[11cm][l]{$M^{-1}=\begin{bmatrix}\qquad & \qquad& \qquad \\ \qquad & \qquad & \qquad \\ \qquad & \qquad& \qquad \end{bmatrix}$} &  \\
+ & & \\
+ \hline
+ \textbf{Method (few words)}  &   &   \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\vspace*{3cm}
+%\textbf{You can use as scratch paper.}\\
+%
+%\end{center}
+%
+%\newpage
+
+\newpage
+
+\subsection*{Problems 1 - 5 {\rm (30 points: 5 $\times$ 6)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct (i.e., true) and one answer that is incorrect (i.e., false). \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5cm}
+
+
+%JWG 22 Oct
+\item[{\bf 1.}] (Questions on logic) Recall that $\land$ is `and',  $\lor$ is `or', and $\neg$ is `not'.  Recall also that the symbol  $\Leftrightarrow$ and the written text, ``if, and only if'', ``logically equivalent to'', and ``have the same truth table'', \underline{all mean the same thing}.  For example, in HW, you verified that $\neg(p \land q)$ is ``logically equivalent to'' $ (\neg p) \lor (\neg q)$ by proving ``they have the same truth table''.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $p \implies q$ if, and only if, $ \neg q \implies  \neg p$.
+\item You seek to show $p \implies q$ by employing the method of \textit{Proof by Contradiction}. Hence, you should start the proof by assuming $1+1=3$, and then hope to contradict this by showing that $1+1=4$.
+\item $\neg (p_1 \lor p_2) \Leftrightarrow (\neg p_1) \land (\neg p_2)$.
+\item The truth table given below is correct for $p$ implies $q$:
+\end{enumerate}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+p & q & $p \implies q$ \\  \hline
+1 & 1 & 1 \\
+1 & 0 & 0  \\
+0 & 1 & 1  \\
+0 & 0 & 0  \\ \hline
+\end{tabular}
+\end{center}
+
+%JWG 22 Oct
+\item[{\bf 2.}]  (Select the correct negations.) Note that two of the statements are the SAME\footnote{Hence, you only have to negate two statements. To be clear, it could be the case that both of the \texttt{proposed negations} for a given statement are correct or neither one is correct. } so that the problem is quicker to work. \textbf{Recall:} ${\mathbb N}$ is the set of counting numbers (they start at 1) and ${\mathbb Z}$  is the integers.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item Let $A$ and $B$ be subsets of some vector space $({\cal X}, {\cal F})$ . \texttt{Statement:}   $\forall~x \in A$, $\exists~y \in B$   such that $x+y=0$.  \texttt{Negation:} $\exists ~ x \in A$,  such that $\forall ~y \in B$,  $x+y \neq0$.
+
+\item Let $A$ and $B$ be subsets of some vector space $({\cal X}, {\cal F})$ . \texttt{Statement:}   $\forall~x\in A$, $\exists~y \in B$   such that $x+y=0$.  \texttt{Negation:} For some $x\in A$,  there does not exist $y\in B$,  such that $x+y=0$.
+
+
+ \item \texttt{Statement:} For every  $x\in \real$ and $\epsilon>0$, there is some pair of integers $n$ and $m$ such that $m\neq0$ and $|\frac{n}{m} -x| < \epsilon$.  \texttt{Negation:} $\forall x \in \real$ and $\forall \epsilon>0$, $\exists$ $n \in {\mathbb Z}$ and $0\neq m \in {\mathbb Z}$ such that $|\frac{n}{m} -x| \ge \epsilon$.
+
+
+\item \texttt{Statement:} For every  $x\in \real$ and $\epsilon>0$, there is some pair of integers $n$ and $m$ such that $m\neq0$ and $|\frac{n}{m} -x| < \epsilon$.  \texttt{Negation:} $\forall \epsilon>0$,  $\exists x \in \real$  such that $\exists$ $n \in {\mathbb Z}$ and $0\neq m \in {\mathbb Z}$ such that $|\frac{n}{m} -x| \ge \epsilon$.
+
+\end{enumerate}
+
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+\textbf{Anything written here will not be graded.}
+\vspace*{3cm}
+\textbf{You can use as scratch paper.}\\
+
+\end{center}
+
+
+\newpage
+
+\item[{\bf 3.}]  Let $({\cal X}, {\cal F})$ be a finite dimensional vector space, let $S \subset {\cal X}$ be a subspace, and let $\{v^1, v^2, v^3, v^4\}$ be a set of vectors in $\cal X$, with none of them equal to the zero vector, that is, $ v^i \neq 0,~ \forall~ i=\{1,2,3,4\}$. Suppose that $S=\spanof{v^1,v^2,v^3}$ and $S^\perp=\spanof{v^4}$, where $S^\perp$ is the orthogonal complement of $S$. Which of the following statements are true?
+\begin{enumerate}
+	\setlength{\itemsep}{.15in}
+	\renewcommand{\labelenumi}{(\alph{enumi})}
+	\setlength{\itemsep}{.1in}
+	\item $\{v^1, v^2, v^3, v^4\}$ must form a basis for $\cal X$
+	\item $S \cap S^\perp = \{ \emptyset \} ~~~$(empty set, also sometimes called the null set)
+	\item $\cal X=$ span$\{v^1,v^2,v^3,v^4\}$
+	\item The maximum possible dimension of $\cal X$ is $4$
+\end{enumerate}
+
+%AV 28-Oct
+\item[{\bf 4.}] Select the true statements.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item The eigenvalues of matrix, $M = \begin{bmatrix}3 & 1 & 1 \\1 &2 &4 \\ 1 &4 &10  \end{bmatrix} $ are all strictly positive real numbers.
+\item The matrix, $M = \begin{bmatrix}2 & 0 & 0 & 1 \\0  &2 &0 & 1 \\ 0  & 0  &3 & 0\\ 1 & 1 & 0 &4 \end{bmatrix} $ is positive definite.
+\item Let $N = \begin{bmatrix} -1  & 2  \end{bmatrix}$, then  $N^\top N$ is positive semi-definite.
+\item Let $N = \begin{bmatrix} -1  & 2  \end{bmatrix}$, then $N^\top N $ is positive definite.
+\end{enumerate}
+
+
+
+\newpage
+%JWG 22 Oct
+\item[{\bf 5.}] (Fields, vector spaces, and normed spaces) Select all of the statements that are correct.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+\item Consider the set $F=\{a+b\sqrt{2}\;|\, a,\, b\,\in \mathbb{Q}\}$, where $\mathbb{Q}$ is the set of rational numbers. Then $F$ satisfies: for each $\alpha_1 \in F$ and $\alpha_2 \in F$, the order of multiplication does not matter, that is,
+     $$\alpha_1 \alpha_2 = \alpha_2 \alpha_1. $$
+ [Yes, this problem is having you check ONE of the Axioms of a Field.]
+
+\item $(\real^{2},\, \cp)$ is a vector space using the usual rules of adding and multiplying complex and real numbers.
+
+\item Let ${\cal (X,F)}$ be a finite-dimensional vector space, let $Id:{\cal X} \to {\cal X}$ by $\forall~x\in {\cal X}$, $Id(x)=x$, be the identity linear operator, and let $ \{u \} :=\{ u^1, \ldots, u^n \} $ and $\{v \}:=\{v^1, \ldots, v^n
+\}$ be arbitrary bases for $ {\cal X}$.  \textit{If the $ \{u \}$-basis is used on the domain of $Id$ and the $ \{v \}$-basis on its range (also called co-domain), the matrix representation of $Id:{\cal X} \to {\cal X}$ is the identity matrix, $I$.}
+
+  %%%  when the $ \{u \}$-basis is used on the domain of $Id$ and the $ \{v \}$-basis.
+
+%    and let $ \{u \} :=\{ u^1, \ldots, u^n \} $ and $\{v \}:=\{v^1, \ldots, v^n
+%\}$ be bases for $\cal X$. The the matrix representation of the identity operator,
+
+\item All norms on $(\real^2, \real)$ are \underline{strict}\footnote{That is, $ ||x+y|| = ||x|| + ||y||$
+ if, and only if, there exists a non-negative constant $\alpha$  such that either $y = \alpha x$ or  $x = \alpha y$.}.
+\end{enumerate}
+%\item $(\cp^{2},\, \cp)$ is a vector space with dim $=\; 4$, while $(\cp^{2},\, \real)$ is a vector space with dim $=\; 2$.
+
+
+
+%\item[{\bf 6.}] (Facts on matrices) Select the correct statements.
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item In the vector space $(\real^{n},\,\real)$, the function $\rho(A) = \ds \max_{1\le i\le n}|\lambda_{i}(A)|$ is a norm, where $\lambda_{i}(A)$ means the $i$-th eigenvalue of $A$.
+%\item If matrix $A$ has repeated eigenvalues, then $A$ is always not diagonalizable.
+%\item If $A$ is a symmetric matrix, $A$ is always diagonalizable.
+%\item Suppose $Q$ is a real symmetric, positive definite matrix. In the vector space $(\real^{n},\,\real)$, $<x,\, y>=x^{\top} Q y$ satisfies all the conditions of inner product. Thus, it is an inner product space.
+%\end{enumerate}
+\end{enumerate}
+
+\newpage
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+\textbf{Anything written here will not be graded.}
+\vspace*{3cm}
+\textbf{You can use as scratch paper.}\\
+
+\end{center}
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we proved that the Gram Schmidt Process produces orthogonal vectors. So if you need this fact, simply state it and use it.}
+
+%  \newpage
+%\vspace*{8cm}
+%
+%\begin{center}
+%{\bf \LARGE Page Intentionally Left Blank}
+%
+%\end{center}
+
+
+
+  \newpage
+
+%Updated 22 October by JWG
+\noindent {\bf 6. (20 points)}  (Place your answers in the \textbf{boxes} and show your work below.) Consider a finite-dimensional real inner product space  $({\cal X}, \real, <\bullet, \bullet>)$ and suppose that $M=\spanof{y^1,y^2}$ is two-dimensional. Moreover, you are given that $$<y^1,y^1>=2,~~ <y^1,y^2>=-1,~~<y^2,y^2>=3$$
+and that $x\in {\cal X}$ satisfies
+$$<x,y^1>=1,~~ <x,y^2>=2.$$
+
+    \begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+\item  (12 points) Solve $\hat{x} = \displaystyle \arg  \min_{m\in M} ||x-m||$ and place the answer in the box. %Yes, $\hat{x} \in M$.
+
+\fbox{\rule[-0.5cm]{0cm}{1cm} (a)  $\hat{x} =$ \hskip 6cm ~~}\\
+
+\item  (8 points) For two other vectors $\tilde{y}^1, \tilde{y}^2 \in {\cal X}$, you compute that
+$$<\tilde{y}^1,\tilde{y}^1>=1,~~ <\tilde{y}^1,\tilde{y}^2>=2,~~<\tilde{y}^2,\tilde{y}^2>=3.$$
+A friend of yours sees these numbers and immediately says that you must have made a mistake. \textbf{Explain why your friend is correct!} \underline{Remark:} Many solutions are possible. Save it for last. [In case the printing is not super clear, those symbols over the $y$'s are tildes.]
+
+\end{enumerate}
+
+
+
+\vspace*{.3in}
+
+ \vspace*{.3in}
+ \noindent \textbf{Show your calculations and reasoning below. No reasoning $\implies$ no points.}
+\newpage
+\textit{Please show your work for question 6.}
+\newpage
+
+%\textit{Additional page for question 6, though you probably will not need it.}
+%\newpage
+
+
+%\noindent {\bf 8. (9 points)} (\textbf{Need new problem here:})) %Assume the standard inner product on $(\real^7,\real)$ that is, $<x,y>=x^\top y$. Define two vectors $y^1, y^2 \in \real^7$ by
+%%  $$ y^1 = \left[ \begin{array}{r} 1 & 2 & -1 & 2 & 0 & -2 & 1\end{array} \right],~~~y^2 = \left[ \begin{array}{r} -2 &1 & 0 & 1 & 1 & 0 & 0 \end{array}  \right],~~~\text{and}~~~y^3 = \left[ \begin{array}{r} 0 &5 & -2 & 1 & 1 & 0 & 0 \end{array}  \right]$$. Use your knowledge of completing bases and the Gram Schmidt Process to build an orthogonal basis for $\spanof{y^1,y^2, y^3}$.
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\item \textbf{Prove (XX points):} ?????
+%\item \textbf{Prove (XX points):} ?????\\
+%\end{enumerate}
+
+\noindent {\bf 7. (15 points)} Consider the inner product space $(\real^{2\times 2},\,\real,<\bullet, \bullet>)$ with inner product defined as $<A, B> \coloneqq $ tr$(A^\top B)$.
+Given $S = $ span$\left\{\begin{bmatrix}1 & 1 \\ 0 &1 \end{bmatrix},\,\begin{bmatrix}1 & -1 \\0 & 0 \end{bmatrix},\,\begin{bmatrix}0 & 1 \\1 & 2 \end{bmatrix} \right\}$,
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item (7 points) \textbf{Find} an orthogonal basis, $\{v^1, v^2, v^3\}$, for $S$. [Do not normalize to length one.]
+
+
+\item  (8 points) \textbf{Find} a basis, $\{v^\perp\}$, for $S^\perp$, the orthogonal complement of $S$. Very briefly state your method.
+    \vspace*{.3in}
+
+\fbox{\rule[-0.5cm]{0cm}{1cm} (a) $v^1=\begin{bmatrix}\qquad & \qquad\\\qquad & \qquad\\\qquad & \qquad \end{bmatrix}$\hskip 10mm ~~$v^2=\begin{bmatrix}\qquad & \qquad\\\qquad & \qquad\\\qquad & \qquad \end{bmatrix}$\hskip 10mm ~~$v^3=\begin{bmatrix}\qquad & \qquad\\\qquad & \qquad\\\qquad & \qquad \end{bmatrix}$\hskip 10mm ~~}\\
+
+\vspace*{.3in}
+\fbox{\rule[-0.5cm]{0cm}{1cm} (b) $v^\perp=\begin{bmatrix}\qquad & \qquad\\\qquad & \qquad\\\qquad & \qquad \end{bmatrix}$~~\textbf{Method:} \hskip 7.6cm  ~~}\\
+ \vspace*{.3in}
+
+
+ \noindent \textbf{Show your calculations below}
+\end{enumerate}
+
+\newpage
+
+\newpage
+\textit{Please show your work for question 7.}
+\newpage
+
+
+
+%Updated 22 October by JWG
+\noindent {\bf 8. (15 points)} (Proof Problem)  \textbf{Prove} that $\sqrt{13}$ is irrational. If you need any intermediate facts in your proof, beyond what is provided in the problem, then you must state them.  If we have not specifically used your stated facts in HW or lecture, them you must prove those too. \\
+
+You are \underline{given} the following facts. You \underline{do not need to prove them}. You \underline{are not} required to use them.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item 13 is a prime number.
+\item Because 13 is a prime number, it not a composite number and thus there \underline{do not} exist natural numbers $n_1\ge 2$ and $n_2\ge 2$ such that $13 = n_1 \times n_2$, where $\times$ is the usual multiplications of two integers.
+\end{enumerate}
+
+
+\textbf{Show your work below.} You can use as true anything we have established in ROB 501 lecture or HW. I \underline{cannot} answer any question of the form: \textbf{``do I have to prove this?"} or \textbf{``can I assume this?''} or \textbf{``have I shown enough?''}.\\
+
+
+
+\newpage
+\textit{Please show your work for question 8.}
+\newpage
+
+%\textit{Additional page for question 9, though you probably will not need it.}
+%\newpage
+%\vspace*{2cm}
+
+\newpage
+
+\noindent {\bf 9. (5 points)}  \textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 3 of the exam booklet to receive credit.}\\
+
+\noindent \textbf{Use methods from ROB 501:} to compute the inverse of the matrix
+$$M= \left[ \begin{array}{cccc} 3 & 1 & 1 & 1\\ 1 & 3& 1 & 1\\ 1 & 1 & 2 & 1 \\ 1& 1& 1& 2 \end{array} \right].$$
+
+If you use brute force (i.e., do nothing clever), you will receive zero credit. Asking me if your method is clever is not considered clever. \textbf{Show your work below:}
+
+%\textbf{A$^+$ Problem: } Points earned here will go toward deciding who goes from an $A$ to an $A^+$ at the end of the term. \textbf{You must place your answer on page 2 of the exam booklet.} If your answer does not fit in the provided space, then it is probably not correct.\\
+%
+%\noindent \textbf{Given:} Let $n \ge2$ and $ 1 \le k < n$. Consider $(\real^{n},\,\real)$ with the standard inner product defined by $<x,\,y>=x^\top y$. Let  $\{v^{1},\, v^{2},\,\ldots,\, v^{k}\}$  be a linearly independent set of vectors and define $M=\spanof{v^{1},\, v^{2},\,\ldots,\, v^{k}}$.\\
+%
+%
+%\noindent \textbf{Using} the natural basis $e^1, e^2, \cdots, e^n$ on $\real^n$, \textbf{find} the matrix representation of the orthogonal projection operator $P:\real^n \to \real^n$, which you recall is defined by $\hat{x}=P(x) \Leftrightarrow \hat{x}\in M$ and $x-\hat{x} \perp M$.\\
+%
+%\noindent \textbf{Hint:} Define the $n \times k$ matrix  $V=\begin{bmatrix}v^{1} & v^{2} & \ldots &v^{k}\end{bmatrix}$ and consider the normal equations. \\
+%
+%
+%Yes, the natural basis is $E=\left\{\begin{bmatrix}1\\0\\ \vdots \\ 0\end{bmatrix},\,\begin{bmatrix}0\\1\\ \vdots \\ 0\end{bmatrix},\,\ldots,\,\begin{bmatrix}0\\0\\ \vdots \\ 1\end{bmatrix}\right\}$.
+
+
+
+%then the matrix representation of the orthogonal projector $P$ is $V(V^\top V)^{-1}V^{\top}$, where
+
+
+%\noindent {\bf 10. (5 points)} \textbf{A$^+$ Problem } Questions on norms and inner products. Select the correct statements.
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item Suppose that $(\mathcal{X},\,\real,\, <\cdot\,,\,\cdot>)$ is an an inner product space, and we define the function $|| \cdot ||: \mathcal{X} \to \real$ by  $||x||=\sqrt{<x,\,x>}$. Then  $(\mathcal{X},\,\real,\, \|\cdot\|)$ is a normed space.
+%
+%
+%    \item Suppose that $(\mathcal{Z},\,\real,\, \|\cdot\|)$ is a finite dimensional normed space and $M\subset \mathcal{Z}$ is a subspace. Then $\forall\,z\in\mathcal{Z}$, there always exists a unique $\hat{m}\in M$ such that $\|z-\hat{m}\|=\ds \inf_{m\in M}\|z-m\|$.
+%
+%
+%\item Suppose that $n\ge1$ is an integer and consider the vector spaces $(\real^{n},\,\real)$ and $(\real^{n\times n},\,\real)$. The operator $\mathcal{L}:\real^{n}\rightarrow\real^{n\times n}$ defined by $\forall~x\in\real^{n},\,\mathcal{L}(x)=xx^\top$ is a linear operator and thus has a matrix representation.
+%
+%
+%\item Consider $(\real^{n},\,\real)$ with the standard inner product defined by $<x,\,y>=x^\top y$. Let  $\{v^{1},\, v^{2},\,\ldots,\, v^{k}\}$, $ 1 \le k < n$, be a linearly independent set, and define $M=\spanof{v^{1},\, v^{2},\,\ldots,\, v^{k}}$. The orthogonal operator $P$ maps $x\in \real^{n}$ to $\hat{x}\in M$. Suppose both $x$ and $\hat{x}$ are expressed in standard basis $E=\left\{\begin{bmatrix}1\\0\\ \vdots \\ 0\end{bmatrix},\,\begin{bmatrix}0\\1\\ \vdots \\ 0\end{bmatrix},\,\ldots,\,\begin{bmatrix}0\\0\\ \vdots \\ 1\end{bmatrix}\right\}$, then the matrix representation of the orthogonal projector $P$ is $V(V^\top V)^{-1}V^{\top}$, where $V=\begin{bmatrix}v^{1} & v^{2} & \ldots &v^{k}\end{bmatrix}$.
+%\end{enumerate}
+
+
+\newpage
+
+
+
+\begin{center}
+(Scratch Paper)\\
+{\bf \LARGE Page Intentionally Left Blank: Do Not Remove}\\
+(If you write anything here, be sure to indicate to which problem it applies.)
+
+\end{center}
+
+
+%\newpage
+%\noindent {\bf Remove carefully. This is your scratch paper.}
+
+\end{document}
+
+\noindent {\bf 8. (9 points)} Prove that, for all integers $n \ge 18$, there exist non-negative integers $k_{1}$ and $k_{2}$ such that $n =
+10\,k_{1} + 3\,k_{2}$.\\
+The proof outline is sketched below. Choose the correct ones and put them into the right order. What should $N$ be?
+\begin{enumerate}
+  \item[(1)] When $n=18$, $18=10\cdot 0+3\cdot 6$ is true.
+  \item[(2)] When $n=19$, $19=10\cdot 1+3\cdot 3$ is true.
+  \item[(3)] When $n=20$, $20=10\cdot 2+3\cdot 0$ is true.
+  \item[(7)] Suppose the statement holds when $n=k$ where $k\ge N$, then we will show that statement holds for $n=k+1$.
+  \item[(8)] Suppose the statement holds when $N\le n\le k$, then we will show that statement holds for $n=k+1$.
+  \item[(9)]
+  \begin{equation*}
+    n = k+1 = (k-2)+3
+  \end{equation*}
+  From induction, there exists nonnegative integers $m_{1}$ and $m_{2}$, such that $(k-2)=10\cdot m_{1}+3\cdot m_{2}$. Thus,
+  \begin{equation*}
+    n = k+1 = 10\cdot m_{1}+3\cdot m_{2}+3=10\cdot m_{1}+3\cdot( m_{2}+1)
+  \end{equation*}
+  \item[(10)] Thus, the statement is true for $n=k+1$.
+  \item[(11)] Based on standard induction, the statement is true for all $n\ge N$.
+  \item[(12)] Based on strong induction, the statement is true for all $n\ge N$.
+\end{enumerate}
+\vspace*{0.3in}
+\fbox{\rule[-0.5cm]{0cm}{1cm} The proof order is  \hskip 100mm ~~}\\
+
+\vspace*{0.3in}
+\fbox{\rule[-0.5cm]{0cm}{1cm} $N=$\hskip 113mm ~~}\\
+\vspace*{0.3in}
+
+\newpage
+
+%Given a sequence $\{x_{n}\}_{n=0}^{+\infty}$ and suppose it satisfies
+%\begin{equation*}
+%\begin{split}
+%  &x_{0}= 7/3,\,x_{1}=4,\,x_{2}=8,\\
+%  &n\ge 1,\, x_{n+3}= 6 x_{n+2}-11x_{n+1}+6x_{n}
+%\end{split}
+%\end{equation*}
+%Show that $x_{n}\le 3^{n}$ when $n\ge N$ and determine $N$. The proof outline are sketched below. Choose the correct ones and put them into the right order.
+%\begin{enumerate}
+%  \item[(1)] When $n=0$, $x_{0}\le 3^{0}$ is true.
+%  \item[(2)] When $n=1$, $x_{1}\le 3^{1}$ is true.
+%  \item[(3)] When $n=2$, $x_{2}\le 3^{2}$ is true.
+%  \item[(4)] When $n=3$, $x_{3}\le 3^{3}$ is true.
+%  \item[(5)] When $n=4$, $x_{4}\le 3^{4}$ is true.
+%  \item[(6)] When $n=5$, $x_{5}\le 3^{5}$ is true.
+%  \item[(7)] Suppose the statement holds when $n=k$ where $k\ge N$, then we will show that statement holds for $n=k+1$.
+%  \item[(8)] Suppose the statement holds when $N\le n\le k$, then we will show that statement holds for $n=k+1$.
+%  \item[(9)]
+%  \begin{equation*}
+%    x_{n+3}= 6 x_{n+2}-11x_{n+1}+6x_{n}\le 6\cdot 3^{n+2}-11\cdot 3^{n+1}+6\cdot 3^{n}=27\cdot  3^{n} = 3^{n+3}
+%  \end{equation*}
+%  \item[(10)] Thus, the statement is true for $n=k+1$.
+%  \item[(11)] Based on standard induction, the statement is true for all $n\ge N$.
+%  \item[(12)] Based on strong induction, the statement is true for all $n\ge N$.
+%\end{enumerate}
+
+
+\newpage
+\textit{Please show your work for question 8.}
+\newpage
+
+
+

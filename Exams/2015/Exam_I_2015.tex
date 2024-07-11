@@ -1,0 +1,435 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\markboth{\bf Place name or initials here:\underline{\hspace*{1.5in}}}{\bf Place name or initials here:\underline{\hspace*{1.5in}}}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-I \\
+\large
+Tuesday, November 3, 2015, 6:10 PM-- 8:00 PM \\
+Rooms (First letter of last name): EECS 1311 (A-K) and EECS 1303 (L-Z) \\
+\end{center}
+
+\vspace*{1in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{2.5in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 2  SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, PDAs, MP3 PLAYERS, etc.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\noindent The maximum possible score is 80. To maximize your own score on this exam, read the questions carefully and write legibly. 25 percent of the points on the exam are NO
+PARTIAL CREDIT GIVEN and 75 percent are PARTIAL CREDIT GIVEN. For those problems that allow partial credit, show your work clearly on this booklet.
+
+\newpage
+
+\vspace*{1in}
+
+\begin{center}
+\Large
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+\begin{tabular}{|p{2in}|p{1in}|p{1in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   20\\
+\hline
+%Problems 5-8 &  &   20\\
+%\hline
+Problem 6 &  &   20\\
+\hline
+Problem 7 &  &   20\\
+\hline
+Problem 8 &  &   20\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+%Optional Bonus Question&  &   $\pm5$\\
+%
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\newpage
+
+
+
+\subsection*{Problems 1 - 5 {\rm (20 points: 5 $\times$ 4)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct (i.e., true) and one answer that is incorrect (i.e., false). \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{5cm}
+
+
+\item[{\bf 1.}]  (Facts about matrices) In the following let $A$ and $B$ be arbitrary real $n \times n$ matrices with $n\ge 2$. Denote their columns by $A_i$ and $B_i$, so that $$A=[A_1~| A_2~| \cdots |A_n]~~\text{and}~~B=[B_1~| B_2~| \cdots |B_n].$$
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+%\item The $ij$ element of $A^{\top} B$ is given by $A_i B_j^{\top}$.
+\item $AB = \sum_{i=1}^{n} A_i B_i$.
+\item $A^{\top} A$ is invertible if, and only if, $A$ is invertible.
+\item If $A$ is invertible and $1+B_1^{\top} A^{-1} B_1 \neq 0$, then the matrix $A+ B_1 B_1^{\top}$ is invertible.
+\item Suppose that $A$ is not equal to the zero matrix (i.e., at least one element is non-zero). Then there always exists $x \in \real^n$, such that $x^{\top} A x \neq0$.
+\end{enumerate}
+
+
+\item[{\bf 2.}] The following questions are on logic. Recall that $\land$ is 'and',  $\lor$ is 'or', and $\neg$ is 'not'.  The symbol  $\Leftrightarrow$ is written in text form as ``if, and only if'' to make the separation of the two statements more clear. You can replace either of them by ``logically equivalent to'' if that helps you. For example, in HW, you verified that $\neg(p \land q)$ is ``logically equivalent to'' $ (\neg p) \lor (\neg q)$.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $p \implies q$ if, and only if $\neg q \implies \neg p$.
+\item $p \implies q$ if, and only if $ \neg (p \land \neg q)$.
+\item $p \implies q$ if, and only if $ (\neg p) \lor  q$.
+\item $p \implies q$ if, and only if $ p \lor  (\neg q)$
+%\item $\neg(p \land q)$ if, and only if $ (\neg p) \lor (\neg q)$.
+\end{enumerate}
+
+\newpage
+
+\item[{\bf 3.}]  Let $({\cal X}, {\cal F})$ be a finite dimensional vector space  and let $\{ v^1, v^2, v^3, v^4\}$ be a linearly independent set of vectors such that for all $x \in {\cal X}$, the set $\{ v^1, v^2, v^3, v^4, x\}$ is linearly dependent.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $\{ v^1-v^2, v^2+v^3\}$ is linearly dependent.
+\item $\left[ v^2 + 3 v^4 \right]_{\{ v^1, v^2, v^3, v^4 \}} = \left[ \begin{array}{c} 1\\3\\0\\0\end{array} \right]$ ~~~~(yes, this is a vector representation question)
+\item $\spanof{ v^1, v^2, v^3, v^4} = {\cal X}$
+\item If $\spanof{ w^1, w^2,...,w^k}= {\cal X}$, for some collection of vectors $w^i \in  {\cal X}$, $1 \le i \le k$, then $k=4$.
+\end{enumerate}
+
+
+
+
+
+
+
+\item[{\bf 4.}]  Consider the vector space $({\cal X}, \real)$ where ${\cal X}:=\spanof{\sin(t), \cos(t), \sin(2t), \cos(2t)}$, $-\infty < t < \infty$. You are \underline{given} that these functions are linearly independent and hence constitute a basis. (You do not need to check it yourself.) Define the linear operator $L: {\cal X} \to {\cal X}$, by for $f(t) \in {\cal X}$, $L(f(t)) = \frac{df(t)}{dt}$. Let $A$ be the matrix representation of $L$ with respect to the basis $\{\sin(t), \cos(t), \sin(2t), \cos(2t)\}.$
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $A= \left[ \begin{array}{rrrr}  0 & 1 & 0 & 0\\ 1 & 0 & 0 & 0\\ 0 & 0 & 2 & 0\\ 0 & 0 & 0& 2\end{array}  \right]$
+\item $A= \left[ \begin{array}{rrrr}  0 & -1 & 0 & 0\\ 1 & 0 & 0 & 0\\ 0 & 0 & 0& -2\\ 0 & 0 & 2& 0\end{array}  \right]$
+%\item  The matrix representation of $\tilde{L}: {\cal X} \to {\cal X}$, by for $f(t) \in {\cal X}$, $\tilde{L}(f(t)) = \frac{d^2f(t)}{dt^2}$ is a diagonal matrix.
+\item  If $f(t) \in {\cal X}$ and $L(f(t))$=0 (i.e., equals the zero function), then $f(t)=0$ (i.e., equals the zero function).
+\item  Let $\tilde{A}$ be the matrix representation of $\tilde{L}: {\cal X} \to {\cal X}$, by for $f(t) \in {\cal X}$, $\tilde{L}(f(t)) = \frac{d^2f(t)}{dt^2}$ (the second derivative). Then the matrix $\tilde{A}$ has an orthogonal set of e-vectors.
+\end{enumerate}
+
+\newpage
+
+
+\item[{\bf 5.}] Let $({\cal X}, \real, <\cdot, \cdot>)$ be a finite dimensional inner product space. Let $x, y \in {\cal X}$ be two vectors in ${\cal X}$, let $S\subset {\cal X}$ be a nonempty sub\underline{set}, and let $M = \spanof{S}$. (underlined to make sure you did not misread $S$ as a subspace)
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item If $x$ is orthogonal to ${S}$, then $x$ is orthogonal to $M$.
+\item If $x$ is orthogonal to $S$ and $y\in M$, then $||x+y||^2=||x||^2 + ||y||^2$.
+\item If $m \in M$ satisfies $||x-m|| = d(x,M)$ and $||y-m|| = d(y,M)$, then $x=y$.
+\item If $m_1\in M$ and $m_2\in M$ satisfy $||x-m_1|| = d(x,M)$ and $||x-m_2|| = d(x,M)$, then $m_1=m_2$.
+\end{enumerate}
+
+%\item[{\bf 5.}]  Consider the vector space $(\real^3, \real)$. Let $\{e^1, e^2, e^3 \}$ denote the standard basis (yes, $e^1 = (1, 0, 0)^\top$, etc.) and let $\{ w^1, w^2, w^3\}$ be a second basis. Let $W$ be the matrix with columns given by $w^i$, that is,
+%    $W=[w^1~|~ w^2~|~w^3],$ and define $\alpha, \beta \in \real^3$, with components $$ \alpha =\begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \alpha_3 \end{bmatrix} ~~ \mbox{and}~~\beta =\begin{bmatrix} \beta_1 \\ \beta_2 \\ \beta_3 \end{bmatrix}  $$
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item For some $x\in \real^3$,  suppose that $ x =\alpha_1 e^1 + \alpha_2 e^2  + \alpha_3 e^3 =  \beta_1 w^1 + \beta_2 w^2  + \beta_3 w^3 $. Then $\beta = W^{-1} \alpha.$
+%\item The change of basis matrix from $\{e^1, e^2, e^3 \}$ to $\{ w^1, w^2, w^3\}$ is $P=W$.
+%\item  Suppose $A$ is a $3 \times 3$ real matrix and $A w^i = \lambda_i w^i$ for $\lambda_i \in \real$,  $1 \le i \le 3$, with $w^i$ as defined at the top of the problem. Recall that $A$ defines a linear operator $L: \real^3 \to \real^3$ defined by $L(x) = Ax$. Then the representation of the linear operator $L$ in the basis\footnote{Yes, as in HW, same basis on the domain and codomain.} $\{ w^1, w^2, w^3\}$ is
+%    $$\hat{A} = W^{-1} A W.$$
+%\item   Suppose $A$ is a $3 \times 3$ real matrix. If the eigenvalues are distinct, then the eigenvectors are orthogonal.
+%\end{enumerate}
+
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+\vspace*{6cm}
+
+{\bf \LARGE Page Intentionally Left Blank}\\
+
+\vspace*{3cm}
+\textbf{Anything written here will not be graded.}
+
+\textbf{(You can use it for scratch paper.)}
+
+\end{center}
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we proved that real symmetric matrices have real e-values. So if you need this fact, simply state it and use it.}
+
+%  \newpage
+%\vspace*{8cm}
+%
+%\begin{center}
+%{\bf \LARGE Page Intentionally Left Blank}
+%
+%\end{center}
+
+
+
+  \newpage
+
+
+\noindent {\bf 6. (20 points)} (Place your answers in the boxes.) (Be sure to show your work: It is NOT enough to just write down an answer, even if you can do the calculations in your head!) This is a deterministic estimation problem. Suppose $x \in \real^2$ is constant, and for $i \ge 1$, $y_i \in \real$ is related to $x$ by
+$$y_i = C_i x.$$
+We define for $k\ge 1$,
+$$ Y_k =\left[ \begin{array}{c} y_1 \\ \vdots \\ y_k \end{array} \right],~   A_k = \left[ \begin{array}{c} C_1 \\ \vdots \\ C_k  \end{array}  \right],$$
+and for $k \ge 2,$ $$ \widehat{x}_k :=\underset{x \in \real^2} {\mathrm{arg~min} }\sqrt{\sum_{i=1}^k \left(y_i - C_i x \right)^2}=\underset{x \in \real^2} {\mathrm{arg~min} } \sqrt{(Y_k - A_k x)^\top (Y_k - A_k x)}.$$
+
+\noindent \textbf{Remark:} In each part, you can maximize partial credit by summarizing the relevant equations before doing computations.
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{1.5cm}
+\item \textbf{8 Points:} Use standard regression (not RLS) to solve for $\hat{x}_3$ when
+$$ Y_3 =\left[ \begin{array}{c} 4 \\0 \\ 2 \end{array} \right],~   A_3 = \left[ \begin{array}{rr} 1 & 1 \\ -1 & 1 \\ 0 & 1\end{array}  \right].$$
+\textbf{Show work here. It is a short calculation:}
+
+\fbox{\rule[-1cm]{0cm}{2cm} $ \widehat{x}_{3}=$ \hskip2cm ~~}\\
+%\vspace*{5cm}
+
+\item  \textbf{12 Points:}  Use RLS (recursive least squares) to compute $\hat{x}_7$ given\\
+\begin{itemize}
+\item $\widehat{x}_{6}=\left[ \begin{array}{c} 1 \\ 1 \end{array} \right]$ and $ A_{6}^\top A_{6} =\sum_{i=1}^{6} C_i^\top C_i=\left[ \begin{array}{rr}  2&  1\\  1& 1\end{array} \right].$ \medskip
+\item $C_{7}=[ 2, 0]$ and $y_{7}=5$
+
+\end{itemize}
+You can use \underline{any} valid form of recursion that you want. In particular, you are not obliged to use the form with the matrix inversion lemma; of course, you can do that as well.
+
+\fbox{\rule[-1cm]{0cm}{2cm} $ \widehat{x}_{7}=$ \hskip2cm ~~}\\
+\end{enumerate}
+
+
+
+
+\newpage
+\textit{Extra page for question 6.}
+\newpage
+
+
+\newpage
+\textit{Additional page for question 6, though you probably will not need it.}
+\newpage
+
+\noindent {\bf 7. (20 points)}  (Place your answers in the boxes and show your work below.) The set of functions $\{1, t, t^2, \sin(\pi t),  \cos(\pi t) \}$ is linearly independent\footnote{You are given this as a fact. You do not have to prove it.} for ${\cal F}=\real$. Define
+$$ {\cal X} = \spanof{1, t, t^2, \sin(\pi t),  \cos(\pi t) },$$
+and define an inner product on $({\cal X}, \real)$ by, for functions $f,g \in {\cal X}$,
+$$<f,g>:= \int_{-1}^{1} f(\tau) g(\tau) d\tau.$$
+
+\begin{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{2cm}
+\item (5 points) Compute the the norm of $h(t) = t$. \textbf{(Show work here. It is a short calculation:)} [You know the answer cannot be zero. If you get zero, find the error in your integration!]
+
+\fbox{\rule[-0.5cm]{0cm}{1cm}  $||h||=$\hskip2cm ~~}\\
+
+\item (15 points) For $M=\spanof{3, 5t^2}$ and $f(t) = \pi^2 \cos(\pi t)$, use the \underline{normal equations} to compute
+$$\hat{f} = \underset{g \in M} { \mathrm{arg~min} }~ || f-g||.$$
+\noindent \textbf{Useful facts from an integral table:} $\int_{-1}^{1} \cos(\pi \tau ) d \tau = 0$  and $\int_{-1}^{1} \tau ^2 \cos(\pi \tau ) d \tau = -\frac{4}{\pi^2} $\\
+
+\fbox{\rule[-0.5cm]{0cm}{1cm}  $\hat{f}=$\hskip4cm ~~}\\
+\end{enumerate}
+
+
+
+
+%\textbf{Remark:} You are \textit{given the following data} to reduce the number of calculations.
+%$$<t^2,t^2>=\frac{2}{5} ~~\text{and}~~<t^2,t+t^3>=\frac{2}{5}$$
+
+
+
+% \vspace*{.3in}
+% \noindent \textbf{Show your calculations below}
+\newpage
+\textit{Please show your work for question 7.}
+\newpage
+
+
+\textit{Additional page for question 7, though you probably will not need it.}
+\newpage
+
+\noindent {\bf 8. (20 points)} (Proof Problem) Let $({\cal X}, \real, <\cdot, \cdot>)$ be a real inner product space with \underline{orthonormal} basis $\{v^1, v^2, v^3\}$. Let $x\in {\cal X}$ be arbitrary and define
+$$y:= \sum_{i=1}^{2} <x,v^i> v^i.$$\\
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item \textbf{Prove (10 points):} $(x-y) \perp y$
+\item \textbf{Prove (10 points):} $||y|| \le ||x||$.\\
+\end{enumerate}
+
+\textbf{Remarks:}
+\begin{itemize}
+    \item[(i)] You are allowed to assume (a) is true when proving (b), if this helps you. [Some approaches to the proof use this fact, others do not.]
+\item[(ii)] To be extra clear, $y= \alpha_1 v^1 + \alpha_2 v^2$, where $\alpha_i := <x,v^i>, ~~ 1 \le i \le 2$.
+\item[(iii)] An orthonormal basis is simply a set of vectors that is a basis and is also orthonormal. Recall that \underline{orthonormal} means the set is orthogonal and each vector has norm one. I \underline{cannot} remind you what it means for a set to be orthogonal or to have norm one.
+\end{itemize}
+
+
+
+\newpage
+\textit{Please show your work for question 8.}
+\newpage
+
+\textit{Additional page for question 8, though you probably will not need it.}
+\newpage
+\vspace*{2cm}
+
+\begin{center}
+(Scratch Paper)\\
+{\bf \LARGE Page Intentionally Left Blank: Do Not Remove}\\
+(If you write anything here, be sure to indicate to which problem it applies.)
+
+\end{center}
+
+
+%\newpage
+%\noindent {\bf Remove carefully. This is your scratch paper.}
+
+\end{document}
+
+
+

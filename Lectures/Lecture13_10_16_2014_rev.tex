@@ -1,0 +1,227 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 13\\
+Typeset by:  Ming-Yuan Yu\\
+Proofread by: Ilsun Song
+\end{center}
+}
+
+\Large
+
+\begin{center}
+    \textbf{Weighted Least Squares}
+\end{center}
+    Let $Q$ be an $n \times n$ positive definite matrix $(Q>0)$
+    \newline
+    and let the inner product on $\real^n$ be
+    \begin{equation*}
+        \langle x, y \rangle = x^{\top}Qy.
+    \end{equation*}
+    We re-do $A \alpha = b$, where $A = n \times m, n \geq m, rank(A)=m, \alpha \in \real^m, \textnormal{and } b \in \real^n $. We want to seek $\hat{\alpha}$ such that
+    \begin{equation*}
+        \| A\hat{\alpha}-b \| = \min_{\alpha \in \real^m} \| A\alpha-b \|
+    \end{equation*}
+    where $ \| x \|=\langle x,x\rangle^{\frac{1}{2}}=(x^\top Qx)^{\frac{1}{2}} $ and $Q>0$.
+    \newline\newline
+    \underline{Solution:}~ $ \mathcal{X}= \real^n, \mathcal{F}=\real, \langle x, y \rangle = x^\top Qy $
+    \newline
+    $ \textnormal{Write } A= \left[ \begin{array}{c|c|c|c} A_1 & A_2 & \cdots & A_m\\ \end{array} \right] $
+    \newline\newline
+    \underline{Normal Equations:}
+    \begin{align*}
+        \hat{x}&=\hat{\alpha}_1 A_1 + \hat{\alpha}_2 A_2 + \cdots + \hat{\alpha}_m A_m\\
+        G^\top \hat{\alpha}&=\beta \textnormal{, with } G = G^\top\\
+        [G^\top]_{ij}&=[G]_{ij}=\langle A_i, A_j \rangle=A_i^\top QA_j=[A^\top QA]_{ij}\\
+        \beta_i&=\langle b, A_i \rangle=b^\top QA_i=A_i^\top Qb=[A^\top Qb]_i.\\
+    \end{align*}
+    $ \therefore A^\top QA \hat{\alpha}=A^\top Qb.$
+    \newline\newline
+    Since $ A^\top QA $ is invertible by $ rank(A)=m $, we can conclude that
+    \begin{equation*}
+        \underline{\hat{\alpha}=(A^\top QA)^{-1}A^\top Qb}.
+    \end{equation*}
+
+\begin{center}
+    \textbf{Recursive Least Squares}
+\end{center}
+\textbf{Model:}
+    \begin{align*}
+        y_i&=C_ix+e_i,\ i=1, 2, 3, \dotsb\\
+        \\
+        C_i& \in \real^{m \times n}\\
+        i&=\textnormal{time index}\\
+        x&=\textnormal{an unknown \underline{constant} vector} \in \real^n\\
+        y_i&=\textnormal{measurements} \in \real^m\\
+        e_i&=\textnormal{model "mismatch"} \in \real^m
+    \end{align*}
+
+    \textbf{Objective 1:}~ Compute a least squared error estimate of $x$ at time $k$, using all available data at time $k$, ($y_1,\dotsb,y_k$)!
+    \newline\newline
+    \textbf{Objective 2:}~ Discover a computationally attractive form for the answer.
+    \newline\newline
+    \textbf{Solution:}
+    \begin{align*}
+        \hat{x}_k:&=\underset{x \in \real^n}{\operatorname{argmin}} \left(\sum\limits_{i=1}^k (y_i-C_ix)^\top S_i(y_i-C_ix)\right)\\
+        &=\underset{x \in \real^n}{\operatorname{argmin}} \left(\sum\limits_{i=1}^k e_i^\top S_ie_i\right)
+    \end{align*}
+    where $S_i=m \times m$ positive definite matrix. ($ S_i>0 $ for all time index $i$)
+    \newline\newline
+    \textbf{Batch Solution:}
+    \newline\newline
+    $Y_k=\left[ \begin{array}{c} y_1\\ y_2\\ \vdots \\ y_k \end{array} \right],
+    A_k=\left[ \begin{array}{c} C_1\\ C_2\\ \vdots \\ C_k \end{array} \right],
+    E_k=\left[ \begin{array}{c} e_1\\ e_2\\ \vdots \\ e_k \end{array} \right]$
+    \newline
+    $R_k=\left[
+    \begin{array}{cc}
+        \begin{array}{cc}
+            S_1 & \\
+            & S_2
+        \end{array} &  \mathbf{0} \\
+        \mathbf{0} & \begin{array}{cc}
+        \ddots & \\
+            & S_k
+        \end{array}
+    \end{array}\right]=diag(S_1,S_2,\dotsb,S_k)>0$
+    \newline\newline
+    $ Y_k=A_kx+E_k\textnormal{, } [\textnormal{model for } 1 \leq i \leq k ]$
+    \newline
+    $\|Y_k-A_kx\|^2=\|E_k\|^2:=E_k^\top R_kE_k$
+    \newline\newline
+    Since $\hat{x}_k$ is the value minimizing the error $\|E_k\|$, which is the unexplained part of the model,
+    \begin{equation*}
+        \hat{x}_k=\underset{x \in \real^n}{\operatorname{argmin}}\| E_k \|=\underset{x \in \real^n}{\operatorname{argmin}}\| Y_k-A_kx \|,
+    \end{equation*}
+    which satisfies the Normal Equations $ (A_k^\top R_kA_k)\hat{x}_k=A_k^\top R_kY_k $.
+    \newline\newline
+    $ \therefore \underline{\hat{x}_k=(A_k^\top R_kA_k)^{-1}A_k^\top R_kY_k} $, which is called a \underline{Batch Solution}.
+    \newline\newline
+    \textbf{Drawback:}~ $A_k=km \times n$ matrix, and grows at each step!
+    \newline\newline
+    \textbf{Solution:}~ Find a recursive means to compute $\hat{x}_{k+1}$ in terms of $\hat{x}_k$ and the new measurement $y_{k+1}$!
+    \newline\newline
+    Normal equations at time $k$, $ (A_k^\top R_kA_k)\hat{x}_k=A_k^\top R_kY_k $, is equivalent to
+    $$\left(\sum\limits_{i=1}^k C_i^\top S_iC_i\right)\hat{x}_k=\sum\limits_{i=1}^k C_i^\top S_iy_i.$$
+    \newline\newline
+    We define
+    \begin{equation*}
+        Q_k=\sum\limits_{i=1}^k C_i^\top S_iC_i
+    \end{equation*}
+    so that
+    \begin{equation*}
+        Q_{k+1} = Q_k+C_{k+1}^\top S_{k+1}C_{k+1}.
+    \end{equation*}
+    At time $k+1$,
+    \begin{equation*}
+        \underbrace{(\sum\limits_{i=1}^{k+1} C_i^\top S_iC_i)}_{Q_{k+1}}\hat{x}_{k+1}=\sum\limits_{i=1}^{k+1} C_i^\top S_iy_i
+    \end{equation*}
+    \newline
+    or
+    \begin{equation*}
+        Q_{k+1}\hat{x}_{k+1}=\underbrace{\sum\limits_{i=1}^k C_i^\top S_iy_i}_{Q_k\hat{x}_k}+C_{k+1}^\top S_{k+1}y_{k+1}.
+    \end{equation*}
+    \underline{$\therefore Q_{k+1}\hat{x}_{k+1}=Q_k\hat{x}_k+C_{k+1}^\top S_{k+1}y_{k+1}$}
+    \newline\newline
+    \textbf{Good start on recursion!} Estimate at time $k+1$ expressed as a linear combination of the estimate at time $k$ and the latest measurement at time $k+1$.
+    \newline\newline
+    Continuing,
+    \begin{equation*}
+        \hat{x}_{k+1}=Q_{k+1}^{-1}\left[Q_k\hat{x}_k+C_{k+1}^\top S_{k+1}y_{k+1}\right].
+    \end{equation*}
+    Because
+    \begin{equation*}
+        Q_k=Q_{k+1}-C_{k+1}^\top S_{k+1}C_{k+1},
+    \end{equation*}
+    we have
+    \begin{equation*}
+        \hat{x}_{k+1}=\hat{x}_k+\underbrace{Q_{k+1}^{-1}C_{k+1}^\top S_{k+1}}_{\text{Kalman gain}} \underbrace{(y_{k+1}-C_{k+1}\hat{x}_k)}_{\text{Innovations}}.
+    \end{equation*}
+    \newline
+    Innovations  $y_{k+1}-C_{k+1}\hat{x}_k=$ measurement at time $k+1$ minus the "predicted" value of the measurement = "new information".
+    \newline\newline
+    In a real-time implementation, computing the inverse of $Q_{k+1}$ can be time consuming. An attractive alternative can be obtained by applying \underline{the Matrix Inversion} \underline{Lemma}:
+    \begin{equation*}
+        \left(A+BCD\right)^{-1}=A^{-1}-A^{-1}B\left(DA^{-1}B+C^{-1}\right)^{-1}DA^{-1}
+    \end{equation*}
+    Now, following the substitution rule as shown below,
+    \begin{equation*}
+        A\leftrightarrow Q_k\ \ \ B\leftrightarrow C_{k+1}^\top\ \ \ C\leftrightarrow S_{k+1}\ \ \ D\leftrightarrow C_{k+1},
+    \end{equation*}
+    we can obtain that
+    \begin{align*}
+        Q_{k+1}^{-1}&=\left(Q_k+C_k^\top S_{k+1}C_{k+1}\right)^{-1}\\
+        &=Q_k^{-1}-Q_k^{-1}C_{k+1}^\top\left[C_{k+1}Q_k^{-1}C_{k+1}^\top+S_{k+1}^{-1}\right]^{-1}C_{k+1}Q_k^{-1},
+    \end{align*}
+    which is a recursion for $Q_k^{-1}$!
+    \newline\newline
+    Upon defining
+    \begin{equation*}
+        P_k=Q_k^{-1},
+    \end{equation*}
+    we have
+    \begin{equation*}
+        P_{k+1}=P_k-P_kC_{k+1}^\top\left[C_{k+1}P_kC_{k+1}^\top+S_{k+1}^{-1}\right]^{-1}C_{k+1}P_k
+    \end{equation*}
+    We note that we are now inverting a matrix that is $m\times m$, instead of one that is $n\times n$. Typically, $n>m$, sometimes by a lot!
+
+\end{document} 

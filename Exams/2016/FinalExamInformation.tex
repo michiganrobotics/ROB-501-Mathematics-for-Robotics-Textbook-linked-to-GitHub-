@@ -1,0 +1,168 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+Information for ROB 501 Exam-II (Final)\\
+\large
+It will be an In Class Exam, Just Like Exam 1
+\end{center}
+\vspace*{1in}
+
+\begin{center}
+\LARGE \bf
+Date is Tuesday, December 20, 2016, 4:10 PM-- 6:00 PM \\
+\large
+The Rooms are assigned as follows: \\
+Rooms (First letter of last name)\\
+EECS 1303 (A-H)~~~EECS 1012 (I-Lin) and EECS 1500 (Liu-Z) \\
+\end{center}
+\vspace*{2in}
+
+\noindent \textbf{Remark:} When you receive your exam, please PRINT your name on it and COPY the honor pledge. DO NOT OPEN THE EXAM UNTIL TOLD TO DO SO.
+
+
+
+\vspace*{1in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item  3  SHEETS OF NOTE PAPER (Front and Back), US Letter Size. You can write anything you want on your ``cheat sheets''
+\item NO CALCULATORS, CELL PHONES, HEADPHONES, SMART WATHCES, etc.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\newpage
+\subsection*{Material Covered}
+
+\begin{itemize}
+\item Lecture 1 through the material on Real Analysis on Dec. 1, 2016, with emphasis on material since Exam 1. To be clear, for Real Analysis, you are responsible for open sets, closed sets, interior of a set, closure of a set, limit points, Cauchy sequences, completeness, contraction mapping theorem, subsequences, compact sets and existence of min and max of a continuous function on a compact set.
+\item There are no questions on convex sets, convex functions, QPs and LPs.
+\item May have to invert by hand a $2 \times 2$ matrix.
+\item HW \#1 through HW \#10, except remove Lagrange multipliers and 'SVD for image processing'; emphasis is definitely on material since Exam 1.
+\item Least squares problems of all types (inner product spaces, weighted least squares\footnote{Means the inner product uses a positive definite matrix other than the identity.}, over determined, under determined, RLS, BLUE, MVE). \texttt{RLS with forgetting factor is NOT on the exam.}
+\item Matrix Inversion Lemma, Symmetric matrices, Orthogonal matrices,  QR factorizations, positive definite matrices, Schur complement.
+\item SVD, matrix 2-norm, approximate a matrix by one of lower rank, relation of $A=U \Sigma V^\top$ to e-values and e-vectors of $A^\top A$. (see SVD handout and proof),
+\item Probability at the level of BLUE, MVE, and the handout on Gaussian Random Vectors is on the exam.
+\item General probability as covered in lecture on Nov. 8 is NOT on the exam.
+\item Kalman filter. There is no question on the Extended Kalman Filter (EKF).
+\item Modified Gram Schmidt is NOT on the exam.
+\item Hermetian matrices are NOT on the exam (present in SVD handout).
+\end{itemize}
+
+\subsection*{Type of Questions}
+
+\begin{itemize}
+
+\item The format is very similar to Exam 1.  There is an A+ problem.
+\item The level of difficulty will be as close to that of our Exam 1 as possible. \textbf{There are no written proofs on the final exam.}
+
+\item \textbf{A new kind of problem:} There will be new kind of problem on the exam. Because there is not anything similar to it in the old exams,  I will give you one example at the end of this document. The problem will have three parts, each worth five points. \\
+
+    \item When looking at the old exams:
+    \begin{itemize}
+    \item The Final Exam from 2015 has good problems.
+    \item  Exam II 2014 In Class portion, has good examples.
+    \item  Exam II 2014 Take Home, ignore the EKF problem.
+    \item I would basically ignore the Take Home Final from 2014. If you insist to look at it, keep the following in mind:
+    \begin{itemize}
+    \item  Exam III 2014 (Take Home Final), you have to realize that the Multiple Choice Problems are HARDER because the 2014 students had LOTS of time to think about them!
+\item  Exam III 2014 (Take Home Final) Ignore Problem 4 because I have said that convexity is NOT on your exam.
+\item  Exam III 2014 (Take Home Final) Forget about Prob. 5...it is MUCH MUCH too hard for an in class exam.
+\item  Exam III 2014 (Take Home Final) Prob. 6 is interesting and is a very useful thing to know. Of course, without MATLAB, you cannot work the problem, hence it cannot be on an in class exam.
+    \item  Exam III 2014 (Take Home Final) Problem 7 parts (a) and (c) are might be worth studying. Ignore part (b). Keep in mind that your calculations would have to be simple enough that you could do them without a calculator!
+        \item  Exam III 2014 (Take Home Final)  Ignore Problem 8. Once again, it is a cool thing to know, but cannot really be done without MATLAB.
+
+    \end{itemize}
+     \end{itemize}
+
+
+\end{itemize}
+
+\vspace*{2cm}
+
+\textbf{\large Sample of the New Problem} The following are short answer questions. You are not supposed to give a proof; only give a few short reasons why something is TRUE or FALSE.
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+\item \textbf{(5 Points)} Suppose that $({\cal X}, || \cdot||)$ is a finite-dimensional normed space and $S \subset {\cal X}$ is a subset. Suppose that $P:S \to S$ satisfies $\forall~ x,y \in S$, $||P(x)-P(y)|| \le 0.8 ||x-y||$.  Then, for any $x_0 \in S$, the sequence $x_{k+1}=P(x_k)$ converges and has a limit in $S$. \textbf{ T or F}.\\
+
+    \textbf{Answer:} \fbox{False}. By the proof of the Contraction Mapping Theorem, the sequence $(x_k)$ is Cauchy. Because ${\cal X}$ is finite dimensional, it is complete, and thus Cauchy sequences have limits. But because $S$ was not stated to be closed, the limit may not be an element of $S$.
+    
+     \vspace*{0.4cm}  
+     \textbf{Remark:} Suppose you had answered \fbox{False}, because $S$ is not closed. \texttt{This would earn 3 or 4 points, probably 4}. You understood the essence of the question. What you left out was a reason that the sequence $(x_k)$ actually might converge to something at all.
+     
+          \vspace*{0.4cm}
+     \textbf{Remark:} Suppose you had incorrectly answered \fbox{True}.  By the proof of the Contraction Mapping Theorem, the sequence $(x_k)$ is Cauchy. Because ${\cal X}$ is finite dimensional, it is complete, and thus Cauchy sequences have limits. \texttt{This would earn at least 2 points, and maybe 3}. You have analyzed why the sequence should converge.
+
+    \item \textbf{(5 Points)} [A variation on the above problem:] Suppose that $({\cal X}, || \cdot||)$ is a finite-dimensional normed space and $S \subset {\cal X}$ is a closed subset. Suppose that $P:S \to S$ satisfies $\forall~ x,y \in S$, $||P(x)-P(y)|| \le 0.8 ||x-y||$.  Then, for any $x_0 \in S$, the sequence $x_{k+1}=P(x_k)$ converges and has a limit in $S$. \textbf{ T or F}.\\
+
+    \textbf{Answer:} \fbox{True}.  Because ${\cal X}$ is finite dimensional, it is complete. $S$ is then complete because it is a closed subset of a complete normed space. Hence, all the hypotheses of the Contraction Mapping Theorem are met, and thus the result is true. \textit{The point here is to check that the hypotheses of the theorem are met and then apply it.}
+    
+  \vspace*{0.4cm}
+     \textbf{Remark:} Suppose you had answered \fbox{True}, by the Contraction Mapping Theorem. \texttt{This would earn only 2 or 3 points.} The problem is you did not check one of the key hypotheses of the Contraction Mapping Theorem, namely that $S$ is complete. That is really what the question is about, because $P$ being a contraction is rather obvious.
+
+\end{enumerate}
+
+
+\vspace*{2cm} \textbf{\large Grading:} 1 point for the \textbf{T or F} part and 4 points for the reasoning. As illustrated above, even if you get the T or F wrong, the reasons will be graded to see if you understood something about the problem. I do not have any other examples to offer! It is hard to write questions that are meaningful and can be worked quickly.
+
+
+\end{document}

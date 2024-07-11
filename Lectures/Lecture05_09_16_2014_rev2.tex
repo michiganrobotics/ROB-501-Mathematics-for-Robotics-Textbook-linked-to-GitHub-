@@ -1,0 +1,298 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+ROB 501 Fall 2014 \\
+Lecture 05 \\
+Typeset by: Meghan Richey \\
+Proofread by: Su-Yang Shieh \\
+\end{center}
+}
+
+\Large
+
+\begin{center}
+\textbf{Abstract Linear Algebra (Continued)}
+\end{center}
+
+\noindent \textbf{Proposition:}~ Let $(\mathcal{X}, \mathcal{F})$ be a vector space with basis $\{v^1, \dotsb, v^n\}$. Let $x\in\mathcal{X}$. Then, $\exists$ \underline{unique} coefficients $\alpha_1, \dotsb, \alpha_n$ such that $x=\alpha_{1}v^{1}+\alpha_{2}v^{2}+\dotsb+\alpha_{n}v^{n}$.
+    \newline\newline
+    \noindent \underline{Proof:}~ Suppose $x$ can also be written as $x=\beta_1v^1+\beta_2v^2+\dotsb+\beta_nv^n$.
+    \newline
+    \noindent \underline{We need to show:}~ $\alpha_{1}=\beta_{1},\alpha_{2}=\beta_{2},\dotsb,\alpha_{n}=\beta_{n}$.
+    \begin{equation*}
+        0=x-x=(\alpha_{1}-\beta_{1})v^{1}+\dotsb+(\alpha_{n}-\beta_{n})v^{n}
+    \end{equation*}
+    By linear independence of $\{v^{1}, \dotsb, v^{n}\}$, we can obtain that $\alpha_{1}-\beta_{1}=0,\dotsb,\alpha_{n}-\beta_{n}=0$.
+    \newline
+    Hence, $\alpha_1=\beta_1,\ \dotsb,\ \alpha_n=\beta_n$, that is, the coefficients are unique. $\square$
+
+\noindent \textbf{Def:}~ $x\in \mathcal{X}$, $x=\alpha_1v^1+\dotsb+\alpha_nv^n$. $x$ uniquely defines                     $\begin{bmatrix}\alpha_{1}\\
+            \alpha_{2}\\
+            \vdots\\
+            \alpha_{n}
+    \end{bmatrix}\in\mathcal{F}^n$.
+    \newline
+    $[x]_v=
+    \begin{bmatrix}\alpha_{1}\\
+        \alpha_{2}\\
+        \vdots\\
+        \alpha_{n}
+    \end{bmatrix}$ is \underline{the representation of $x$ with respect to the basis $v=\{v^1,\dotsb,v^n\}$} if and only if $x=\alpha_1v^1+\dotsb+\alpha_nv^n$.
+
+    \newpage
+
+\noindent \textbf{Example:} $\mathcal{F}=\mathbb{R}$, $\mathcal{X}=\{2\times2$ matrices with real coefficients$\}$
+    \begin{itemize}
+        \item[] Basis 1: $v^{1}=\left[\begin{array}{cc}
+            1 & 0\\
+            0 & 0
+            \end{array}\right]$, $v^{2}=\left[\begin{array}{cc}
+            0 & 1\\
+            0 & 0
+            \end{array}\right]$, $v^{3}=\left[\begin{array}{cc}
+            0 & 0\\
+            1 & 0
+            \end{array}\right]$, $v^{4}=\left[\begin{array}{cc}
+            0 & 0\\
+            0 & 1
+            \end{array}\right]$
+        \item[] Basis 2: $w^{1}=\left[\begin{array}{cc}
+            1 & 0\\
+            0 & 0
+            \end{array}\right]$, $w^{2}=\left[\begin{array}{cc}
+            0 & 1\\
+            1 & 0
+            \end{array}\right]$, $w^{3}=\left[\begin{array}{cc}
+            0 & 1\\
+            -1 & 0
+            \end{array}\right]$, $w^{4}=\left[\begin{array}{cc}
+            0 & 0\\
+            0 & 1
+            \end{array}\right]$
+    \end{itemize}
+
+     $x=\left[\begin{array}{cc}
+        5 & 3\\
+        1 & 4
+        \end{array}\right]=5v^{1}+3v^{2}+1v^{3}+4v^{4}$
+    \newline
+    Therefore, $\left[x\right]_v=\left[\begin{array}{c}
+        5\\
+        3\\
+        1\\
+        4
+    \end{array}\right]\in \mathbb{R}^4$. \\
+    $x=\left[\begin{array}{cc}
+        5 & 3\\
+        1 & 4
+        \end{array}\right]=5w^{1}+2w^{2}+1w^{3}+4w^{4}$
+    \newline
+    Therefore, $\left[x\right]_w=\left[\begin{array}{c}
+        5\\
+        2\\
+        1\\
+        4
+    \end{array}\right]\in \mathbb{R}^4$.
+
+\noindent \textbf{Easy Facts:}~
+    \begin{itemize}
+        \item[] 1. Addition of vectors in $(\mathcal{X},\mathcal{F}) \equiv$ Addition of the representations in $(\mathcal{F}^n,\mathcal{F})$.
+        \begin{equation*}
+            [x+y]_v=[x]_v+[y]_v
+        \end{equation*}
+        \item[] 2. Scalar multiplication in $(\mathcal{X},\mathcal{F}) \equiv$ Scalar multiplication with the representations in $(\mathcal{F}^n,\mathcal{F})$.
+        \begin{equation*}
+            [\alpha x]_v=\alpha[x]_v
+        \end{equation*}
+        \item[] 3. Once a basis is chosen, any n-dimensional vector space $(\mathcal{X},\mathcal{F})$ "looks like" $(\mathcal{F}^n,\mathcal{F})$.
+    \end{itemize}
+
+\textbf{Change of Basis Matrix:}~ Let $\{u^1, \dotsb, u^n\}$ and $\{\bar{u}^1, \dotsb, \bar{u}^n\}$ be two bases for $(\mathcal{X},\mathcal{F})$. Is there a relation between $[x]_u$ and $[x]_{\bar{u}}$?
+
+\noindent \textbf{Theorem:}~ $\exists$ an invertible matrix $P$, with coefficients in $\mathcal{F}$, such that $\forall x\in(\mathcal{X},\mathcal{F})$, $[x]_{\bar{u}}=P[x]_u$.
+    \newline
+    Moreover, $P=\left[P_1|P_2|\dotsb|P_n\right]$ with $P_i=[u^i]_{\bar{u}}\in\mathcal{F}^{n}$ where $P_i$ is the $i^{th}$ column of the matrix $P$ and $[u^i]_{\bar{u}}$ is the representation of $u^i$ with respect to $\bar{u}$.
+
+\noindent \underline{Proof:}~ Let $x=\alpha_1u^1+\dotsb+\alpha_nu^n=\bar{\alpha}_1\bar{u}^1+\dotsb+\bar{\alpha}_n\bar{u}^n$.
+    \begin{align*}
+        \alpha&=\begin{bmatrix}\alpha_{1}\\
+            \alpha_{2}\\
+            \vdots\\
+            \alpha_{n}
+        \end{bmatrix}=[x]_{u}\\
+        \bar{\alpha}&=\begin{bmatrix}\bar{\alpha}_{1}\\
+            \bar{\alpha}_{2}\\
+            \vdots\\
+            \bar{\alpha}_{n}
+        \end{bmatrix}=[x]_{\bar{u}}
+    \end{align*}
+    $\bar{\alpha}=[x]_{\bar{u}}=\Big[ \displaystyle\sum_{i=1}^{n}\alpha_{i}u^{i}\Big]_{\bar{u}}=\displaystyle\sum_{i=1}^{n}\alpha_{i}[u^{i}]_{\bar{u}}=\displaystyle\sum_{i=1}^{n}\alpha_{i} P_{i}=P\alpha$.
+    \newline
+    Therefore, $\bar{\alpha} = P\alpha = P{[}x{]}_{u}$.
+    \newline\newline
+    Now we need to show that $P$ is invertible:
+    \newline
+    Define $\bar{P} = [\bar{P}_{1}|\bar{P}_{2}| \dotsb  |\bar{P}_{n}]$ with $\bar{P}_{i}$=$[\bar{u}^{i}]_{u}$.
+    \newline
+    Do the same calculations and obtain $\alpha=\bar{P}\bar{\alpha}$.
+    \newline
+    Then, we can obtain that $\alpha=\bar{P}P\alpha$ and $\bar{\alpha}=P\bar{P}\bar{\alpha}$.
+    \newline
+    Therefore, $P\bar{P} = \bar{P}P = I$.
+    \newline
+    In conclusion, $\bar{P}$ is the inverse of $P$ ($ \bar{P}=P^{-1}$). $\square$
+
+\noindent \textbf{Example:}~ $\mathcal{X}$=$\{2\times2$ matrices with real coefficients$\}$, $\mathcal{F}=\mathbb{R}$.
+    \begin{align*}
+        u&=\left\{ \left[\begin{array}{cc}
+            1 & 0\\
+            0 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 1\\
+            0 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 0\\
+            1 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 0\\
+            0 & 1
+            \end{array}\right]\right\}\\
+        \bar{u}&=\left\{ \left[\begin{array}{cc}
+            1 & 0\\
+            0 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 1\\
+            1 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 1\\
+            -1 & 0
+            \end{array}\right],\left[\begin{array}{cc}
+            0 & 0\\
+            0 & 1
+        \end{array}\right]\right\}
+    \end{align*}
+    We have following relations: ($\bar{P}^{-1}=P$, $P^{-1}=\bar{P}$)\\          
+    $$\bar{\alpha}={P}\alpha, ~P_i=[u^i]_{\bar{u}}, \alpha=\bar{P}\bar{\alpha}, \bar{P}_i=[\bar{u}^i]_u.$$  \\
+    Typically, we compute the easier of $P$ or $\bar{P}$, and then compute the other by inversion.
+    We choose to compute $\bar{P}$
+    \begin{align*}
+        \bar{P}_{1}&=[\bar{u}^{1}]_{u}=\left[\begin{array}{c}
+            1\\
+            0\\
+            0\\
+            0
+        \end{array}\right]\\
+        \bar{P}_{2}&=[\bar{u}^{2}]_{u}=\left[\begin{array}{c}
+            0\\
+            1\\
+            1\\
+            0
+        \end{array}\right]\\
+        \bar{P}_{3}&=[\bar{u}^{3}]_{u}=\left[\begin{array}{c}
+            0\\
+            1\\
+            -1\\
+            0
+        \end{array}\right]\\
+        \bar{P}_{4}&=[\bar{u}^{4}]_{u}=\left[\begin{array}{c}
+            0\\
+            0\\
+            0\\
+            1
+        \end{array}\right]
+    \end{align*}
+    Therefore, $\bar{P}$=$\left[\begin{array}{cccc}
+        1 & 0 & 0 & 0\\
+        0 & 1 & 1 & 0\\
+        0 & 1 & -1 & 0\\
+        0 & 0 & 0 & 1
+    \end{array}\right]$ and $P=\bar{P}^{-1}$
+
+\vspace*{3cm}
+
+\noindent \textbf{Def.}~ Let $A$ be an $n\times n$ matrix with complex coefficients. A scalar $\lambda \in \mathbb{C} $ is an \underline{eigenvalue} (e-value) of $A$, if $\exists$ a non-zero vector $v \in \mathbb{C}^{n}$ such that $Av=\lambda v$. Any such vector $v$ is called an \underline{eigenvector} (e-vector) associated with $\lambda$. Eigenvectors are not unique.
+    \newline\newline
+    To find eigenvalues, we need to know conditions under which $\exists v\neq0$ such that $Av=\lambda v$.
+    \begin{equation*}
+        Av=\lambda v \iff(\lambda I-A)v=0\iff \textnormal{det}(\lambda I-A)=0
+    \end{equation*}
+
+\noindent \textbf{Example:}~ $A=\left[\begin{array}{cc}
+    0 & 1\\
+    -1 & 0
+    \end{array}\right], det(\lambda I-A)=\lambda^2+1=0$.
+    \newline
+    Therefore, the eigenvalues are $\lambda_{1}=j,\lambda_{2}=-j$.
+    \newline
+    To find eigenvectors, we need to solve $(A-\lambda_{i}I)v^{i}=0$.
+    \newline
+    The eigenvectors are $v^{1}=\left[\begin{array}{c}
+        1\\
+        j
+    \end{array}\right],v^{2}=\left[\begin{array}{c}
+        1\\
+        -j
+    \end{array}\right]$.
+    \newline
+    Note that both eigenvalues and eigenvectors are complex conjugate pairs.
+
+\noindent
+\end{document}

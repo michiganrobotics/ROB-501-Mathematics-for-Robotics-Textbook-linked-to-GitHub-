@@ -1,0 +1,234 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 14\\
+Typeset by:  Bo Lin\\
+Proofread by: Hiroshi Yamasaki\\
+Revised: 28 October 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Weighted Least Square}\end{center}
+
+We suppose the inner product on $\real^n$ is defined by $<x,y> = x^\top Sy$, where $S$ is an $n\times n$ positive definite matrix. We denote the corresponding norm by $\|x\|_S := (x^\top S x)^{1/2}$.
+    \newline\newline
+    \underline{Overdetermined Equation:}~
+        \newline
+        Let $Ax = b$, where $x \in \mathbb{R}^n$, $b\in \mathbb{R}^m$, $A=m\times n$, $n<m$, and $\operatorname{rank}(A)=n$.
+        \newline
+        Then, we conclude that $\hat{x}=\left(A^\top  SA\right)^{-1}A^\top  Sb$, where $\hat{x}=\underset{Ax=b}{\operatorname{argmin}}\|x\|_S$.
+    \newline\newline
+    \underline{Underdetermined Equation:}
+        \newline
+        Let $Ax = b$, where $x \in \mathbb{R}^n$, $b\in \mathbb{R}^m$, $A=m\times n$, $n>m$, and $\operatorname{rank}(A)=m$. In other words, we are assuming the \underline{rows} of $A$ are linearly independent instead of the columns of $A$ are linearly independent.
+        \newline\newline
+        \textbf{Def.}~ If $\forall  b_0 \in \mathbb{R}^m, \exists  x_0 \in \mathbb{R}^n,$ such that $b_0 = Ax_0$, $b=Ax$ is \underline{consistent}.
+        \newline\newline
+        \textbf{Fact:}~ If $\operatorname{\operatorname{rank}}(A)=$ the number of rows, then the equation $b = Ax$ is consistent.
+        \newline\newline
+        \textbf{Fact:}~ Suppose $x_0$ is such that $b_0 = Ax_0$, and $V=\{x \in \mathbb{R}^n | y = Ax\}$ is the set of solutions. Then, $V = x_0 + \mathcal{N}(A)$, where $\mathcal{N}(A)=\{x \in \mathbb{R}^n | Ax=0\}$ is the null space of $A$. Therefore, $V$ is the translate of a subspace. We can also say that $V$ is an "affine" space.
+        \newline\newline
+        \textbf{Theorem:}~ If the rows of $A$ are linearly independent, then
+        \begin{equation*}
+            \hat{x} := \underset{ x \in V} {\operatorname{argmin}} \|x\|_S = \underset{ Ax=b} {\operatorname{argmin}} \|x\|_S = \underset{ Ax = b} {\operatorname{argmin}} (x^\top Sx)^{\frac{1}{2}}
+        \end{equation*}
+        exists, is unique,  and is given by
+        \begin{equation*}
+            \hat{x} = S^{-1} A^\top  \left(AS^{-1} A^\top \right)^{-1} b.
+        \end{equation*}
+
+\begin{center}
+    \textbf{Best Linear Unbiased Estimator (BLUE)}
+\end{center}
+    Let $y=Cx+\epsilon$, $y\in \mathbb{R}^m$, $x \in \mathbb{R}^n$, $E\{\epsilon\}=0$, $\operatorname{cov}\{\epsilon,\epsilon\}=E\{\epsilon \epsilon^\top \}=Q>0$.
+    \newline
+    We assume no stochastic (random) model for the unknown $x$. We also assume that columns of $C$ are linearly independent.
+    \newline
+    \textbf{Seek:} $\hat{x}=Ky$ that minimizes $E\{\|\hat{x}-x\|^2\}=E\{ \sum \limits_{i=1}^n |\hat{x_i}-x_i|^2\} $ where $\|\cdot \|$ is the standard Euclidean norm on $\real^n$.
+    \newline\newline
+    \underline{Aside:}~
+    \begin{align*}
+        (v+w)^\top (v+w)&=v^\top v+w^\top w+v^\top w+w^\top v\\
+        &=\|v\|^2+\|w\|^2+2v^\top w\textnormal{ (Because } v^\top w \textnormal{ is a scalar.)}
+    \end{align*}
+    \begin{align*}
+        \therefore E\{\|\hat{x}-x\|^2\}&=E\{\|Ky-x\|^2\}\\
+        &= E\{\|KCx+K\epsilon-x\|^2\}\\
+        & =E\{(KCx-x+K\epsilon)^\top (KCx-x+K\epsilon)\}\\
+        & =E\{(KCx-x)^\top(KCx-x)+2(K\epsilon)^\top(KCx-x)+\epsilon^\top  K^\top  K \epsilon\}
+    \end{align*}
+    From $E\{\epsilon\}=0$ and $x$ is deterministic, we have
+    \begin{equation*}
+        2E\{(K\epsilon)^\top(KCx-x)\}=0.
+    \end{equation*}
+    Moreover, by using the properties of the trace, we have
+    \begin{equation*}
+        \epsilon^\top K^\top K\epsilon= \operatorname{tr}\left( \epsilon^\top K^\top K\epsilon \right)=\operatorname{tr}\left(K\epsilon\epsilon^\top K^\top\right).
+    \end{equation*}
+    \begin{align*}
+        \therefore E\{\|x-\hat{x}\|^2\}&=\|KCx-x\|^2+\operatorname{tr}E\{K\epsilon\epsilon^\top K^\top\}\\
+        &=\|KCx-x\|^2 + \operatorname{tr}(KQK^\top ).
+    \end{align*}
+    \underline{Difficulty:}~ Optimal $K$ depends on the unknown $x$ through $\|KCx-x\|^2$!
+    \newline\newline
+    \underline{Observation:} If $KC=I$, then the problematic term disappears, i.e.,
+    \begin{equation*}
+        \|KCx-x\|^2=0.
+    \end{equation*}
+    \underline{Interpretation:} Estimator is \underline{unbiased}.
+    \begin{align*}
+        E\{\hat{x}\}&=E\{Ky\}\\
+        &=E\{KCx+K\epsilon\}\\
+        &=KCx\\
+        &=x.\ \ \ \ \ \ \ \ (\textnormal{if }KC=I)
+    \end{align*}
+    \underline{New Problem:}~
+    \begin{equation*}
+        \hat{K}=\operatorname{argmin}\{\operatorname{tr}(KQK^\top )\}\textnormal{ subject to }KC=I.
+    \end{equation*}
+    \underline{New Observation:}
+    \newline\newline
+    Write $K = \begin{bmatrix}
+        k_1\\
+        k_2\\
+        \vdots\\
+        k_n
+    \end{bmatrix}$ (partition $K$ by rows).
+    \newline\newline
+    Then, $K^\top =\begin{bmatrix}
+        k_1^\top | k_2^\top  | \dotsb | k_n^\top
+    \end{bmatrix}$
+    \begin{align*}
+        \operatorname{tr}\left(\begin{bmatrix}
+            \underline{k_1}\\
+            \vdots\\
+            \overline{k_n}
+            \end{bmatrix}Q\begin{bmatrix}k_1^\top|\dotsb|k_n^\top\end{bmatrix}\right) &=\sum^{n}_{i=1}k_iQk_i^\top\\
+        &=\sum^{n}_{i=1}\|k_i^\top\|_Q^2
+    \end{align*}
+    \begin{align*}
+        KC=I &\Leftrightarrow C^\top K^\top =I_{n\times n}\\
+        &\Leftrightarrow C^\top \begin{bmatrix}k_1^\top|\dotsb|k_n^\top\end{bmatrix}=\begin{bmatrix}e_1|\dotsb|e_n\end{bmatrix}\\
+        &\Leftrightarrow C^\top k_i^\top=e_i\ \ \ \ 1\leq i\leq n.
+    \end{align*}
+    $\therefore $ We have $n$-separate optimization problems involving the column vectors $k_i^\top $.
+    \begin{equation*}
+        \hat{k_i}^\top = \operatorname{argmin} \|k_i^\top \|_Q^2\textnormal{  subject to  } C^\top k_i^\top=e_i.
+    \end{equation*}
+    From our formula for under determined equations, we have
+      \newline
+    $\therefore \hat{k}_i^\top = Q^{-1}C(C^\top Q^{-1}C)^{-1}e_i$, which yields
+    \newline
+    $\therefore \hat{K}^\top = [\hat{k}_1^\top| \cdots |\hat{k}_n^\top]=Q^{-1}C(C^\top Q^{-1}C)^{-1}.$
+    \newline
+    Therefore,
+    \begin{equation*}
+        \underline{\hat{K}= (C^\top Q^{-1}C)^{-1}C^\top Q^{-1}}
+    \end{equation*}
+
+
+    \textbf{Theorem:}~ Let $x\in\real^n$, $y\in\real^m$, $y=Cx+\epsilon$, $E\{\epsilon\}=0$, $E\{\epsilon\epsilon^\top\}=:Q>0$, and $\operatorname{rank}(C)=n$. The Best Linear Unbiased Estimator (BLUE) is $\hat{x}=\hat{K}y$ where
+    \begin{equation*}
+        \hat{K}=\left(C^\top Q^{-1}C\right)^{-1}C^\top Q^{-1}.
+    \end{equation*}
+    Moreover, the covariance of the error is
+    \begin{equation*}
+        E\{\left(\hat{x}-x\right)\left(\hat{x}-x\right)^\top\}=\left(C^\top Q^{-1}C\right)^{-1}.
+    \end{equation*}
+
+
+    \textbf{Remark:} Error covariance computation is an exercise. Solution (from previous calculations)
+    \begin{align*}
+        E\{\left(\hat{x}-x\right)\left(\hat{x}-x\right)^\top\}&=KQK^\top\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}C^\top Q^{-1}QQ^{-1}C\left(C^\top Q^{-1}C\right)^{-1}\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}\left[C^\top Q^{-1}C\right]\left(C^\top Q^{-1}C\right)^{-1}\\
+        &=\left(C^\top Q^{-1}C\right)^{-1}
+    \end{align*}
+    \underline{Indeed}
+    \begin{align*}
+        \hat{x}-x&=Ky-x\\
+        &=KCx+K\epsilon-x\\
+        &=K\epsilon~(\text{because}~KC=I)\\
+        \therefore E\{(\hat{x}-x)(\hat{x}-x)^\top\}&=E\{(K\epsilon)(K\epsilon)^\top\}\\
+        &=E\{K\epsilon\epsilon^\top K^\top\}\\
+        &=KQK^\top
+    \end{align*}
+
+    \newpage
+
+    \noindent \textbf{Remarks:}
+    \begin{itemize}
+    \item Comparing Weighted Least Squares to BLUE, we see that they are \underline{identical} when the weighting matrix is taken as the \underline{inverse} of the covariance matrix of the noise term: $S=Q^{-1}$.
+
+        \item Another way to say this, if you solve a least squares problem with weight matrix $S$, you are implicitly assuming that your uncertainty in the measurements has zero mean and a covariance matrix of $Q=S^{-1}$.
+
+            \item If you know the uncertainty has zero mean and a covariance matrix of $Q$, using $S=Q^{-1}$ makes a lot of sense! For simplicity, assume that $Q$ is diagonal. A large entry of $Q$ means high variance, which means the measurement is highly uncertain. Hence, the corresponding component of $y$ should not be weighted very much in the optimization problem....and indeed, taking $S=Q^{-1}$ does just that because, the weight term $S$ is small for large terms in $Q$.
+
+                \item The inverse of the covariance matrix is sometimes called the \textit{information} matrix. Hence, there is low information when the variance (or covariance) is large!
+
+                    \item Wow! We do all this abstract math, and the answer makes sense!
+
+    \end{itemize}
+
+\end{document}

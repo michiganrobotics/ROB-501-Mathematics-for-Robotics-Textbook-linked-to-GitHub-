@@ -1,0 +1,156 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+%\baselineskip=48pt  % Enforce double space
+
+\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+\mbox{} \\
+Supremum versus Maximum \\
+and \\
+Infimum versus Minimum
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+Let $A$ be a subset of the reals, $\real$.
+
+\noindent \textbf{Def.}~An element $b\in A$ is a \textit{maximum} of $A$ if $x \le b$ for all  $x\in A$.
+We note that in the definition,  $b$ \underline{must} be an element of $A$. We denote it by $\max~A$ or $\max \{ A\}$.
+
+\noindent \textbf{Remark:} A \textit{max} of a set may not exist! Indeed, the set $A = \{  x\in \real~|~ 0  < x < 1\}$ does not have a maximum element. We will see later that it does not have a minimum either. This is what motivates the notions of supremum and infimum.
+
+\noindent \textbf{Def.}~An element $b\in \real$ is an \textit{upper bound} of $A$ if $x \le b$ for all  $x\in A$.  We say that $A$  is \textit{bounded from above}.
+
+\noindent \textbf{Remark:} We note that in the definition of upper bound,  $b$ does NOT have to be an element of $A$.
+
+\noindent \textbf{Def.}~ An element $b^*\in \real$ is the \textit{least upper bound} of $A$ if
+\vspace*{-.2in}
+\begin{enumerate}
+\item $b^*$ is an upper bound, that is $\forall ~x\in A$,~$x \le b^*$, and
+\item  if $b\in \real$ satisfies $ x \le b$ for all $x\in A$, then $b^* \le b$.
+\end{enumerate}
+
+\textbf{Notation and Vocabulary.}~ The least least upper bound of $A$ is also called the \textbf{supremum} and is denoted
+$$\sup A~~~\mbox{or}~~~\sup\{A\}$$
+
+\newpage
+
+\noindent \textbf{Theorem} If $A \subset \real$ is bounded from above, then $\sup\{A\}$ exists.
+
+\noindent \textbf{Examples:}
+\vspace*{-.2in}
+\begin{itemize}
+\item $A = \{  x\in \real~|~ 0  < x < 1\}$. Then $\sup A =1$.
+\item $A= \{ x\in \real~|~ x^2 \le 2\}.$ Then  $\sup A =\sqrt{2}$.
+\end{itemize}
+
+\noindent \textbf{Remark:} The existence of a \textit{supremum} is a special property of the real numbers. If you are working within the rational numbers, a bounded set may not have a \underline{rational} supremum. Of course, if you view the set as a subset of the reals, it will then have a supremum.
+
+\noindent \textbf{Examples:}
+\vspace*{-.2in}
+\begin{itemize}
+\item $A = \{  x\in \mathbb{Q}~|~ 0  < x < 1\}$. Then $\sup A =1$. Indeed, 1.0 is a rational number, it is an upper bound, and it less than or equal to any other upper bound; hence it is the supremum.
+\item $A= \{ x\in \mathbb{Q}~|~ x^2 \le 2\}.$  Then $(1.42)^2 = 2.0164$, and thus $b=1.42$ is a rational upper bound. Also $(1.415)^2 = 2.002225$, and thus $b=1.1415$ is a smaller rational upper bound. However, there is no least upper bound within the set of rational numbers. When we view the set $A$ as being a subset of the real numbers, then there is a real number that is a least upper bound and we have $\sup A =\sqrt{2}$. This is what I mean when I say that the existence of a supremum is a special or distinguishing property of the real numbers.
+\end{itemize}
+
+\noindent \textbf{Remark:} If the \textit{supremum} is in the set $A$, then it is equal to the \textit{maximum}.
+
+\newpage
+
+Consider once again a set $A$ contained in the real numbers, that is $A \subset \real$.
+
+\noindent \textbf{Def.}~An element $b\in A$ is a \textit{minimum} of $A$ if $b \le x$ for all  $x\in A$.
+We note that in the definition,  $b$ \underline{must} be an element of $A$. We denote it by $\min~A$ or $\min \{ A\}$.
+
+\noindent \textbf{Remark:} A \textit{min} of a set may not exist! Indeed, the set $A = \{  x\in \real~|~ 0  < x < 1\}$ does not have a minimum element.
+
+\noindent \textbf{Def.}~An element $b\in \real$ is a \textit{lower  bound} of $A$ if $b\le x$ for all  $x\in A$.  We say that $A$  is \textit{bounded from below}.
+
+\noindent \textbf{Remark:} We note that in the definition of lower bound,  $b$ does NOT have to be an element of $A$.
+
+\noindent \textbf{Def.}~ An element $b^*\in \real$ is the \textit{greatest lower bound} of $A$ if
+\vspace*{-.2in}
+\begin{enumerate}
+\item $b^*$ is a lower bound, that is $\forall ~x\in A$,~$b^* \le x$, and
+\item  if $b\in \real$ satisfies $b\le x$ for all $x\in A$, then $b^* \ge b$.
+\end{enumerate}
+
+\textbf{Notation and Vocabulary.}~ The greatest lower bound of $A$ is also called the \textbf{infimum} and is denoted
+$$\inf A~~~\mbox{or}~~~\inf\{A\}$$
+
+\noindent \textbf{Theorem} If the set $A$ is bounded from below, then $\inf~A$ exists.
+
+\noindent \textbf{Examples:}
+\vspace*{-.2in}
+\begin{itemize}
+\item $A = \{  x\in \real~|~ 0  < x < 1\}$. Then $\inf A =0$.
+\item $A= \{ x\in \real~|~ x^2 \le 2\}.$ Then  $\inf A =-\sqrt{2}$.
+\end{itemize}
+
+\noindent \textbf{Remark:} If the \textit{infimum} is in the set $A$, then it is equal to the \textit{minimum}.
+
+\noindent \textbf{Additional detail:}  If $A\subset \real$ is not bounded from above, we define $\sup~A = +\infty$. If $A\subset \real$ is not bounded from below, we define $\inf~A = -\infty$. Of course $+\infty$ and $-\infty$ are not real numbers. The \textit{extended real numbers} are sometimes defined as
+$$\real_e:=\{-\infty\} \cup \real \cup \{+\infty \}.$$
+
+\noindent \textbf{Final Remark:} MATH 451 \underline{constructs} the real numbers from the rational numbers! This is a very cool process to learn. Unfortunately, we do not have the time to go through this material in ROB 501. The existence of supremums and infimums for bounded subsets of the real numbers is a consequence of how the real numbers are defined (i.e., constructed)! 
+
+\end{document}
+
+
+
+
+

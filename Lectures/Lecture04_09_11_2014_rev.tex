@@ -1,0 +1,269 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+ROB 501 Fall 2014 \\
+Lecture 04 \\
+Typeset by: Xiangyu Ni \\
+Proofread by: Sulbin Park \\
+\end{center}
+}
+
+\Large
+
+\begin{center}
+\textbf{Abstract Linear Algebra (Continued)}
+\end{center}
+
+\noindent \textbf{Def.}~ Let $(\mathcal{X},\mathcal{F})$ be a vector space. A \underline{linear combination} is a finite sum of the form $\alpha_1x^1+\alpha_2x^2+\dotsb+\alpha_nx^n$ where $n\geq 1, \alpha_i\in\mathcal{F}, x^i\in\mathcal{X}$.
+
+\noindent \textbf{Remark:}~ $x^i=\begin{bmatrix}
+    {x_1}^i \\
+    {x_2}^i \\
+    \vdots \\
+    {x_n}^i
+    \end{bmatrix}$, where $x^i$ means individual vectors, not powers.
+
+    Something of the form $\sum_{k=1}^{\infty} \alpha_kv^k$ is not a linear combination because it is not finite.
+
+\noindent \textbf{Def.}~ A finite set of vectors $\{v^1, \dots, v^k\}$ is \underline{linearly dependent} if $\exists\alpha_i\in\mathcal{F}$ not all zero such that $\alpha_1v^1+\alpha_2v^2+\dotsb+\alpha_kv^k=0$. Otherwise, the set is \underline{linearly independent}.
+
+\noindent \textbf{Remark:}~ For a linearly independent set $\{v^1, \dots, v^k\}$, $\alpha_1v^1+\alpha_2v^2+\dotsb+\alpha_kv^k=0$ $\iff$ $\alpha_1=0, \alpha_2=0, \dots, \alpha_k=0$.
+
+\noindent \textbf{Def.}~ An arbitrary set of vectors $\mathcal{S}\subset\mathcal{X}$ is linearly independent if every finite subset is linearly independent.
+
+\newpage
+
+\noindent \textbf{Remark:}~ Suppose $\{v^1, \dots, v^k\}$ is a linearly dependent set. Then, $\exists\alpha_1, \dots, \alpha_k$ are not all zero such that $\alpha_1v^1+\alpha_2v^2+\dotsb+\alpha_kv^k=0$.
+
+Suppose $\alpha_1\neq0$
+    \begin{align*}
+    \alpha_1v^1 &= -\alpha_2v^2-\alpha_3v^3-\dots-\alpha_kv^k\\
+    v^1 &= -\frac{\alpha_2}{\alpha_1}v^2-\frac{\alpha_3}{\alpha_1}v^3-\dots-\frac{\alpha_k}{\alpha_1}v^k
+    \end{align*}
+
+$\therefore v^1$ is a linear combination of the $\{v^2,\dots,v^k\}$.
+
+\noindent \textbf{Example:}~ $\mathcal{X}=\mathbb{P}(t)=\{$set of polynomials with real coefficients$\}$. $\mathcal{F}=\mathbb{R}$.
+    \underline{Claim:} The monomials are linearly independent. In particular, for each $n\geq 0$, the set $\{1,t,\dots,t^n\}$ is linearly independent.
+
+    \underline{Proof:} Let $\alpha_0+\alpha_1t+\dots+\alpha_nt^n=o=$zero polynomial. We need to show that $\alpha_0=\alpha_1=\dots=\alpha_n=0$.
+        \newline Recall that $p(t)\equiv0$, $\frac{d^kp(t)}{dt^k}|_{t=0}=0$ for $k=0,1,2,\dots$.
+        \newline
+        $p(t)=\alpha_0+\alpha_1t+\dots+\alpha_nt^n$
+        \newline
+        $0=p(0)\iff\alpha_0=0$
+        \newline
+        $0=\frac{dp(t)}{dt}|_{t=0}=(\alpha_1+2\alpha_2t+\dots+n\alpha_nt^{n-1})|_{t=0}\iff\alpha_1=0$
+        \newline
+        $\vdots$
+        \newline
+        Etc. $\square$
+
+\noindent \textbf{Example:}~ Let $\mathcal{X}=\{$2$\times$3 matrices with real coefficients$\}$. Let $v^1=\begin{bmatrix}
+    1 & 0 & 0\\
+    2 & 0 & 0\\
+    \end{bmatrix}$, $v^2=\begin{bmatrix}
+    1 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix}$, $v^3=\begin{bmatrix}
+    0 & 0 & 1\\
+    0 & 0 & 0\\
+    \end{bmatrix}$, $v^4=\begin{bmatrix}
+    0 & 0 & 0\\
+    1 & 0 & 0\\
+    \end{bmatrix}$.
+    \newline\newline
+    $\{v^1,v^2\}$ is a linearly independent set.
+    \newline
+    $\alpha_1v^1+\alpha_2v^2=0\iff\begin{bmatrix}
+    \alpha_1 & 0 & 0\\
+    2\alpha_1 & 0 & 0\\
+    \end{bmatrix} + \begin{bmatrix}
+    \alpha_2 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix} = \begin{bmatrix}
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix}$
+    \newline$
+    \iff\alpha_1=\alpha_2=0$.
+    \newpage
+    $\{v^1,v^2,v^4\}$ is a linearly dependent set.
+    \newline
+    $\alpha_1v^1+\alpha_2v^2+\alpha_4v^4=0$
+    \newline
+    $\iff\begin{bmatrix}
+    \alpha_1 & 0 & 0\\
+    2\alpha_1 & 0 & 0\\
+    \end{bmatrix} + \begin{bmatrix}
+    \alpha_2 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix} + \begin{bmatrix}
+    0 & 0 & 0\\
+    \alpha_4 & 0 & 0\\
+    \end{bmatrix}= \begin{bmatrix}
+    0 & 0 & 0\\
+    0 & 0 & 0\\
+    \end{bmatrix}$
+    \newline
+    $\iff\alpha_1=1, \alpha_2=-1, \alpha_4=-2$.
+
+\noindent \textbf{Remark:}~ $\mathcal{F}$ is important when determining whether a set is linearly independent or not. For example, let $\mathcal{X}=\mathbb{C}$ and $v^1=1$, $v^2=j=\sqrt{-1}$. $v^1$ and $v^2$ are linearly independent when $\mathcal{F}=\mathbb{R}$. However, they are linearly dependent when $\mathcal{F}=\mathbb{C}$.
+
+\noindent \textbf{Def.}~ Let $\mathcal{S}$ be a subset of a vector space $(\mathcal{X},\mathcal{F})$. The \underline{span} of $\mathcal{S}$, denoted span$\{\mathcal{S}\}$, is the set of all linear combinations of elements of $\mathcal{S}$.
+    \newline
+    span$\{\mathcal{S}\}=\{x\in\mathcal{X} | \exists n\geq 1, \alpha_1,\dots\,\alpha_n\in\mathcal{F}, v^1,\dots,v^n\in\mathcal{S}, x=\alpha_1v^1+\dots+\alpha_nv^n\}$.
+
+\noindent \textbf{Remark:}~ span$\{\mathcal{S}\}$ is a subset.
+
+\noindent \textbf{Example:}~ Let $\mathcal{X}=\{f: \mathbb{R}\rightarrow\mathbb{R}\}$ and $\mathcal{F}=\mathbb{R}$. $\mathcal{S}=\{1,t,t^2,\dots\}=\{t^k|k\geq0\}$. span$\{\mathcal{S}\}=\mathbb{P}(t)=\{$polynomials with real coefficients$\}$.
+    \newline\newline
+    Is $e^t\in \operatorname{span}\{\mathcal{S}\}$?
+    No. Although $e^t$ can be written as a sum of polynomials $($Taylor Series$)$, the number of components of that sum is infinite. While, the linear combination has to be finite.
+
+\noindent \textbf{Def.}~ A set of vectors $\mathcal{B}$ in $(\mathcal{X},\mathcal{F})$ is a basis for $\mathcal{X}$ if\begin{itemize}
+    \item $\mathcal{B}$ is linearly independent.
+    \item span$\{\mathcal{B}\}=\mathcal{X}$.
+    \end{itemize}
+
+\newpage
+
+\noindent \textbf{Example:}~ $(\mathcal{F}^n,\mathcal{F})$ where $\mathcal{F}$ is $\mathbb{R}$ or $\mathbb{C}$. $e^1=\begin{bmatrix}
+    1\\
+    0\\
+    \vdots\\
+    0\\
+    \end{bmatrix}$, $e^2=\begin{bmatrix}
+    0\\
+    1\\
+    \vdots\\
+    0\\
+    \end{bmatrix}$, $\dots$, $e^n=\begin{bmatrix}
+    0\\
+    0\\
+    \vdots\\
+    1\\
+    \end{bmatrix}$. $\{e^1,e^2,\dots,e^n\}$ is both linearly independent and its span is $\mathcal{F}^n$.
+    \newline
+    $\therefore$ It is a basis.
+    \newline
+    It is called the \underline{Natural Basis}.
+
+    Moreover, $\{e^1,e^2,\dots,e^n,je^1,je^2,\dots,je^n\}$ is a basis for $\mathbb{C}^n$ in $(\mathbb{C}^n,\mathbb{R})$. However, it is not a basis for $\mathbb{C}^n$ in $(\mathbb{C}^n,\mathbb{C})$.
+
+    Let $v^1=\begin{bmatrix}
+    1\\
+    0\\
+    \vdots\\
+    0\\
+    \end{bmatrix}$, $v^2=\begin{bmatrix}
+    1\\
+    1\\
+    \vdots\\
+    0\\
+    \end{bmatrix}$, $\dots$, $v^n=\begin{bmatrix}
+    1\\
+    1\\
+    \vdots\\
+    1\\
+    \end{bmatrix}$. $\{v^1,v^2,\dots,v^n\}$ is also a basis for $(\mathcal{F}^n,\mathcal{F})$ where $\mathcal{F}$ is $\mathbb{R}$ or $\mathbb{C}$.
+
+\noindent \textbf{Example:}~ The infinite set $\{1,t,\dots,t^n,\dots\}$ is a basis for $(\mathbb{P}(t),\mathbb{R})$.
+
+\noindent \textbf{Def.}~ Let $n>0$ be an integer. The vector space $(\mathcal{X},\mathcal{F})$ has finite dimension n if
+    \begin{itemize}
+        \item there exists a set with $n$ linearly independent vectors, and
+        \item any set with $n+1$ or more vectors is linearly dependent.
+    \end{itemize}
+    $(\mathcal{X},\mathcal{F})$ is infinite dimensional if for every $n>0$, there is a linearly independent set with $n$ or more elements in it.
+
+\newpage
+
+\noindent \textbf{Examples:}~
+    \newline
+    dim$(\mathcal{F}^n,\mathcal{F})=n$
+    \newline
+    dim$(\mathbb{C}^n,\mathbb{R})=2n$
+    \newline
+    dim$(\mathbb{P}(t),\mathbb{R})=\infty$
+
+\noindent \textbf{Theorem:}~ Let $(\mathcal{X},\mathcal{F})$ be an $n$-dimensional vector space ($n$ is finite). Then, any set of $n$ linearly independent vectors is a basis.
+
+\underline{Proof:}~ Let $(\mathcal{X}, \mathcal{F})$ be $n$-dimensional and let $\{v^1,\dotsb,v^n\}$ be a linearly independent set.
+    \newline
+    To show: $\forall x \in \mathcal{X}$, $\exists \alpha_1,\ \dotsb,\ \alpha_n\in\mathcal{F}$ such that $x=\alpha_1v^1+\dotsb+\alpha_nv^n$.
+    \newline
+    How: Because $(\mathcal{X},\mathcal{F})$ is $n$-dimensional, $\{x,v^1,\dotsb,v^n\}$ is a linearly dependent set. Otherwise, the dim$\mathcal{X}>n$ which it isn't. Hence, $\exists\beta_0,\beta_1,\dotsb,\beta_n\in\mathcal{F}$, NOT ALL ZERO, such that $\beta_0x+\beta_1v^1+\dotsb+\beta_nv^n=0$.
+    \newline
+    Claim: $\beta_0\neq 0$
+    \newline
+    Proof: Suppose that $\beta_0=0$. Then,
+    \begin{enumerate}
+        \item At least one of $\beta_1,\ \dotsb,\ \beta_n$ is non-zero.
+        \item $\beta_1v^1+\dotsb+\beta_nv^n=0$.
+    \end{enumerate}
+    1 and 2 above, imply that $\{v^1,\dotsb,v^n\}$ is a linearly dependent set, which is a contradiction. Hence, $\beta_0=0$ cannot hold. Completing the proof, we write
+    \begin{align*}
+        \beta_0x &= -\beta_1x^1-\dotsb-\beta_nv^n\\
+        x&=\left(\frac{-\beta_1}{\beta_0}\right)v^1+\dotsb+\left(\frac{-\beta_n}{\beta_0}\right)v^n\\
+        \therefore \alpha_1 &= \frac{-\beta_1}{\beta_0},\dotsb,\alpha_n=\frac{-\beta_n}{\beta_0}.\ \square
+    \end{align*}
+\end{document} 

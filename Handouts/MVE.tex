@@ -1,0 +1,259 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 15\\
+Typeset by:  Connie Qiu\\
+Proofread by: Bo Lin\\
+Revised by Grizzle on 29 October 2015
+\end{center}
+}
+
+\Large
+
+
+
+
+\textbf{Minimum Variance Estimator}
+$$y=Cx+\epsilon, y\in \mathbb{R}^m, x \in \mathbb{R}^n, \text{and}~ \epsilon\in \mathbb{R}^m.$$
+
+\textbf{Stochastic assumptions:}
+
+$E\{x\}=0, E\{\epsilon\}= 0$ (means).
+
+$E\{\epsilon \epsilon^\top \}=Q, E\{xx^\top \}= P, E\{\epsilon x^\top \}=0$ (covariances).\\
+
+\textbf{Remark:} $E\{\epsilon x^\top \}=0$ implies that the states and noise are uncorrelated. Recall that uncorrelated does NOT imply independence, except for Gaussian random variables.
+
+\textbf{Assumptions:}  $Q\ge 0 , P \ge 0, CPC^\top +Q >0$.  (will see why later)
+
+\textbf{Objective:} minimize the variance
+$$E\{\|\hat x -x\| ^2\} = E\{ \sum\limits_{i=1}^n (\hat x_i-x_i)^2\} = \sum\limits_{i=1}^n E\{ (\hat x_i-x_i)^2 \}.$$
+
+
+We see that there are $n$ separate optimization problems.
+
+\textbf{Remark:} suppose $\hat x = Ky$. It is automatically unbiased, because
+$$ E\{\hat x\}=E\{ Ky\} = E\{ KCx+K\epsilon\} = KCE\{x\}+KE\{\epsilon\}  = 0 =E\{x\}$$
+
+\newpage
+
+\textbf{Problem Formulation:} We will pose this as a minimum norm problem in a vector space of random variables.
+$${\cal F} = \mathbb{R},$$
+$$ \mathcal{X} = span\{x_1, x_2, \dots , x_n, \epsilon_1, \epsilon_2, \dots, \epsilon_m\},$$
+where
+$$x=   \begin{bmatrix}
+    x_1\\
+    \vdots\\
+    x_n
+  \end{bmatrix}~~~\text{and} ~~~~\epsilon =   \begin{bmatrix}
+    \epsilon_1\\
+    \vdots\\
+    \epsilon_m
+  \end{bmatrix}.$$
+
+For $z_1,z_2 \in \mathcal{X}$, we \underline{define their inner product} by:  $$<z_1,z_2> = E\{z_1z_2\}$$
+
+$M = span\{y_1,y_2,\dots,y_m\} \subset \mathcal{X}$ (measurements),
+
+$y_i = C_ix+\epsilon_i = \sum\limits_{j=1}^n C_{ij}x_j+\epsilon_i, 1\le i \le m,$  ($i$-th row of $y$)
+
+$\hat{x}_i = \underset{m \in M}{\arg\min} \|x_i-m\|=d(x,M).$
+
+\textbf{Fact:} $\{y_1,y_2,\dots,y_m\}$ is linearly independent if, and only if, $CPC^\top +Q$ is positive definite. This is proven below when we compute the Gram matrix. (Recall, $\{y_1,y_2,\dots,y_m\}$ linearly independent if, and only if $G$ is full rank, where $G_{ij}:=<y_i,y_j>.$)
+
+\newpage
+\centerline{\bf Solution via the Normal Equations}
+
+
+By the normal equations,
+$$\hat{x}_i = \hat \alpha_1 y_1  +  \hat \alpha_2 y_2  + \dots + \hat \alpha_m y_m$$
+where $G^\top \hat \alpha = \beta$.
+\begin{align*}
+G_{ij} = <y_i,y_j> = E\{y_i y_j\} &= E\{[C_i x+\epsilon_i][C_j x+\epsilon_j]\}\\
+& = E\{[C_i x+\epsilon_i][C_j x+\epsilon_j]^\top \}\\
+& = E\{[C_i x+\epsilon_i][x^\top  {C_j}^\top  +\epsilon_j]\}\\
+& = E\{C_i xx^\top  C_j^\top \} + E\{C_i x\epsilon_j\} + E\{\epsilon_i x^\top  C_j^\top \} + E\{ \epsilon_i \epsilon_j\}\\
+& = C_iE\{ xx^\top  \}C_j^\top  + E\{ \epsilon_i \epsilon_j\}\\
+& = C_i P C_j^\top  + Q_{ij}\\
+&=[CPC^\top +Q]_{ij}\
+\end{align*}
+where we have used the fact that $x$ and $\epsilon$ are uncorrelated. We conclude that
+$$G = CPC^\top +Q.$$
+
+We now turn to computing $\beta$. Let's note that $x_i$, the $i$-th component of $x$ is equal to $x^\top  e_i$, where $e_i$ is the standard basis vector in $\real^n$.
+\begin{align*}
+\beta_j = <x_i,y_j> &= E\{x_i y_j\}\\
+ &= E\{x_i[C_j x+\epsilon_j]\} \\
+ &= E\{x_i C_j x\} + E\{x_i \epsilon_j\} \\
+ & = C_jE\{ x x_i\} \\
+  & = C_jE\{ x x^\top  e_i\} \\
+    & = C_jE\{ x x^\top  \} e_i\\
+ &= C_j P e_i \\
+ &= C_j P_i
+\end{align*}
+where $P=[P_1 | P_2| \dots | P_n]$.
+
+\newpage
+Putting all this together, we have
+\begin{align*}
+G^\top \hat \alpha &= \beta \\
+&\Updownarrow \\
+[CPC^\top +Q] \hat \alpha &= C P_i \\
+&\Updownarrow \\
+\hat \alpha &= [CPC^\top +Q]^{-1} C P_i
+\end{align*}
+
+
+$\hat{x}_i = \hat \alpha_1 y_1  +  \hat \alpha_2 y_2  + \dots + \hat \alpha_m y_m = \hat \alpha^\top  y=$ (row vector $\times$ column vector.)
+$$\hat \alpha =   \begin{bmatrix}
+    \hat \alpha_1\\
+    \vdots\\
+    \hat \alpha_m
+  \end{bmatrix}.$$
+
+We now seek to identify the gain matrix $K$ so that
+$$\hat x = Ky \Leftrightarrow \hat x_i = K_i y, \text{where}~~K =    \begin{bmatrix}
+    \underline{K_1}\\
+    \underline{K_2}\\
+    \vdots\\
+    \overline{K_n}
+  \end{bmatrix};$$
+  that is, $K_i$ is the $i$-th row of $K$.
+
+  \begin{align*}
+    K_i^\top  = \hat \alpha &=  [CPC^\top +Q]^{-1} C P_i\\
+    [K_1^\top  | \dots | K_n^\top ] &= [CPC^\top +Q]^{-1} C P\\
+    K&=PC^\top [CPC^\top +Q]^{-1}\
+\end{align*}
+
+$$\boxed{\hat{x} = K y =  PC^\top [CPC^\top +Q]^{-1}y}$$
+
+\newpage
+
+\textbf{Remarks:}
+\begin{enumerate}
+\item  Exercise: $E\{(\hat x -x)(\hat x -x)^\top \} = P-PC^\top [CPC^\top +Q]^{-1}CP$
+
+\item The term $PC^\top [CPC^\top +Q]^{-1}CP$ represents the ``value'' of the measurements. It is the reduction in the variance of $x$ given the measurement $y$.
+
+    \item If $Q>0$ and $P>0$, then from the Matrix Inversion Lemma
+$$\boxed{\hat x = Ky = [C^\top Q^{-1}C+P^{-1}]^{-1}C^\top Q^{-1}y.}$$
+This form of the equation is useful for comparing BLUE vs MVE
+
+
+\item \underline{BLUE vs MVE}\\
+
+\begin{itemize}
+
+\item \textbf{BLUE:} $\hat x = [C^\top  Q^{-1}C]^{-1}C^\top  Q^{-1}y$ \\
+
+\item \textbf{MVE:} $\hat x = [C^\top  Q^{-1}C+P^{-1}]^{-1}C^\top  Q^{-1}y$ \\
+
+\item Hence, BLUE = MVE when $P^{-1} = 0$.\\
+
+\item $P^{-1} = 0$ roughly means $P= \infty I$, that is infinite covariance in $x$, which in turn means \textit{no idea} about how $x$ is distributed!
+
+    \item For BLUE to exist, we need $\textrm{dim}(y) \ge \textrm{dim}(x) $
+
+    \item For MVE to exist, we can have $\textrm{dim}(y) < \textrm{dim}(x) $ as long as $$(C P C^\top + Q) >0$$
+
+\end{itemize}
+
+\end{enumerate}
+
+\newpage
+
+\centerline{\bf Solution to Exercise}
+
+We seek $E\{(\hat x -x)(\hat x -x)^\top \}$ To get started, let's note that
+$$\hat x -x = Ky-x = KC x + K \epsilon  - x=(KC - I)x + K \epsilon $$
+and thus
+$$ (\hat x -x)(\hat x -x)^\top= (KC - I)x x^\top (KC - I)^\top + K \epsilon \epsilon^\top K^\top - 2(KC - I)x \epsilon^\top K^\top  $$
+
+Taking expectations, and recalling that $x$ and $\epsilon$ are uncorrelated, we have
+\begin{align*}
+E\{(\hat x -x)(\hat x -x)^\top \} & = (KC-I) P (KC-I)^\top + K Q K^\top \\
+&= KC P C^\top K^\top + P - 2 PC^\top K^\top + K Q K^\top\\
+&= P + K [CPC^\top + Q] K^\top  -2 PC^\top K^\top
+\end{align*}
+substituting with $K=PC^\top [CPC^\top +Q]^{-1}$ and simplifying yields the result.
+
+
+
+\newpage
+
+\centerline{\bf Solution to MIL}
+
+We will show that if $Q>0$ and $P>0$, then 
+$$ PC^\top [CPC^\top +Q]^{-1}= [C^\top  Q^{-1}C+P^{-1}]^{-1}C^\top  Q^{-1}$$
+
+\textbf{MIL:} Suppose that $A$, $B$, $C$ and $D$ are compatible\footnote{The sizes are such the matrix products and sum in $A+BCD$ make sense.} matrices. If $A$, $C$, and  $(C^{-1}+D A^{-1}B)$ are each square and invertible, then  $A+BCD$ is invertible and
+    $$ (A + BCD)^{-1} = A^{-1} - A^{-1}B(C^{-1} + DA^{-1}B)^{-1}DA^{-1}$$
+
+We apply the MIL to $[C^\top  Q^{-1}C+P^{-1}]^{-1}$, where we identify $A=P^{-1}, B=C^\top, C=Q^{-1}, D=C$. This yields
+%
+$$[C^\top  Q^{-1}C+P^{-1}]^{-1} = P-PC^\top [ Q + CPC^\top]^{-1} CP$$
+
+Hence
+\begin{align*}
+[C^\top  Q^{-1}C+P^{-1}]^{-1}C^\top  Q^{-1} &= PC^\top  Q^{-1}-PC^\top [ Q + CPC^\top]^{-1} CPC^\top  Q^{-1} \\
+&= PC^\top \left[ I - [Q+CPC^\top]^{-1} CPC^\top   \right] Q^{-1} \\
+&={\scriptstyle  PC^\top \left[ [Q+CPC^\top]^{-1} [Q+CPC^\top] - [Q+CPC^\top]^{-1} CPC^\top   \right] Q^{-1}}\\
+&=PC^\top [Q+CPC^\top]^{-1} \left[  [Q+CPC^\top] - CPC^\top   \right] Q^{-1}\\
+&= PC^\top [Q+CPC^\top]^{-1} \left[  Q+CPC^\top - CPC^\top   \right] Q^{-1}\\
+&= PC^\top [Q+CPC^\top]^{-1} \left[  Q    \right] Q^{-1}\\
+&= PC^\top [Q+CPC^\top]^{-1}
+\end{align*}
+
+
+\end{document} 

@@ -1,0 +1,501 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\markboth{\bf Place name or initials here:\underline{\hspace*{1.5in}}}{\bf Place name or initials here:\underline{\hspace*{1.5in}}}
+
+%\begin{flushright}
+%{\bf Exam Number:}\bline{0.6in}
+%\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-III \\
+Take Home \\
+\large
+Due December 16, 2014, 3:30 PM \\
+Room EECS 4230 (Systems Office)\\
+Black Box marked ROB 501
+\end{center}
+
+\vspace*{1in}
+
+\noindent {\bf HONOR PLEDGE:} Copy and SIGN: I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code. In addition, I have followed the rules stated below.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{2.5in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item Use this page as a cover page for your exam solution. Place a staple in the upper left hand corner. Do not staple along the edges to form a booklet.
+    \item Use the table on page 2 for your answers to the multiple choice questions.
+    \item Write on only one side of a page.
+\item You can use MATLAB.
+\item You can use your class notes and HW solutions.
+ \item You can use anything that is posted on the course C-TOOLS site.
+ \item You can work as many hours as you want.
+ \item No outside sources. This means no web searches, no books, no talking to anyone about the exam.
+ \item Violation of these rules means a trip to the Honor Council.
+\end{enumerate}
+\vspace*{.4in}
+
+
+
+\newpage
+
+\vspace*{1in}
+
+\begin{center}
+\Large
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 4 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 5 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+\begin{tabular}{|p{2in}|p{1in}|p{1in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-5 &  &   40\\
+\hline
+Problem 6 &  &   15\\
+\hline
+Problem 7 &  &   15\\
+\hline
+Problem 8 &  &   10\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{80}$\\
+\hline
+& & \\
+\hline
+%Optional Bonus Question&  &   $\pm5$\\
+%
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\newpage
+
+\vspace*{8cm}
+\begin{center}
+ \textbf{ \LARGE Professor Grizzle will not be able to answer questions after 8 AM on Sunday, December 14.  Questions before that time should be posed to him via email: ``grizzle@umich.edu'', and will only be answered if the question and answer can subsequently be posted on CTOOLS, so that everyone has the same information. Your name will **not** be revealed if the question and answer are posted on CTOOLS. }
+\end{center}
+\newpage
+
+
+
+\subsection*{Problems 1 - 5 {\rm (40 points: 5 $\times$ 8)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct and one answer that is incorrect. \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.} As usual, you are NOT asked to show your work.
+
+\vspace{0.5in}
+
+\begin{enumerate}
+
+
+\item[{\bf 1.}]  Various statements involving the vocabulary and logic of proofs:
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item Consider a finite dimensional inner product space $({\cal X},\real, <\cdot, \cdot>)$, $x\in {\cal X}$ and let $A \subset {\cal X}$ a subset. The  \underline{converse} of the statement ``$x \perp A$ implies $x \perp \spanof{A}$'' is the statement ``$x \perp \spanof{A}$ implies $x \perp A$.''
+
+    \item  Let $f:\real \to \real$ be a function and $x_0 \in \real$. The \underline{negation} of the statement ``$\forall~\epsilon>0,~\exists \delta>0$ such that $x \in B_{\delta}(x_0) \Rightarrow f(x) \in
+    B_\epsilon(f(x_0))$,'' is the statement: ``$\exists~\epsilon>0$ such that $\forall ~ \delta>0$,  if $ x \in B_{\delta}(x_0)$, then $f(x) \not \in B_\epsilon(f(x_0))$.''
+
+    \item Let $A$ be a square real matrix. The  \underline{contrapositive} of the statement  ``if $A$ is symmetric, then all of its eigenvalues are real,'' is the statement ``if $A$ has a complex eigenvalue, then $A$ is not symmetric.''
+
+        \item When trying to prove $P \Rightarrow Q$, a proof by \underline{contradiction} will typically assume that both $\neg P$ and $Q$ are true, where $\neg$ denotes negation.
+
+%\item  \textbf{Fix this one!} The logic table below proves that $P \Rightarrow Q$, where $\neg$ denotes negation and $\land$ denotes ``and''.
+%\begin{center}
+%\begin{tabular}{|c|c|c|}
+%\hline
+%P & Q & P $\land$ ($\neg$ Q) \\ \hline
+%1 & 1 & 0  \\
+%1 & 0 & 1  \\
+%0 & 1 & 1  \\
+%0 & 0 & 0 \\ \hline
+%\end{tabular}
+%\end{center}
+
+\end{enumerate}
+
+\vspace*{4cm}
+
+\item[{\bf 2.}]  Let $({\cal X}, {\cal F})$ be an $n$-dimensional vector space, $n \ge 3$, and let $V$ and $W$ be subspaces such that $V+W = {\cal X}$. To eliminate trivial cases, you are given that the dimensions of $V$ and $W$ are each greater than or equal to one.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $V\cap W$ can be the empty set.
+\item  If for every $x\in {\cal X}$, there exist a unique $v\in V$ and a unique $ w \in W$ such $x=v-w$ then ${\cal X} =V \oplus W$. (the minus sign is not a typo and $\oplus$ is the direct sum)
+    \item The set $\{ x \in V~|~ x \not \in W\}$ is a subspace.
+    \item Suppose $n=3$, $\{v^1, v^2 \}$ is a basis for $V$, and $\{w^1, w^2 \}$ is a basis for $W$. Then, it must be true that either $v^1 \in W$ or $v^2 \in W$.
+\end{enumerate}
+
+\newpage
+
+\item[{\bf 3.}]  Let $({\cal X}, \real, <\cdot, \cdot>)$ be a finite-dimensional inner product space, and let $V$ and $W$ be \underline{subsets} of ${\cal X}$. To avoid trivial cases, you can assume $V$ and $W$ are non-empty.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item If $V $ is orthogonal\footnote{Yes, $x\in V$ and $y\in W$ implies that $<x,y>=0.$} to $W$, then $\spanof{V}$ is orthogonal to $\spanof{W}$.
+\item If $V$ and $W$ are subspaces, and if $V $ is orthogonal to $W$, then $V^\perp$ is orthogonal to $W^\perp$.
+\item Suppose $V$ and $W$ are subspaces, and $V  \not \perp W$ ($V$ is not orthogonal to $W$). Then there exists a subspace $Y$ such that $V \perp Y$ \underline{and} $V+Y = V + W.$
+\item If $W$ is a linearly independent set, then it is a closed set.
+\end{enumerate}
+
+\vspace*{5cm}
+
+
+\item[{\bf 4.}]  Let  $({\cal X}, \real, ||\cdot||)$ be a finite-dimensional normed space. To eliminate trivial cases, you can assume that any subsets in the following questions are non-empty.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+
+\item Suppose that $f:{\cal X} \to \real$ is continuous at each point of ${\cal X} $. Then there exists $x^* \in {\cal X}$ such that $$f(x^*) = \sup_{x \in {\cal X} }f(x).$$
+
+
+\item Suppose that $C\subset {\cal X}$ is convex. Then $C$ is closed.
+
+\item Suppose that $C\subset {\cal X}$ is compact and $(x_n)$ is a sequence in $C$ (that is, $x_n \in C$ for all $n \ge 1$). If there exists $x^*\in {\cal X}$ such that  $x_n \to x^*$, then $x^*\in C$.
+
+\item Suppose that the sequence $(x_n)$ is Cauchy. Then there exists $x^* \in {\cal X}$ such that $x_n \to x^*$.
+
+
+
+
+\end{enumerate}
+
+
+\newpage
+
+
+\item[{\bf 5.}]  The Minimum Variance Estimator (MVE) can be derived by assuming a linear solution and coverting the problem to a deterministic optimization problem, in a similar manner to how we obtained the Best Linear Unbiased Estimator, BLUE. This multiple-choice problem requires that you develop that approach.
+
+  \noindent  \textbf{Problem Data:}
+  \begin{itemize}
+  \item $y = Cx + \epsilon$, $y \in \real^m$ and $x \in \real^n$.
+  \item $E\{\epsilon \} = 0$ and $E\{ x \}=0$
+  \item $E\{ \epsilon \epsilon^T \} = Q $,  $E\{ x x^T \} = P $,  $E\{ \epsilon x^T \} = 0 $, $E\{ x \epsilon^T \} = 0 $
+  \item For simplicity, we take $Q >0$ and $P>0$, which is a sufficient condition for $(C P C^\top + Q)>0$.
+  \item We seek to estimate $x$ on the basis of $y$ and the given statistical information about $x$ so that we minimize the variance
+      $$E\{ ||\hat{x} - x||^2 \} = E\{ \sum_{i=1}^n \left( \hat{x}_i - x_i \right)^2 \} =  \sum_{i=1}^nE\{ \left( \hat{x}_i - x_i \right)^2 \} ~~~~(*) $$
+
+  \end{itemize}
+
+\noindent \textbf{Given Fact:} From (*), we have $\hat{x} = Ky$ minimizes $E\{ ||\hat{x} - x||^2 \} $ if, and only if, for $ 1 \le i \le n$,  $\hat{x}_i = k_i y$ minimizes $ E\{ \left( \hat{x}_i - x_i \right)^2 \}$, where $$K=\left[ \begin{array}{r}  k_1  \\  k_2 \\   \vdots \\ k_n\end{array} \right] $$
+
+
+\textbf{Hints:} (1)  If $M$ is $1 \times n$ so that $z = Mx$ is a scalar, then $z^2 = M x x^\top M^\top$; (2) $x_i = e_i^\top x$, where $[e_1~|~e_2~| \cdots ~|~e_n] = I_{n \times n}$. (Yes, $[e_i]_j = 1 \Leftrightarrow i = j$, and zero otherwise.)\\
+
+
+%%We let $$k^*_i := \text{arg}~\min_{k_i^\top \in \real^m} E\{ \left( k_i (Cx+\epsilon)  - x_i \right)^2 \}.$$
+
+
+\noindent \textbf{Your work starts here. Everything above is assumed given and true.} Determine which of the following statements are TRUE and report them in the table on page 2. At least one answer is FALSE and at least one answer is TRUE.
+
+        \begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item $\widehat{x} = K y$ is unbiased\footnote{Recall that an estimator is said to be unbiased when ${\cal E} \{\widehat{x} \} = {\cal E} \{ x \}$} if, and only if, $KC=I$.
+
+\item  Let $\widehat{x}_i = k_i y$. Then
+$$E\{ \left( \widehat{x}_i - x_i \right)^2 \} =   \left[ \begin{array}{c} C^\top k_i^\top - e_i \\ k_i^\top\end{array} \right]^\top \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right] \left[ \begin{array}{c} C^\top k_i^\top - e_i \\ k_i^\top\end{array} \right]$$
+where  $[e_1~|~e_2~| \cdots ~|~e_n] = I_{n \times n}$.
+
+\item  Let $\widehat{x}_i = k_i y$. Then
+$E\{ \left( \widehat{x}_i - x_i \right)^2 \} =  k_i (C P C^\top + Q) k_i^\top. $
+
+\item Let $\widehat{k}_i := \text{arg}~ \min E\{ \left( k_i (Cx+\epsilon)  - x_i \right)^2 \} $ denote the gain that minimizes the variance for a linear estimator $\widehat{x}_i = k_i y$. Then $\widehat{k}_i$ can be obtained by minimizing the error of the over determined equation
+    $$ A k_i^\top = b, $$
+    with $$A=\left[\begin{array}{c}  C^\top \\ I_{m\times m}\end{array} \right],~~b=\left[\begin{array}{c}  e_i \\ 0_{m\times 1}\end{array} \right],$$
+and $e_i$ is defined as in part (b); the norm on $\left[ \begin{array}{c} \alpha \\ \beta\end{array} \right] \in \real^{n+m}$ is given by $$||\left[ \begin{array}{c} \alpha \\ \beta\end{array} \right]||^2 = \left[ \begin{array}{c} \alpha \\ \beta\end{array} \right]^\top \left[ \begin{array}{cc}  P & 0  \\ 0& Q \end{array} \right] \left[ \begin{array}{c} \alpha \\ \beta\end{array} \right].$$
+
+
+
+\end{enumerate}
+
+
+\end{enumerate}
+
+\newpage
+
+
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points.   \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we know that real symmetric matrices have real e-values and their e-vectors can be chosen to be orthornormal. If you email me a question, I will only answer if I can post the question and answer on CTOOLS. I must ensure that everyone has the same information. }
+
+\vspace*{4cm} \textbf{ \LARGE Do not count of getting answers to questions posed after 8 AM on Sunday, December 14.}
+
+
+\newpage
+
+\noindent {\bf 6. (15 points)}  In HW \#5, Problem 6, we developed a deterministic method to estimate the derivative of a signal corrupted by noise. Another common way to accomplish this task is through the Kalman Filter (KF), which we explore in this problem. In order to apply the KF, we need a model. The common model used is $y^{(N)}(t) = \text{white noise},$ that is, the $N$-th derivative of the signal is white noise, where $N\ge 1$ is to be chosen. The corresponding continuous-time state variable model is developed by setting $x_1(t) = y(t)$, $x_2(t) = \dot{y}(t)$, $\cdots$, $x_N(t) = y^{(N-1)}(t),$ yielding
+\begin{align*}
+\dot{x}_1(t) &= x_2(t) \\
+& \ ~ \vdots \\
+\dot{x}_{N-1} (t)& = x_N(t) \\
+\dot{x}_{N} (t)& = w(t)\\
+y(t) & =x_1(t).
+\end{align*}
+The  associated discrete-time model\footnote{ \textbf{Note:} We have added a noise term to the measurement because it is REQUIRED in the KF.}, with sample period $T_s$, $x_k = x(k T_s)$, $y_k = y(k T_s)$, $w_k = w(k T_s)$
+\begin{align*}
+x_{k+1} &=  A x_{k} + G w_{k} \\
+y_k & =C x_k +  v_k,
+\end{align*}
+ is computed in MATLAB with the following commands (see the file \texttt{Prob06.m} for these commands)
+ \begin{verbatim}
+    N = ?? %<---place your value here
+    SuperDiag=ones(1,N-1);
+    Ac=diag(SuperDiag,1);
+    Gc=zeros(N,1);Bc(N)=1;
+    Cc=zeros(1,N); Cc(1)=1;
+    SysCont=ss(Ac,Gc,Cc,0);  % Continuous-time model
+    Ts = 0.002 <----place the sample period here, such as 0.002
+    SysDisc=c2d(SysCont,Ts);  % Discrete-time model
+    [A,G,C] = ssdata(SysDisc);
+ \end{verbatim}
+
+
+\textbf{Assignment:} Design a KF to compute the derivative of the signal in \texttt{DataHW05\_Prob6}. Specifically, you will have to
+\begin{itemize}
+\setlength{\itemsep}{.1cm}
+\item Choose $N$.
+\item Choose values for the covariance of the state noise, $w_k$,  the covariance of the measurement noise, $v_k$, etc.
+\item Run your KF and compare its estimate of $\dot{y}$  to the true derivative, which you will recall, is provided in the data set. \textbf{Note:} $\dot{y}$ is the second element of your state vector.
+    \item Iterate your choices of $N$, $R$ and $Q$ until you obtain a good result! As a hint, you will want to make the ratio $\frac{R}{Q}$ (for our problem, these are scalars) to be very large; equivalently, you can take the covariance of $v_k$ to be ``small'' (very much less than 1) and the covariance of $w_k$ to be ``large'' (very much greater than 1).  When tuning $R$ and $Q$, work with powers of ten until you get close to something you like!
+
+        \item The problem is very realistic and you can obtain an estimate of the derivative that ``looks'' OK, meaning that if your derivative looks much worse that what we achieved with our moving window estimator in HW\#5, you have not chosen your parameters correctly.
+        \item You can use your KF code from HW \#8, or Exam \#2,  or even write new code.
+        \item You can also use the steady-state KF and use the \texttt{dlqe} command in MATLAB to design your Kalman gain. If you use this option, be aware that MATLAB calls the covariance of the measurement noise $R$ and the state noise $Q$, which is the opposite of what we did in lecture. It calls the Kalman gain $M$. [I am not suggesting that you use this option, just noting that you are allowed to do so.]
+\end{itemize}
+
+\newpage
+\textbf{Turn in:}
+ \begin{enumerate}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item Your values for $N$, $R$ and $Q$ (using the convention from lecture). I do \underline{not} want your $x_0$ or $P_0$, in case you needed them.
+\item A plot of your KF-based derivative estimate versus the true derivative.
+\item Compute and report $$\frac{1}{L} \sqrt{\sum_{k=1}^{L} \left[\dot{y}(t_k) - \widehat{\frac{dy_k}{dt}}(t_k) \right]^2} $$
+            where $L$ is the number of data points in your estimate of the derivative and $\widehat{\frac{dy_k}{dt}}$ is your estimate of $\dot{y}.$
+\item A copy of your MATLAB code. [It is fine to use the publish option in MATLAB, but if you do this, still print out a copy of your plot and insert it \underline{before} your MATLAB code.]
+\end{enumerate}
+
+\newpage
+
+\noindent {\bf 7. (15 points)}  (Please use this as a \textbf{cover sheet} for your solution.) The $4 \times 3$ matrix $A$ below has linearly independent columns.
+$$A = \left[ \begin{array}{rrr}0.4023& 1.3286& 1.5110\\1.3458& -0.9289& 1.5069\\0.0428& 0.9603& 0.0179\\1.5778& 0.9826& 0.6828\end{array} \right]
+$$
+To avoid tedium and typographical errors, \textbf{load} the matrix from the file \texttt{Prob07.mat}
+
+
+    \begin{enumerate}
+\setlength{\itemsep}{1cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+ \item Determine a matrix $E$ of smallest norm such that ${\rm rank}(A+E)=2$. The norm on $E$ is
+ $||E|| = \sqrt{ \lambda_{\max} (E^\top E)}$ and recall that the rank of a matrix is equal to the number of linearly independent columns.\\
+
+ \fbox{
+\parbox{4.0in}{
+$ E =  \begin{array}{rr}~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~ ~~~~~& ~~~~~~~~\\~~~~~ & ~~~\\ ~~~~~ & ~~~\\ ~~~~~ & ~~~ \\ ~~~~~ & ~~~ \\ ~~~~~ & ~~~  \\ & \end{array} $
+ } }
+
+ \item Determine a vector $v \in \real^3$ that satisfies
+ \begin{itemize}
+ \item $||v||_2 = 1$
+ \item $||A v||_2 = 2$
+ \end{itemize}
+ where $||\cdot||_2$ is the usual Euclidean norm.
+
+  \fbox{
+\parbox{1.50in}{
+$ v = \left[ \begin{array}{r} ~~~~~~~~~~~~~~ \\  \\ \\ \\ \end{array} \right].$
+ } }
+
+ \item Give an orthogonal matrix $O$ such that the product $O A$ is \textbf{upper triangular} in the sense that
+     $$[OA]_{ij} =0,~ i > j. $$  %% \left\{ \begin{array}{rl} 0
+      Note that your matrix $O$ has to be square for it to be orthogonal. Note also that $OA$ will not be square as it will have the same size as $A$.\\
+
+ \fbox{
+\parbox{4.0in}{
+$ O=  \begin{array}{rr}~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~ ~~~~~& ~~~~~~~~\\~~~~~ & ~~~\\ ~~~~~ & ~~~\\ ~~~~~ & ~~~ \\ ~~~~~ & ~~~ \\ ~~~~~ & ~~~  \\ & \end{array} $
+ } }
+
+\end{enumerate}
+
+\vspace*{2cm}
+
+
+\begin{center}
+\large
+\textbf{Attach calculations that justify your answers.} It is OK if your justifications are short and consist primarily of MATLAB code....perhaps even a single line of MATLAB in some cases.
+\end{center}
+
+\newpage
+
+
+\noindent {\bf 8. (10 points)}  Work \textbf{ONE} of the following two problems. They have equal value. \textbf{Do not work both.}
+
+    \begin{enumerate}
+\setlength{\itemsep}{1cm}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+
+\item  We learned in HW how to compute Jacobians of functions using symmetric differences. Such a method requires you to evaluate the function on a uniform grid of points. What will you do when such a regular grid is not available to you? The file \texttt{Prob08.mat} contains the following data for a function $y = f(x)$, where $f:\real^3 \to \real^2$:
+    \begin{itemize}
+
+\item   \texttt{x0}, a  nominal point in $ \real^3$
+
+        \item \texttt{n=15}, the number of data points.
+
+\item  \texttt{delX}, a $3 \times n$ matrix of (non-uniformly spaced) perturbations about the origin; each column of \texttt{delX} is a different $\delta x$.
+
+    \item \texttt{X}, a $3 \times n$ matrix of $x$-values, where each column is equal to \texttt{X(:,k)=x0+delX(:,k)}  [Clearly, \texttt{delX} and \texttt{X} are redundant; use whichever is most convenient for you.]
+
+    \item  \texttt{Y}, a $2 \times n$ matrix of function values, where \texttt{Y(:,k) =  f(X(:,k))=f(x0 + delX(:,k))}.
+
+\end{itemize}
+
+\textbf{Turn in:}
+\begin{itemize}
+\item[(i)] Your estimate of $\frac{\partial f(x_0)}{\partial x}, $ the Jacobian at $x_0$.
+
+\item[(ii)] A \underline{brief} explanation of your approach.
+
+\item[(iii)] Your MATLAB implementation or hand caclulations.
+
+\end{itemize}
+
+\textbf{If you get stuck:} Only use the first component of $y=\begin{bmatrix} y_1 \\ y_2 \end{bmatrix} = \begin{bmatrix} f_1(x) \\ f_2(x) \end{bmatrix}$. Then you can treat a scalar problem $f_1: \real^3 \to \real$, which may be easier for you. If you get that to work, then $f_2: \real^3 \to \real$ is another scalar problem. Note also that you can generate your own data for a function that you know, such as a linear function, and verify your code. If you do this, make the average value of your perturbations be close to zero so that the ``center point'' of your $x$-values is roughly $x_0$.
+
+
+\item Create an exam question that I may use next year. It can be a multiple choice question in the style of our exams, or it can be a ``show your work'' problem. Include the problem statement and solution here.  \\
+
+\textbf{Remarks:}
+\begin{itemize}
+
+\item The question should be based on material we have covered in lecture, HW, or exams at any point of the term. Presumably, it would be over material that you enjoyed.
+\item Your score will not be proportional to the difficulty of the question or anything like that. I am not looking for you to prove that you are a super genius by giving a question that only Stephen Hawking could solve.
+ \item Part of the point of the problem is that it invites you to reflect on the material in a different manner than you may have been doing. You often hear the statement, ``you never really understand something, until you teach it.'' Well, writing exam questions is part of teaching.
+
+     \item  Typeset\footnote{While latex is preferred, MS Word is OK too.} the problem and its answer, and then zip up the files (PDF, latex or MS Word, and any MATLAB files) and email the ZIP file to \texttt{grizzle@umich.edu} with \textbf{Subject:} ROB 501 Typeset Exam Question. \\
+\end{itemize}
+
+\item[ ] \textbf{Do not work both problems.}
+
+\end{enumerate}
+
+\end{document}
+
+
+

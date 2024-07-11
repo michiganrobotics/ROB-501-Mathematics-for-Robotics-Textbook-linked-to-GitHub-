@@ -1,0 +1,312 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage[cm]{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\pp}{\mathbb P}      %{I\!\!\!\!P}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\Luenberger}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\Nagy}[2]{{Nagy, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+
+\newcommand{\bline}[1]{\underline{\hspace*{#1}}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+%
+
+\begin{document}
+
+%\pagestyle{plain}
+
+\markboth{\bf Place name or initials here:\underline{\hspace*{1.5in}}}{\bf Place name or initials here:\underline{\hspace*{1.5in}}}
+
+\begin{flushright}
+{\bf Exam Number:}\bline{0.6in}
+\end{flushright}
+
+\vspace*{.1in}
+\begin{center}
+\LARGE \bf
+ROB 501 Exam-II \\
+\large
+Tuesday, November,18 2014, 6:10 PM -- 7:30 PM \\
+Room 1010 DOW \\ %%DOW1010
+\end{center}
+
+\vspace*{1in}
+
+\noindent {\bf HONOR PLEDGE:} Copy (NOW) and SIGN ({\bf after the exam is completed}): I have neither given nor received aid on this exam, nor have I observed a violation of the
+Engineering Honor Code.
+
+\vspace*{1in}
+\begin{flushright}
+\underline{\hspace*{2.5in}} \\
+SIGNATURE \\
+(Sign {\bf after} the exam is completed)
+\end{flushright}
+
+\vspace*{1in}
+
+\begin{center}
+$\overline{\mathrm ~~LAST~~NAME~ ({\tt PRINTED})~~}^, \hspace*{.4in} \overline{\mathrm ~~FIRST~~NAME~~}$ \\
+
+\end{center}
+
+\vspace*{.45in} \noindent {\bf RULES:}
+\begin{enumerate}
+\item CLOSED TEXTBOOK
+\item CLOSED CLASS NOTES
+\item CLOSED HOMEWORK
+\item CLOSED HANDOUTS
+\item 3  SHEETS OF NOTE PAPER (Front and Back), US Letter Size.
+\item NO CALCULATORS, CELL PHONES, PDAs, MP3 PLAYERS, etc.
+\end{enumerate}
+\vspace*{.4in}
+
+
+\noindent The maximum possible score is 40. For those problems that allow partial credit, show your work clearly on this booklet.
+
+\newpage
+
+\vspace*{1in}
+
+\begin{center}
+\Large
+\begin{tabular}{|p{1.2in}|p{1.5in}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Record Answers Here}}\\
+\hline
+ & ~~Your Answer\\
+\hline
+Problem 1 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 2 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+Problem 3 &   (a)~~(b)~~(c)~~(d)~~\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace*{1in}
+
+\begin{center}
+\begin{tabular}{|p{2in}|p{1in}|p{1in}|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Scores (Filled in by Instructor)}}\\
+\hline
+ & Your Score& Max Score \\
+\hline
+Problems 1-3 &  &   12\\
+\hline
+Problem 4 &  &   10\\
+\hline
+Problem 5 &  &   ~6\\
+\hline
+Problem 6 &  &   12\\
+\hline
+& & \\
+\hline
+\textbf{Total} &  &   $\mathbf{40}$\\
+\hline
+& & \\
+\hline
+%Optional Bonus Question&  &   $\pm5$\\
+%
+\end{tabular}
+\end{center}
+
+\newpage
+
+%%\input{ExamInformation}
+%\begin{center}
+%\vspace*{6cm}
+%
+%{\bf \LARGE Page Intentionally Left Blank}\\
+%
+%\vspace*{3cm}
+%\textbf{Anything written here will not be graded.}
+%
+%\end{center}
+
+\subsection*{Problems 1 - 3 {\rm (12 points: 3 $\times$ 4)}}
+
+{\bf Instructions.} For each problem, select all of the answers that are correct and enter them in the table on page 2. For each problem, there is at least one answer that is correct and one answer that is incorrect. \textit{You will receive no credit for your response if you either circle all of the answers or none of the answers.}
+
+\vspace{0.5in}
+
+
+\begin{enumerate}
+\setlength{\itemsep}{2.5in}
+
+\item[{\bf 1.}] \textbf{Given:} $C$, an $m \times n$ real matrix with linearly independent columns, $y$ an $m \times 1$ real vector, and  $Q\succ 0$ a real $m \times m$ positive definite matrix. \textbf{Define:}
+    $$K=(C^\top Q^{-1} C)^{-1} C^\top Q^{-1} .$$
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $\widehat{x}=Ky$ is the Best Linear Unbiased Estimator (BLUE) for $y=Cx + \epsilon$, when $x\in \real^n$ is deterministic, $\epsilon \in \real^m$ is zero mean and has $\Covof{\epsilon}{\epsilon}=Q$.
+\item $\widehat{x}=Ky$ is the Minimum Variance Estimator (MVE) for $y=Cx + \epsilon$, when both $x\in \real^n$ and $\epsilon \in \real^m$ are zero mean, and the covariances satisfy $\Covof{x}{x}=0_{n\times n}$, $\Covof{x}{\epsilon}=0_{n\times m}$ and $\Covof{\epsilon}{\epsilon}= Q$.
+    \item $\widehat{x}=Ky$ satisfies $||y-C\widehat{x}||=\inf_{m\in M} ||y-m||$, where $M$ is given by the span of the columns of $C$ and the norm of a point $z\in \real^m$ is $||z||=\sqrt{z^\top Q^{-1} z}$
+\item The gain $K$ satisfies $KC=I_{n \times n}$.
+\end{enumerate}
+%\item[{\bf 1.}] Given $A$, an $m \times n$ real matrix with linearly independent columns, $y$ be an $m \times 1$ real vector, and  $Q$ a real $m \times m$ positive definite matrix. Define
+%    $$\widehat{x}=(A^\top Q A)^{-1} A Q y.$$
+%\begin{enumerate}
+%\setlength{\itemsep}{.15in}
+%\renewcommand{\labelenumi}{(\alph{enumi})}
+%\setlength{\itemsep}{.1in}
+%\item $\widehat{x}=\text{arg} \min_{m \in M} \sqrt{(y-m)^\top Q (y-m)}$, where $M$ is given by the span of the columns of $A$.
+%\item $\widehat{x}$ is the Best Linear Unbiased Estimator (BLUE) for $y=Ax + \epsilon$, when $x$ is deterministic, $\epsilon$ is zero mean and has covariance $Q$.
+%\item $\widehat{x}$ is the Minimum Variance Estimator (MVE) for $y=Ax + \epsilon$, both $x$ and $\epsilon$ are zero mean, uncorrelated, and $\Covof{x,x}=0_{n\times n}$ and $\Covof{\epsilon,\epsilon}= Q$.
+%\item The gain $K=(A^\top Q A)^{-1} A Q$ satisfies $KA=I_{n \times n}$.
+%\end{enumerate}
+
+
+\item[{\bf 2.}]  Suppose the columns of the $4 \times 2$ real matrix $A$  are linearly independent. Let $[Q,R]=\texttt{qr}(A,0)$ and $[U,S,V]=\texttt{svd}(A)$ be the outputs for the indicated MATLAB commands, which are identical to how the QR-Factorization and Singular Value Decomposition were presented in lecture.
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item $R$ is invertible.
+\item $R^\top R=S$
+\item The columns of $U$ are eigenvectors of $A^\top A$.
+%\item The last column of $V$ is the solution to $\widehat{x} = \text{arg}~\min_{x^\top x=1} x^\top A^\top A x.$ [Yes, the question is saying that $\widehat{x}=\texttt{V(:,end)} ]$.
+    \item The first column of $V$ is the solution to $\widehat{x} = \text{arg}~\max_{x^\top x=1} x^\top A^\top A x.$ [Yes, the question is saying that $\widehat{x}=\texttt{V(:,1)}$, and note that $\max$ and not  $\min$ is being used].
+\end{enumerate}
+
+\item[{\bf 3.}]  We consider three jointly normal random variables $(X,Y,Z)$, with
+$$ \mbox{mean}~~\mu = \left[\begin{array}{r} 1\\  2\\  3\end{array} \right] ~~\mbox{and covariance}~~ \Sigma = \left[  \begin{array}{rrr}  2&   0&   1\\  0&   4&   2\\  1&   2&   6\end{array}
+\right] $$
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item The marginal distribution of $Z$ is normal with variance $\sigma_Z^2=6 - [1,~2] \left[  \begin{array}{rr}  2&   0\\  0&   4\end{array}\right]^{-1}\left[\begin{array}{r} 1\\  2\end{array} \right]$
+     \item The conditional expectation, $  \ExpectofGiven{X}{Y=y,Z=z} $, is equal to $1-\frac{1}{10}(y-2) + \frac{1}{5}(z-3)$.
+\item $X|Z=z$ and $Y|Z=z$  are independent.
+\item The random vector $\left[\begin{array}{r} X\\  Y\end{array} \right]|Z=z$ (the vector $[X,~Y]^\top$ conditioned on $Z=z$) has covariance
+$$ \left[  \begin{array}{rr}  1&   -\frac{1}{4} \medskip \\  -\frac{1}{4}&  3\end{array}
+\right] $$
+
+\end{enumerate}
+
+\end{enumerate}
+
+\newpage
+
+\vspace*{.7in}
+\begin{center}
+\huge
+
+Partial Credit Section of the Exam
+
+\end{center}
+
+
+
+\vspace*{1in}
+
+{\Large  For the next problems, partial credit is awarded and you MUST show your work. Unsupported answers, even if correct, receive zero credit. In other words, right answer, wrong
+reason or no reason could lead to no points. If you come to me and ask whether you have written enough, my answer will be,
+\begin{center}
+\bf ``I do not know'',
+\end{center}
+ because answering "yes" or "no"  would be unfair to everyone else. If you show the steps you followed in deriving your answer, you'll probably be fine.
+  \emph{If something was explicitly derived in lecture, handouts or homework, you do not have to re-derive it. You can state it as a known fact and then use it.} For example, we know that for compatible square matrices, $\det(A B) = \det(A) \det(B)$, so if you need this fact, simply state it and use it.}
+
+\newpage
+
+\noindent {\bf 4. (10 points)} (Be sure to show your work.) Find the range of $a\in \real$ such that the matrix below is positive definite.
+$$P= \left[ \begin{array}{rrr}  a&   2a&   3\\  2a&   5a&   2\\  3&   2&  4\end{array}\right].$$ Place your answer in the box.\\ \\
+
+\fbox{\rule[-0.5cm]{0cm}{1cm} The parameter must satisfy:  \hskip2cm ~~}\\
+
+\newpage
+\textit{Please show your work for question 4.}
+\newpage
+
+\noindent {\bf 5. (6 points)} (Be sure to show your work.)  Place your answer in the box.  Using the standard Euclidean norm\footnote{Yes, $||x||=\sqrt{(x_1)^2 + (x_2)^2 + (x_3)^2}$.}, and methods from lecture, find $x$ of minimum norm that satisfies the equation
+
+$$ \left[ \begin{array}{rrr}  -1&   1 & 2\\  2&  2 & 1 \end{array} \right] x = \left[ \begin{array}{r}  3 \\4\end{array} \right]$$ \\ \\
+
+\fbox{\rule[-0.5cm]{0cm}{0.5cm} \hskip1cm $\widehat{x}= \left[ \begin{array}{r}  \text{} \\ \text{} \\ \text{} \\  \text{} \end{array} \right]$  \hskip1cm ~~}\\
+
+\newpage
+\textit{Please show your work for question 5.}
+\newpage
+
+\noindent {\bf 6. (12 points)} (Be sure to show your work) This is a deterministic estimation problem. Suppose $x \in \real^2$ is constant, and for $i \ge 1$, $y_i \in \real$ is related to $x$ by
+$$y_i = C_i x.$$
+We define for $k\ge 1$,
+$$ Y_k =\left[ \begin{array}{c} y_1 \\ \vdots \\ y_k \end{array} \right],~   A_k = \left[ \begin{array}{c} C_1 \\ \vdots \\ C_k  \end{array}  \right],$$
+and\footnote{Assume that we have checked that the columns of $A_3$ are linearly independent. And yes, from the problem data you see that $S_k=1$.} for $k \ge 3,$ $$ \widehat{x}_k :=\mathrm{arg~min} \sqrt{\sum_{i=1}^k \left(y_i - C_i x \right)^2}=\mathrm{arg~min} \sqrt{(Y_k - A_k x)^\top (Y_k - A_k x)}.$$
+
+
+\textbf{Determine:}  $\widehat{x}_{4}$, best estimates of $x$ at time $k=4$, given the following data:
+
+\begin{itemize}
+\item $\widehat{x}_{3}=[-2, ~ 3]^\top$,
+\item $\left( A_{3}^\top A_{3} \right)=\left[ \begin{array}{rr}  1&  0\\  0& 1\end{array} \right].$
+\item $C_{4}=[ 2, ~1]$
+\item $y_{4}=5$
+\end{itemize}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+\item \textbf{6 Points:} State the method you are using and provide relevant equations.
+\vspace*{8cm}
+
+\item  \textbf{6 Points:}  Do the calculations and place your answer in the box. Show your work on the next page(s).\\ \\
+
+\fbox{\rule[-0.5cm]{0cm}{1cm} $ \widehat{x}_{4}=$ \hskip2cm ~~}\\
+\end{enumerate}
+
+
+
+\newpage
+\textit{Please show your work for question 6.}
+\newpage
+
+
+
+\end{document}
+
+
+
+
+
+

@@ -1,0 +1,346 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+%\baselineskip=48pt  % Enforce double space
+
+\baselineskip=48pt
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+\mbox{} \\
+The Numerical Rank of a Matrix
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+
+\noindent \textbf{Motivation:} In abstract linear algebra, a set of vectors is either linearly independent or not. There is nothing in between. For example, the set of vectors
+$$\left\{ v^1 =  \left[ \begin{array}{l} 1 \\1 \end{array} \right] ,  v^2 =  \left[ \begin{array}{l} 0.999 \\1\end{array} \right] \right\}$$
+is linearly independent. In this case, you look at it and say, yes, BUT, the vectors are ``almost'' dependent because when I take the determinant
+$$ \det  \left[ \begin{array}{ll} 1 & 0.999 \\1 & 1\end{array} \right] = 0.001,$$
+I get something pretty small, so I am OK with calling them dependent. Well, what about the set
+$$\left\{ v^1 =  \left[ \begin{array}{l} 1 \\0 \end{array} \right] ,  v^2 =  \left[ \begin{array}{l} 10^4 \\1 \end{array} \right] \right\} ?$$
+When you form the matrix and check the determinant, you get
+$$ \det  \left[ \begin{array}{ll} 1 & 10^4 \\0& 1\end{array} \right] = 1,$$
+which seems pretty far from zero. So are these vectors ``adequately'' linearly independent?
+
+\textbf{Maybe not!} Let's note that
+ $$\left[ \begin{array}{ll} 1 & 10^4 \\0& 1\end{array} \right] +  \left[ \begin{array}{ll} 0 & 0 \\10^{-4}& 0\end{array} \right]  =  \left[ \begin{array}{ll} 1 & 10^4 \\10^{-4}& 1\end{array} \right],$$
+ is clearly singular! Hence, we can add a very small perturbation to our vectors and make them dependent! This cannot be good! :(
+
+\noindent \textbf{Question:} How to quantify the statement,``the rank is \textit{nearly} 1'' or more generally, how to quantify that a set of vectors is \textit{nearly} linearly dependent?
+
+\noindent \textbf{Answer:} The Singular Value Decomposition (\textbf{SVD}).
+
+\newpage
+
+{\Large \bf
+\begin{center}
+Properties of the Singular Value Decomposition or SVD\\
+(Based on a handout of Prof. Freudenberg)
+\end{center}
+}
+\noindent \underline{A good reference on numerical linear algebra is}
+
+G. H. Golub and C. F. van Loan, \textit{Matrix Computations}, The Johns Hopkins University Press, 1983.
+
+\noindent \textbf{Background required:} inner products, orthogonal vectors, norms. These are things we know something about!
+
+\noindent \textbf{Remark:} In lecture, we will develop the SVD for real matrices. In practice, you may have a need to deal with matrices that have complex entries, so the handout also does things for inner products in $\cp^n$. The generalization of a real \textit{symmetric} matrix is called a \textit{Hermitian} matrix. And the generalization of a real \textit{orthogonal} matrix is called a \textit{unitary matrix}. These are developed below.
+
+\noindent \textbf{Hermitian:}
+ Consider $x\in \cp^n$. Then we define the vector "$x$ Hermitian" by $x^H:=\bar{x}^\top$.That is, $x^H$ is the complex conjugate transpose of $x$. Similarly, for a matrix $A\in \cp^{m\times n}$, we define $A^H \in \cp^{n\times m}$ by $\bar{A}^\top$. We say that a square matrix  $A\in \cp^{n\times n}$ is a \textit{Hermitian matrix} if $A=A^H$.
+
+\noindent \textbf{Important things to note:}
+\begin{itemize}
+\item Similar to $A^\top A$ for real matrices, when $A$ is complex, $A^HA$ has e-values that are real and non-negative. The proof is similar to things we have done in lecture; if you care to see it, you can find it online.
+
+\item In MATLAB, $A'= A^H$. Yikes! It is not the ordinary transpose? No, it is the complex conjugate transpose. If you want the ordinary transpose, use \texttt{transpose(A)}.
+\end{itemize}
+
+\newpage
+\input{HermitianMatrix.txt}
+
+\vspace*{2cm}
+
+\noindent \textbf{Inner product on $\cp^n$:} Given $x,y \in \cp^n$. Let the elements $x$ and $y$ be noted
+$$x=\begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} ~~\mbox{and} ~~y=\begin{bmatrix}y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}.$$
+Then the Euclidean inner product is defined as
+\begin{align}
+<x,y>:&=x^H y \\ &=\bar{x}_1 y_1 +\bar{x}_2 y_2+\cdots+\bar{x}_n y_n
+\end{align}
+We note that this puts the linearity on the right side of the ``bracket'', but as we have noted in HW, both definitions are common.
+
+\newpage
+
+\noindent \underline{Euclidean vector norm:} As in class, the vector norm associated with this inner product is given by
+\begin{align}||x||_2:&=\sqrt{<x,x>} \\
+&=\sqrt{\sum\limits_{i=1}^n |x_i|^2 }\end{align}
+We often omit the subscript "2"  when we are discussing the Euclidean norm (or "2-norm") exclusively.
+
+\noindent \underline{Euclidean matrix norm:} Given $A\in \cp^{m\times n}$. Then the \textit{matrix norm induced by the Euclidean vector norm} is given by:
+\begin{align}||A||_2:&=\max_{x^Hx = 1} ||Ax|| \\
+& = \max_{x^Hx = 1}  \sqrt{x^HA^HAx} \\
+& = \sqrt{\max_{x^Hx = 1} x^HA^HAx} \\
+&=\sqrt{\lambda_{\text{max}}(A^H A)}\end{align}
+where $\lambda_{\text{max}}(A^H A)$ denotes the largest eigenvalue of the matrix $A^H A$. \textbf{(As noted above, all the eigenvalues of a matrix having the form $A^H A$ are real and non-negative.)(Also, recall HW 2)}
+
+\noindent \underline{Orthogonality:} Two vectors $x,y\in \cp^n$ are \textit{orthogonal} if $<x,y>=0$.
+
+\noindent \underline{Orthonormal Set:} A collection of vectors $\{x_1,x_2,\cdots,x_m\}\in \cp^n$ is said to be an \textit{orthonormal set} if
+$$<x_i,x_j>=\left\{\begin{array}{ll}
+0, & i\not=j\\
+1, & i=j
+\end{array}\right.~~~~~(\text{Hence}~||x_i||=1, \forall~i.)$$
+
+\noindent \textbf{\underline{Unitary Matrix:}} A matrix $U \in \cp^{n\times n}$ is \textit{unitary} if $U^H U = U U^H=I_n$.
+
+\newpage
+
+\noindent \textbf{\underline{Fact:}} If $U$ is a unitary matrix, then the columns of $U$ form an orthonormal basis (ONB) for $\cp^n$.
+
+\noindent \underline{Proof of Fact:} Denote the columns of $U$ as $U=\begin{bmatrix}u_1 & u_2 & \cdots & u_n \end{bmatrix}$. Then
+$$U^H U =\begin{bmatrix}u^H_1 \\[2ex] u^H_2 \\ \vdots \\[2ex] u^H_n \end{bmatrix}\begin{bmatrix}u_1 & u_2 & \cdots & u_n \end{bmatrix}=\left[\begin{array}{cccc} u^H_1 u_1 & u^H_1 u_2 & \cdots & u^H_1 u_n \\[2ex] u^H_2 u_1 & u^H_2 u_2 & \cdots & u^H_2 u_n \\[2ex] \vdots & \vdots &\ddots & \vdots \\[2ex] u^H_n u_1 & u^H_n u_2 & \cdots & u^H_n u_n\end{array}\right]=\left[\begin{array}{cccc} 1 & 0 & \cdots & 0 \\ 0 & 1 & \cdots & 0 \\ \vdots & \vdots &\ddots & \vdots \\ 0 & 0 & \cdots & 1\end{array}\right]$$
+
+\vspace*{1cm}
+
+\textbf{For real matrices, unitary is the same thing as orthogonal}.
+
+\noindent \textbf{\underline{Example:}}
+\input{UnitaryMartix.txt}
+
+\newpage
+
+\noindent \textbf{\underline{Unitary matrices are effectively rotation matrices:}} they do not change the length of a vector, nor the angle between two vectors. Indeed,
+\vspace*{-.2in}
+\begin{enumerate}
+\setlength{\itemsep}{1cm}
+\item[1)] From $U^H U = U U^H=I_n$, it follows that $U^{-1} =U^H$
+\item[2)]  Let's compute the inner product of $U x$ and $U y$:
+    $$ <U x,U y>:=(U x)^H U y = x^H U^H U y = x^H y = :<x,y>$$
+\item[3)] It follows that \\
+    (a) norm of $U x$ equals the norm of $x$:
+       $$||U x||^2: = <U x,U x>=<x,x>=:||x||^2$$
+    (b) angle between $x$ and $y$ is the same as the angle between $U x$ and $U y$:
+    $$\cos(\angle(x,y)):=\frac{<x,y>}{||x||~ ||y||}=\frac{<U x,U y>}{||U x||~ ||U y||} =: \cos(\angle(U x,U y))$$
+\item[4)] All of the e-values of $U$ have magnitude 1. Indeed, suppose that $\lambda$ is an e-value with e-vector $v$: $Uv=\lambda v$ \\
+    \\
+Applying norms to both sides of the above yields: $||Uv||=||\lambda v||$ \\
+\\
+But, by item (3) above and properties of norms:
+$$ ||Uv||=||v||~\text{and}~ ||\lambda v||=|\lambda|~||v||$$
+which, with the above, implies $|\lambda|=1$.
+\end{enumerate}
+
+\newpage
+
+{\Large \bf
+\begin{center}
+Singular Value Decomposition Theorem
+\end{center}
+}
+\textbf{Complex matrices:} Consider $A\in \cp^{m \times n}$. Then there exist unitary matrices
+$$\begin{aligned}
+U&=\begin{bmatrix}u_1 & u_2 & \cdots & u_m \end{bmatrix} \\
+V&=\begin{bmatrix}v_1 & v_2 & \cdots & v_n \end{bmatrix}
+\end{aligned}$$
+such that
+$$A=\left\{\begin{array}{ll}
+U\begin{bmatrix} \Sigma \\[2ex] 0 \end{bmatrix}V^H, & m\ge n \vspace{5pt}\\
+U\begin{bmatrix} \Sigma & 0 \end{bmatrix}V^H, & m\le n
+\end{array}\right.$$
+where
+$$\Sigma=\left[\begin{array}{cccc} \sigma_1 & 0 & \cdots & 0 \\ 0 & \sigma_2 & \cdots & 0 \\ \vdots & \vdots &\ddots & \vdots \\ 0 & 0 & \cdots & \sigma_{p}\end{array}\right],~p=\text{min}(m,n)$$
+and
+$$\sigma_1\ge\sigma_2\ge\cdots\sigma_{p}\ge0$$
+\noindent \underline{Terminology:} We refer to $\sigma_i$  as the $i$'th singular value, to $u_i$ as the $i$'th left singular vector, and to $v_i$ as the $i$'th  right singular vector. \\
+\\
+\\
+\textbf{Real Matrices:}  Consider $A\in \real^{m \times n}$. Then there exist orthogonal matrices
+$$\begin{aligned}
+U&=\begin{bmatrix}u_1 & u_2 & \cdots & u_m \end{bmatrix} \\
+V&=\begin{bmatrix}v_1 & v_2 & \cdots & v_n \end{bmatrix}
+\end{aligned}$$
+such that
+$$A=\left\{\begin{array}{ll}
+U\begin{bmatrix} \Sigma \\[2ex] 0 \end{bmatrix}V^\top, & m\ge n \vspace{5pt}\\
+U\begin{bmatrix} \Sigma & 0 \end{bmatrix}V^\top, & m\le n
+\end{array}\right.$$
+where
+$$\Sigma=\left[\begin{array}{cccc} \sigma_1 & 0 & \cdots & 0 \\ 0 & \sigma_2 & \cdots & 0 \\ \vdots & \vdots &\ddots & \vdots \\ 0 & 0 & \cdots & \sigma_{p}\end{array}\right],~p=\text{min}(m,n)$$
+and
+$$\sigma_1\ge\sigma_2\ge\cdots\sigma_{p}\ge0$$
+\noindent \underline{Terminology:} We refer to $\sigma_i$  as the $i$'th singular value, to $u_i$ as the $i$'th left singular vector, and to $v_i$ as the $i$'th  right singular vector. \\
+
+
+\vspace*{1cm}
+
+\boxed{\textbf{\underline{Theorem:}}~\text{rank(A) = number of nonzero singular values.}}
+
+\vspace*{1cm}
+
+\boxed{\textbf{\underline{Idea:}}~\text{numerical rank(A) = \# of nonzero singular values larger than a threshold?}}
+
+\vspace*{1cm}
+\underline{\textbf{Matlab:}} help SVD
+\input{SVDcommand.txt}
+
+\vspace*{1cm}
+
+\boxed{\parbox{1\linewidth}{\textbf{Fact:} The \underline{numerical rank} of $A$ is the number of singular values that are larger than a given threshold. Often the threshold is chosen as a percentage of the largest singular value.}}
+
+%\underline{Back to our system with the possible pole zero cancellation:}
+%$$\Sigma:\left\{
+%            \begin{array}{l}
+%             \dot{x}=\left[\begin{array}{ccc} 0&1&0 \\ 0&0&1 \\ -2&-4&-3\end{array}\right]x+\begin{bmatrix}0 \\ 0 \\ 1 \end{bmatrix}u \\
+%             y=\begin{bmatrix}a & 0 & 1 \end{bmatrix}x
+%            \end{array}
+%        \right.$$
+%\input{Observable.txt}
+
+\newpage
+
+
+\textbf{Example: $5 \times 5$ matrix}
+
+$$A=\left[ \begin{array}{rrrrr}-32.57514& -3.89996& -6.30185& -5.67305& -26.21851\\-36.21632& -11.13521& -38.80726& -16.86330& -1.42786\\-5.07732& -21.86599& -38.27045& -36.61390& -33.95078\\-36.51955& -38.28404& -19.40680& -31.67486& -37.34390\\-25.28365& -38.57919& -31.99765& -38.36343& -27.13790\end{array}
+ \right] $$
+
+ \begin{verbatim}
+ [U,Sigma,V]=svd(A);
+ \end{verbatim}
+
+ $$ \Sigma=\left[\begin{array}{rrrrr}132.459& 0.00000&0.00000&0.00000&0.00000\\0.00000&37.70811& 0.00000&0.00000&0.00000\\0.00000&0.00000&33.41836& 0.00000&0.00000\\0.00000&0.00000&0.00000&19.34060& 0.00000\\0.00000& 0.00000& 0.00000& 0.00000& 0.79164\end{array}\right] $$
+
+
+Note that the smallest singular value $\sigma_5 = 0.79164$  is less than $1\%$ of the largest singular value $\sigma_1=132.459$. In many cases, one might say that the numerical rank of $A$ was 4 instead of 5.
+
+\textbf{This notion of numerical rank can be formalized by asking the following question:} Suppose $\text{rank}(A) = r$. How far away is $A$ from a matrix of rank strictly less than $r$?
+
+\newpage
+
+\textbf{Fact:} Suppose that $\text{rank}(A) = r$, so that $\sigma_r$ is the smallest non-zero singular value. Then
+
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+\item if an $n \times m$ matrix $E$ satisfies $||E|| < \sigma_r$, then $\text{rank} (A+E) = r.$
+
+\item there exists $E$ with $||E|| = \sigma_r$ and $\text{rank}(A+E) < r$.
+\end{enumerate}
+
+\textbf{Corollary:}  Suppose $A$ is square and invertible. Then $\sigma_r$ measures the distance from $A$ to the nearest singular matrix.
+
+\vspace*{1cm}
+
+\textbf{Example: Using A above}
+
+\begin{verbatim}
+>> d=diag(Sigma);
+>> d(end)=0;
+>> D=diag(d);
+>> B=U*D*V';
+>> E=A-B;
+\end{verbatim}
+$$E=\left[
+\begin{array}{rrrrr}-0.04169& 0.12122& 0.09818& -0.21886& 0.05458\\0.02031& -0.05906& -0.04784& 0.10663& -0.02659\\0.01966& -0.05716& -0.04629& 0.10320& -0.02574\\0.07041& -0.20476& -0.16584& 0.36968& -0.09220\\-0.08160& 0.23728& 0.19218& -0.42839& 0.10684\end{array} \right]$$
+
+\begin{verbatim}
+>> max(sqrt(eig(E'*E)))
+
+ 0.7916
+
+ >> [U,Sigma,V]=svd(A-E);
+\end{verbatim}
+
+$$\Sigma=\left[ \begin{array}{rrrrr}132.45977& 0.00000&0.00000&0.00000&0.00000\\0.00000&37.70811& 0.00000&0.00000&0.00000\\0.00000&0.00000&33.41836& 0.00000&0.00000\\0.00000&0.00000&0.00000&19.34060& 0.00000\\0.00000& 0.00000& 0.00000& 0.00000& 0.00000\end{array} \right] $$
+
+\vspace*{1cm}
+I added a matrix with norm 0.7916 and made the (exact)  rank drop from 4 to 5! How cool is that? It really shows that the matrix was close to a singular matrix.
+
+\underline{Another Example:}
+
+\input{NotSmallDet.txt}
+
+\newpage
+
+\textbf{Final comments:}
+\begin{enumerate}
+\setlength{\itemsep}{.1in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item We have not had the time to do anything with the nullspace and range of an $m\times n$  matrix $A$; they are important subspaces.
+    \vspace*{1cm}
+
+\textbf{Nullspace:} $\mathbf{N}(A):=\{ x\in \cp^n~|~ Ax = 0\}$
+
+ \vspace*{1cm}
+
+\textbf{Range:} $\mathbf{R}(A):=\{ y\in \cp^m~|~ \exists x\in \cp^n~~\text{such that}~~ y = Ax \}$
+
+ \vspace*{1cm}
+
+ \item \textbf{Fact:} Let $[U,\Sigma,V]=\texttt{svd}(A);$ Then the columns of $U$ are a basis for $\mathbf{R}(A)$ and the columns of $V$ are a basis for $\mathbf{N}(A)$.
+
+\item The SVD can also be used to compute an "effective" range and an "effective" nullspace of a matrix.
+
+\item Suppose that $\sigma_1 \geq ... \geq \sigma_r > \epsilon > \sigma_{r+1} \geq ... \sigma_n \geq 0$, so that $r$ is the "effective" or numerical rank of $A$. (Note the $\epsilon$ inserted between $\sigma_r$ and $\sigma_{r+1}$ to denote the break point.)
+
+\item Let $\mathbf{R}_{\text{eff}}(A)$ and $\mathbf{N}_\text{{eff}}(A)$ denote the effective range and effective nullspace of $A$, respectively. Then we can calculate bases for these subspaces by choosing appropriate singular vectors:
+$$\mathbf{R}_{\text{eff}}(A) := \spanof{u_1, ..., u_r} ~~ \text{and} ~~ \mathbf{N}_{\text{eff}}(A) := \spanof{v_{r+1}, ..., v_n}.$$
+\end{enumerate}
+
+
+
+
+\end{document} 

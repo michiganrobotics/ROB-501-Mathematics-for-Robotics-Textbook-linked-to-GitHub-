@@ -1,0 +1,139 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\varepsilon}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 26\\
+Typeset by:  Vittorio Bichucher\\
+Proofread by: Mia Stevens\\
+Revised by Ni on Nov. 29, 2015
+\end{center}
+}
+
+\Large
+
+\begin{center}\textbf{Convex Sets and Convex Functions (Continued)}\end{center}
+
+\noindent \textbf{Additional Facts:}~
+    \begin{itemize}
+        \item All norms $\|\cdot\|:X\rightarrow [0, \infty)$ are convex. (proof using triangle inequality)
+        \item For all $1\leq\beta<\infty$, $\|\cdot\|^\beta$ is convex. (Convex function $\times$ strictly increasing function) Hence, on $\mathbb{R}^n$:
+		    \begin{equation*}
+        	    \Sigma_{i=1}^{n}|x_i|^3
+            \end{equation*}
+            is convex.
+        \item Let $r>0$, $\|\cdot\|$ a norm, $B_r(x_0)$ is a convex set.\\ \\
+            Special case: $B_1(0)$ convex set. (unit ball about the origin)\\
+            Let C be an open, bounded and convex set, 0 $\in$ C. Then, $\exists\ \|\cdot\|: X \rightarrow [0,\infty)$ such that $C=\{x\in X\ |\:||x||<1\} = B_1(0)$.
+        \item $K_1$ convex, $K_2$ convex $\rightarrow K_1 \cap K_2$ is convex. (Proved by line inside the set)
+        \item Consider $(\mathbb{R}^n, \mathbb{R})$, $A$ is a real $m$ by $n$ matrix, $b\in \mathbb{R}^m$. Then:
+        \begin{itemize}
+            \item $K=\{x \in \mathbb{R}^n|\:Ax\leq b\}$ is also convex. (linear inequality)
+            \item $K=\{x \in \mathbb{R}^n|\:Ax=b\}$ is convex. (linear equality)
+            \item $K=\{x \in \mathbb{R}^n|\:A_{eq}x=b_{eq},\ A_{in}x\leq b_{in}\}$ is convex as well. (intersection property)
+        \end{itemize}
+    \end{itemize}
+
+\textbf{Remark:} $\tilde{A}x \geq \tilde{b} \Leftrightarrow -\tilde{A}x \leq -\tilde{b}$.
+
+\begin{center}\textbf{Quadratic Programming}\end{center}
+
+    $x\in \real^n$, $Q\geq 0$.\\
+    Minimize: $\underbrace{x^TQx}_{\textnormal{quadratic term}}+\underbrace{fx}_{\textnormal{linear term}}$ subject to $A_{in}x \leq b_{in}$ and $A_{eq}x = b_{eq}$
+    
+    \textbf{Note:}~ $f(x)$, $Q$, $A_{in}$ and $A_{eq}$ are all convex. Also, check if constraints form the empty set.
+    
+    There are special purposes solvers available! See S. Boyd's website!
+
+    Example using robot equation:
+        \begin{equation*}
+            D(q)\ddot{q}+C(q,\dot{q})\dot{q}+G(q) = Bu
+        \end{equation*}
+    where $q \in \mathbb{R}^n$, $u\in \mathbb{R}^m$.
+    
+    Further, the ground reaction forces can be modeled as:
+        \begin{equation*}
+            F = \Lambda_0(q,\dot{q})+\Lambda_1(q)u = \left[ \begin{array}{c}
+												F^h \\
+                                                F^v \end{array} \right].
+        \end{equation*}
+        
+    Suppose the desired feedback signal is $u=\gamma(q,\dot{q})$, but we need to respect bounds on the ground reaction forces
+        \begin{equation*}
+            F^v \geq 0.2m_{total}g.
+        \end{equation*}
+        
+    Therefore, the normal force should be at least $20\%$ of the total weight
+        \begin{equation*}
+            |F^h| \leq 0.6F^v.
+        \end{equation*}
+        
+    Therefore, the friction force has a cone shape, and its magnitude is less than $60\%$ of the total vertical force. Putting it all together:
+        \begin{equation*}
+            \left[ \begin{array}{c}
+		        F^v \geq 0.2m_{total}g\\
+                F^h \leq 0.6F^v\\
+                -F^h \leq 0.6F^v\end{array} \right]
+                \Leftrightarrow A_{in} (q)u\leq b_{in}(q,\dot{q}).
+        \end{equation*}
+
+    \textbf{QP:}
+    \begin{equation*}
+        u^* = \operatorname{argmin}\ u^Tu+d^Tdp
+    \end{equation*}
+    \begin{equation*}
+        A_{in}(q)u\leq b_{in}(q,\dot q)
+    \end{equation*}
+    \begin{equation*}
+        u = \gamma(q, \dot{q})+d^Td
+    \end{equation*}
+    where $d^Td$ is often called the relaxation parameter. Further, $p$ is an weighting factor and it should be $>>>>1\cdot10^4$. Dr. Grizzle finished by showing his handout in linear programming and quadractic programming. And remember Stephen Boyd!
+
+\end{document} 

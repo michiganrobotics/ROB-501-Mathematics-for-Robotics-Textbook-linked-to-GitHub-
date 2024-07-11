@@ -1,0 +1,180 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Fall 2014\\
+Lecture 03\\
+Typeset by:  Pedro Di Donato\\
+Proofread by: Mia Stevens
+\end{center}
+}
+
+\Large
+
+\begin{center}
+\textbf{Abstract Linear Algebra}
+\end{center}
+
+\noindent \textbf{Def: \underline{Field:}} (Chen, 2nd edition, page 8) : A field consists of a set, denoted by $\mathcal{F}$, of elements called \textit{scalars} and two operations called addition ``$+$'' and multiplication ``$\cdot$''; the two operations are defined over $\mathcal{F}$ such that they satisfy the following conditions:
+    \begin{enumerate}
+        \item To every pair of elements $\alpha$ and $\beta$ in $\mathcal{F}$, there correspond an element $\alpha+\beta$ in $\mathcal{F}$ called the \textit{sum} of $\alpha$ and $\beta$, and an element $\alpha \cdot \beta$ in $\mathcal{F}$ called \textit{product} of $\alpha$ and $\beta$.
+        \item Addition and multiplication are respectively commutative: For any $\alpha$ and $\beta$ in $\mathcal{F}$,
+        \begin{align*}
+            \alpha+\beta &= \beta + \alpha & \alpha\cdot\beta &= \beta\cdot\alpha
+        \end{align*}
+        \item Addition and multiplication are respectively associative: For any $\alpha$, $\beta$, $\gamma$ in $\mathcal{F}$,
+        \begin{align*}
+            \left(\alpha+\beta\right)+\gamma &= \alpha + \left(\beta+\gamma\right) & \left(\alpha\cdot\beta\right)\cdot\gamma = \alpha\cdot\left(\beta\cdot\gamma\right)
+        \end{align*}
+        \item Multiplication is distributive with respect to addition: For any $\alpha$, $\beta$, $\gamma$ in $\mathcal{F}$,
+        \begin{align*}
+            \alpha\cdot\left(\beta+\gamma\right) = \left(\alpha\cdot\beta\right)+\left(\alpha\cdot\gamma\right)
+        \end{align*}
+        \item $\mathcal{F}$ contains an element, denoted by $0$, and an element, denoted by $1$, such that $\alpha + 0 = \alpha$, $1\cdot\alpha = \alpha$ for every $\alpha$ in $\mathcal{F}$.
+        \item To every $\alpha$ in $\mathcal{F}$, there is an element $\beta$ in $\mathcal{F}$ such that $\alpha+\beta = 0$. The element $\beta$ is called the \textit{additive inverse}.
+        \item To every $\alpha$ in $\mathcal{F}$ which is not the element 0, there is an element $\gamma$ in $\mathcal{F}$ such that $\alpha\cdot\gamma = 1$. The element $\gamma$ is called the \textit{multiplicative inverse}.
+    \end{enumerate}
+
+\noindent \textbf{Remark:} $\real$ is a typical example of a field.
+
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+Examples & Non-examples \\ \hline
+$\real$ & Irrational (Fails axiom 1) \\ \hline
+$\cp$ & $2\times2$ matrices, real coeff. (Fails axiom 2) \\ \hline
+$\mathbb{Q}$ & $2\times2$ diagonal matrices real coeff. (Fails axiom 7) \\ \hline
+\end{tabular}
+\end{center}
+
+\noindent \textbf{Def: \underline{Vector Space (Linear Space)}} (Chen 2nd Edition, page 9) A linear space over a field $\mathcal{F}$, denoted by $\left(\mathcal{X},\mathcal{F}\right)$, consists of a set, denoted by $\mathcal{X}$, of elements called \textit{vectors}, a field $\mathcal{F}$, and two operations called \textit{vector addition} and \textit{scalar multiplication}. The two operations are defined over $\mathcal{X}$ and $\mathcal{F}$ such that they satisfy all the following conditions:
+    \begin{enumerate}
+        \item To every pair of vectors $x^1$ and $x^2$ in $\mathcal{X}$, there corresponds a vector $x^1+x^2$ in $\mathcal{X}$, called the sum of $x^1$ and $x^2$ \footnote{We use $x^1, x^2, x^3$ to denote different \emph{vectors}. It \emph{does not} denote powers!}.
+        \item Addition is commutative: For any $x^1,x^2$ in $\mathcal{X}$, $x^1+x^2 = x^2+x^1$.
+        \item Addition is associative: For any $x^1,x^2$, and $x^3$ in $\mathcal{X}$, $\left(x^1+x^2\right)+x^3 = x^1 + \left(x^2+x^3\right)$.
+        \item $\mathcal{X}$ contains a vector, denoted by \textbf{0}, such that \textbf{0}$ + x = x$ for every $x$ in $\mathcal{X}$. The vector \textbf{0} is called the zero vector or the origin.
+        \item To every $x$ in $\mathcal{X}$, there is a vector $\bar x$ in $\mathcal{X}$, such that $x + \bar x = 0$.
+        \item To every $\alpha$ in $\mathcal{F}$, and every $x$ in $\mathcal{X}$, there corresponds a vector $\alpha\cdot x$ in $\mathcal{X}$ called the \textit{scalar product} of $\alpha$ and $x$.
+        \item Scalar multiplication is associative: For any $\alpha, \beta$ in $\mathcal{F}$ and any $x$ in $\mathcal{X}$, $\alpha\cdot\left(\beta\cdot x\right) = \left(\alpha\cdot\beta\right)\cdot x$.
+        \item Scalar multiplication is distributive with respect to vector addition: For any $\alpha$ in $\mathcal{F}$ and any $x^1,x^2$ in $\mathcal{X}$, $\alpha\cdot\left(x^1+x^2\right) = \alpha\cdot x^1 + \alpha\cdot x^2$.
+        \item Scalar multiplication is distributive with respect to scalar addition: For any $\alpha ,\beta$ in $\mathcal{F}$ and any $x$ in $\mathcal{X}$, $\left(\alpha+\beta\right)\cdot x = \alpha\cdot x + \beta\cdot x$.
+        \item For any $x$ in $\mathcal{X}$, $1\cdot x=x$, where $1$ is the element $1$ in $\mathcal{F}$.
+    \end{enumerate}
+
+\noindent \textbf{Remark:} $\mathcal{F} = $ field, $\mathcal{X} = $ set of vectors
+
+\noindent \textbf{Examples:}
+    \begin{enumerate}
+        \item Every field forms a vector space over itself. $\left(\mathcal{F},\mathcal{F}\right)$. Examples: $\left(\real,\real\right)$, $\left(\cp,\cp\right)$, $\left(\mathbb{Q},\mathbb{Q}\right)$.
+        \item $\mathcal{X} = \cp$, $\mathcal{F} = \real$: $\left(\cp,\real\right)$.
+        \item $\mathcal{F} = \real$, $D \subset \real$ (examples: $D = \left[a,b\right]; D = \left(0,\infty\right); D = \real$) and $\mathcal{X} = \left\{f:D\to\real\right\} = \left\{\mbox{functions from } D \mbox{ to } \real \right\}$
+        \newline
+        $f,g\in\mathcal{X}$, define $f+g \in \mathcal{X}$ by $\forall t\in D,\ \left(f+g\right)(t) := f(t) + g(t)$ and let $\alpha\in\real,\ \alpha\cdot f\in\mathcal{X}$, define $f\cdot g\in\mathcal{X}$ by $\forall t\in D, \left(\alpha\cdot f\right)(t) = \alpha\cdot f(t)$.
+        \item Let $\mathcal{F}$ be a field and define $\mathcal{F}^n$ the set of n-tuples written as columns
+        \begin{align*}
+            \mathcal{F}^n = \left\{\left.\begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix} \right| \alpha_i \in \mathcal{F}, 1 \leq i \leq n\right\}=\mathcal{X}
+        \end{align*}
+        \begin{itemize}
+            \item[] Vector Addition: $\begin{bmatrix} \alpha_1 \\ \vdots \\ \alpha_n \end{bmatrix} + \begin{bmatrix} \beta_1 \\ \vdots \\ \beta_n \end{bmatrix} = \begin{bmatrix} \alpha_1 + \beta_1 \\ \vdots \\ \alpha_n + \beta_n \end{bmatrix}$
+            \item[] Scalar Multiplication: $\alpha\cdot x = \begin{bmatrix} \alpha x_1 \\ \vdots \\ \alpha x_n \end{bmatrix}$
+        \end{itemize}
+        \item $\mathcal{X} = \mathcal{F}^{n\times m} = \left\{n\times m \mbox{ matrices with coefficients in } \mathcal{F}\right\}$
+    \end{enumerate}
+
+\noindent \textbf{Non-examples: }
+    \begin{enumerate}
+        \item $ \mathcal{X} = \real, \mathcal{F} = \cp, \left(\real,\cp\right) $ - Fails the definition of scalar multiplication (and others).
+        \item $ \mathcal{X} = \left\{x\geq 0,x\in\real\right\}, \mathcal{F} = \real $ - Fails the definition of scalar multiplication (and others).
+    \end{enumerate}
+
+\noindent \textbf{Def: \underline{Subspace:}} Let $\left(\mathcal{X},\mathcal{F}\right)$ be a vector space, and let $\mathcal{Y}$ be a subset of $\mathcal{X}$. Then $\mathcal{Y}$ is a subspace if using the rules of vector addition and scalar multiplication defined in $\left(\mathcal{X},\mathcal{F}\right)$, we have that $\left(\mathcal{Y},\mathcal{F}\right)$ is a vector space.
+
+\noindent \textbf{Remark: } To apply the definition, you have to check axioms 1 to 10.
+
+\noindent \textbf{Proposition: } (Tools to check that something is a subspace)
+Let $\left(\mathcal{X},\mathcal{F}\right)$ be a vector space and $\mathcal{Y}\subset\mathcal{X}$.
+Then, the following are equivalent (TFAE):
+    \begin{enumerate}
+        \item $\left(\mathcal{Y},\mathcal{F}\right)$ is a subspace.
+        \item $\forall y^1,y^2\in\mathcal{Y}, y^1+y^2\in\mathcal{Y}$ (closed under vector addition), and $\forall y\in\mathcal{Y}$ and $\alpha\in\mathcal{F},\alpha y\in\mathcal{Y}$ (closed under scalar multiplication).
+        \item $\forall y^1,y^2\in\mathcal{Y}$, $\forall \alpha\in\mathcal{F}, \alpha\cdot y^1+y^2 \in \mathcal{Y}$.
+    \end{enumerate}
+
+\noindent \textbf{Example: } $\left(\mathcal{X},\mathcal{F}\right), \mathcal{F} = \real$, $\mathcal{X} = \left\{f:\left(-\infty,\infty\right)\to\real\right\}$,
+    \newline
+    $\mathcal{Y}= \left\{ \mbox{polynomials with real coefficients} \right\}$
+    \newline
+    Is $\mathcal{Y}$ a subspace? Yes, by part 2 of the proposition.
+
+\noindent \textbf{Non-example: } $\mathcal{X} = \real^2, \mathcal{F} = \real$
+    \newline
+    $\mathcal{Y} = \left\{\left.\begin{bmatrix}x_1 \\ x_2 \end{bmatrix} \in \real^2\right|x_1 + x_2 = 3 \right\}$.
+    \newline
+    Let $\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}\in\mathcal{Y}$ and $\begin{bmatrix} y_1 \\ y_2 \end{bmatrix}\in\mathcal{Y}$. Then, $\begin{bmatrix}  x_1 + y_1 \\ x_2 + y_2 \end{bmatrix}\notin\mathcal{Y}$ because $x_1 + y_1 + x_2 + y_2 = 6$
+    \newline
+    Therefore, $x + y \not\in \mathcal{Y}$, which means that this space is not closed under vector addition! Thus, it is not a subspace!
+
+\noindent \textbf{Note: } Every vector space needs to contain the \textbf{0} vector.
+
+\end{document}
+
+
+
+

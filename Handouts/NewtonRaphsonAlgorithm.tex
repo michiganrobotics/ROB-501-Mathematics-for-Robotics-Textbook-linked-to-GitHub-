@@ -1,0 +1,146 @@
+% --------------------------------------------------------------
+
+% --------------------------------------------------------------
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{empheq}
+\usepackage{enumitem}
+\newcommand*\circled[1]{\kern-2.5em%
+  \put(0,4){\color{white}\circle*{18}}\put(0,4){\circle{16}}%
+  \put(-3,0){\color{black}\bfseries\large#1}~~}
+\newcommand*\widefbox[1]{\fbox{\hspace{2em}#1\hspace{2em}}}
+\newcommand{\differ}[3]{\frac{d#1(#3)}{d#2}}
+\newcommand{\norm}[2][x]{\Vert #1 \Vert_{#2}}
+\newcommand{\maxi}{\max\limits_{i}}
+\newcommand{\sigmai}{\sum_{i=1}^n}
+\newcommand{\abox}[1][x_i]{\vert #1\vert}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\pardiff}[2][]{\frac{\partial#1}{\partial#2}}
+\newcommand{\barx}{\bar{x}}
+\newcommand{\limin}[2][\infty]{\lim\limits_{#1\rightarrow#2}}
+\newcommand{\ddt}[3][]{\frac{d#1}{d#2}#3}
+\newcommand{\intt}[3]{\int^{#1}_{#2}#3}
+
+\date{}
+\begin{document}
+\baselineskip=48pt
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+
+%\renewcommand{\qedsymbol}{\filledbox}
+
+{\Large \bf
+\begin{center}
+ROB 501 Handout: Grizzle \\
+\mbox{} \\
+Newton Raphson Algorithm
+\end{center}
+}
+
+\Large
+
+\begin{enumerate}
+\setlength{\itemsep}{.2cm}
+\item[]
+Let $h:\Rn\rightarrow \Rn$ be \underline{continuously differentiable}, and satisfy
+$$\quad\quad\quad\boxed{\det\left(\pardiff[h]{x}(x)\right)\neq 0 \quad \forall x\in \R^n}$$ \\
+
+\textbf{\underline{Problem:}} For $y\in \Rn$ fixed, find a solution of $y = h(x)$; i.e, find $x^*\in \Rn$ s.t. $y=h(x^*)$. We note that this is equivalent to $h(x^*)-y=0$. In other words, we are looking for a root of the equation $h(x)-y=0$,\\
+
+\textbf{\underline{Approach:}} Find a convergent sequence $x_k\to x^*$ such that $$\boxed{\limin[k]{\infty}h(x_k)-y=h(x^*)-y=0}$$
+that is, $x^*=\limin[k]{\infty}~x_k$ is a root of $h(x)-y=0$ \\
+
+\textbf{\underline{Idea:}} Write $x_{k+1}=x_k+\Delta x_k$. We want
+$$h(x_{k+1})-y = h(x_k+\Delta x_k)-y\approx 0.$$
+What should $\Delta x_k$ look like ?\\
+
+Apply Taylor's Theorem, to get
+$$h(x_k)+\pardiff[h]{x}(x_k)\Delta x_k-y\approx 0$$
+$$\therefore \pardiff[h]{x}(x_k)\Delta x_k \approx -(h(x_k)-y)$$
+$$\Delta x_k \approx -\left(\pardiff[h]{x}(x_k)\right)^{-1}(h(x_k)-y)$$
+
+Recalling that $x_{k+1}=x_k+\Delta x_k$, we arrive at Newton's Algorithm, given by
+$$\boxed{x_{k+1} = x_k-\left(\pardiff[h]{x}(x_k)\right)^{-1}(h(x_k)-y)}$$\\
+
+In practice, the change in $x_k$ given by  $\Delta x_k = -\left(\pardiff[h]{x}(x_k)\right)^{-1}(h(x_k)-y)$ is often too large. Hence, one uses the so-called \underline{Damped Newton Algorithm}
+
+$$\boxed{x_{k+1} = x_k-\epsilon\left(\pardiff[h]{x}(x_k)\right)^{-1}(h(x_k)-y)}$$
+
+where $\epsilon>0$ provides step size control!\\
+
+\textbf{\underline{Remark:}} Looking ahead to our discussion of contraction mappings, a solution of $h(x)-y$ is a \underline{fixed point} of
+$$\boxed{P(x)=x-\epsilon\left(\pardiff[h]{x}(x)\right)^{-1}(h(x)-y)}$$
+Indeed,
+\begin{align*}
+x^* & = P(x^*) \\
+&\Updownarrow \\
+x^*&=x^*-\epsilon\left(\pardiff[h]{x}(x^*)\right)^{-1}(h(x^*)-y)\\
+&\Updownarrow \\
+0&=-\epsilon\left(\pardiff[h]{x}(x^*)\right)^{-1}(h(x^*)-y)\\
+&\Updownarrow \\
+0&=(h(x^*)-y).
+\end{align*}
+
+It can be shown that $P$ is a \underline{local contraction} on an open ball around a solution of $h(x)-y=0.$
+
+\newpage
+
+\noindent \textbf{Example} Find the solution to the coupled NL equations
+
+$$0 = h(x)=
+\left(\begin{array}{c} \mathrm{x_1} + 2\, \mathrm{x_2} - \mathrm{x_1}\, \left(\mathrm{x_1} + 4\, \mathrm{x_2}\right) - \mathrm{x_2}\, \left(4\, \mathrm{x_1} + 10\, \mathrm{x_2}\right) + 3\\ 3\, \mathrm{x_1} + 4\, \mathrm{x_2} - \mathrm{x_1}\, \left(\mathrm{x_1} + 4\, \mathrm{x_2}\right) - \mathrm{x_2}\, \left(4\, \mathrm{x_1} + 10\, \mathrm{x_2}\right) + 4\\ {\sin\!\left(\mathrm{x_3}\right)}^7 + \frac{\cos\!\left(\mathrm{x_1}\right)}{2}\\ {\mathrm{x_4}}^3 - 2\, {\mathrm{x_2}}^2\, \sin\!\left(\mathrm{x_1}\right) \end{array}\right)
+$$
+\vspace*{1cm}
+
+\textbf{Initial Guess:} $x_0 = \begin{bmatrix}  7\\
+     8\\
+     9\\
+    10\\
+    \end{bmatrix} $
+
+
+We do 16 iterations of Newton's Algorithm (a nonlinear root finding algorithm) and we obtain:
+
+$$x^*=\left(\begin{array}{r} -2.25957308738366677539068499960\\ 1.75957308738366677539068499960\\ 189.50954100613333978330549312824\\ -1.68458069860197189523093013800 \end{array}\right)
+$$
+
+\noindent \textbf{And the error is:}
+
+$$ h(x^*) = \begin{bmatrix}
+ ~ ~3.6734198 \times 10^{-39} \\
+   ~ ~2.9387359\times 10^{-39}\\
+ ~ ~1.2765134\times 10^{-38}\\
+ -2.5915832\times 10^{-32} \end{bmatrix} $$
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document} 

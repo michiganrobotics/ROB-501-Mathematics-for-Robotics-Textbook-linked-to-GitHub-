@@ -1,0 +1,364 @@
+\documentclass[11pt,twoside]{nsf_jwg} %!PN
+
+
+%
+%***********************************************************************
+%
+%   New Commaands From Courtney's Thesis
+%
+%
+%***********************************************************************
+%
+%
+\usepackage{graphicx} % for pdf, bitmapped graphics files
+\usepackage{amssymb}
+%\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{xspace}
+%\usepackage{citesort}
+%\usepackage{rotating}
+\usepackage{lscape}
+%\usepackage{here}
+%\usepackage{epsfig}
+\usepackage{epstopdf}
+\epstopdfsetup{update}
+%
+\newcommand{\spacing}[1]
+  {\renewcommand{\baselinestretch}{#1}\small\normalsize}
+%
+%
+%
+\newcommand{\sizedfig}[4]{
+\begin{figure}[!hbt]
+       \centerline{ \includegraphics[width=#4]{#3}}
+        \caption{#1}
+        \label{#2}
+\end{figure}
+}
+%
+\newcommand{\real}{{\mathbb R}}
+\newcommand{\Regressor}{A}
+\newcommand{\Param}{\alpha}
+%***********************************************************************
+%
+%   Tables a la Courtney
+%
+%
+%***********************************************************************
+%
+%
+\newcommand{\mytabone}[0]
+{
+\begin{table}[!hbt]
+\caption[]{Data for our first linear regression.}
+\label{tab1}
+\spacing 1
+\begin{center}
+\begin{tabular}{||c|c|c||}
+\hline
+$ i$ & $x_i$ & $y_i$\\
+\hline
+1 &1  &   4 \\
+ 2& 2    &  8 \\
+3& 4   & 10 \\
+4& 5  &  12 \\
+5 & 7   & 18 \\
+\hline
+\end{tabular}
+\end{center}
+\spacing 2
+\end{table}
+}
+%
+\newcommand{\mytabtwo}[0]
+{
+\begin{table}[!hb]
+\caption[]{Data for our second linear regression.}
+\label{tab2}
+\spacing 1
+\begin{center}
+\begin{tabular}{||c|l|l||}
+\hline
+$ i$ & $x_i$ & $y_i$\\
+\hline
+1 &0  &   1.0 \\
+ 2& 0.25    &  1.0 \\
+3& 0.5   & 1.5 \\
+4& 0.75  &  2.0 \\
+5 & 1.0   & 3.0 \\
+6 & 1.25   & 4.25 \\
+7 & 1.5   & 5.5 \\
+8 & 1.75   & 7.0 \\
+9 & 2.0   & 10.0 \\
+\hline
+\end{tabular}
+\end{center}
+\spacing 2
+\end{table}
+}
+%
+%
+%***********************************************************************
+%               Figures a la Diop
+%***********************************************************************
+%
+\newcommand{\myfigone}[0]
+{\sizedfig{Plot of data in Table 1.}{fig1}
+{fig1.eps}{4.5in}
+}
+\newcommand{\myfigtwo}[0]
+{\sizedfig{Plot of data from Table 1 along with the least squares fit.}{fig2}
+{fig2.eps}{4.5in}
+}
+\newcommand{\myfigthree}[0]
+{\sizedfig{Plot of data in Table 2.}{fig3}
+{fig3.eps}{4.5in}
+}
+\newcommand{\myfigfour}[0]
+{\sizedfig{Plot of data from Table 2 along with the least squares fit of a quadratic function to the data.}{fig4}
+{fig4.eps}{4.5in}
+}
+%***********************************************************************
+%               New Commands From the Latex Manual
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+\baselineskip=24pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\pagestyle{plain}
+
+\title{\Large \bf  Linear Regression or Least Squares Fit of Functions to Data}
+
+\author{ {\bf Prof. J.W. Grizzle, Univ. of Michigan}
+}
+
+\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+We discuss the process of fitting functions to data, which is usually called \textit{regression}.  A typical problem goes as follows. We are data as shown in Table \ref{tab1}, which is also plotted in Figure \ref{fig1}. It is clear that the data do NOT lie exactly on a straight line. How can we {\bf approximately} fit a straight line to the data? In particular, how can we do the fit in such a way as to \textbf{minimize the error}, in a given sense?
+
+\mytabone
+
+\myfigone
+
+Let's suppose that we want to fit a linear model $$ y=mx+b.$$ For $1 \le i \le N$, define
+$$\hat y_i = m x_i +b,$$ where $N$ is the number of data points (five in the case of Table \ref{tab1}). Define the i-th error term to be $$e_i = y_i - \hat y_i $$
+and the total squared error to be $$E_{tot} = \sum_{i=1}^{N} (y_i-\hat y_i)^2.$$ Note that since $\hat y_i$ depends on  $m$ and $b$, so does $E_{tot}$.
+
+We select the coefficients $m$ and $b$ in the model so as to minimize $E_{tot}$ as a function of $m$ and $b$. This is called a {\bf Least Squared Error} fit, or a {\bf Least Squares} fit.
+
+Using basic calculus, we choose $m$ and $b$ so that
+\begin{eqnarray*}
+\frac{\partial E_{tot}}{\partial m} = 0 \\
+\frac{\partial E_{tot}}{\partial b} = 0
+\end{eqnarray*}
+This yields two equations in the two unknowns. Depending on the particular problem , deriving these equations is more or less tedious. One way to do this is to grind out the partial derivatives, and produce the equations for $m$ and $b$. We will use a more sophisticated but EQUIVALENT method that is MUCH EASIER to use in practice.
+
+\vspace*{1cm}
+
+Write out the equations $y_i = mx_i +b$, $i=1,\cdots,N$ in matrix form. That is, note that
+$$y_i = mx_i +b = \left[ \begin{array}{cc} x_i & 1 \end{array} \right] \left[ \begin{array}{c} m \\ b \end{array} \right] $$
+
+Now, do this for $i=1,\cdots,N$
+$$
+\underbrace{\left[ \begin{array}{c} y_1 \\ y_2 \\ \vdots \\ y_N \end{array} \right]}_{Y} =
+ \underbrace{\left[ \begin{array}{cc} x_1 & 1 \\ x_2 & 1 \\ \vdots & \vdots \\ x_N & 1 \end{array} \right]}_{\Regressor}
+ \underbrace{\left[ \begin{array}{c} m \\ b \end{array} \right] }_{\Param}
+$$
+in order to arrive at the \textbf{(over determined)} equation $Y = \Regressor \Param$. For our example, the various quantities are
+$$
+Y = \left[ \begin{array}{c} 4  \\   8   \\  10  \\  12  \\  18 \end{array} \right] ~~~~~~
+\Regressor= \left[ \begin{array}{cc} 1 & 1 \\ 2 & 1 \\ 4 & 1 \\ 5 & 1 \\ 7 & 1 \end{array} \right] ~~~~~~
+\Param = \left[ \begin{array}{c} m \\ b \end{array} \right] $$
+
+\noindent {\bf Theorem} (to be proven in lecture): If $ \det(\Regressor^{T} \Regressor) \not = 0$, then the least squares solution to $Y = \Regressor \Param$ is given by
+$$\hat \Param = (\Regressor^{T} \Regressor)^{-1} \Regressor^{T} Y$$
+That is $$ \hat \Param = \underset{ \Param \in \real{^2}}{ \mathrm{argmin} } ~|| Y -  \Regressor \Param ||^2$$
+where $||~\cdot~||^2$ is the sum of the squares of the elements of the vector.\\
+
+\noindent \textbf{Remark:} This will be a special case of the \textit{Normal Equations}!
+
+\vspace*{2cm}
+
+\noindent {\bf Computations in Matlab}
+\large
+\begin{verbatim}
+x=[1     2     4     5     7]'
+
+x =
+
+     1
+     2
+     4
+     5
+     7
+
+» Y=[ 4     8    10    12    18]'
+
+Y =
+
+     4
+     8
+    10
+    12
+    18
+
+» A=[x,ones(5,1)]
+
+A =
+
+     1     1
+     2     1
+     4     1
+     5     1
+     7     1
+
+» det(A'*A)
+
+ans =
+
+   114
+
+» theta_hat=inv(A'*A)*A'*Y
+
+theta_hat =
+
+    2.1228
+    2.3333
+
+» m=theta_hat(1)
+
+m =
+
+    2.1228
+
+» b=theta_hat(2)
+
+b =
+
+    2.3333
+
+» plot(x,Y,'o',x,m*x+b)
+» axis([0 8 0 20])
+» gtext('y = mx + b')
+» xlabel('x')
+» ylabel('y')
+
+\end{verbatim}
+\Large
+
+\newpage
+
+\myfigtwo
+
+\newpage
+Now, all of this can be applied for any {\bf model} that depends linearly on its unknown coefficients. For example, consider the data of Table \ref{tab2}, which is plotted in Figure \ref{fig3}.
+
+\mytabtwo
+
+\myfigthree
+
+Let's choose a model of the form $$y=c_0 + c_1 x + c_2 x^2,$$
+where here $x^2$ does mean $x$ to power 2 (squared). Note that even though the model is nonlinear in $x$, it is linear in the unknown coefficients $c_0, ~c_1,~ c_2$. This is what is important!!! Just as before, define $\hat y_i = c_0 + c_1 x_i + c_2 x_i^2$, the i-th error term to be $$e_i = y_i - \hat y_i $$
+and the total squared error to be $$E_{tot} = \sum_{i=1}^{N} (y_i-\hat y_i)^2.$$
+
+To find the coefficients $c_0, ~c_1,~ c_2$ that minimize $E_{tot}$, we write out the model in matrix form:
+$$y_i=c_0 + c_1 x_i + c_2 (x_i)^2= \left[ \begin{array}{ccc} 1 & x_i & (x_i)^2 \end{array} \right] \left[ \begin{array}{c} c_0 \\ c_1 \\ c_2 \end{array} \right] .$$
+
+Doing this for $i=1,\cdots,N$ yields
+$$
+\underbrace{\left[ \begin{array}{c} y_1 \\ y_2 \\ \vdots \\ y_N \end{array} \right]}_{Y} =
+ \underbrace{\left[ \begin{array}{ccc} 1 & x_1 & (x_1)^2 \\ 1 & x_2 & (x_2)^2 \\ \vdots & \vdots \\ 1 & x_N & (x_N)^2 \end{array} \right]}_{\Regressor}
+ \underbrace{\left[ \begin{array}{c} c_0 \\ c_1 \\ c_2 \end{array} \right] }_{\Param}
+$$
+which gives us the equation $Y = \Regressor \Param$. For our second example, the various quantities are
+$$
+Y = \left[ \begin{array}{l} 1.0  \\   1.0   \\  1.5  \\  2.0  \\  3.0 \\ 4.25 \\ 5.5 \\ 7.0 \\ 10.0 \end{array} \right] ~~~~~~
+\Regressor= \left[ \begin{array}{cll} 1 & 0 & 0 \\ 1 & 0.25 & 0.0625
+ \\ 1 & 0.5 & 0.25  \\ 1 & 0.75 & 0.5625\\ 1 & 1.0 & 1.0 \\ 1 & 1.25 &  1.5625 \\ 1 & 1.5 & 2.25\\ 1 & 1.75 & 3.0625 \\ 1 & 2.0 & 4.0 \end{array} \right] ~~~~~~
+\Param = \left[ \begin{array}{c} c_0 \\ c_1 \\ c_2 \end{array} \right] $$
+
+\newpage
+
+\noindent {\bf Computations in Matlab}
+\large
+\begin{verbatim}
+
+» x=[0:.25:2]';
+» Y=[ 1 1 1.5 2 3 4.25 5.5 7 10]';
+» A=[ones(9,1),x,x.^2]
+
+A =
+
+    1.0000         0         0
+    1.0000    0.2500    0.0625
+    1.0000    0.5000    0.2500
+    1.0000    0.7500    0.5625
+    1.0000    1.0000    1.0000
+    1.0000    1.2500    1.5625
+    1.0000    1.5000    2.2500
+    1.0000    1.7500    3.0625
+    1.0000    2.0000    4.0000
+
+» det(A'*A)
+
+ans =
+
+   40.6055
+
+» alpha_hat=inv(A'*A)*A'*Y
+
+alpha_hat =
+
+    1.0652
+   -0.6258
+    2.4545
+
+» c0=alpha_hat(1)
+
+c0 =
+
+    1.0652
+
+» c1=alpha_hat(2)
+
+c1 =
+
+   -0.6258
+
+» c2=alpha_hat(3)
+
+c2 =
+
+    2.4545
+
+» plot(x,y,'o',x,c0+c1*x+c2*x.^2)
+» axis([0 2 0 12])
+» gtext('y = c_0+c_1x + c_2 x^2')
+» xlabel('x')
+» ylabel('y')
+» title('Least square fit of a quadratic to data')
+
+\end{verbatim}
+
+\myfigfour
+
+\end{document}

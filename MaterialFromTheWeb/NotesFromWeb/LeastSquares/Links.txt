@@ -1,0 +1,2 @@
+Guass and Invention of Least Squares
+https://inst.eecs.berkeley.edu/~ee127a/book/login/Papers/Gauss_vs_Legendre.pdf

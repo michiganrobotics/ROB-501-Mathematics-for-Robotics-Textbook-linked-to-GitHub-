@@ -1,0 +1,77 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+%\baselineskip=48pt  % Enforce double space
+
+\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+%
+%{\Large \bf
+%\begin{center}
+%Rob 501 Handout: Grizzle \\
+%\mbox{} \\
+%Kalman Filter
+%\end{center}
+%}
+%
+%%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+\Large
+
+\begin{align*}
+x_{k+1} &= F x_k + G w_k \\
+y_k &= H_k x_k + v_k
+\end{align*}
+$x_0$, for $k\ge 0$,  $w_k$, $v_k$ are independent Gaussian random variables.
+
+\textbf{Seek:} $\hat{x}_k$ that minimizes the variance of the estimate $ {\cal E} || x_k -\hat{x}_k || $, given the measurements up to time $K$: $y_0, y_1, \cdots, y_k$
+
+
+
+
+\end{document} 

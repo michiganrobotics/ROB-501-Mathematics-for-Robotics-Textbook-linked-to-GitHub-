@@ -1,0 +1,336 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-II (Final) Solutions}\\
+20 December 2016
+\end{center}
+
+\vspace*{1cm}
+
+%Prob. 1
+\noindent \textbf{Problem 1:} The answers are (a) and (c). \\
+
+(a) True. By the result on Schur Complements, $M$ is positive definite, if, and only if, $A$ and $C-B^\top A^{-1} B $ are positive definite. A symmetric matrix is positive definite if, and only if, its e-values are all positive. Putting these two facts together gives the result.\\
+
+(b) False. $M$ could be negative definite. For example, $M=-I_{2 \times 2}$ is allowed, and satisfies
+$$ \left[ \begin{array}{rr} -1&0 \\ 0 &-1 \end{array} \right] \left[ \begin{array}{c} x \\ y\end{array} \right]= \left[ \begin{array}{c} 0\\ 0\end{array} \right] \Leftrightarrow \left[ \begin{array}{c} x \\ y\end{array} \right]= \left[ \begin{array}{c} 0\\ 0\end{array} \right].$$
+
+(c) True. In fact, it is true even without $M$ being invertible, but the proof we gave in class for the $QR$ factorization assumed the columns of the matrix were linearly independent. Because $M$ is invertible, its columns form a basis of $\real^{n+m}$. Hence there exists an orthogonal $(n+m)\times (n+m)$ matrix $Q$ and upper triangular matrix $R$ such that $M=QR$. From this, we have that $Q^\top M=R$, we see that we can take $O=Q^\top$ because $Q^\top$ is also orthogonal.
+
+(d) False.  \textbf{Solution 1:} We apply the theorem on Schur complements with $A= \left[ \begin{array}{rr}  2&   \sqrt{2}\\  \sqrt{2}& 2\end{array}\right]$, $B^\top= \left[ \begin{array}{rr} \alpha & 0\end{array}\right]$  and $C=[4]$. $A$ is quickly checked to be positive definite and for later use, its inverse is computed to be
+$$ A^{-1}= \frac{1}{2}\left[ \begin{array}{rr}  2&   -\sqrt{2}\\  -\sqrt{2}& 2\end{array}\right].$$
+It follows that $C-B^\top A^{-1}B = 4 - \alpha^2$, which is positive definite if, and only if, $-2< \alpha < 2$.
+
+\textbf{Solution 2:} We try $\alpha = 10$. Then
+$M= \left[ \begin{array}{rrr}  2&   \sqrt{2} & 10\\  \sqrt{2}&   2&   0\\  10&   0&  4\end{array}\right]$ . Using Schur complements, we have that  $C= \left[ \begin{array}{rr}  2&   0\\ 0& 4\end{array}\right]$ is positive definite, and we now check
+$$A-BC^{-1}B^\top = 2 -  \left[ \begin{array}{cc}  \sqrt{2} &10\end{array}\right] \left[ \begin{array}{rr} \frac{1}{2}&   0\\ 0& \frac{1}{4}\end{array}\right] \left[ \begin{array}{c}  \sqrt{2}\\10\end{array}\right] = 2 - (1+25) = -24 \not > 0,$$ and thus the answer is false.
+\vspace*{1cm}
+
+%Prob. 2
+\noindent \textbf{Problem 2:} The answers are (a) (b) and (d). \\
+
+(a) True. This was our first set of normal equations. \\
+
+(b) True. Write $x_0 = x_M + x_M{^ \perp}$, with $x_M \in M$ and $x_M{^ \perp} \in M^\perp$.  Then
+$$x_M= {\rm arg}~\min_{y \in M} ||x_0-y|| ~~\text{and}~~  x_M{^ \perp} ={\rm arg}~\min_{z \in M^\perp} ||x_0-z||.$$
+From the normal equations, $x_M = \alpha_1 y^1 + \cdots + \alpha_k y^k$ when $\beta_i=<x_0,y^i>$, $1 \le i \le k$, $G \alpha = \beta$. Hence,
+$$x_M{^ \perp}=x_0 -x_M =  x_0-\left(\alpha_1 y^1 + \cdots + \alpha_k y^k\right). $$
+
+(c) False.   From HW 8, Prob. 5, $V = x_0 + M^\perp$.\\
+
+(d) True. See HW 8, Prob. 6.
+
+
+\newpage
+
+
+
+%Prob. 3
+\noindent \textbf{Problem 3:} The answers are (b), (c)  and (d). \\
+
+(a) False. $x^*$ will be in the closure $\bar{S}$. For example, let ${\cal X}= \real$, $S=[0, 1)$ and $x_k = 1- \frac{1}{k}.$ Then $x_k \in \mathring{S}=(0,1)$, but $x_k \to x^*=1$, which is not in $S$.  \\
+
+
+
+(b) True. Because $S$ is open and $x^* \in S$,  there exists $\epsilon>0$ such that $B_\epsilon(x^*) \subset S$. Because $x_k\to x^*$, there exists  $N< \infty$ such that $n\ge N$ implies $x_n \in B_\epsilon(x^*)$. Because $x_n \in B_\epsilon(x^*) \subset S$, $d(x_n,\sim S) \ge \epsilon$. \\
+
+
+
+(c) True. Because ${\cal X},$ is finite dimensional, it is complete. Hence,  $(x_k)$ Cauchy implies $\exists~x^* \in {\cal X}$ such that $ x_k\to x^*$. Because $S$ is closed, it contains its limit points, and thus, $x^* \in S$. Alternatively, you can say that closed subsets of complete sets are complete and thus  $\exists~x^* \in S$ such that $ x_k\to x^*$.\\
+
+
+
+(d) True.  In a finite-dimensional normed space, a set is compact if, and only if, it is closed and bounded, and therefore $S$ is compact. A continuous function on a compact set achieves both its max and its min.\\
+
+
+
+\vspace*{1cm}
+
+%Prob. 4
+\noindent \textbf{Problem 4:} The answer is (b). \\
+
+The conditions to form the MVE are $E\{x\}=0$, $E\{e\}=0$, $E\{xe^\top\}=0$,  $E\{x x^\top\}=P \ge 0$, $E\{e e^\top\}=Q\ge0$ \textbf{AND} $CPC^\top + Q >0$. \\
+
+The conditions to form BLUE are $E\{e\}=0$, \textbf{AND} $E\{e e^\top\}=Q >0$ \textbf{AND} the columns of $C$ are linearly independent.\\
+
+MVE approaches BLUE \textbf{when} $Q>0$, the columns of $C$ are linearly independent and $P \to \infty$.\\
+
+(a) False. We lack two things here: the covariance of $x$ is not going to infinity and we do not know the columns of $C$ are linearly independent, and thus BLUE may not exist.\\
+
+(b) True. $Q>0 \Rightarrow CPC^\top + Q >0$\\
+
+(c) False.  We need the columns of $C$ are linearly independent, and not the rows.\\
+
+(d) False. Lack both $Q>0$ and columns of $C$ linearly independent.\\
+
+\newpage
+
+%Prob. 5
+\noindent \textbf{Problem 5:} The answers are (b), (c) and (d). \\
+
+ The solutions are based on the Handout for Gaussian Random Vectors. Before doing anything, we determine the mean vector $\mu$ and covariance matrix $\Sigma$ for the normal \textit{random vector} $$ X = \begin{bmatrix} X_1 \\ X_2 \\ X_3  \end{bmatrix}.$$
+
+$$\mu = \begin{bmatrix}1 \\ 2 \\ 3\end{bmatrix}~~\text{and}~~\Sigma =\begin{bmatrix} 1& 1 & 0\\  1& 4&2 \\ 0 & 2 & 2\end{bmatrix},$$
+where we have used symmetry $\Sigma_{ij} = \Sigma_{ji}$ to fill in some of the ``missing'' terms and independence to fill in others.\\
+
+(a) False. \\
+
+\textbf{Solution 1:} Gaussian (normal) random variables are independent if, and only if, they are uncorrelated. We compute
+$${\rm cov}((2X_1-X_2),X_1) = 2{\rm cov}(X_1,X_1)- {\rm cov}(X_2,X_1)=2{\rm cov}(X_1,X_1)- {\rm cov}(X_1,X_2)=2 - 1 = 1 \neq 0$$\\
+
+\textbf{Solution 2:}
+Define a new random vector $\begin{bmatrix}X_4 \\ X_{1}\end{bmatrix}=\begin{bmatrix} 2& -1\\  1& 0\end{bmatrix} \begin{bmatrix}X_1 \\
+X_{2}\end{bmatrix}$. We know that $\left[ \begin{array}{r} X_1\\  X_2\end{array}\right]$ is a Gaussian or normal random variables with mean $\begin{bmatrix}1\\ 2\end{bmatrix}$ and covariance matrix $\begin{bmatrix}1 & 1\\ 1&4\end{bmatrix}$. Thus,  we apply the result on linear combinations (material before Fact 1) and obtain the covariance matrix of $\begin{bmatrix}X_4 \\
+X_{1}\end{bmatrix}$ is
+\begin{equation*}
+  \begin{bmatrix} 2& -1\\  1& 0\end{bmatrix}\begin{bmatrix}1 & 1\\ 1&4\end{bmatrix} \begin{bmatrix} 2& -1\\  1& 0\end{bmatrix}^\top
+  =\begin{bmatrix} 4& 1\\  1& 1\end{bmatrix}.
+\end{equation*}
+We have $\mathrm{cov}(X_4, X_1)=1$, and hence these two random variables are dependent.\\
+
+(b) True. We obtain the result by combining the given information for random vector $\left[ \begin{array}{r} X_1\\  X_2\end{array}\right]$ and applying the probability density function for a Gaussian random vector.\\
+
+(c) True. This is the result that we asked you to show in Homework 7 Problem 5. This fact is what allows the derivation of the KF.\\
+
+(d) True. Define a random vector as $\begin{bmatrix} W \\ X_{3}\end{bmatrix}=\begin{bmatrix} 1& 1 & 0\\  0& 0&1\end{bmatrix} \begin{bmatrix}X_1 \\
+X_{2}\\ X_{3}\end{bmatrix}$, then by applying the result on linear combinations (material before Fact 1), we know it is jointly Gaussian distributed with mean and covariance matrix
+\begin{align*}
+  \mu & = \begin{bmatrix} 1& 1 & 0\\  0& 0&1\end{bmatrix}\begin{bmatrix} 1\\  2\\3\end{bmatrix}=\begin{bmatrix} 3\\3\end{bmatrix}\\
+  \sigma & =\begin{bmatrix} 1& 1 & 0\\  0& 0&1\end{bmatrix}\begin{bmatrix} 1 & 1&0\\ 1&4&2\\ 0&2&4\end{bmatrix}\begin{bmatrix}  1 & 0\\  1& 0\\ 0 &1\end{bmatrix}
+    =\begin{bmatrix}  7 & 2\\  2 &2\end{bmatrix}
+\end{align*}
+Then, applying Fact 1 from the handout on Gaussian Random Vectors, we have that
+\begin{align*}
+\mu_{1|2}=& \mu_1 + \Sigma_{12} \Sigma_{22}^{-1} (x_2 - \mu_2) = 3+2\,\dfrac{1}{2}\, (2-3) =2\,,\\
+ \Sigma_{1|2}= &\Sigma_{11}-\Sigma_{12} \Sigma_{22}^{-1}\Sigma_{21} = 7-2\,\dfrac{1}{2}\,2=5\,.
+\end{align*}
+
+
+\newpage
+%Prob. 6
+\noindent \textbf{Problem 6:} \\
+
+\fbox{\rule[-1cm]{0cm}{2cm} $\widehat{x}_{3|2}=\left[ \begin{array}{c} 1 \\ 0\end{array} \right]$  ~~}~~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $K_{3}=\left[ \begin{array}{c}  \dfrac{14}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right]$~~}~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $\widehat{x}_{3|3}= \left[ \begin{array}{c}  \dfrac{39}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right]$ ~~}~~~~~~~~~~~\fbox{\rule[-1cm]{0cm}{2cm} $\begin{array}{r}\text{mean}= 1\\ \mbox{ } \\ \text{variance}= 25 \end{array} $ ~~}\\
+
+\vspace*{1cm}
+From the Kalman Filter Handout, we have\\
+
+\textbf{~~~Measurement Update Step:}
+\begin{align*}
+K_k &= P_{k|k-1}C_k^\top \left(C_k P_{k|k-1} C_k^\top + Q_k\right)^{-1} \\
+& ~~~~~(\text{Kalman Gain})\\
+\widehat{x}_{k|k} &= \widehat{x}_{k|k-1}  + K_k \left( y_k - C_k \widehat{x}_{k|k-1} \right) \\
+P_{k|k} &= P_{k|k-1} - K_k C_k  P_{k|k-1}
+\end{align*}
+
+\textbf{~~~Time Update or Prediction Step:}
+\begin{align*}
+\widehat{x}_{k+1|k} &= A_k \widehat{x}_{k|k}  \\
+P_{k+1|k} &= A_k P_{k|k} A_k^\top + G_k R_k G_k^\top
+\end{align*}
+
+For parts (a), (b) and (c) you just plug into the formulas:\\
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item
+\begin{equation*}
+  \widehat{x}_{3|2}=A\widehat{x}_{2|2}=\left[ \begin{array}{rr} 0 & 1\\ 0 & 0\end{array} \right]\left[ \begin{array}{c} 1 \\ 1\end{array} \right]
+            =\left[ \begin{array}{c} 1 \\ 0\end{array} \right]
+\end{equation*}
+\item  We need the last line in the time update or prediction step to determine $ P_{3|2}$ and the first line in the measurement update to determine $K_3$.
+\begin{align*}
+P_{3|2} &= A P_{2|2} A^\top + G R G^\top \\
+&= \left[ \begin{array}{rr} 0 & 1\\ 0 & 0\end{array} \right] \left[ \begin{array}{rr}2 &  1\\ 1&  2\end{array} \right] \left[ \begin{array}{rr} 0 & 0\\1 & 0\end{array} \right] +\left[ \begin{array}{c} 2\\ 1\end{array} \right]2\left[ \begin{array}{cc} 2& 1\end{array} \right]\\
+&=\left[ \begin{array}{rr} 2 & 0\\ 0& 0\end{array} \right] + \left[ \begin{array}{rr} 8 & 4\\ 4 & 2\end{array} \right] \\
+&= \left[ \begin{array}{rr} 10 & 4\\ 4 & 2\end{array} \right]\\[5 mm]
+K_3 &= P_{3|2}C^\top \left(C P_{3|2} C^\top + Q\right)^{-1} \\
+&= \left[ \begin{array}{rr} 10 & 4\\ 4 & 2\end{array} \right]\left[ \begin{array}{c} 1 \\ 1\end{array} \right] \dfrac{1}{25} \\
+&=\left[ \begin{array}{c}  \dfrac{14}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right]\\
+\end{align*}
+
+\item We need the second line in the measurement update formulas:
+\begin{align*}
+\widehat{x}_{3|3} &= \widehat{x}_{3|2}  + K_3 \left( y_3 - C \widehat{x}_{3|2} \right) \\
+&= \left[ \begin{array}{c} 1 \\ 0\end{array} \right] + \left[ \begin{array}{c}  \dfrac{14}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right] \left( 2 - [1~~~1] \left[ \begin{array}{c} 1 \\ 0\end{array} \right]  \right) \\
+&= \left[ \begin{array}{c} 1 \\ 0\end{array} \right] + \left[ \begin{array}{c}  \dfrac{14}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right]\left( 1  \right)\\
+&=\left[ \begin{array}{c}  \dfrac{39}{25} \\[5 mm] \dfrac{6}{25}\end{array} \right]
+\end{align*}
+
+\item Notice that $x_{3}{\big|(y_0, y_1, y_2)}$ is a Gaussian random vector with mean $\widehat{x}_{3|2}$ and covariance matrix $P_{3|2}$, and $v_k$ ia a Gaussian random variable with mean $0$ and covariance matrix $Q$. Also, by recursively applying the fact that $x_{k+1}$ is in the span of $x_{k}$ and $w_{k}$, we can get $x_{k}$ is in the span of $\{x_{0},\, w_{0},\, w_{1},\,\ldots,\, w_{k-1}\}$. Based on the assumptions of Kalman filter,
+    \begin{equation*}
+      \forall\, k\ge 0,\,l\ge 0,\, x_{0},\, w_{k},\,v_{k} \textrm{ are jointly Gaussian but uncorrelated,}
+    \end{equation*}
+    $x_k$ and $v_k$ are also jointly Gaussian but uncorrelated, i.e., they are independent.
+    According to the output equation,
+    \begin{equation*}
+      y_k =   C x_k + v_k,
+    \end{equation*}
+    $y_{3}{\big|(y_0, y_1, y_2)}$ is then a Gaussian random variable with mean $\widehat{y}_{3|2}$ and covariance matrix $\Sigma^y_{3|2}$, where
+    \begin{align*}
+        \widehat{y}_{3|2} & =C\widehat{x}_{3|2}+\mathcal{E} v_k=C\widehat{x}_{3|2}=\left[ \begin{array}{cc} 1 & 1\end{array} \right]\left[ \begin{array}{c} 1 \\ 0\end{array} \right]=1,\\
+        \Sigma^y_{3|2} & =CP_{3|2}C^\top+Q=25.
+    \end{align*}
+ %   \textbf{We need to explain why $\widehat{x}_{3|2}$ and $v_k$ are indpendnet!}
+
+
+\end{enumerate}
+
+\newpage
+
+
+\newpage
+%Prob. 7
+\noindent \textbf{Problem 7:}
+
+\noindent \textbf{Answer:}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\hat{x}=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}}\\[5mm]-\dfrac{1}{\sqrt{2}}\end{array} \right]$ ~~ }\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $\Delta M = \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+          \left[  \begin{array}{cc} 0 & 0 \\[2mm] 0 & -2\end{array} \right]
+          \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+          =\left[\begin{array}{cc} -1 & 1 \\1 & -1 \\ \end{array}\right]$ ~}\\
+
+    \item \fbox{ \rule[-1cm]{0cm}{2cm}  $V=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]$\hskip 5mm ~and~~
+        $\Sigma =\left[\begin{array}{cc} 2\sqrt{2} & 0 \\ 0& \sqrt{2} \\0 & 0 \\ \end{array} \right]$ ~~}
+\end{enumerate}
+
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+  \item From Prob. 7 in HW 2, ${\ds \min_{x^\top x =1}x^\top M x }=\lambda_{\min}$, and the minimizing vector $\widehat{x}$ is an eigenvector corresponding to $\lambda_{\min}$. Also, $M$ is a symmetric positive definite matrix, so its SVD is the same as the eigen-decomposition. We read off $\widehat{x}$ directly, that is,
+        \begin{equation}
+          \widehat{x} =\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}}\\[5mm] -\dfrac{1}{\sqrt{2}}\end{array} \right].
+        \end{equation}
+
+  \item The singular values of $M$ are $8$ and $2$, $\mathrm{rank}(M)=2$, and $M+\Delta M$ is a rank-1 approximation of $M$. According to the fact on SVD, we know that
+        \begin{equation}
+          \Delta M = \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+          \left[  \begin{array}{rr} 0 & 0 \\[2mm] 0 & -2\end{array} \right]
+          \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+          =\left[\begin{array}{rr} -1 & 1 \\1 & -1 \\ \end{array}\right].
+        \end{equation}
+
+  \item \textbf{Solution 1:} (Based on the proof of the SVD) The SVD of $A$ is $A=U\Sigma V^\top$, and $U\in\real^{3\times 3}$,  $\Sigma\in\real^{3\times 2}$ and $V\in\real^{2\times 2}$. The columns of $V$ are the eigenvectors of $A^\top A$, and the diagonal elements of $\Sigma$ are the singular values of $A$, i.e., the square root of the eigenvalues of $A^\top A$.
+      Given that $A^\top A=M$, we obtain
+      \begin{equation*}
+        V=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right],\quad
+        \Sigma =\left[\begin{array}{cc} 2\sqrt{2} & 0 \\ 0& \sqrt{2} \\0 & 0 \\ \end{array} \right].
+      \end{equation*}
+
+      \newpage
+
+      \textbf{Solution 2:}(Based on Simple Facts about the definition of the SVD) As above, from the definition of the SVD, we write $A=U\Sigma V^\top$, with $U$ a $3 \times 3$ orthogonal matrix,  $\Sigma$ a ${3\times 2}$ rectangular diagonal matrix, and $V$ a ${2\times 2}$ orthogonal matrix. We form
+      $$A^\top A=V\Sigma^\top U^\top U\Sigma V^\top = V\Sigma^\top \Sigma V^\top,$$
+      because $U^\top U=I_{3\times3}$. Next, we use the fact that
+      $$ V\Sigma^\top \Sigma V^\top=A^\top A = M=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]
+  \left[  \begin{array}{cc} 8 & 0 \\[2mm] 0 & 2\end{array} \right]
+  \left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right]$$
+  and see immediately that
+  \begin{equation*}
+        V=\left[  \begin{array}{cc} \dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}}\\[5mm] \dfrac{1}{\sqrt{2}} & -\dfrac{1}{\sqrt{2}}\end{array} \right].
+      \end{equation*}
+      Obtaining $\Sigma$ is straightforward as well becasue we know it is rectangular diagonal. Indeed,
+      $$\Sigma^\top \Sigma = \left[  \begin{array}{cc} \sigma_1 & 0 \\ 0 & \sigma_2 \\ 0 & 0\end{array} \right]^\top \left[  \begin{array}{cc} \sigma_1 & 0 \\ 0 & \sigma_2 \\ 0 & 0\end{array} \right] = \left[  \begin{array}{cc} (\sigma_1)^2 & 0 \\ 0 & (\sigma_2)^2 \end{array} \right]= \left[  \begin{array}{cc} 8 & 0 \\[2mm] 0 & 2\end{array} \right], $$
+      and thus
+      $$ \Sigma =\left[\begin{array}{cc} 2\sqrt{2} & 0 \\ 0& \sqrt{2} \\0 & 0 \\ \end{array} \right].$$
+\end{enumerate}
+
+\newpage
+
+%Prob. 8
+\noindent \textbf{Problem 8:}
+\begin{enumerate}
+    \setlength{\itemsep}{.15in}
+    \renewcommand{\labelenumi}{(\alph{enumi})}
+    \setlength{\itemsep}{.1in}
+  \item True. According to Balzano-Weierstrass theorem, $S$ is a compact set since it is a closed and bounded subset of a finite-dimensional norm space $({\cal X},\,\real,\, || \cdot||)$. Also, $f(x)=||x||$ is a continuous, real-valued function over $S$. Thus, the infimum of $f(x)=||x||$ can be achieved on $S$, i.e., there exists $x^* \in S$ such that $||x^*||=\inf_{y\in S} ||y||$, based on Weierstrass theorem.\\
+
+      \textbf{Grading Notes:} 1 point for the T/F answer. 2 points for compactness. 2 points for noting that the norm in continuous and applying Weierstrass.
+
+  \item False. It is true that any set consisting of a single rational number is closed in the normed space $(\real,\,\real,\, |\cdot|)$. However, the arbitrary (infinite) union of closed sets can be either open or closed, or neither open nor closed, or even both open and closed. In this example, $\mathbb{Q}$, the union of all the rational numbers, is neither open nor closed.\\
+
+
+
+      \textbf{Grading Notes:} 1 point for the T/F answer. After that, any comment to the effect that we did the problem in lecture, or you noted that an infinite union may not be closed, or you noted that $\bar{Q}=\real$ etc. and I gave you all the points.
+
+  \item True. $\forall~\epsilon>0$, $\exists~y \in \sim P$ such that $||x_0 - y||< \epsilon$ is equivalent to $\mathrm{d}(x_0,\,\sim P)=0$. Thus, the statement can be rephrased as \\
+      \hspace*{2cm} ``If $x_0\in P$ satisfies $\mathrm{d}(x_0,\,\sim P)=0$, then  $x_0\not \in  \mathring{P}.$''\\
+      According to the discussion on interior of a set in the lecture, we know its contrapositive \\
+      \hspace*{2cm} ``If $x_0\in  \mathring{P}$, then $\mathrm{d}(x_0,\,\sim P)>0$.''\\
+      is true.
+      \\
+
+      \textbf{Grading Notes:} 1 point for the T/F answer. 2 points for noting that $\mathrm{d}(x_0,\,\sim P)=0$ and 2 points for noting that if $x_0\in  \mathring{P}$, then $\mathrm{d}(x_0,\,\sim P)>0$, and thus the first statement contradicts this property. The solution could be worded in many ways.
+\end{enumerate}
+
+\newpage
+%Prob. 9
+\noindent \textbf{A$^+$ Problem 9:} \fbox{$ Z^*= 6 Y_1 +3 Y_2 = 12 X_1 +3 X_2 -3 X_3$}\\
+
+The field is ${\cal F}=\real$ and we define ${\cal X}=\spanof{X_1,X_2,X_3}$. We turn it in to an inner product space with $<Z_1,Z_2>:={\cal E}\{Z_1Z_2\}$, for $Z_1, Z_2 \in {\cal X}$.\\
+
+Because all of the random variables in ${\cal X}$ have zero mean, $||Z||^2:=<Z, Z>:={\cal E}\{Z^2\}$ is the variance of $Z$. \\
+
+Hence, the posed problem is to find the vector of minimum norm in the set $$V:=\{X\in {\cal X}~|~ <Z,Y_1> = 12, <Z,Y_2> = 6 \},$$
+ where $Y_1=2X_1$ and $Y_2=X_2-X_3$.\\
+
+ Applying the \textbf{normal equations}, we have the solution is $Z^*=\alpha_1 Y_1 + \alpha_2 Y_2$ where
+ $$G \alpha = \left[ \begin{array}{cc} <Y_1,Y_1> &  <Y_1,Y_2> \\ <Y_2,Y_1> & <Y_2,Y_2> \end{array} \right] \alpha = \left[ \begin{array}{c} 12\\ 6 \end{array} \right].$$
+ Doing the indicated calculations yields
+ $$G=\left[ \begin{array}{cc} <Y_1,Y_1> &  <Y_1,Y_2> \\ <Y_2,Y_1> & <Y_2,Y_2> \end{array} \right] = \left[ \begin{array}{rr} 4&  -4 \\ -4 & 10 \end{array} \right]$$
+ and
+  $$\alpha = \left[ \begin{array}{r} 6 \\3\end{array} \right],$$
+  and therefore,
+  $$Z^*=  6 Y_1 +3 Y_2 = 12 X_1 +3 X_2 -3 X_3$$
+
+
+\end{document}

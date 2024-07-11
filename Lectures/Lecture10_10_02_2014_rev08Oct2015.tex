@@ -1,0 +1,247 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+Lecture 10\\
+Orthogonal Projection and Normal Equations
+\end{center}
+}
+
+
+
+\Large
+
+\begin{center}
+\textbf{Projection Theorem (Continued)}
+\end{center}
+
+\noindent \textbf{Orthogonal Projection Operator}
+\newline
+Let $\cal X$ be a finite dimensional (real) inner product space and $M$ a subspace of $\cal X$. For $x \in \cal X$ and $m_0 \in M$. The Projection Theorem shows the TFAE:
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\begin{enumerate}
+    \item $x-m_0  \bot M $.
+
+    \item $\exists \tilde{m} = M^{\bot}$ such that  $ x=m_0 + \tilde{m} $.
+
+    \item $ \|x-m_0\|=d(x,M)=\inf\limits_{m \in M} \|x-m\|$.
+\end{enumerate}
+\noindent \textbf{Def.}~ $P$: ${\cal X}\rightarrow M$ by $P(x)=m_0$, where $m_0$ satisfies any of (a),(b) or (c), is called the \underline{orthogonal projection} of $\cal X$ onto $M$.
+
+\noindent \textbf{Exercise1:}
+$P$: ${\cal X}\rightarrow M$ is a linear operator.
+
+\noindent \textbf{Exercise2:}
+$P$: Let $\{v^1,\cdots ,v^k\}$ be an orthonormal basis for $M$.Then
+$$P(x)= \sum\limits_{i=1}^k  \langle x,v^i \rangle  v^i.$$
+
+\newpage
+
+\noindent \textbf{Normal Equations}
+\newline
+Let $\cal X$ be a finite dimensional (real) inner product space and $M=\mathrm{span}\{y^1,\cdots ,y^k\}$, with $\{y^1,\cdots ,y^k\}$ linearly independent. Given $x \in \cal X$, seek $\hat{x} \in M$ such that
+$$\|x-\hat{x} \|= d(x,M)=\inf_{m \in M} \|x-m\|= \min_{m \in M} \|x-m\|$$
+where we can write ``$\min$'' because the Projection Theorem assures the existence of a minimizing vector $\hat{x} \in M$.
+
+\noindent \textbf{Notation:} $\hat{x} = \operatorname*{argmin}d(x,M)$
+
+\noindent \textbf{Remark:} One solution is Gram Schmidt and the orthogonal projection operator.
+We provide an alternative way to compute the answer.
+
+By the Projection Theorem, $\hat{x} $ exists and is characterized by $x-\hat{x} \bot M$.
+Write
+$$\hat{x}= \alpha_1 y^1+ \alpha_2 y^2+ \cdots +\alpha_k y^k$$
+and impose $x-\hat{x} \bot M \Leftrightarrow x-\hat{x} \bot y^i,~ 1 \le i \le k$.
+
+Then, $ \langle x-\hat{x},y^i \rangle =0,~~\forall 1 \leq i \leq k$ yields
+\begin{align*}
+&\langle \hat{x},y^i \rangle = \langle x,y^i \rangle     ~~  i=1,2,\cdots, k \\
+\Leftrightarrow&\langle \alpha_1 y^1+ \alpha_2 y^2+\cdots +\alpha_k y^k, y^i \rangle  =  \langle x,y^i \rangle      ~~   i=1,2,\cdots ,k.
+\end{align*}
+
+We now write this out in matrix form.\\
+$\underline{i=1}$
+$$\alpha_1  \langle y^1,y^1 \rangle +\alpha_2  \langle y^2,y^1 \rangle + \cdots + \alpha_k  \langle y^k,y^1 \rangle =  \langle x,y^1 \rangle $$
+$\underline{i=2}$
+$$\alpha_1  \langle y^1,y^2 \rangle +\alpha_2  \langle y^2,y^2 \rangle + \cdots + \alpha_k  \langle y^k,y^2 \rangle =  \langle x,y^2 \rangle $$ \\
+$$\vdots$$\\
+$\underline{i=k}$
+$$\alpha_1  \langle y^1,y^k \rangle +\alpha_2  \langle y^2,y^k \rangle + \cdots + \alpha_k  \langle y^k,y^k \rangle =  \langle x,y^k \rangle $$
+
+\noindent These are called \underline{the Normal Equations}.
+
+\noindent \textbf{Def.}
+$G=G(y^1,\cdots , y^k)=\left[ \begin{array}{cccc}  \langle y^1,y^1 \rangle  &  \langle y^1,y^2 \rangle  & \cdots &  \langle y^1,y^k \rangle  \\  \langle y^2,y^1 \rangle  &  \langle y^2,y^2 \rangle  & \cdots &  \langle y^2,y^k \rangle \\ \vdots & \vdots && \vdots \\  \langle y^k,y^1 \rangle  &  \langle y^k,y^2 \rangle  & \cdots &  \langle y^k,y^k \rangle  \end{array}  \right]$
+
+$G_{ij}= \langle y^i,y^j \rangle $ is called \underline{the Gram matrix}.\\
+
+\noindent \textbf{Remark:} Because we are assuming $\cal F =\mathbb{R} $,  $ \langle y^i,y^j \rangle = \langle y^j,y^i \rangle $, and we therefore have $G=G^T$.
+
+Let $\alpha=\begin{bmatrix} \alpha_1 \\ \alpha_2 \\ \vdots \\ \alpha_k  \end{bmatrix}$,  we have
+\begin{center}
+$G^T \alpha=\beta $ (normal equation in the matrix form)\\
+\end{center}
+where
+$$\beta_i= \langle x,y^i \rangle ,\quad \beta=\begin{bmatrix} \beta_1 \\ \beta_2 \\ \vdots \\ \beta_k  \end{bmatrix}.$$
+
+\newpage
+
+\noindent \textbf{Def.}~ $g(y^1,y^2,\cdots,y^k)=$det $G(y^1,\cdots,y^k)$ is the determinant of the Gram Matrix.
+
+\noindent \textbf{Prop.}~ $g(y^1,y^2,\cdots,y^k) \neq 0 \Leftrightarrow \{ y^1,\cdots, y^k \}$ is linearly independent.
+
+\noindent The proof is given at the end of the handout.
+
+\noindent \textbf{Summary:}~ Here is the solution of our best approximation problem by the normal equations. Assume the set $\{ y^1,\cdots, y^k \}$ is linearly independent and $M:=\spanof{y^1,\cdots, y^k }$. Then
+$\hat{x} = \text{arg~min}~ d(x,M)$ if, and only if,
+\begin{align*}
+\hat{x} &= \alpha_1 y^1+ \alpha_2 y^2+ \cdots +\alpha_k y^k \\
+\\
+G^T \alpha &=\beta \\
+\\
+G_{ij}&= \langle y^i,y^j \rangle \\
+\\
+\beta_i &= \langle x,y^i \rangle.
+\end{align*}
+
+\newpage
+
+\noindent \textbf{Application:}~Over determined system of linear equations in $\mathbb{R}^n$
+$$A \alpha=b,$$
+where $A=n \times m$ real matrix,  $n \geq m$, rank$(A)=m$ (columns of $A$ are linearly independent). From the dimension of $A$, we have that $\alpha \in \mathbb{R}^m , b \in \mathbb{R}^n$.
+
+\underline{Original Problem Formulation:}\\
+Seek $\hat{\alpha} $ such that $$\| A \hat{\alpha}-b \|=\min_{\alpha \in \mathbb{R}^m} \| A \alpha -b \|,$$
+where $$\|x\|^2 =\sum\limits_{i=1}^n (x_i)^2. $$
+
+\underline{Solution:}
+$${\cal X}=\mathbb{R}^n, \quad {\cal F}=\mathbb{R}, \quad  \langle x,y \rangle = x^T y= y^T x= \sum\limits_{i=1}^n x_i y_i$$
+Therefore,  $$\|x\|^2= \langle x,x \rangle =\sum\limits_{i=1}^n |x_i|^2.$$
+Write $$A=[A_1 | A_2 | \cdots | A_m] ~\text{and}~\alpha = [\alpha_1, \alpha_2,  \cdots, \alpha_m]^\top$$
+and we note that
+$$ A \alpha = \alpha_1 A_1 + \alpha_2 A_2 + \cdots \alpha_m A_m.$$
+
+\underline{New Problem Formulation:}\\
+Seek $$\hat{x} = A \hat{\alpha} \in {\rm span}\{ A_1,A_2, \cdots, A_m \} =: M$$
+such that $$ \|\hat{x}-b\|=d(b,M) \Leftrightarrow \hat{x}-b \bot M.$$
+
+\newpage
+
+From the Projection Theorem and the Normal Equations,
+$$\hat{x}=\hat{\alpha}_1 A_1 +\hat{\alpha}_2 A_2 + \cdots \hat{\alpha}_m A_m $$
+and $G^\top \hat{\alpha}=\beta$, with
+$$G_{ij}= \langle A_i,A_j \rangle =A_i ^\top A_j$$ $$\beta_i =  \langle b,A_i \rangle  = b^\top A_i = A_i^\top b.$$
+
+
+%\underline{Objective}$$\min_{\alpha \in \mathbb{R}^m} \|A \alpha -b \|=\| \alpha_1 A_1+\alpha_2 A_2+ \cdots +\alpha_m A_m -b \|$$
+
+\underline{Aside}
+$$A^\top=\begin{bmatrix} A_1^\top \\ A_2^\top \\ \vdots \\ A_m^\top  \end{bmatrix} \qquad A=[A_1| \cdots | A_m ]$$ $$(A^\top A)_{ij}=A^\top_i A_j$$
+$$G=G^\top=A^\top A$$ $$(A^\top b)_i=A_i^\top b$$
+
+Normal Equations are $$A^\top A \hat{\alpha} =A^\top b.$$
+From the Proposition, $G^\top =A^\top A $ is invertible $ \Leftrightarrow $  columns of $A$ are linearly independent. Hence, $$\hat{\alpha}=(A^\top A)^{-1} A^\top b.$$
+
+%\newpage
+%
+%\noindent \textbf{Notes:}
+%\begin{enumerate}    \item Appropriate inner product space determined by the columns of $A$ and the error term $\|A \alpha-b\|$. The inner product space is not determined by $\alpha$.
+%
+%    \item What is the approximation error?
+%    \begin{align*}
+%    \hat{x}&=A \hat{\alpha} \\
+%    &= A(A^\top A)^{-1} A^\top b\\
+%    \\
+%    e&=\hat{x}-b \\
+%    &=A (A^\top A)^{-1} A^\top b-b\\
+%    &=\left(A (A^\top A)^{-1} A^\top -I\right)b
+%    \end{align*}
+
+%
+%\noindent    $\hat{x}$ is the orthogonal projection of $b$ onto the span of the columns of $A$
+%\end{enumerate}
+
+\newpage
+
+\noindent \textbf{Prop.}~ $g(y^1,y^2,\cdots,y^k) \neq 0 \Leftrightarrow \{ y^1,\cdots, y^k \}$ is linearly independent.\\
+
+\noindent \textbf{Proof:} $g(y^1,y^2,\cdots,y^k) = 0 \leftrightarrow \exists \alpha \neq 0~~\text{such that}~ G^\top \alpha =0$.
+
+From our construction of the normal equations,  $G^\top \alpha = 0$ if, and only if
+$$  \langle \alpha_1 y^1+ \alpha_2 y^2+\cdots +\alpha_k y^k, y^i \rangle  = 0     ~~   i=1,2,\cdots ,k.$$
+This is equivalent to
+$$  \left( \alpha_1 y^1+ \alpha_2 y^2+ \cdots +\alpha_k y^k \right) \bot  y^i = 0     ~~   i=1,2,\cdots ,k$$
+which is equivalent to
+$$  \left( \alpha_1 y^1+ \alpha_2 y^2+ \cdots + \alpha_k y^k \right) \bot  \textrm{span} \{ y^1, \cdots, y^k \}=:M $$
+and thus
+$$\left( \alpha_1 y^1+ \alpha_2 y^2+ \cdots + \alpha_k y^k \right) \in M^\perp.$$
+
+Because $\alpha_1 y^1+ \alpha_2 y^2+\cdots +\alpha_k y^k \in M$, we have that
+$$\left( \alpha_1 y^1+ \alpha_2 y^2+\cdots +\alpha_k y^k  \right) \in M \cap M^\perp $$
+and therefore
+$$  \alpha_1 y^1+ \alpha_2 y^2+\cdots +\alpha_k y^k  = 0. $$ By the linear independence of
+$\{ y^1,\cdots, y^k \}$, we deduce that $$\alpha_1 = \alpha_2 = \cdots \alpha_k = 0.\ \square$$
+
+
+\end{document}
+
+
+

@@ -1,0 +1,146 @@
+%\documentclass[11pt,twoside]{nsf_jwg} %!PN
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+Minimizing $||\cdot||_1$ and $||\cdot||_\infty$ Norms\\
+Using Linear Programming
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+\noindent \textbf{Linear Program:} Minimize a scalar-valued linear function subject to linear equality and inequality constraints. For $x \in \real^n$, and $f \in \real^n$
+\begin{align*}
+\text{minimize}& ~~ f^\top x\\
+\text{subject to} &~~A_{in} x \preceq b_{in} \\
+ & ~~A_{eq} x = b_{eq}
+\end{align*}
+where $A_{in} x \preceq b_{in}$ means each row of $A_{in}x$ is less than or equal to the corresponding row of $b_{in}$.
+
+Only restriction on $A_{in}$ and $A_{eq}$ is that the set 
+$$K=\{ x \in \real^n~|~ A_{in} x \preceq b_{in},~ A_{eq} x = b_{eq} \}$$
+should be non-empty.
+
+\vspace*{2cm}
+\noindent \textbf{Remarks:} Below is the MATLAB function call. Typically, the inequality constraints are not written with a subscript ${in}$. The next pages will show why I am doing this.
+\begin{verbatim}
+    X = linprog(f,A,b) attempts to solve the linear programming problem:
+
+             min f'*x    subject to:   A*x <= b
+              x
+
+    X = linprog(f,A,b,Aeq,beq) solves the problem above while 
+    satisfying the equality constraints Aeq*x = beq.
+\end{verbatim}
+
+
+\newpage
+
+\noindent ${ \bf\ell}_1$-\textbf{norm:} $||x||_1 = \sum_{i=1}^{n} |x_i|$. \\
+
+Suppose that $A$ is an $m \times n$ real matrix. Minimize $||Ax - b||_1$ is equivalent to the following linear program on $\real^{n+m}$
+
+\begin{align*}
+\text{minimize}& ~~ f^\top X\\
+\text{subject to} &~~A_{in} X \preceq b_{in} \\
+\end{align*}
+
+with $X = \left[\begin{array}{c}  x\\ s \end{array} \right]$ ($s\in \real^m$ are called slack variables)
+
+%%$$f:=\left[ \begin{array}{cc}0_{1 \times n} & \textbf{1}_{1 \times m} \end{array} \right]$$
+$$f:=\left[ \begin{array}{cc}0_{1 \times n} & \textbf{1}_{1 \times m} \end{array} \right],~~A_{in}:= \left[ \begin{array}{rr}  A  & -I_{m \times m}  \\
+ -A  & -I_{m \times m}\end{array} \right] ~~\text{and}~~ b_{in}:=\left[\begin{array}{r}  b\\ -b \end{array} \right]$$
+
+If $\widehat{X}=[\widehat{x}^\top, ~ \widehat{s}^\top ]^\top $  is the solution  of the linear programming problem, then $\widehat{x}$ solves the 1-norm optimization problem; that is
+$$ \widehat{x} = {\rm arg}~\min_{x \in \real^n} ||Ax - b||_1$$
+
+
+\newpage
+\noindent ${ \bf\ell}_\infty$-\textbf{norm:} $||x||_\infty = \max_{1 \le i \le n} |x_i|$. \\
+
+Suppose that $A$ is an $m \times n$ real matrix. Minimize $||Ax - b||_\infty$ is equivalent to the following linear program on $\real^{n+1}$
+
+\begin{align*}
+\text{minimize}& ~~ f^\top X\\
+\text{subject to} &~~A_{in} X \preceq b_{in} \\
+\end{align*}
+
+with $X = \left[\begin{array}{c}  x\\ s \end{array} \right]$ ($s\in \real$ is called a slack variable)
+
+%%$$f:=\left[ \begin{array}{cc}0_{1 \times n} & 1 \end{array} \right]$$
+$$f:=\left[ \begin{array}{cc}0_{1 \times n} & 1 \end{array} \right], ~~A_{in}:= \left[ \begin{array}{rr}  A  & -\textbf{1}_{m \times 1}  \\
+ -A  & -\textbf{1}_{m \times 1}\end{array} \right] ~~\text{and}~~ b_{in}:=\left[\begin{array}{r}  b\\ -b \end{array} \right]$$
+
+If $\widehat{X}=[\widehat{x}^\top, ~ \widehat{s} \ ]^\top $  solves the linear programming problem, then  $\widehat{x}$ solves the max-norm optimization problem; that is
+$$ \widehat{x} = {\rm arg}~~\min_{x \in \real^n} ||Ax - b||_\infty$$
+
+\vspace*{2cm} 
+\textbf{Remark:} The following pages are my source for this material. \\
+\url{https://www.princeton.edu/~chiangm/ele539l3a.pdf}
+
+\includepdf[pages=-]{ele539l3a.pdf}
+
+\end{document}
+
+
+
+
+

@@ -1,0 +1,328 @@
+%**************************************************************
+%References for commands and symbols:
+%1. https://en.wikibooks.org/wiki/LaTeX/Mathematics
+%2. http://latex.wikia.com/wiki/List_of_LaTeX_symbols
+%**************************************************************
+
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+\usepackage{enumerate}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb N}   % Natural numbers {I\!\!N}
+\newcommand{\whole}{\mathbb Z}    % Integers/whole numbers  {I\!\!\!\!Z}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\rat}{\mathbb Q}    % rational numbers  {I\!\!\!\!Q}
+
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+\parindent 0pt
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Gram Schmidt vs Modified Gram Schmidt
+\end{center}
+}
+
+\large
+
+    We have been using the classical Gram-Schmidt Algorithm. It behaves poorly under round-off error. Here is a standard example:
+    \begin{equation*}
+        y^1=\left[\begin{matrix} 1 \\ \varepsilon \\ 0 \\ 0 \end{matrix}\right],
+        y^2=\left[\begin{matrix} 1 \\ 0 \\ \varepsilon \\ 0 \end{matrix}\right],
+        y^3=\left[\begin{matrix} 1 \\ 0 \\ 0 \\ \varepsilon \end{matrix}\right],
+        \varepsilon>0
+    \end{equation*}
+    Let $\{e^1,e^2,e^3,e^4\}$ be the standard basis vectors $\left(\textnormal{Yes, }\left(e_j^i\right)=\begin{cases}
+        0 & i\neq j\\
+        1 & i=j\\
+    \end{cases}\right)$\\
+    We note that
+    \begin{align*}
+        y^2 &= y^1+\varepsilon(e^3-e^2)\\
+        y^3 &= y^2+\varepsilon(e^4-e^3)
+    \end{align*}
+    and thus
+    \begin{align*}
+        \operatorname{span}\{y^1,y^2\}&=\operatorname{span}\{y^1,(e^3-e^2)\}\\
+        \operatorname{span}\{y^1,y^2,y^3\}&=\operatorname{span}\{y^1,(e^3-e^2),(e^4-e^3)\}
+    \end{align*}
+
+
+    \textbf{Hence, GS applied to $\{y^1,y^2,y^3\}$ and $\{y^1,(e^3-e^2),(e^4-e^3)\}$ should produce the same orthonormal vectors.} To check this, we go to MATLAB, and for $\varepsilon=0.1$, we do indeed get the same results. You can verify this yourself. \textbf{However, with $\varepsilon=10^{-8}$},
+    \begin{equation*}
+        \|Q_1-Q_2\|=0.5
+    \end{equation*}
+    where $Q_1=[v^1, v^2, v^3]$ computed with Classical-GS for $\{y^1,y^2,y^3\}$ while $Q_2=[v^1, v^2, v^3]$ computed with Classical-GS for $\{y^1,(e^3-e^2),(e^4-e^3)\}$. Hence we do NOT get the same result!
+\\
+\noindent \textbf{Classical Gram Schmidt Algorithm With Normalization:} Initial data $\{y^1,\dotsb,y^n\}$ linearly independent. Here, it is written slightly differently than in lecture:\\
+
+
+        For $k=1:n$\\
+        \indent\hspace{4ex}$v^k=y^k$\\
+        \indent\hspace{4ex}For $j=1:k-1$\\
+        \indent\hspace{8ex}$v^k=v^k-\langle y^k,v^j\rangle v^j$\\
+        \indent\hspace{4ex}End\\
+        \indent\hspace{4ex}$v^k =\frac{v^k}{\|v^k\|}$\\
+        End\\
+
+\newpage
+$Q_1=[v^1, v^2, v^3]$ computed with Classical-GS for $\{y^1,y^2,y^3\}$ while $Q_2=[v^1, v^2, v^3]$ computed with Classical-GS for $\{y^1,(e^3-e^2),(e^4-e^3)\}$. $R_1$ shows that indeed, $\{y^1,y^2,y^3\}$ is `nearly' linearly dependent while $R_2$ shows that $\{y^1,(e^3-e^2),(e^4-e^3)\}$ is `quite' linearly independent.
+
+\begin{verbatim}
+>> DemoGramSchmidtProcess
+Caluclations with Classical or Standard Gram Schmidt
+Epsilon = 1e-08
+
+Q1 =
+
+    1.0000         0         0
+    0.0000   -0.7071   -0.7071
+         0    0.7071         0
+         0         0    0.7071
+
+
+R1 =
+
+    1.0000    1.0000    1.0000
+         0    0.0000         0
+         0         0    0.0000
+
+
+Q2 =
+
+    1.0000    0.0000    0.0000
+    0.0000   -0.7071   -0.4082
+         0    0.7071   -0.4082
+         0         0    0.8165
+
+
+R2 =
+
+    1.0000   -0.0000         0
+         0    1.4142   -0.7071
+         0         0    1.2247
+
+norm(Q1-Q2)
+
+ans =
+
+    0.5176
+
+    \end{verbatim}
+
+    \newpage
+
+    There is a modification of the Gram Schmidt Algorithm that is much better for actual calculations. You do want to know about this! For your Final Exam, you \textbf{do not} have to know the Modified-GS Algorithm itself.\textbf{ All you have to know for your Final Exam is that a Modified Gram Schmidt Algorithm exists and it provides better numerical results.} \\
+
+           \noindent \textbf{Modified Gram Schmidt}
+
+        For $k=1:n$\\
+        \indent\hspace{4ex}$v^k=y^k$\\
+        End\\
+        For $i=1:n$\\
+        \indent\hspace{4ex}$v^i=\frac{v^i}{\|v^i\|}$\\
+        \indent\hspace{4ex}For $j=i+1:n$\\
+        \indent\hspace{8ex}$v^j=v^j-\langle v^j,v^i\rangle v^i$\\
+        \indent\hspace{4ex}End\\
+        End\\
+        
+        \textbf{The demo code below in Canvas in the MATLAB folder}
+        
+        \begin{verbatim}
+        
+a=1e-8;
+y1=[1 a 0 0]';
+y2=[1 0 a 0]';
+y3=[1 0 0 a]';
+
+e1=[1 0 0 0]';
+e2=[0 1 0 0]';
+e3=[0 0 1 0]';
+e4=[0 0 0 1]';
+
+Y=[y1 y2 y3];
+
+%Y=rand(4,4);
+
+[Q1,R1]=GramSchmidtClassic(Y),  % Q1'*Q1-eye(3),
+
+[Q2, R2] = GramSchmidtClassic([y1,-e2+e3,-e3+e4]),    
+
+disp('norm(Q1-Q2)')
+norm(Q1-Q2)
+
+pause
+
+
+[Q3,R3]=GramSchmidtModified(Y),   
+
+[Q4,R4]=GramSchmidtModified([y1,-e2+e3,-e3+e4]),    
+
+disp('norm(Q3-Q4)')
+norm(Q3-Q4)
+
+pause
+
+
+[Q5,R5]=GramSchmidtModified_MIT(Y),   
+
+[Q6,R6]=GramSchmidtModified_MIT([y1,-e2+e3,-e3+e4]),    
+
+disp('norm(Q5-Q6)')
+norm(Q5-Q6)
+
+
+        
+        \end{verbatim}
+        
+\newpage  
+$Q_3=[v^1, v^2, v^3]$ computed with Modified-GS for $\{y^1,y^2,y^3\}$ while $Q_4=[v^1, v^2, v^3]$ computed with Modified-GS for $\{y^1,(e^3-e^2),(e^4-e^3)\}$. $R_3$ shows that indeed, $\{y^1,y^2,y^3\}$ is `nearly' linearly dependent while $R_4$ shows that $\{y^1,(e^3-e^2),(e^4-e^3)\}$ is `quite' linearly independent.
+
+    \begin{verbatim}
+
+Calculations with Modified Gram Schmidt
+Epsilon = 1e-08
+
+Q3 =
+
+    1.0000         0         0
+    0.0000   -0.7071   -0.4082
+         0    0.7071   -0.4082
+         0         0    0.8165
+
+
+R3 =
+
+    1.0000    1.0000    1.0000
+         0    0.0000         0
+         0         0    0.0000
+
+
+Q4 =
+
+    1.0000    0.0000    0.0000
+    0.0000   -0.7071   -0.4082
+         0    0.7071   -0.4082
+         0         0    0.8165
+
+
+R4 =
+
+    1.0000   -0.0000         0
+         0    1.4142   -0.7071
+         0         0    1.2247
+
+norm(Q3-Q4)
+
+ans =
+
+   8.1650e-09
+
+
+
+\end{verbatim}
+
+
+\newpage
+
+\Large
+
+\begin{center}
+ \textbf{ \Huge Two GS Algorithms}
+ \end{center}
+
+\noindent \textbf{Assume:} $\{y^1, \ldots, y^n\}$ linearly independent \\
+
+\noindent \textbf{Classical Gram Schmidt}
+
+        For $k=1:n$\\
+        \indent\hspace{4ex}$v^k=y^k$\\
+        \indent\hspace{4ex}For $j=1:k-1$\\
+        \indent\hspace{8ex}$v^k=v^k-\langle y^k,v^j\rangle v^j$\\
+        \indent\hspace{4ex}End\\
+        \indent\hspace{4ex}$v^k =\frac{v^k}{\|v^k\|}$\\
+        End\\
+
+        \noindent \textbf{Modified Gram Schmidt}
+
+        For $k=1:n$\\
+        \indent\hspace{4ex}$v^k=y^k$\\
+        End\\
+        For $i=1:n$\\
+        \indent\hspace{4ex}$v^i=\frac{v^i}{\|v^i\|}$\\
+        \indent\hspace{4ex}For $j=i+1:n$\\
+        \indent\hspace{8ex}$v^j=v^j-\langle v^j,v^i\rangle v^i$\\
+        \indent\hspace{4ex}End\\
+        End\\
+
+        \newpage
+
+        \noindent \textbf{Comparison (not on any exam)}
+
+  \begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\setlength{\itemsep}{.1in}
+
+\item Let $P_{M}(x) $ denote the orthogonal projection of $x$ onto a subspace $M$.
+
+\item Classical GS: $v^1=y^1$, and for $k\ge 2$, $v^k = y^k-P_M(y^k)$, where $M=\spanof{y^1, \cdots, y^{k-1}}=\spanof{v^1, \cdots, v^{k-1}}$  (optional: add in the normalization step)
+
+\item Modified GS:
+\begin{itemize}
+\item  $v^1=y^1$, and for $k\ge 2$, $\tilde{y}^k = y^k-P_M(y^k)$, where $M=\spanof{v^1}$  (optional: add in the normalization step)
+
+\item $v^2=\tilde{y}^2$, and for $k\ge 3$, $\tilde{y}^k = \tilde{y}^k-P_M(\tilde{y}^k)$, where $M=\spanof{v^2}$  (optional: add in the normalization step)
+
+    \item $v^3=\tilde{y}^3$, and for $k\ge 4$, $\tilde{y}^k = \tilde{y}^k-P_M(\tilde{y}^k)$, where $M=\spanof{v^3}$  (optional: add in the normalization step)
+
+        \item etc.
+
+        \end{itemize}
+
+\end{enumerate}
+
+You can learn more about this on the web.
+
+\end{document} 

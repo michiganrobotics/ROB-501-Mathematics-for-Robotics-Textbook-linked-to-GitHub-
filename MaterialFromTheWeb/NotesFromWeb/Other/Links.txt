@@ -1,0 +1,18 @@
+
+
+http://www.ti.rwth-aachen.de/teaching/systemoptimierung/lecture_sysopt_ss12.shtml
+
+Kalman Filter HW by Stephen BOYD
+http://stanford.edu/class/ee363/hw/
+
+Richard Murray (Kalman filter included plus review of random variables)
+http://www.cds.caltech.edu/~murray/amwiki/Supplement:_Optimization-Based_Control
+
+study methods
+http://calnewport.com/blog/2008/11/25/case-study-how-i-got-the-highest-grade-in-my-discrete-math-class/
+
+Proofs
+http://zimmer.csufresno.edu/~larryc/proofs/proofs.html
+
+Gaussian Random Vectors VIDEO
+http://videolectures.net/gpip06_mackay_gpb/

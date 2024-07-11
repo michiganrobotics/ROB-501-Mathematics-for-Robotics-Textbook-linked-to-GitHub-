@@ -1,0 +1,548 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+
+
+\begin{document}
+
+\newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+\parindent 0pt
+
+
+\begin{center}
+{\large \bf ROB 501 Exam-I Solutions}\\
+25 October 2016
+\end{center}
+
+\vspace*{1cm}
+
+%Prob. 1
+
+
+
+
+\bigskip
+
+%Prob. 2
+\noindent \textbf{Problem 1:} The answers are (b) and (d). \\
+
+(a) False. It is the contrapositive. The converse is $q \implies p$ \\
+
+(b) True. Basis of a proof by contradiction. \\
+
+(c) False. The given method would be  $ \neg (\neg p \land  q)$, which would be  $q \implies p$. \\
+
+(d) True. We know the truth table for $p \implies q$, which has a false only when $p$ is true and $q$ is false. We apply this result with $q$ replaced by $\neg q$ to obtain
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+p &q & $\neg q$ & $p \implies \neg q$ \\  \hline
+1 & 1 & 0 & 0 \\
+1 & 0& 1 & 1  \\
+0 & 1 & 0& 1  \\
+0 & 0 & 1 & 1  \\ \hline
+\end{tabular}
+\end{center}
+
+
+\bigskip
+
+%Prob. 5
+\noindent \textbf{Problem 2:} The answers are (a) and (d). \\
+
+(a) and (b): \texttt{Statement:}  $\forall ~\epsilon>0$,  $\exists~\delta>0$ such that P:( $y\in \real$ and $|y-x_0| < \delta$)  implies Q: $|f(y)-f(x_0)| < \epsilon$. \\
+
+\texttt{Negation:} $ \exists~\epsilon>0$  such that  $\forall~\delta>0$, $P \not \Rightarrow Q$. Writing this out, we have:\\
+
+\texttt{Negation:} $ \exists~\epsilon>0$  such that  $\forall~\delta>0$, $\exists~y\in \real$ such that $|y-x_0| < \delta$ and  $|f(y)-f(x_0)| \ge \epsilon$.\\
+
+(a) True. See above.\\
+
+(b) False.  See above. \\
+
+
+
+(c) and (d)  \texttt{Statement:}  The set $S+M:=\{x+y~|~ x\in S, y \in M\}$ is a subspace. The trivial negation is that $S+M$ is not a subspace, but to work the problem, we need to write out what it means for $S+M$ to be a subspace and then negate that. \\
+
+  \texttt{Statement:}  The set $S+M:=\{x+y~|~ x\in S, y \in M\}$ satisfies $\forall~x_1, x_2 \in S $, $y_1,y_2\in M$ and $\alpha\in {\cal F}$ the linear combination  $$(x_1+y_1) +\alpha (x_2+y_2)  \in S+M.$$\\
+
+   \texttt{Negation:} $\exists~x_1, x_2 \in S $, $y_1,y_2\in M$ and $\alpha\in {\cal F}$ such that $$(x_1+y_1) +\alpha (x_2+y_2) \not \in S+M.$$\\
+
+  (d) True. See above.
+
+(c) False.  Suppose $\dim({\cal X})\ge 2$,  $M$ is a one dimensional subspace, $x_1 \not\in M$ and $S=\{x_1\}$. Then $S+M$ is not a subspace, and yet $ \forall~x \in S, y\in M$ and $\alpha\in {\cal F}$ it follows that $x+\alpha y  \in S+M$.
+
+\bigskip
+
+\bigskip
+
+%Prob. 3
+\noindent \textbf{Problem 3:} The answer is (a). \\
+
+(a) True. Because the coefficients  $\alpha_1, \ldots, \alpha_4 \in {\cal F}$  are unique, the set $\{ v^1, v^2, v^3, v^4\}$ must be linearly independent. Indeed, suppose the set is linearly dependent, then there exist  $\beta_1, \ldots, \beta_4 \in {\cal F}$ NOT ALL ZERO such that $ \beta_1 v^1 + \ldots + \beta_4 v^4 = 0$. It follows that
+$$(\alpha_1+\beta_1) v^1 + \ldots +(\alpha_4+ \beta_4) v^4 = x$$
+is another way to write $x$.  The set $\{ v^1, v^2, v^3, v^4\}$ being linearly independent implies $\dim({\cal X})\ge 4$.\\
+
+
+(b) False. Let $v^1\not = 0$ and  $v^i=v^1,~ 2\le i \le 4.$ Then  $\dim({\cal X}) = 1$  \\
+
+(c) False. ${\cal X}=\real^2$ and let  $v^i=e^1$  for $1\le i \le 4.$  Then $v^5=e^2$ works, and yet the dimension is two .\\
+
+(d) False. Let ${\cal X}=\real^2$ and let  $v^1=v^2=e^1$  and  $v^3=v^4=e^2$. Then  $ \spanof{ v^1, v^2} = \spanof{e^1}$ and  $ \spanof{ v^3, v^4} = \spanof{e^2}$, and we know that $\real^2= \spanof{e^1} \oplus \spanof{ e^2}$.\\
+
+\vspace*{4cm}
+
+\bigskip
+
+
+%Prob. 4
+\noindent \textbf{Problem 4:} The answers are (a), (b) and (d). \\
+
+(a) True. An easy calculation shows that $S^\perp = M^\perp$. Hence,  $$m\in M \Rightarrow x \perp m \Rightarrow ||x-m||^2=||x||^2+||m||^2,$$
+where the second part is the Pythagorean Theorem. Hence, $d(x,M)=\inf_{m \in M} ||x-m||=||x||$.\\
+
+(b) True.  $\hat{x} = \text{arg} \min d(x,M) \Leftrightarrow  \hat{x}\in M~\text{and}~ x-\hat{x} \perp M$. Then the Pythagorean Theorem gives the result.  \\
+
+(c) False. Let $0\not =v \in {\cal X}$ and define $S=\{v\}$ and $M=\spanof{S}$. Then $S \not = M$, but $S^\perp=M^\perp$.   \\
+
+(d) True. The projection operator is linear; see lecture notes \verb|Lecture2016_10_06.pdf|
+
+
+
+
+\bigskip
+
+
+
+\newpage
+
+\noindent \textbf{Problem 5:} The answers are (c) and (d). \\
+
+(a) False. Worked in lecture. \\
+
+(b) False. The dimension is four. In lecture, we did  $(\cp,\, \real)$ is a 2-dimensional vector space. \\
+
+(c) True.  If  $\alpha_0\not = 0$, then $0 \not \in {\cal Y}$, and hence it is not a subspace. If $\alpha_0=0$, then
+$$[1,~2,-1,~2]x_1 =0~\text{and}~ [1,~2,-1,~2]x_2 =0 \Rightarrow [1,~2,-1,~2](\beta x_1 +x_2)=0$$
+and thus ${\cal Y}$ is a subspace.\\
+
+(d) True.  We will actually show that  ${F}:=\{a+b\sqrt{2}\;|\, a,\, b\,\in \mathbb{Q}\}$ is a field, even though the problem only asked for Axiom 7 to be checked. Because $a_1+b_1\sqrt{2}+a_2+b_2\sqrt{2}=(a_1+a_2)+(b_1+b_2)\sqrt{2}$ and $[a_1+b_1\sqrt{2}]\cdot[a_2+b_2\sqrt{2}]=(a_1a_2+ 2 b_1b_2)+(a_1b_2+a_2b_1)\sqrt{2}$, the set is closed under the usual definitions of addition and multiplication of real numbers. From the two formulas for addition and multiplication, it is straightforward to show that Axioms 1 through 4 hold. Because $0$ and $1$ are in the set, Axion 5 holds. Axiom 6 is also easy to establish. So, now we get to Axiom 7: each non-zero element has a multiplicative inverse.\\
+
+Consider $\alpha = a + b\sqrt{2} $, where $a$ and $b$ are rational numbers. If $b=0$, the result is obvious, because then $\alpha$ is a rational number. If $a=0$, the result is also easy, because then $b \not = 0$ (we only seek inverses of non-zero elements), and we take $\gamma = \frac{2}{b} \sqrt{2}$. Hence, we now assume that both $a$ and $b$ are non-zero rational numbers, we set $\gamma=c + d \sqrt{2}$ and see if the equation $\alpha \gamma = 1$ always has a solution with $c$ and $d$ rational numbers. We do the multiplication and find  $\alpha \gamma = 1$  if, and only if,
+\begin{align*}
+ac + 2 bd &=1 \\
+ad + bc &=0.
+\end{align*}
+Because $a\not = 0$, we conclude from the second equation that $d=-\frac{bc}{a}$, which is rational. Substituting into the first equation and using again $a\not=0$, we have that $c$ must satisfy
+$$ac \big[ 1 - 2 \left(\frac{b}{a}\right)^2  \big]=1. $$
+There exists a rational $c$ satisfying the equation if, and only if,
+$$ 1 - 2 \left(\frac{b}{a}\right)^2 \not = 0.  ~~(**)$$
+But (**) can never equal zero, for any choice of $a$ and $b$, because we proved that $\sqrt{2}$ is irrational. Indeed, $ 1 - 2 \left(\frac{a}{b}\right)^2 \not = 0  $ if, and only if, $\frac{b}{a} = \sqrt{2}$, which is impossible when both $a$ and $b$ are rational numbers.
+
+
+%%Jessy Stopped HERE
+\newpage
+
+ %   y2=[2 0 1; 0 2 1]
+%
+%    x=[1 1 1; 1 1 0]
+
+%Prob. 6
+\noindent \textbf{Problem 6:} The idea of this problem is that prior to taking ROB 501, probably none of you could have worked it, but now, all of you should be able to work it. \\
+
+\textbf{(a)} $||y^1||^2 = <y^1,y^1> =\trace((y^1)^\top y^1)  =\trace\left( \left[ \begin{array}{rr} 1 & 0 \\ 0 & -2 \\ 2 & 1 \end{array} \right]  \left[ \begin{array}{rrr} 1 & 0 & 2 \\ 0 & -2 & 1\end{array} \right] \right) = \trace\left( \left[ \begin{array}{rrr} 1 & * & * \\ * & 4 & * \\ * & * & 5\end{array} \right] \right)=10$.\\
+
+\fbox{\rule[-0.5cm]{0cm}{1cm}  $||y^1||=\sqrt{10}$ ~~}\\ \\
+
+\textbf{(b)} We apply the Normal Equations, and thus $\hat{x}=\alpha_1 y^1 + \alpha_2 y^2$, where $G \alpha = \beta$. Computing the required terms we have:
+
+\begin{align*}
+G_{11}&= <y^1,y^1> = 10. \\
+G_{12}&= <y^1,y^2> = 1\\
+G_{21}&=G_{12} \\
+G_{22}&=<y^2,y^2>= 10 \\
+\\
+\beta_1 &=<x,y^1> = 1\\
+\beta_2 &= <x,y^2>= 5
+\end{align*}
+
+And therefore,
+
+$$\left[\begin{array}{cc} \alpha_1 \\ \alpha_2  \end{array}  \right] = G^{-1} \beta = \frac{1}{99} \left[  \begin{array}{rr} 10 & -1 \\ -1 & 10 \end{array}  \right] = \frac{1}{99} \left[ \begin{array}{c} 5 \\ 49 \end{array} \right]= \left[ \begin{array}{c} 0.0505 \\ 0.4949 \end{array} \right],$$
+
+yielding\\
+
+
+\fbox{
+\parbox{5.3in}{
+$ \hat{x}= \frac{5}{99} y^1 + \frac{49}{99} y^2 =  \frac{5}{99} \left[ \begin{array}{rrr} 1 & 0 & 2 \\ 0 & -2 & 1\end{array} \right]+ \frac{49}{99} \left[ \begin{array}{ccc} 2 & 0 & 1 \\ 0 & 2 & 1 \end{array}  \right] = \left[ \begin{array}{lll}     1.0404  &       0.0 &    0.5960 \\
+         0.0 &    0.8889   &  0.5455 \end{array}  \right]$
+  } ~~}
+\noindent \textbf{Grading Notes:}
+\begin{enumerate}
+  \item[\bf (a)]
+    \begin{itemize}
+      \item (5 points) Everything is perfect.
+      \item (4 points) Results are not copied into the box or there are some minor calculation mistakes.
+      \item (3 points) The result is actually $\|y^{1}\|^{2}$ instead of $\|y^{1}\|$, i.e., forget to take the square root.
+      \item (2 points) attempted, but only limited parts are correct.
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+  \item[\bf (b)]
+    \begin{itemize}
+      \item (15 points) Everything is perfect.
+      \item (14 points) Results are not copied into the box or there are some minor calculation mistakes.
+      \item (13 points) Logic is correct, but one of the entries in matrix $G$ or $\beta$ is incorrect.
+      \item (12 points) Only the solution for the coefficient $\alpha$ is provided, but forget to form a linear combination of the given vectors.
+      \item (10 points) Logic is correct, but more than one of the entries in matrix $G$ or $\beta$ are incorrect.
+      \item (5 points) Only logic is correct.
+      \item (2 points) attempted, but only limited parts are correct.
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+\end{enumerate}
+
+
+%\end{enumerate}
+
+\newpage
+
+%\noindent \textbf{Remarks on Grading the Proof:} 11 of the 30 proofs were pretty good, where the plan of attack was clear, and if a mistake was made, it was relatively minor. 19 of 30 proofs had significant errors, in which case, I tried to break down the arguments into pieces and assign as much partial credit as possible:
+%\begin{itemize}
+%\item[0] Recognized that there are two directions to be shown:  (4 points)
+%\item[1] That leaves 8 points for each direction. First direction
+%\begin{itemize}
+%\item[1.a] Stated method of proof (direct, contrapositive, contradiction), and thus what was assumed and what was to be shown (2 points)
+%\item[1.b] Correctly applied definition of linear independence or dependence, depending on your method of proof (2 points)
+%\item[1.c] Carried the remainder of the argument through correctly (4 points).
+%\end{itemize}
+%\item[2] Second direction
+%\begin{itemize}
+%\item[2.a] Stated method of proof (direct, contrapositive, contradiction), and thus what was assumed and what was to be shown (2 points)
+%\item[2.b] Correctly applied definition of linear independence or dependence, depending on your method of proof (2 points)
+%\item[2.c] Carried the remainder of the argument through correctly (4 points).
+%\end{itemize}
+%
+%After giving essentially free points for doing both directions, and stating what was to be proven, I was less generous when the definitions of linear independence or dependence were not used correctly.
+%\end{itemize}
+
+\newpage
+
+%Prob. 7
+\noindent \textbf{Problem 7:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item Let $A^{i}$ denote the $i$-th column of $A$, then $A^{i}=[\mathcal{L}(e^{i})]_{V}$.
+    \begin{equation*}
+    \begin{split}
+        \mathcal{L}(e^{1})&=\begin{bmatrix}1\\ 0\end{bmatrix}\begin{bmatrix}1& 2\end{bmatrix}=\begin{bmatrix}1& 2\\ 0 & 0\end{bmatrix}=1\cdot v^{1}+2\cdot v^{2}+0\cdot v^{3}+0\cdot v^{4} \Rightarrow A^{1}=[\mathcal{L}(e^{1})]_{V}=\begin{bmatrix}1\\ 2\\ 0 \\ 0\end{bmatrix}\\
+        \mathcal{L}(e^{2})&=\begin{bmatrix}0\\ 1\end{bmatrix}\begin{bmatrix}1& 2\end{bmatrix}=\begin{bmatrix} 0 & 0 \\1& 2\end{bmatrix}=0\cdot v^{1}+0\cdot v^{2}+1\cdot v^{3}+2\cdot v^{4} \Rightarrow A^{2}=[\mathcal{L}(e^{2})]_{V}=\begin{bmatrix}0 \\ 0 \\1\\ 2 \end{bmatrix}\\
+    \end{split}
+    \end{equation*}
+    Thus, $A=\begin{bmatrix}A^{1} & A^{2} \end{bmatrix}=\begin{bmatrix}1 & 0 \\2& 0 \\0 &1\\0& 2 \end{bmatrix}$.
+
+\item Change of basis matrix from $W$ to $V$ is $\bar{P}$. Let $\bar{P}^{i}$ denote the $i$-th column of $\bar{P}$, then $\bar{P}^{i}=[w^{i}]_{V}$.
+    \begin{equation*}
+      \bar{P}^{1}=[w^{1}]_{V}=\begin{bmatrix}1\\ 2\\ 0 \\ 0\end{bmatrix},\;
+      \bar{P}^{2}=[w^{2}]_{V}=\begin{bmatrix} 0 \\ 0 \\1\\ 2\end{bmatrix},\;
+      \bar{P}^{3}=[w^{3}]_{V}=\begin{bmatrix}2\\ 1\\ 0 \\ 0\end{bmatrix},\;
+      \bar{P}^{4}=[w^{4}]_{V}=\begin{bmatrix} 0 \\ 0 \\2\\ 1\end{bmatrix}.
+    \end{equation*}
+    Thus, $\bar{P}=\begin{bmatrix}\bar{P}^{1} & \bar{P}^{2} & \bar{P}^{3} & \bar{P}^{4} \end{bmatrix}
+    =\begin{bmatrix}1 & 0 & 2 &0\\2& 0 & 1 & 0 \\0 &1 & 0 & 2\\0& 2 & 0 & 1\end{bmatrix}.$\\
+
+    Though it is NOT required as part of the solution we also give
+    $$P=\bar{P}^{-1}=\dfrac{1}{3}\begin{bmatrix}-1& 2 & 0 & 0\\0 & 0 &-1&2\\2 & -1 & 0 & 0\\ 0 & 0 & 2 &-1\end{bmatrix}.$$
+\end{enumerate}
+
+\noindent \textbf{Grading Notes:}
+\begin{enumerate}
+  \item[\bf (a)]
+    \begin{itemize}
+      \item (9 points) Everything is perfect.
+      \item (8 points) Results are not copied into the box or there are some minor calculation mistakes.
+      \item (5 points) Calculations are correct, but the answer shows that $A$ is transposed.
+      \item (2 points) attempted, but only limited parts are correct.
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+  \item[\bf (b)]
+    \begin{itemize}
+      \item (6 points) Everything is perfect.
+      \item (5 points) Results are not copied into the box or there are some minor calculation mistakes.
+      \item (3 points) Calculations are correct, but $P$ and $\bar{P}$ are swapped.
+      \item (0 point) Not attempted or nothing is relevant.
+    \end{itemize}
+\end{enumerate}
+
+
+\newpage
+
+%Prob. 8
+\noindent \textbf{Problem 8:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item[]  \textbf{Proof 1:}\\
+
+\noindent \textbf{Lemma}. Suppose that $j\ge 2$ and that $\{v^1, \cdots, v^{j-1}\}$ is linearly independent. If $v^j\not \in \spanof{v^1, \cdots, v^{j-1}}$, then $\{v^1, \cdots, v^{j}\}$ is linearly independent.\\
+
+\textbf{Proof:} (By contrapositive) Suppose $\{v^1, \cdots, v^{j}\}$ is linearly dependent. Then there exist $\alpha_1, \ldots, \alpha_j$ not all zero such that
+$$\alpha_1 v^1 + \cdots + \alpha_{j-1} v^{j-1} + \alpha_j v^{j}=0. ~~(***)$$
+It cannot be the case that $\alpha_j=0$, because then~(***)~implies that $\{v^1, \cdots, v^{j-1}\}$ is linearly dependent, which is not the case. Hence, we have that $\alpha_j \not = 0$ and thus~(***)~implies that
+$$ v^{j}=-\frac{\alpha_1}{\alpha_j} v^1 - \cdots - \frac{\alpha_{j-1}}{\alpha_j} v^{j-1},$$
+and thus
+$$v^j \in \spanof{v^1, \cdots, v^{j-1}}.$$
+\hfill $\Box$
+
+From the Lemma, a Proof by Induction is very simple: We define \\
+
+\textbf{Statement} P(j): IF $v^1 \not \in \spanof{0}$, $v^2 \not \in \spanof{v^1}$, $...$,  and $v^j\not \in \spanof{v^1, \cdots, v^{j-1}}$, THEN $\{v^1, v^2, \cdots, v^{j}\}$ is linearly independent.
+
+\textbf{Base case:} We note that $v^1 \not \in \spanof{0}$ is that same as $v^1 \not = 0$  and we thus have that $v^1\not \in \spanof{0}$ implies the set $\{ v^1\}$ is linearly independent. \textbf{Hence, P(1) is TRUE.}\\
+
+\textbf{Induction Step:} For $k\ge 1$, P(k) TRUE implies that P(k+1) is TRUE.
+
+\textbf{Proof of the Induction Step:} We consider P(k+1). If P(k) is true, then $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent. We also have that $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$. By the Lemma, this implies that $\{v^1, \cdots, v^{k+1}\}$ is linearly independent, and \textbf{thus P(k+1) is true.} \\
+
+
+
+
+
+
+\item[] \textbf{Proof 2:}\\
+
+ We try to prove its contrapositive:\\[2mm]
+ \textbf{Statement} P(k): If the set $\{v^1, v^2, \cdots, v^k\}$ is linearly dependent, then either $v^1 = 0$ or $v^2 \in \spanof{v^1}$ or $...$, or $v^k \in \spanof{v^1, \cdots, v^{k-1}}.$
+
+\textbf{Proof by standard induction:}
+\begin{itemize}
+  \item Base case: when $k=1$, if $\{v^{1}\}$ is linearly dependent, then $v^{1}=0$ . Hence, \textbf{the statement P(1) is true}.
+  \\[2mm]
+  \item Assumption: Suppose when $k=j,\, 1\le j< n$, \textbf{the statement P(j) is true}, i.e., "If the set $\{v^1, v^2, \cdots, v^j\}$ is linearly dependent, then $v^1 = 0$ or $v^2 \in \spanof{v^1}$ or $...$, or $v^j \in \spanof{v^1, \cdots, v^{j-1}}$".\\[2mm]
+
+  \item Induction: We need to show that when $k=j+1$, the statement P(j+1) is true, i.e., "If the set $\{v^1, v^2, \cdots, v^j, v^{j+1}\}$ is linearly dependent, then $v^1 = 0$ or $v^2 \in \spanof{v^1}$ or $...$, or $v^j \in \spanof{v^1, \cdots, v^{j-1}}$, or $v^{j+1} \in \spanof{v^1, \cdots, v^{j}}$."
+
+      Because $\{v^1, v^2, \cdots, v^{j}, v^{j+1}\}$ is linearly dependent, there exist scalars $\alpha_1, \alpha_2, \cdots, \alpha_{j}, \alpha_{j+1}\in \mathcal{F}$, which are not all zeros, such that
+      \begin{equation*}
+        \alpha_1 v^{1}+ \alpha_2 v^{2}+ \cdots+\alpha_{j} v^{j}+\alpha_{j+1}v^{j+1}=0.
+      \end{equation*}
+
+      There are only two cases.
+      \begin{itemize}
+        \item[] Case 1: If $\alpha_{j+1}=0$, then $\alpha_1 v^{1}+ \alpha_2 v^{2}+ \cdots+\alpha_{j} v^{j}=0$, implying that the set  $\{v^1, v^2, \cdots, v^j\}$ is linearly dependent since $\alpha_1, \alpha_2, \cdots, \alpha_{j}$ are not all zeros. Based on the assumption on $k=j$, we obtain that either $v^1 = 0$ or $v^2 \in \spanof{v^1}$ or $...$, or $v^j \in \spanof{v^1, \cdots, v^{j-1}}$.
+
+        \item[] Case 2: If $\alpha_{j+1}\ne 0$, then
+            \begin{equation*}
+              v_{j+1}=\dfrac{\alpha_1}{\alpha_{j+1}} v^{1}+ \dfrac{\alpha_2}{\alpha_{j+1}} v^{2}+ \cdots+\dfrac{\alpha_j}{\alpha_{j+1}} v^{j},
+            \end{equation*}
+            i.e., $v_{j+1}\in \spanof{v^1, \cdots, v^{j}}$.
+      \end{itemize}
+      Thus, if the set $\{v^1, v^2, \cdots, v^{j+1}\}$ is linearly dependent, then $v^1 = 0$ or $v^2 \in \spanof{v^1}$ or $...$, or $v^j \in \spanof{v^1, \cdots, v^{j-1}}$, or $v^{j+1} \in \spanof{v^1, \cdots, v^{j}}$, i.e., \textbf{the statement P(j+1) is true}.\\[2mm]
+
+  \item Conclusion: According to the principle of standard induction, \textbf{the statement P(k) is true} for $1\le k \le n$.
+\end{itemize}
+
+
+
+\end{enumerate}
+
+%\newpage
+
+\vspace*{2cm}
+
+\noindent \textbf{Grading Notes: Solution 1}
+
+If your proof was perfect, I may have just written 15 at the top! Good for you! Otherwise, I broke the score up into two parts:\\
+
+\begin{itemize}
+\item[\bf A] (5 points) The structure of a proof by induction is present. This means \textbf{clearly stating a base case and an induction step}. The Base case is really $k=1$. If you do $k=2$, that is fine. But you need to argue correctly that $\{v^1, v^2\}$ is linearly independent.
+\item[\bf B] (10 points) For the rest of the proof. This amounts to, at some point, correctly proving something similar to the Lemma. And to do that, you MUST USE EITHER the definition of linear independence OR the definition of linear dependence SOMEWHERE in your proof. There is no other way to do it, as you will see. \\
+
+     \textbf{Def.:} $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent if, and only if, the only solution to $\alpha_1v^1 + \cdots + \alpha_k v^k=0$ is the trivial solution, namely, $0=\alpha_1=\cdots=\alpha_k$.\\
+
+     \textbf{Def.:} $\{v^1, v^2, \cdots, v^{k}\}$ is linearly dependent if, and only if, there exist $\alpha_i$ NOT ALL ZERO such that $\alpha_1v^1 + \cdots + \alpha_k v^k=0$\\
+
+     If you did not use at least one of these, then your proof is incomplete. And yes, in a definition, it is bad form to use if, and only if, but I did it for emphasis.\\
+
+
+
+The following methods are \textbf{Erroneous:}
+\begin{enumerate}
+
+\item (-9 points). This proof uses as true what you are supposed to prove. It goes like this: $v^1\not = 0$ and we have $v^2\not \in \spanof{v^1}$ and we therefore conclude $\{v^1, v^{2}\}$ is linearly independent, not recognizing the fact that for $k=2$, this is precisely what we are supposed to show. Our next move is, $\{v^1, v^{2}\}$ linearly independent and $v^3\not \in \spanof{v^1, v^2}$. We now state that $\{v^1, v^{2}, v^3\}$ is linearly independent, not recognizing the fact that for $k=3$, this is precisely what we are supposed to show. We continue this by induction, which gets a few points for part (A), but not so much for part (B).
+
+\item (-9 points)  This proof is just like the one above: it has done nothing but restate in words that the hypotheses imply the result. We assume $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent and $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$. We then note that $v^{k+1}$ cannot be written as a linear combination of $v^1, v^2, \cdots, v^{k}$, and from this, we deduce that $\{v^1, v^2, \cdots, v^{k+1}\}$ is linearly independent. Doing this by induction gets some points for part (A), but not much for part (B).
+
+    \item (-8 points) You note that $v_1\not = 0$ and $v^2\not\in \spanof{v^1}\Rightarrow v^2\not = 0$. You then state without proof that when considering
+    $\alpha_1 v^1 + \alpha_2 v^2 = 0$, it has to be the case that either both $\alpha_1=0$ and $\alpha_2=0$ OR $\alpha_1 v^1 + \alpha_2 v^2 \not = 0$, and therefore, $\{v^1, v^2\}$ is linearly independent. You have not applied the definition of linear independence. It is better than the previous two proofs.
+
+
+
+\item (-7 points) You note that $v^1\not = 0$ is given. Because $0\in \spanof{v^2}$ and $v^2\not \in \spanof{v^1}$, you observe that $v^2\not = 0$. This is true so far. But the next step is incorrect: $v^1\not = 0$ and $v^2\not = 0$ together are used to deduce that $\alpha_1 v^1 + \alpha_2 v^2=0 \Leftrightarrow \alpha_1 = \alpha_2 = 0$. Doing this incorrect proof by induction does not make it any more true.
+
+\item   (-6 points) You note that $v^1\not = 0$ is given. Because $v^2 \not \in \spanof{v^1}$, you state that $\not \exists ~\beta$  such that $v^2 = \beta v^1 $ and thus $\{v^1, v^2\}$ is linearly  independent. Without justification, you have reduced checking linear independence to looking at linear combinations of the form $\beta v^1 - v^2=0$. This is not so different from saying $v^2 \not \in \spanof{v^1}$ implies that $\{v^1, v^2\}$ is linearly  independent, but it is a bit better because there is a linear combination written down! You can get to a combination of the form $\beta v^1 - v^2=0$, but this requires that you use correctly the definition of linear independence or dependence.
+
+\item  (-6 points) Assume $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent and $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$. We consider $$\underbrace{\alpha_1v^1 + \cdots + \alpha_k v^k }+ \alpha_{k+1} v^{k+1}=0$$
+     From $\{v^1, v^2, \cdots, v^{k}\}$ being linearly independent, we incorrectly deduce $\alpha_1 = \ldots \alpha_k=0$. And thus from the above formula, we are reduced to $$\alpha_{k+1} v^{k+1}=0. (++)$$
+    But from $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$ we have $v^{k+1}\not = 0$ , and thus we deduce from (++) that $\alpha_{k+1}=0$.
+
+    \item (-6 points)  Very similar to the above proof: Assume $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent and that $\{v^1, v^2, \cdots, v^{k}, v^{k+1}\}$ is linearly dependent. You deduce that
+$$\underbrace{\alpha_1v^1 + \cdots + \alpha_k v^k }+ \alpha_{k+1} v^{k+1}=0$$
+for some $\alpha_1, \cdots, \alpha_k, \alpha_{k+1}$ NOT ALL ZERO, which is really good. At this point, there is hope that you will nail it. However, from the above formula, you deduce that $\alpha_1v^1 + \cdots + \alpha_k v^k = 0$ and $\alpha_{k+1} v^{k+1} =0$.
+From $\{v^1, v^2, \cdots, v^{k}\}$  linearly independent you get that $\alpha_1=\cdots = \alpha_k=0$, and from  $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$, you get $\alpha_{k=1}=0$, which gives a contradiction, and thus $\{v^1, v^2, \cdots, v^{k+1}\}$ is linearly independent. The problem of course was deducing two things equal to zero from a single equation.
+
+
+\item (-6 points)  You assume $\{v^1, v^2, \cdots, v^{k}, v^{k+1}\}$ is linearly dependent and deduce that
+$$\alpha_1v^1 + \cdots + \alpha_k v^k+ \alpha_{k+1} v^{k+1}=0$$
+for some $\alpha_1, \cdots, \alpha_k, \alpha_{k+1}$ NOT ALL ZERO, which is good. Then you immediately write down
+$$ v^{k+1}= -\left[ \frac{\alpha_1}{\alpha_{k+1}} v^1 + \cdots + \frac{\alpha_k}{\alpha_{k+1}}  v^k\right]$$
+without proving why $\alpha_{k+1} \not = 0$.
+
+%    \item (-2 points) Taking too much of a short cut: Assume $\{v^1, v^2, \cdots, v^{k}\}$ is linearly independent and $v^{k+1}\not \in \spanof{v^1, \cdots, v^{k}}$, then just writing down
+%        $$v^{k+1} =  \beta_1 v^1 + \cdots + \beta_k v^k$$
+
+     %%\item (-2 points) Taking too much of a short cut: XXX
+
+
+\end{enumerate}
+
+\end{itemize}
+
+\vspace*{2cm}
+
+\noindent \textbf{Grading Notes: Solution 2}
+\begin{itemize}
+\item[\bf A] (5 points) The structure of a proof by induction is present. This means \textbf{clearly stating a base case and an induction step}. The Base case is really $k=1$. If you do $k=2$, that is fine. But you need to argue correctly that $\{v^1, v^2\}$ is linearly independent.
+\item[\bf b] (10 points) For the rest of the proof. With this proof method, the key part is to correctly negate the statement: \textbf{P} $v^1 \not = 0$, $v^2 \not \in \spanof{v^1}$, $...$,  \textbf{and} $v^k\not \in \spanof{v^1, \cdots, v^{k-1}}$.
+
+\end{itemize}
+
+\begin{enumerate}
+
+\item (-7 points) The correct negation is to change the ANDs into ORs. Hence, the following is NOT the negation of P:
+$$v^1=0, v^2\in \spanof{v^1}, \cdots, ~v^k \in \spanof{v^1, \cdots, v^{k-1}},$$
+because the ANDs are implied, meaning the above is equivalent to
+$$v^1=0 ~\text{\bf and}~ v^2\in \spanof{v^1}~\text{\bf and}~  \cdots, ~\text{\bf and}~~v^k \in \spanof{v^1, \cdots, v^{k-1}}.$$
+The correct negation with OR is given in the solution.
+\end{enumerate}
+\newpage
+
+%Prob. 9
+\noindent \textbf{Problem 9:}
+
+\begin{enumerate}
+\setlength{\itemsep}{.15in}
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\item[] \textbf{Solution 1:} Since the dimension of $(\real^{3},\,\real)$ is 3 and the dimension of $M$ is 2, the dimension of $M^\perp$ is 1. Suppose $M^\perp = \spanof{v^{3}}$, then $v^{3}\perp M$, i.e., $v^{3}\perp v^{1},\,v^{3}\perp v^{2}$.
+    \begin{equation*}
+      \left\{
+        \begin{array}{ll}
+          <v^{1},\,v^{3}>=0&\\
+          <v^{2},\,v^{3}>=0&\\
+        \end{array}
+      \right.\Rightarrow
+      \left\{
+        \begin{array}{ll}
+          (v^{1})^\top\,v^{3}=0&\\
+          (v^{2})^\top\,v^{3}=0&\\
+        \end{array}
+      \right.\Rightarrow
+      \begin{bmatrix}2 & 1 & 1\\2 & 1 & -1\end{bmatrix}v^{3}=0
+      \quad\Rightarrow v^{3}=\begin{bmatrix}1 \\-2\\ 0\end{bmatrix}
+    \end{equation*}
+    From the Projection Theorem, $\hat{x}=P^\perp(x) \Leftrightarrow (\hat{x}\in M^\perp~\text{and}~ x-\hat{x}\perp M^\perp)$.
+    From the normal equations, $P^\perp(x) = \alpha v^{3}$, where
+    \begin{align*}
+    G^\top \alpha &=\beta \\
+    G&=<v^{3},\,v^{3}>=(v^{3})^\top v^{3} \\
+    \beta &=<v^{3},\,x>=(v^{3})^\top x.
+    \end{align*}
+
+    Thus, $\alpha =(G^\top )^{-1}\beta=\left((v^{3})^\top v^{3}\right)^{-1}(v^{3})^\top x$ and $P^\perp(x) = \alpha v^{3} = v^{3} \cdot \alpha=v^{3}\left((v^{3})^\top v^{3}\right)^{-1}(v^{3})^\top x$.
+    Denote the matrix representation of $P^\perp(x)$ as $A$. Then $A_i = [P^\perp(e^i)]_{\{e^1, e^2, e^3\}}.$ Easy calculations give
+    $$A=v^{3}\left((v^{3})^\top v^{3}\right)^{-1}(v^{3})^\top=\dfrac{1}{5}\begin{bmatrix}1 &-2& 0\\ -2 & 4 & 0\\ 0 & 0 & 0\end{bmatrix} $$.
+
+    \item[] \textbf{Solution 2:} First we compute $v^{3}$, a basis for $M^\perp$, in the same manner as Solution 1. The projection of $x$ to $M^\perp$ is
+    \begin{equation*}
+      P^\perp(x)=\dfrac{<x,\, v^{3}>}{<v^{3},\, v^{3}>}v^{3}.
+    \end{equation*}
+    Let $A^{i}$ denote the $i$-th column of $A$, then
+    \begin{equation*}
+      \begin{split}
+        A^{1} & = P^\perp(e^{1})=\dfrac{<e^{1},\, v^{3}>}{<v^{3},\, v^{3}>}v^{3}=\dfrac{1}{5}\begin{bmatrix}1 \\ -2\\ 0 \end{bmatrix},\\
+        A^{2} & = P^\perp(e^{2})=\dfrac{<e^{2},\, v^{3}>}{<v^{3},\, v^{3}>}v^{3}=\dfrac{1}{5}\begin{bmatrix} -2\\ 4 \\ 0 \end{bmatrix},\\
+        A^{3} & = P^\perp(e^{3})=\dfrac{<e^{3},\, v^{3}>}{<v^{3},\, v^{3}>}v^{3}=\begin{bmatrix}0 \\ 0\\ 0 \end{bmatrix}.\\
+      \end{split}
+    \end{equation*}
+    Thus,
+    $A=\begin{bmatrix}A^{1} &A^{2} &A^{3} \end{bmatrix}=\dfrac{1}{5}\begin{bmatrix}1 &-2& 0\\ -2 & 4 & 0\\ 0 & 0 & 0\end{bmatrix}$.
+    \newpage
+
+    \item[] \textbf{Solution 3:} Suppose $P(x)$ projects $x$ onto $M$, i.e., $\ds P(x)=\arg\min_{y\in M}\|x-y\|$. Then, because ${\cal X} = M \oplus M^\perp$, it follows that $P^\perp(x) = x-P(x)$. Suppose the matrix representation of $P$ is $\hat{A}$, i.e., $P(x)=\hat{A}x$, then $P^\perp(x)=x-\hat{A}x=(I-\hat{A})x$, implying the matrix representation of $P^\perp$ is $A=I-\hat{A}$.
+
+        By the Projection Theorem,  $P(x) = \alpha_{1} v^{1}+\alpha_{2} v^{2}=\begin{bmatrix}v^{1} & v^{2}\end{bmatrix}\begin{bmatrix}\alpha_{1}\\ \alpha_{2}\end{bmatrix}$, where $\alpha=\begin{bmatrix}\alpha_{1}\\ \alpha_{2}\end{bmatrix}$ must satisfy the normal equations
+        $$G^\top \alpha =\beta,$$
+        where
+        \begin{equation*}
+          \begin{split}
+            G&=\begin{bmatrix}<v^{1},\,v^{1}> & <v^{1},\,v^{2}>\\<v^{2},\,v^{1}> &<v^{2},\,v^{2}>\end{bmatrix}
+            =\begin{bmatrix}(v^{1})^\top\,v^{1} & (v^{1})^\top\,v^{2}\\(v^{2})^\top\,v^{1} &(v^{2})^\top\,v^{1}\end{bmatrix}
+            =\begin{bmatrix}(v^{1})^\top\\(v^{2})^\top\end{bmatrix}
+            \begin{bmatrix}v^{1} & v^{2}\end{bmatrix},\\
+            \beta &=\begin{bmatrix}<v^{1},\,x> \\<v^{2},\,x> \end{bmatrix}=\begin{bmatrix}(v^{1})^\top\,x\\(v^{2})^\top\,x\end{bmatrix}
+            =\begin{bmatrix}(v^{1})^\top\\(v^{2})^\top\end{bmatrix}x.
+          \end{split}
+        \end{equation*}
+
+        If we define $V= \begin{bmatrix}v^{1} & v^{2}\end{bmatrix}$, then
+        \begin{equation*}
+          \begin{split}
+            &G = V^\top V,\quad \beta = V^\top x,\\
+            &\alpha =(G^\top )^{-1}\beta=(V^\top V)^{-1}V^\top x,\\
+            &P(x)=V\alpha=V(V^\top V)^{-1}V^\top x \quad\Rightarrow \hat{A}=V(V^\top V)^{-1}V^\top, \\
+          \end{split}
+        \end{equation*}
+        so
+        \begin{equation*}
+          A=I-\hat{A}=I-V(V^\top V)^{-1}V^\top=\dfrac{1}{5}\begin{bmatrix}1 &-2& 0\\ -2 & 4 & 0\\ 0 & 0 & 0\end{bmatrix}.
+        \end{equation*}
+
+    \item[] \textbf{Solution 4:} In order to find the matrix representation $\hat{A}$ of $\ds P(x)=\arg\min_{y\in M}\|x-y\|$, we can use the same method as in Solution 2. Let $\hat{A}^{i}$ denote the $i$-th column of $\hat{A}$, then based on the result in solution 3,
+    \begin{equation*}
+      \begin{split}
+        \hat{A}^{1} & = P(e^{1})=V(V^\top V)^{-1}V^\top e^{1}=\dfrac{1}{5}\begin{bmatrix}4 \\ 2\\ 0 \end{bmatrix},\\
+        \hat{A}^{2} & = P(e^{2})=V(V^\top V)^{-1}V^\top e^{2}=\dfrac{1}{5}\begin{bmatrix} 2\\ 1 \\ 0 \end{bmatrix},\\
+        \hat{A}^{3} & = P(e^{3})=V(V^\top V)^{-1}V^\top e^{3}=\begin{bmatrix}0 \\ 0\\ 1 \end{bmatrix}.\\
+      \end{split}
+    \end{equation*}
+    Thus,
+    $\hat{A}=\begin{bmatrix}\hat{A}^{1} &\hat{A}^{2} &\hat{A}^{3} \end{bmatrix}=\dfrac{1}{5}\begin{bmatrix}4 &2& 0\\ 2 & 1 & 0\\ 0 & 0 & 5\end{bmatrix},\,
+    A=I-\hat{A}=\dfrac{1}{5}\begin{bmatrix}1 &-2& 0\\ -2 & 4 & 0\\ 0 & 0 & 0\end{bmatrix}$.
+\end{enumerate}
+
+\noindent \textbf{Grading Notes:}
+\begin{itemize}
+  \item (5 points) Everything is perfect.
+  \item (4 points) Almost everything is correct, except some minor calculation mistakes or results are not copied to the third page.
+  \item (3 points) Logic and outlines are correct, but calculations are partially done.
+  \item (2 points) Half of the logic is correct or calculations are half done.
+  \item (1 points) At least attempted the problem and something is correct.
+  \item (0 point) Not attempted or nothing is relevant.
+\end{itemize}
+
+\end{document}

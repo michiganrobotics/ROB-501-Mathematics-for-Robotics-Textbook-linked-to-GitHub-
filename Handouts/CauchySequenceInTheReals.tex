@@ -1,0 +1,101 @@
+\documentclass[letterpaper]{article}
+\usepackage{amssymb}
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{epsfig,float,alltt}
+\usepackage{psfrag,xr}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage{pdfpages}
+%\includepdfset{pagecommand=\thispagestyle{fancy}}
+
+%
+%***********************************************************************
+%               New Commands
+%***********************************************************************
+%
+%
+\newcommand{\rb}[1]{\raisebox{1.5ex}{#1}}
+ \newcommand{\trace}{\mathrm{trace}}
+\newcommand{\real}{\mathbb R}  % real numbers  {I\!\!R}
+\newcommand{\nat}{\mathbb R}   % Natural numbers {I\!\!N}
+\newcommand{\cp}{\mathbb C}    % complex numbers  {I\!\!\!\!C}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\mf}[2]{\frac{\ds #1}{\ds #2}}
+\newcommand{\book}[2]{{Luenberger, Page~#1, }{Prob.~#2}}
+\newcommand{\spanof}[1]{\textrm{span} \{ #1 \}}
+ \newcommand{\cov}{\mathrm{cov}}
+ \newcommand{\E}{\mathcal{E}}
+ \newcommand{\Expectof}[1]{{\cal E} \{ #1 \}}
+  \newcommand{\ExpectofGiven}[2]{{\cal E} \{ #1 | #2 \}}
+  \newcommand{\Covof}[2]{ \mathrm{cov} \left(#1,#2\right)}
+\parindent 0pt
+ \newcommand{\ak}[1]{a_{#1}}
+%
+%
+%***********************************************************************
+%
+%               End of New Commands
+%
+%***********************************************************************
+%
+
+\begin{document}
+
+
+\baselineskip=48pt  % Enforce double space
+
+%\baselineskip=18pt  % Enforce 1.5 space
+
+\setlength{\parskip}{.3in}
+\setlength{\itemsep}{.3in}
+
+\pagestyle{plain}
+
+{\Large \bf
+\begin{center}
+Rob 501 Handout: Grizzle \\
+A Useful Cauchy Sequence in $(\real, |\cdot|)$
+\end{center}
+}
+
+%\maketitle
+
+%\vspace*{-1in}
+%\section*{\mbox{}}
+
+\Large
+
+\textbf{Proposition} Let $0 \le c <1$ and let $(a_n)$ be a sequence of real numbers satisfying, $\forall~n\ge 1$,
+ $$|\ak{n+1}-\ak{n}| \le c | \ak{n}-\ak{n-1}|. $$
+ Then $(a_n)$ is Cauchy in $(\real, |\cdot|)$.
+
+\textbf{Proof:}
+
+\textbf{Claim 1:} $\forall ~n\ge 1$, $|\ak{n+1}-\ak{n}| \le c^n |a_1-a_0|$.
+
+\textbf{Proof:} First observe that $$|\ak{3}-\ak{2}|\le c|\ak{2}-\ak{1}| \le c^2|a_1-a_0|.$$ Then complete the proof by induction.
+
+\textbf{Claim 2:} $\forall ~n\ge 1, k \ge 1$, $|\ak{n+k}-\ak{n}| \le \frac{c^n}{1-c} |a_1-a_0|$.
+
+\textbf{Proof:}
+\begin{align*}
+|\ak{n+k}-\ak{n}| &\le | \ak{n+k}-\ak{n+k-1} + \ak{n+k-1}-\ak{n+k-2} +\cdots \ak{n+1}-\ak{n}| \\
+&\le | \ak{n+k}-\ak{n+k-1}| + |\ak{n+k-1}-\ak{n+k-2}| +\cdots |\ak{n+1}-\ak{n}| \\
+&\le c^{n+k-1}|a_1-a_0| + c^{n+k-2}|a_1-a_0| + \cdots + c^n |a_1-a_0|  \\
+&\le c^n \big( \sum_{i=0}^{k-1} c^i \big)~ |a_1-a_0| \\
+&\le c^n \big( \sum_{i=0}^{\infty} c^i \big)~ |a_1-a_0| \\
+&\le c^n \big( \frac{1}{1-c} \big) ~ |a_1-a_0|\\
+&\le  \frac{c^n }{1-c}~|a_1-a_0|
+\end{align*}
+
+\textbf{Claim 3:} $(a_n)$ is Cauchy
+
+\textbf{Proof:} Consider $m$ and $n$. WLOG, suppose $m \ge n$. If $m=n$, then $|a_m-a_n|=0$. Thus assume $m=n+k$ for some $k\ge1$. Then
+$$|a_m-a_n|=|a_{n+k}-a_n|\le \frac{c^n}{1-c} |a_1-a_0| \xrightarrow[n\to \infty, m\to \infty~]0,$$
+and thus it is Cauchy.
+
+
+\textbf{Remark:} Because WLOG we could assume $m\ge n$, from $n\to \infty$, we have both $n\to \infty$ and $ m\to \infty$.
+
+\end{document} 
